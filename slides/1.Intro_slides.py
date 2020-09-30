@@ -211,7 +211,7 @@ display(Image('../img/1.Intro/i095.r2m180.Mach.png', width=im_width))
 #
 # > Регрессия &mdash; это наука о том, как через точки провести линию.
 
-# + slideshow={"slide_type": "fragment"}
+# + slideshow={"slide_type": "subslide"}
 # Define the data
 n = 20
 # Underlying relation
@@ -270,7 +270,7 @@ from sklearn.gaussian_process.kernels import ConstantKernel, RBF
 
 # + slideshow={"slide_type": "fragment"}
 # graph_support.hide_code_in_slideshow()
-rbf = ConstantKernel(1.0) * RBF(length_scale=1.0)
+rbf = ConstantKernel(1.) * RBF(length_scale=0.1)
 gpr = GaussianProcessRegressor(kernel=rbf, n_restarts_optimizer=20)
 
 # Reuse training data from previous 1D example
@@ -291,7 +291,7 @@ plt.show()
 
 # + slideshow={"slide_type": "subslide"}
 # graph_support.hide_code_in_slideshow(  )
-gpr = GaussianProcessRegressor(kernel=rbf, alpha=1e-2, n_restarts_optimizer=20)
+gpr = GaussianProcessRegressor(kernel=rbf, alpha=2e-2, n_restarts_optimizer=20)
 
 # Reuse training data from previous 1D example
 gpr.fit(X_train.reshape(-1, 1), Y_train.reshape(-1, 1))
@@ -313,14 +313,14 @@ plt.show()
 # ## Постановка задачи &mdash; 2##
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# **Задача**: построить функцию корректно описывающую обучающие данные и обобщающую их на неизвестные данные.
+# **Задача**: построить функцию корректно описывающую обучающие данные и **обобщающую их на неизвестные данные**.
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # Пусть задано множество **объектов** $X$ и множество допустимы **ответов** $Y$. \
 # Мы предполагаем существование зависимости $y:X \rightarrow Y$. \
-# При этом значения функции $y_i = y(x_i)$ известны только на конечном подмножестве объектов $\{x_1, \ldots, x_m\} \subset X$.
+# Значения функции $y_i = y(x_i)$ известны только на конечном подмножестве объектов $\{x_1, \ldots, x_l\} \subset X$.
 #
-# Пары &laquo;объект&ndash;ответ&raquo; $(x_i, y_i)$ называются *прецендентами*, а совокупность пар $X^m = (x_i, y_i)_{i=1}^m$ &mdash; **обучающей выборкой**.
+# Пары &laquo;объект&ndash;ответ&raquo; $(x_i, y_i)$ называются *прецендентами*, а совокупность пар $X^l = (x_i, y_i)_{i=1}^l$ &mdash; **обучающей выборкой**.
 #
 # Требуется построить алгоритм (&laquo;**функцию регрессии**&raquo;) $a: X \rightarrow Y$, аппроксимирующий целевую зависимость $y$.
 
@@ -329,13 +329,13 @@ plt.show()
 #
 # Пусть имеется набор признаков $f_1, \ldots, f_n$.
 #
-# Совокупность признаковых описаний всех объектов выборки $X_m$, записанную в виде таблицы размера $m \times n$, называют **матрицей объектов&ndash;признаков**:
+# Совокупность признаковых описаний всех объектов выборки $X_l$, записанную в виде таблицы размера $l \times n$, называют **матрицей объектов&ndash;признаков**:
 # $$
 #   \mathbf{F} = 
 #   \begin{pmatrix}
 #     f_1(x_1) & \ldots & f_n(x_1) \\
 #     \ldots   & \ddots & \ldots   \\
-#     f_1(x_m) & \ldots & f_n(x_m) \\
+#     f_1(x_l) & \ldots & f_n(x_l) \\
 #   \end{pmatrix}.
 # $$
 #
@@ -351,13 +351,15 @@ plt.show()
 # 1. *Рашка С.* Python и машинное обучение. &mdash; М.: ДМК Пресс, 2017. &mdash; 418 с.
 #
 
-# + slideshow={"slide_type": "-"}
+# + slideshow={"slide_type": "skip"}
 # Versions used
 print('python: {}.{}.{}'.format(*sys.version_info[:3]))
 print('numpy: {}'.format(np.__version__))
 print('matplotlib: {}'.format(matplotlib.__version__))
 print('seaborn: {}'.format(seaborn.__version__))
 # + slideshow={"slide_type": "skip"}
+
+
 
 
 

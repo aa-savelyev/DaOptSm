@@ -154,8 +154,8 @@
     \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
     % Document parameters
     % Document title
-    %\title{1-1.Probability\_finite}
-    \title{Введение}
+    \title{Анализ данных, суррогатное моделирование и~оптимизция в прикладных задачах \\
+    Лекция 1}
     
     
     
@@ -376,8 +376,12 @@
     
     \maketitle
     
-    \hypertarget{ux430ux43dux43dux43eux442ux430ux446ux438ux44f}{%
-\section{Аннотация}\label{ux430ux43dux43dux43eux442ux430ux446ux438ux44f}}
+    
+    \hypertarget{ux432ux432ux435ux434ux435ux43dux438ux435}{%
+\section{Введение}\label{ux432ux432ux435ux434ux435ux43dux438ux435}}
+
+\hypertarget{ux430ux43dux43dux43eux442ux430ux446ux438ux44f}{%
+\subsection{Аннотация}\label{ux430ux43dux43dux43eux442ux430ux446ux438ux44f}}
 
 Прогресс в сфере компьютерной техники и численных методов изменил
 задачи, с которыми сталкиваются современные учёные и инженеры,
@@ -406,11 +410,19 @@
 специальностям «Прикладные математика и физика» и «Прикладная математика
 и информатика».
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
     \hypertarget{ux441ux43eux434ux435ux440ux436ux430ux43dux438ux435-ux43aux443ux440ux441ux430}{%
-\section{Содержание
+\subsection{Содержание
 курса}\label{ux441ux43eux434ux435ux440ux436ux430ux43dux438ux435-ux43aux443ux440ux441ux430}}
+
+Цель настоящего курса --- дать краткий обзор методов анализа данных, суррогатного
+моделирования и оптимизации, которые мы (Отдел вычислительной
+аэродинамики Отделения аэродинамики силовых установок ЦАГИ) применяем в
+задачах аэродинамического проектирования, и привести несколько примеров
+таких задач.
+
+Математическим базисом применяемых методов являются линейная алгебра,
+теория вероятностей и методы оптимизации. Мы начнём с краткого введения
+в каждую из этих дисциплин и посвятим этому половину нашего курса.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -482,24 +494,17 @@
   \end{itemize}
 \end{enumerate}
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-    \hypertarget{ux432ux432ux435ux434ux435ux43dux438ux435}{%
-\section{Введение}\label{ux432ux432ux435ux434ux435ux43dux438ux435}}
-
-Альтернативным названием данного курса является «Методы машинного
-обучения и их применение в прикладных задачах аэродинамики». Моя цель
-дать краткий обзор тех методов машинного обучения, которые мы (Отдел
-вычислительной аэродинамики Отделения аэродинамики силовых установок
-ЦАГИ) применяем в задачах аэродинамического проектирования, и привести
-несколько примеров таких задач.
+    \hypertarget{ux43bux438ux442ux435ux440ux430ux442ux443ux440ux430-ux438-ux43aux443ux440ux441ux44b-ux43bux435ux43aux446ux438ux439}{%
+\subsection{Литература и курсы
+лекций}\label{ux43bux438ux442ux435ux440ux430ux442ux443ux440ux430-ux438-ux43aux443ux440ux441ux44b-ux43bux435ux43aux446ux438ux439}}
 
 В основе этого курса лежит достаточно много литературы (несколько
 десятков источников). Многие части текста взяты из этой литературы
 напрямую или переведены с английского. Фактически, в настоящий момент
 данный курс является компиляцией материалов из различных источников с
-добавлением кода на Питоне и примеров из практики. Основными источниками
-явлются:
+добавлением кода на Питоне и примеров из практики.
+
+\textbf{Основные источники:}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -518,11 +523,7 @@
   и \href{http://krasserm.github.io/}{M. Krasser}.
 \end{enumerate}
 
-В основе методов машинного обучения лежат линейная алгебра, теория
-вероятностей и методы оптимизации. Мы начнём с краткого введения в
-каждую из этих дисциплин и посвятим этому половину нашего курса.
-
-Курсы лекций, реккомендованные с прослушиванию:
+\textbf{Реккомендованные курсы лекций:}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -556,8 +557,7 @@
 различные техники работы с данными в цифровой форме.
 
 Различают три типа машинного обучения: \emph{обучение с учителем},
-\emph{обучение без учителя} и \emph{обучение с подкреплением}
-(\emph{Рашка С.} Python и машинное обучение).
+\emph{обучение без учителя} и \emph{обучение с подкреплением}.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -580,14 +580,13 @@
   \textbf{Обучение с подкреплением}\\
   В отличии от обучения с учителем, когда мы тренируем нашу модель, зная
   \emph{правильный ответ} заранее, в обучении с подкреплением мы
-  определяем меру \emph{вознаграждения} за выполненные агентом отдельно
+  определяем меру \emph{вознаграждения} за~выполненные агентом отдельно
   взятые действия.
 \end{enumerate}
 
     В рамках данного курса мы будем заниматься, в основном, регрессией и
-оптимизацией на основе регрессии. Но в самом начале будет полезно
-рассматреть типичную постановку задачи машинного обучения (взято у К.В.
-Воронцова).
+оптимизацией на~основе регрессии. Но в самом начале будет полезно
+рассматреть типичную постановку задачи восстановления регрессии.
 
     \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -596,39 +595,244 @@
 (пример)}\label{ux43fux43eux441ux442ux430ux43dux43eux432ux43aux430-ux437ux430ux434ux430ux447ux438-ux43fux440ux438ux43cux435ux440}}
 
 \begin{quote}
-Регрессия --- это наука о том, как провести линию через точки. Это в
-некотором смысле можно сказать о всём машинном обучении.
+Регрессия --- это наука о том, как провести линию через точки.
 \end{quote}
 
-\textbf{Задача (кратко)}: построить функцию корректно описывающую
-обучающие данные и обобщающую их на неизвестные (тестовые) данные.
+    \hypertarget{ux434ux430ux43dux43dux44bux435}{%
+\subsection{Данные}\label{ux434ux430ux43dux43dux44bux435}}
 
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Imports}
+\PY{k+kn}{import} \PY{n+nn}{sys}
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+\end{tcolorbox}
 
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Styles}
+\PY{k+kn}{import} \PY{n+nn}{warnings}
+\PY{c+c1}{\PYZsh{} warnings.simplefilter(action=\PYZsq{}ignore\PYZsq{}, category=FutureWarning)}
+\PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}
+\PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{14}
+\PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.linewidth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.5}
+\PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.markersize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{4}
+\PY{n}{cm} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}  \PY{c+c1}{\PYZsh{} Colormap}
+
+\PY{k+kn}{import} \PY{n+nn}{seaborn}
+\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Define the data}
+\PY{n}{n} \PY{o}{=} \PY{l+m+mi}{20}
+\PY{c+c1}{\PYZsh{} Underlying relation}
+\PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Independent variable x}
+\PY{n}{Y\PYZus{}true} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{l+m+mi}{10}\PY{o}{*}\PY{n}{X\PYZus{}train}\PY{p}{)}     \PY{c+c1}{\PYZsh{} Dependent variable y}
+\PY{c+c1}{\PYZsh{} Noise}
+\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{42}\PY{p}{)}
+\PY{n}{e\PYZus{}std} \PY{o}{=} \PY{l+m+mf}{0.5}  \PY{c+c1}{\PYZsh{} Standard deviation of the noise}
+\PY{n}{err} \PY{o}{=} \PY{n}{e\PYZus{}std} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{n}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Noise}
+\PY{c+c1}{\PYZsh{} Output}
+\PY{n}{Y\PYZus{}train} \PY{o}{=} \PY{n}{Y\PYZus{}true} \PY{o}{+} \PY{n}{err}  \PY{c+c1}{\PYZsh{} Dependent variable with noise}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Show data}
+\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+\PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data: \PYZdl{}(x,y)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+m+mf}{1.05}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
     { \hspace*{\fill} \\}
     
-    \hypertarget{ux43fux43eux441ux442ux430ux43dux43eux432ux43aux430-ux437ux430ux434ux430ux447ux438}{%
-\section{Постановка
-задачи}\label{ux43fux43eux441ux442ux430ux43dux43eux432ux43aux430-ux437ux430ux434ux430ux447ux438}}
+    \hypertarget{ux43bux438ux43dux435ux439ux43dux430ux44f-ux440ux435ux433ux440ux435ux441ux441ux438ux44f}{%
+\subsection{Линейная
+регрессия}\label{ux43bux438ux43dux435ux439ux43dux430ux44f-ux440ux435ux433ux440ux435ux441ux441ux438ux44f}}
 
-Теперь подробнее.
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{p1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{polyfit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{X\PYZus{}disp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1001}\PY{p}{)}
+
+\PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data: \PYZdl{}(x,y)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}disp}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{polyval}\PY{p}{(}\PY{n}{p1}\PY{p}{,} \PY{n}{X\PYZus{}disp}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{model 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+m+mf}{1.05}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{p2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{polyfit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+
+\PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data: \PYZdl{}(x,y)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}disp}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{polyval}\PY{p}{(}\PY{n}{p2}\PY{p}{,} \PY{n}{X\PYZus{}disp}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{model 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+m+mf}{1.05}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{p3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{polyfit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+
+\PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data: \PYZdl{}(x,y)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}disp}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{polyval}\PY{p}{(}\PY{n}{p3}\PY{p}{,} \PY{n}{X\PYZus{}disp}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{model 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+m+mf}{1.05}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux440ux435ux433ux440ux435ux441ux441ux438ux44f-ux43dux430-ux43eux441ux43dux43eux432ux435-ux433ux430ux443ux441ux441ux43eux432ux441ux43aux438ux445-ux43fux440ux43eux446ux435ux441ux441ux43eux432}{%
+\subsection{Регрессия на основе гауссовских
+процессов}\label{ux440ux435ux433ux440ux435ux441ux441ux438ux44f-ux43dux430-ux43eux441ux43dux43eux432ux435-ux433ux430ux443ux441ux441ux43eux432ux441ux43aux438ux445-ux43fux440ux43eux446ux435ux441ux441ux43eux432}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{gaussian\PYZus{}process} \PY{k+kn}{import} \PY{n}{GaussianProcessRegressor}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{gaussian\PYZus{}process}\PY{n+nn}{.}\PY{n+nn}{kernels} \PY{k+kn}{import} \PY{n}{ConstantKernel}\PY{p}{,} \PY{n}{RBF}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} graph\PYZus{}support.hide\PYZus{}code\PYZus{}in\PYZus{}slideshow()}
+\PY{n}{rbf} \PY{o}{=} \PY{n}{ConstantKernel}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{)} \PY{o}{*} \PY{n}{RBF}\PY{p}{(}\PY{n}{length\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}
+\PY{n}{gpr} \PY{o}{=} \PY{n}{GaussianProcessRegressor}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{n}{rbf}\PY{p}{,} \PY{n}{n\PYZus{}restarts\PYZus{}optimizer}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Train GP model}
+\PY{n}{gpr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Compute posterior predictive mean and covariance}
+\PY{n}{mu\PYZus{}s}\PY{p}{,} \PY{n}{cov\PYZus{}s} \PY{o}{=} \PY{n}{gpr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}disp}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{return\PYZus{}cov}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Show data}
+\PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data: \PYZdl{}(x,y)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}disp}\PY{p}{,} \PY{n}{mu\PYZus{}s}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+m+mf}{1.05}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.5}\PY{p}{,} \PY{l+m+mf}{2.0}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{11}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} graph\PYZus{}support.hide\PYZus{}code\PYZus{}in\PYZus{}slideshow(  )}
+\PY{n}{gpr} \PY{o}{=} \PY{n}{GaussianProcessRegressor}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{n}{rbf}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}1}\PY{p}{,}
+\PY{n}{n\PYZus{}restarts\PYZus{}optimizer}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Train GP model}
+\PY{n}{gpr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Compute posterior predictive mean and covariance}
+\PY{n}{mu\PYZus{}s}\PY{p}{,} \PY{n}{cov\PYZus{}s} \PY{o}{=} \PY{n}{gpr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}disp}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{return\PYZus{}cov}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{12}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Show data}
+\PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data: \PYZdl{}(x,y)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}disp}\PY{p}{,} \PY{n}{mu\PYZus{}s}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GP with err}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+m+mf}{1.05}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.5}\PY{p}{,} \PY{l+m+mf}{2.0}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Задача (упрощённо)}: построить функцию корректно описывающую
+обучающие данные и~обобщающую их на неизвестные (тестовые) данные.
+
+    \hypertarget{ux43fux43eux441ux442ux430ux43dux43eux432ux43aux430-ux437ux430ux434ux430ux447ux438}{%
+\section{Постановка задачи}\label{ux43fux43eux441ux442ux430ux43dux43eux432ux43aux430-ux437ux430ux434ux430ux447ux438}}
+
+Теперь подробнее (взято у К.В. Воронцова).
 
 Пусть задано множество объектов \(X\) и множество допустимы ответов
 \(Y\). Мы предполагаем существование зависимости \(y:X \rightarrow Y\).
 При этом значения функции \(y_i = y(x_i)\) известны только на конечном
-подмножестве объектов \(\{x_1, \ldots, x_l\} \subset X\). Пары
-«объект--ответ» \((x_i, y_i)\) называются \emph{прецендентами}, а
+подмножестве объектов \(\{x_1, \ldots, x_l\} \subset X\). Пары «объект
+--- ответ» \((x_i, y_i)\) называются \emph{прецендентами}, а
 совокупность пар \(X^l = (x_i, y_i)_{i=1}^l\) --- \emph{обучающей
 выборкой}.
 
-\emph{Признак} (feature) \(f\) объекта \(x\) --- это результат измерения
-некоторой характеристики объекта.
+\emph{Признак} \(f\) объекта \(x\) --- это результат измерения некоторой
+характеристики объекта.
 
 Пусть имеется набор признаков \(f_1, \ldots, f_n\). Вектор
 \((f_1, \ldots, f_n)\) называют признаковым описанием объекта
 \(x \in X\). В дальнейшем мы не будем различать объекты из \(X\) и их
 признаковые описания. Совокупность признаковых описаний всех объектов
-выборки \(X_l\), записанную в виде таблицы размера \(l \times n\),
-называют матрицей объектов--признаков: \[
+выборки \(X_l\), записанную в~виде таблицы размера \(l \times n\),
+называют матрицей объектов --- признаков: \[
   \mathbf{F} = 
   \begin{pmatrix}
     f_1(x_1) & \ldots & f_n(x_1) \\
@@ -637,7 +841,7 @@
   \end{pmatrix}.
 \]
 
-Матрица объектов--признаков является стандартным и наиболее
+Матрица объектов --- признаков является стандартным и наиболее
 распространённым способом представления исходных данных в прикладных
 задачах.
 
@@ -645,11 +849,6 @@
 аппроксимирующую неизвестную целевую зависимость \(y\). Функция должна
 корректно описывать обучающие данные и должна быть успешно применима для
 неизвестных тестовых данных.
-
-    Простейшим выбором является линейная функция: \(y = Ax\). Элементы
-матрицы A --- это веса, которые необходимо найти: не так уж сложно. С
-линейными функциями приятно работать, они просты, пожалуй, даже слишком
-просты. Линейность --- очень ограничивающее требование.
 
     \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -668,7 +867,23 @@
   --- 418 с.
 \end{enumerate}
 
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{13}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Versions used}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Python: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{o}{*}\PY{n}{sys}\PY{o}{.}\PY{n}{version\PYZus{}info}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numpy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{matplotlib: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seaborn: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{seaborn}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
 
+    \begin{Verbatim}[commandchars=\\\{\}]
+Python: 3.7.7
+numpy: 1.18.1
+matplotlib: 3.2.1
+seaborn: 0.10.1
+    \end{Verbatim}
 
     % Add a bibliography block to the postdoc
     
