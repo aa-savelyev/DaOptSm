@@ -220,7 +220,9 @@ plt.show()
 lam, u = LA.eig(C)
 lu = C @ u
 print('lam = ', np.round(lam, 4))
-print('u = \n', np.round(u, 4))
+# print('u = \n', np.round(u, 4))
+print('u = ')
+np.disp(np.round(u, 4))
 
 # +
 t = C @ x  # Vectors in t are the transformed vectors of x
@@ -341,22 +343,22 @@ for i, axi in enumerate(ax.flatten()):
     axi.text(*(un[i].T[0]+[.1,.1]), "$\mathbf{u_1}$", fontsize=14)
     axi.text(*(un[i].T[1]+[.1,.1]), "$\mathbf{u_2}$", fontsize=14)
     axi.text(1.4, -2, Sn_str[i], color='b', fontsize=14)
-# -
-
-CC = np.array([[2, 1],
-               [2, 2]])
 
 # +
 u, d, vt = LA.svd(C)
-u[:,0] *= -1
 v = vt.T
-print('u = ', np.round(u, 4))
-print('d = ', np.round(d, 4))
-print('vt = ', np.round(vt, 4))
+print('u = ')
+np.disp(u)
+print('d = ')
+np.disp(d)
+print('vt = ')
+np.disp(vt)
 
 S1 = vt @ S
 S2 = np.diag(d) @ S1
 S3 = u @ S2
+# S2 = u @ np.diag(d) @ S1
+# S3 = C @ S
 Sn = [S, S1, S2, S3]
 Sn_str = ["$\mathbf{x}$", "$\mathbf{V^Tx}$",
           "$\mathbf{DV^Tx}$", "$\mathbf{UDV^Tx}$"]
