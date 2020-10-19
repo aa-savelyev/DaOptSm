@@ -16,6 +16,13 @@
 
 # + [markdown] slideshow={"slide_type": "slide"}
 # # Анализ данных, суррогатное моделирование и оптимизция в прикладных задачах #
+# -
+
+# ---
+
+# **Лекция 1**
+#
+# # Информация о курсе. Постановка задачи #
 
 # + [markdown] slideshow={"slide_type": "notes"}
 # ## Введение ##
@@ -78,7 +85,7 @@
 # 1. Ширяев А.Н. Вероятность &mdash; 1. М.: МЦНМО, 2007. 517 с.
 # 1. Материалы авторов [P. Roelants](https://peterroelants.github.io/) и [M. Krasser ](http://krasserm.github.io/).
 #
-# **Реккомендованные курсы лекций:**
+# **Рекомендованные курсы лекций:**
 #
 # 1. [Линейная алгебра](https://www.youtube.com/watch?v=WNl10xl1QT8&list=PLthfp5exSWEqSRXkZgMMzTSXL_WwMV9wK), к.ф.-м.н. Павел Александрович Кожевников, МФТИ
 # 2. [Теория вероятностей](https://www.youtube.com/watch?v=Q3h9P7lhpNc&list=PLyBWNG-pZKx7kLBRcNW3HXG05BDUrTQVr&index=1), д.ф.-м.н. Максим Евгеньевич Широков, МФТИ
@@ -284,7 +291,6 @@ plt.show()
 #
 # 1. *Воронцов К.В.* [Математические методы обучения по прецендентам (теория обучения машин)](http://www.machinelearning.ru/wiki/images/6/6d/Voron-ML-1.pdf). &mdash; 141 c.
 # 1. *Рашка С.* Python и машинное обучение. &mdash; М.: ДМК Пресс, 2017. &mdash; 418 с.
-#
 
 # + slideshow={"slide_type": "skip"}
 # Versions used

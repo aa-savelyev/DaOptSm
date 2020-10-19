@@ -216,15 +216,15 @@ display(Image('../img/1.Intro/i095.r2m180.Mach.png', width=im_width))
 n = 20
 # Underlying relation
 X_train = np.linspace(0, 1, n)  # Independent variable x
-Y_true = np.sin(10*X_train)     # Dependent variable y
+Y_true = np.sin(3*np.pi*X_train)     # Dependent variable y
 # Noise
 np.random.seed(42)
-e_std = 0.5  # Standard deviation of the noise
+e_std = 0.4  # Standard deviation of the noise
 err = e_std * np.random.randn(n)  # Noise
 # Output
 Y_train = Y_true + err  # Dependent variable with noise
 
-# + slideshow={"slide_type": "fragment"} cell_style="center"
+# + slideshow={"slide_type": "subslide"} cell_style="center"
 # Show data
 figsize = (15, 8)
 fig, ax = plt.subplots(figsize=figsize)
@@ -279,7 +279,7 @@ gpr.fit(X_train.reshape(-1, 1), Y_train.reshape(-1, 1))
 # Compute posterior predictive mean and covariance
 mu_s, cov_s = gpr.predict(X_disp.reshape(-1, 1), return_cov=True)
 
-# + slideshow={"slide_type": "fragment"}
+# + slideshow={"slide_type": "subslide"}
 # Show data
 fig, ax = plt.subplots(figsize=figsize)
 ax.plot(X_train, Y_train, 'o', c=cm(0), label='data: $(x,y)$')
@@ -291,7 +291,7 @@ plt.show()
 
 # + slideshow={"slide_type": "subslide"}
 # graph_support.hide_code_in_slideshow(  )
-gpr = GaussianProcessRegressor(kernel=rbf, alpha=2e-2, n_restarts_optimizer=20)
+gpr = GaussianProcessRegressor(kernel=rbf, alpha=4e-1, n_restarts_optimizer=20)
 
 # Reuse training data from previous 1D example
 gpr.fit(X_train.reshape(-1, 1), Y_train.reshape(-1, 1))
@@ -299,7 +299,7 @@ gpr.fit(X_train.reshape(-1, 1), Y_train.reshape(-1, 1))
 # Compute posterior predictive mean and covariance
 mu_s, cov_s = gpr.predict(X_disp.reshape(-1, 1), return_cov=True)
 
-# + slideshow={"slide_type": "fragment"}
+# + slideshow={"slide_type": "subslide"}
 # Show data
 fig, ax = plt.subplots(figsize=figsize)
 ax.plot(X_train, Y_train, 'o', c=cm(0), label='data: $(x,y)$')
@@ -316,7 +316,7 @@ plt.show()
 # **Задача**: построить функцию корректно описывающую обучающие данные и **обобщающую их на неизвестные данные**.
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# Пусть задано множество **объектов** $X$ и множество допустимы **ответов** $Y$. \
+# Пусть задано множество **объектов** $X$ и множество допустимых **ответов** $Y$. \
 # Мы предполагаем существование зависимости $y:X \rightarrow Y$. \
 # Значения функции $y_i = y(x_i)$ известны только на конечном подмножестве объектов $\{x_1, \ldots, x_l\} \subset X$.
 #
@@ -358,6 +358,7 @@ print('numpy: {}'.format(np.__version__))
 print('matplotlib: {}'.format(matplotlib.__version__))
 print('seaborn: {}'.format(seaborn.__version__))
 # + slideshow={"slide_type": "skip"}
+
 
 
 
