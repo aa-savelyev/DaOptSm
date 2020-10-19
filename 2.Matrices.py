@@ -281,7 +281,8 @@
 # + [markdown] slideshow={"slide_type": "slide"}
 # ## Литература ##
 #
-# 1. G. Strang. Linear algebra and learning from data. Wellesley-Cambridge Press, 2019. 432 p.
+# 1. *Strang G.* Linear algebra and learning from data. &mdash; Wellesley-Cambridge Press, 2019. &mdash; 432 p.
+# 1. *Гантмахер Ф.Р.* Теория матриц. &mdash; М.: Наука, 1967. &mdash; 576 с.
 # -
 
 
