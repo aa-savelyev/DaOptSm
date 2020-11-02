@@ -1,0 +1,725 @@
+\documentclass[11pt,a4paper]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{iftex}
+    \ifPDFTeX
+      \usepackage[T2A]{fontenc}
+      \usepackage{mathpazo}
+      \usepackage[russian,english]{babel}
+    \else
+      \usepackage{fontspec}
+      \usepackage{polyglossia}
+      \setmainlanguage[babelshorthands=true]{russian}    % Язык по-умолчанию русский с поддержкой приятных команд пакета babel
+      \setotherlanguage{english}                         % Дополнительный язык = английский (в американской вариации по-умолчанию)
+      \newfontfamily\cyrillicfonttt[Scale=0.87,BoldFont={Fira Mono Medium}] {Fira Mono}  % Моноширинный шрифт для кириллицы
+      \defaultfontfeatures{Ligatures=TeX}
+      \newfontfamily\cyrillicfont{STIX Two Text}         % Шрифт с засечками для кириллицы
+    \fi
+    \renewcommand{\linethickness}{0.1ex}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for grffile with XeLaTeX
+    \def\Gread@@xetex#1{%
+      \IfFileExists{"\Gin@base".bb}%
+      {\Gread@eps{\Gin@base.bb}}%
+      {\Gread@@xetex@aux#1}%
+    }
+    \makeatother
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Лекция 4 \\
+    Ортогональное проектирование
+    }
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        \ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+    
+    \maketitle
+    
+    
+    \hypertarget{ux43cux435ux442ux440ux438ux43aux430-ux43fux440ux43eux441ux442ux440ux430ux43dux441ux442ux432ux430}{%
+\section{Метрика
+пространства}\label{ux43cux435ux442ux440ux438ux43aux430-ux43fux440ux43eux441ux442ux440ux430ux43dux441ux442ux432ux430}}
+
+\hypertarget{ux441ux43aux430ux43bux44fux440ux43dux43eux435-ux43fux440ux43eux438ux437ux432ux435ux434ux435ux43dux438ux435}{%
+\subsection{Скалярное
+произведение}\label{ux441ux43aux430ux43bux44fux440ux43dux43eux435-ux43fux440ux43eux438ux437ux432ux435ux434ux435ux43dux438ux435}}
+
+Мы уже рассматривали линейный операторы в произвольном \(n\)-мерном
+линейном пространстве. Все базисы такого пространства равноправны между
+собой. Данному линейному оператору в каждом базисе соответствует
+некоторая матрица. Матрицы, отвечающие одному и тому же оператору в
+различных базисах, подобны между собой.
+
+Теперь давайте в наше \(n\)-мерное пространство введём метрику. Для
+этого каждым двум векторам \(\mathbf{x}\) и \(\mathbf{y}\) мы
+специальным образом поставим в соотвествие некоторое число
+\((\mathbf{x}, \mathbf{y})\) --- их \emph{скалярное произведение}.
+
+Для любых векторов \(\mathbf{x}\), \(\mathbf{y}\), \(\mathbf{z}\) и
+любого числа \(\alpha\) справедливы следующие \textbf{свойства
+скалярного произведения}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \((\mathbf{x}, \mathbf{y}) = (\mathbf{y}, \mathbf{x})\)
+  (коммутативность),
+\item
+  \((\alpha \mathbf{x}, \mathbf{y}) = \alpha (\mathbf{x}, \mathbf{y})\),
+\item
+  \((\mathbf{x} + \mathbf{y}, \mathbf{z}) = (\mathbf{x}, \mathbf{z}) + (\mathbf{y}, \mathbf{z})\)
+  (дистрибутивность),
+\item
+  \((\mathbf{x}, \mathbf{x}) > 0\) при \(\mathbf{x} \ne 0\).
+\end{enumerate}
+
+\textbf{Определение 1.} Векторное пространство с положительно
+определённой евклидовой метрикой называется \textbf{евклидовым
+пространством}.
+
+\textbf{Длиной вектора} называется
+\(|\mathbf{x}| = \sqrt{(\mathbf{x}, \mathbf{x})}\).
+
+\textbf{Косинус угла} между двумя векторами равен
+\[ cos(\theta) = \frac{(\mathbf{x}, \mathbf{y})}{|\mathbf{x}| |\mathbf{y}|}. \]
+
+    \hypertarget{ux43eux440ux442ux43eux433ux43eux43dux430ux43bux44cux43dux44bux435-ux432ux435ux43aux442ux43eux440ux44b}{%
+\subsection{Ортогональные
+векторы}\label{ux43eux440ux442ux43eux433ux43eux43dux430ux43bux44cux43dux44bux435-ux432ux435ux43aux442ux43eux440ux44b}}
+
+Два вектора \(\mathbf{x}\) и \(\mathbf{y}\) называются
+\textbf{ортогональными} (\(\mathbf{x} \perp \mathbf{y}\)), если
+\((\mathbf{x}, \mathbf{y}) = 0\).
+
+Рассмотрим матрицу \(Q\), столбцами которой являются ортонормированные
+векторы. Легко видеть, что \(Q^\top Q = E\).
+
+Отсюда следует, что
+\(\forall \mathbf{x}, \mathbf{y}: (Q\mathbf{x}, Q\mathbf{y}) = (Q\mathbf{x})^\top (Q\mathbf{y}) = \mathbf{x}^\top Q^\top Q \mathbf{y} = (\mathbf{x}, \mathbf{y})\).
+В частности, при умножении на \(Q\) длина вектора не меняется:
+\(|Q\mathbf{x}| = (Q\mathbf{x}, Q\mathbf{x}) = (\mathbf{x}, \mathbf{x}) = |\mathbf{x}|.\)
+
+Что такое матрица \(Q Q^\top\)?
+
+\[
+  Q Q^\top = \mathbf{q}_1 \mathbf{q}_1^\top + \ldots + \mathbf{q}_n \mathbf{q}_n^\top
+\]
+
+\begin{quote}
+\(QQ^\top\) --- проекционная матрица.
+\end{quote}
+
+Если \(Q\) --- квадратная матрица, то \(Q Q^\top\) также является
+единичной матрицей: \(Q Q^\top = E\).
+
+    \hypertarget{ux43eux440ux442ux43eux433ux43eux43dux430ux43bux44cux43dux44bux435-ux432ux435ux43aux442ux43eux440ux44b-ux438-ux43cux430ux442ux440ux438ux446ux44b}{%
+\subsection{Ортогональные векторы и
+матрицы}\label{ux43eux440ux442ux43eux433ux43eux43dux430ux43bux44cux43dux44bux435-ux432ux435ux43aux442ux43eux440ux44b-ux438-ux43cux430ux442ux440ux438ux446ux44b}}
+
+\textbf{Определение 2.} \textbf{Ортогональной матрицой} называется
+квадратная матрица, столбцами которой являются \emph{ортонормированные}
+векторы.
+
+Линейные преобразования, соотвествующие ортогональным матрицам,
+представляют собой некоторые «движения». В том смысле, что сохраняются
+углы и длины.
+
+\textbf{Пример 1.} Матрица поворота \[
+  Q_\mathrm{rotate} = 
+  \begin{pmatrix}
+     \cos\theta & -\sin\theta \\
+     \sin\theta &  \cos\theta \\
+  \end{pmatrix}
+\]
+
+\textbf{Пример 2.} Матрица отражения \[
+  Q_\mathrm{reflect} = 
+  \begin{pmatrix}
+     \cos\theta &  \sin\theta \\
+     \sin\theta & -\cos\theta \\
+  \end{pmatrix}
+\]
+
+\textbf{Пример 3.} Произведение двух ортогональных матриц \(Q_1 Q_2\)
+--- ортогональная матрица.
+
+\begin{quote}
+Вращение на вращение = вращение, отражение на отражение = отражение,
+вращение на отражение = отражение.
+\end{quote}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \hypertarget{ux43eux440ux442ux43eux433ux43eux43dux430ux43bux44cux43dux43eux435-ux43fux440ux43eux435ux43aux442ux438ux440ux43eux432ux430ux43dux438ux435}{%
+\section{Ортогональное
+проектирование}\label{ux43eux440ux442ux43eux433ux43eux43dux430ux43bux44cux43dux43eux435-ux43fux440ux43eux435ux43aux442ux438ux440ux43eux432ux430ux43dux438ux435}}
+
+\hypertarget{ux43eux431ux449ux438ux439-ux441ux43bux443ux447ux430ux439}{%
+\subsection{Общий
+случай}\label{ux43eux431ux449ux438ux439-ux441ux43bux443ux447ux430ux439}}
+
+Пусть заданы вектор \(\mathbf{b}\) из \(\mathbb{R}_m\) и набор векторов
+\(\mathbf{a}_i\), образующих базис в \(\mathbb{R}_n\) (\(n<m\)).
+
+Требуется найти ортогональную проекцию вектора \(\mathbf{b}\) на
+линейную оболочку векторов \(\mathbf{a}_i\).
+
+Искомый вектор является линейной комбинацией базисных векторов
+\(\mathbf{a}_i\) с неизвестными коэффициентами \(x_i\). Запишем это в
+виде произведения матрицы \(A\), столбцы которой являются векторами
+\(\mathbf{a}_i\), на неизвестный вектор \(\mathbf{x}\): \(A\mathbf{x}\).
+Мы ищем ортогональную проекцию на пространство столбцов матрицы \(A\),
+поэтому вектор \(\mathbf{e} = A\mathbf{x} - \mathbf{b}\) должен быть
+ортогонален \emph{любому} вектору \(A\mathbf{y}\). Запишем это через
+скалярное произведение: \[
+  (A \mathbf{y})^\top(A\mathbf{x} - \mathbf{b}) = \mathbf{y}^\top (A^\top A \mathbf{x} - A^\top \mathbf{b}) = 0.
+\]
+
+Это справедливо для произвольного вектора \(\mathbf{y}\), откуда
+следует, что \[
+  A^\top A \mathbf{x} = A^\top \mathbf{b}.
+\]
+
+Ранг матрицы \(A^\top A\) равен рангу \(A\), а столбцы матрицы \(A\)
+линейно независимы, следовательно матрица \(A^\top A\) обратима. Отсюда
+находим выражение для вектора коэффициентов проекции и сам вектор
+проекции \(\mathbf{p} = A\mathbf{x}\) \[
+  \mathbf{x} = (A^\top A)^{-1} A^\top \mathbf{b}, \
+  \mathbf{p} = A (A^\top A)^{-1} A^\top \mathbf{b}.
+\]
+
+Матрица \(P = A (A^\top A)^{-1} A^\top\), осуществляющая проекцию,
+называется \emph{матрицей ортогонального проектирования}. Матрица
+ортопроектирования обладает двумя основными свойствами:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(P^2 = P\) --- характеристическое свойство всех проекторов
+  (\emph{идемпотентность}),
+\item
+  \(P^\top = P\) --- отличительное свойство ортогонального проектора
+  (\emph{симметричность}).
+\end{enumerate}
+
+    \hypertarget{ux43eux434ux43dux43eux43cux435ux440ux43dux44bux439-ux441ux43bux443ux447ux430ux439}{%
+\subsection{Одномерный
+случай}\label{ux43eux434ux43dux43eux43cux435ux440ux43dux44bux439-ux441ux43bux443ux447ux430ux439}}
+
+Матрица проектирования на прямую, определённую вектором \(\mathbf{a}\),
+задаётся формулой
+\[ P = A (A^\top A)^{-1} A^\top = \mathbf{a} (\mathbf{a^\top}\mathbf{a})^{-1}\mathbf{a^\top} = \frac{1}{\mathbf{a^\top}\mathbf{a}} \mathbf{a} \mathbf{a^\top}. \]
+
+А проекция \(\mathbf{p}\) точки \(\mathbf{b}\) --- формулой
+\[ \mathbf{p} = \frac{\mathbf{a^\top} \mathbf{b}}{\mathbf{a^\top}\mathbf{a}}\mathbf{a}. \]
+
+    \hypertarget{ux43fux440ux43eux435ux43aux442ux438ux440ux43eux432ux430ux43dux438ux435-ux43dux430-ux43bux438ux43dux435ux439ux43dux443ux44e-ux43eux431ux43eux43bux43eux447ux43aux443-ux43eux440ux442ux43eux43dux43eux440ux43cux438ux440ux43eux432ux430ux43dux43dux44bux445-ux432ux435ux43aux442ux43eux440ux43eux432}{%
+\subsection{Проектирование на линейную оболочку ортонормированных
+векторов}\label{ux43fux440ux43eux435ux43aux442ux438ux440ux43eux432ux430ux43dux438ux435-ux43dux430-ux43bux438ux43dux435ux439ux43dux443ux44e-ux43eux431ux43eux43bux43eux447ux43aux443-ux43eux440ux442ux43eux43dux43eux440ux43cux438ux440ux43eux432ux430ux43dux43dux44bux445-ux432ux435ux43aux442ux43eux440ux43eux432}}
+
+Если набор векторов образует ортонормированный базис \(\mathbf{q}_i\),
+то формула для матрицы ортогонального проектирования существенно
+упрощается: \[
+  P = Q (Q^\top Q)^{-1} Q^\top = QQ^\top = \mathbf{q}_1 \mathbf{q}_1^\top + \ldots + \mathbf{q}_n \mathbf{q}_n^\top.
+\]
+
+Каждое слагаемое \(\mathbf{q}_i \mathbf{q}_i^\top\) является матрицей
+ортогональной проекции на вектор \(\mathbf{q}_i\).
+
+Таким образом, \emph{когда оси координат взаимно перпендикулярны,
+проекция на пространство разлагается в сумму проекций на каждую из
+осей}.
+
+    \hypertarget{ux43eux440ux442ux43eux43dux43eux440ux43cux438ux440ux43eux432ux430ux43dux43dux44bux439-ux431ux430ux437ux438ux441}{%
+\subsection{Ортонормированный
+базис}\label{ux43eux440ux442ux43eux43dux43eux440ux43cux438ux440ux43eux432ux430ux43dux43dux44bux439-ux431ux430ux437ux438ux441}}
+
+Разложение любого вектора по ортонормированному базису есть сумма
+ортогональных проекций на каждый вектор:
+
+\[
+  \mathbf{v} = c_1 \mathbf{q}_1 + \ldots + c_n \mathbf{q}_n = (\mathbf{q}_1^\top \mathbf{v}) \cdot \mathbf{q}_1 + \ldots + (\mathbf{q}_n^\top \mathbf{v}) \cdot \mathbf{q}_n.
+\]
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \hypertarget{ux43eux440ux442ux43eux433ux43eux43dux430ux43bux438ux437ux430ux446ux438ux44f-ux432ux435ux43aux442ux43eux440ux43eux432}{%
+\section{Ортогонализация
+векторов}\label{ux43eux440ux442ux43eux433ux43eux43dux430ux43bux438ux437ux430ux446ux438ux44f-ux432ux435ux43aux442ux43eux440ux43eux432}}
+
+\hypertarget{ux430ux43bux433ux43eux440ux438ux442ux43c-ux433ux440ux430ux43cux430-ux448ux43cux438ux434ux442ux430}{%
+\subsection{Алгоритм Грама ---
+Шмидта}\label{ux430ux43bux433ux43eux440ux438ux442ux43c-ux433ux440ux430ux43cux430-ux448ux43cux438ux434ux442ux430}}
+
+Два ряда векторов называются \textbf{эквивалентными} если они содержат
+одинаковое количество векторов и их линейные оболочки совпадают.
+
+Под \textbf{ортогонализацией} ряда векторов будем понимать замену этого
+ряда на \emph{эквивалентный} (порождающий ту же самую линейную оболочку)
+ортогональный ряд.
+
+\textbf{Теорема.} Всякий невырожденный ряд векторов можно
+проортогонализировать.
+
+Алгоритм Грама --- Шмидта рассмотрим на примере трёхмерного
+пространства.
+
+Пусть даны три линейно-независимых вектора \(\mathbf{a}_1\),
+\(\mathbf{a}_2\), \(\mathbf{a}_3\).
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(\mathbf{q}_1 = \mathbf{a}_1 / |\mathbf{a}_1|\)
+\item
+  \(\mathbf{\hat{a}}_2 = \mathbf{a}_2 - (\mathbf{a}_2^\top \mathbf{q}_1) \cdot \mathbf{q}_1\);
+  \(\quad \mathbf{q}_2 = \mathbf{\hat{a}}_2 / |\mathbf{\hat{a}}_2|\)
+\item
+  \(\mathbf{\hat{a}}_3 = \mathbf{a}_3 - (\mathbf{a}_3^\top \mathbf{q}_1) \cdot \mathbf{q}_1 - (\mathbf{a}_3^\top \mathbf{q}_2) \cdot \mathbf{q}_2\);
+  \(\quad \mathbf{q}_3 = \mathbf{\hat{a}}_3/|\mathbf{\hat{a}}_3|\)
+\end{enumerate}
+
+    \hypertarget{mathbfqr-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}{%
+\subsection{\texorpdfstring{\(\mathbf{QR}\)-разложение}{\textbackslash{}mathbf\{QR\}-разложение}}\label{mathbfqr-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}}
+
+\hypertarget{ux43aux432ux430ux434ux440ux430ux442ux43dux44bux435-ux43cux430ux442ux440ux438ux446ux44b}{%
+\paragraph{Квадратные
+матрицы}\label{ux43aux432ux430ux434ux440ux430ux442ux43dux44bux435-ux43cux430ux442ux440ux438ux446ux44b}}
+
+Большую роль в численных методах играет разложение \emph{квадратной
+матрицы} \(A\) на ортогональную матрицу \(Q\) и верхнетреугольную
+матрицу \(R\). \[
+  A = QR.
+\]
+
+\textbf{Предложение 1.} Любая квадратная матрица \(A\) может быть
+разложена в произведение \(QR\).
+
+\textbf{Предложение 2.} Если матрица \(A\) невырождена, то её
+\(QR\)-разложение, в котором диагональные элементы \(R\) положительны,
+единственно.
+
+\(QR\)-разложение тесно связано с процессом ортогонализации Грама ---
+Шмидта. Действительно, \(AU = Q\) равносильно \(QR\)-разложению с
+\(R = U^{-1}\). Причём, \(U\) и \(R\) --- верхнетреугольная матрица.
+
+\begin{quote}
+Все неособенные верхние (нижние) треугольные матрицы составляют группу
+(некоммутативную) относительно умножения.
+\end{quote}
+
+\begin{quote}
+\emph{Группой} называется всякая совокупность объектов, в которой
+установлена операция, относящая любым двум элементам \(a\) и \(b\)
+совокупности определённый третий элемент \(a \ast b\) той же
+совокпуности, если 1) операция обладает сочетательным свойством, 2) в
+совокупности существует единичный элемент, 3) для любого элемента
+совокупности существует обратный элемент. Группа называется
+\emph{коммутативной}, если групповая операция обладает переместительным
+свойством.
+\end{quote}
+
+\textbf{Пример.} Рассмотрим систему линейных уравнений
+\(A\mathbf{x} = \mathbf{b}\). Используя \(QR\)-разложение матрицы \(A\),
+получим
+
+\[
+  QR \mathbf{x} = \mathbf{b}, \\
+  R \mathbf{x} = Q^\top \mathbf{b}.
+\]
+
+И в случе невырожденной \(R\) \[
+  \mathbf{x} = R^{-1}Q^\top \mathbf{b}.
+\]
+
+    \hypertarget{ux43fux440ux44fux43cux43eux443ux433ux43eux43bux44cux43dux44bux435-ux43cux430ux442ux440ux438ux446ux44b}{%
+\paragraph{Прямоугольные
+матрицы}\label{ux43fux440ux44fux43cux43eux443ux433ux43eux43bux44cux43dux44bux435-ux43cux430ux442ux440ux438ux446ux44b}}
+
+Произвольную матрицу размером \(m \times n\) можно представить в виде
+разложения \[
+  A = QR,
+\] где \(Q\) --- ортогональная матрица порядка \(m\), а \(R\) ---
+матрица размеров \(m \times n\), элементы \(r_{ij}\) которой
+удовлетворяют условию \(r_{ij}=0\) при \(i>j\). Такое разложение назовём
+\(Qr\)-разложением, чтобы подчеркнуть, что матрица \(R\), вообще говоря,
+не является квадратной.
+
+Второе обобщение \(QR\)-разложения можно получить, применяя метод
+ортогонализации Грама --- Шмидта. Теперь матрица \(Q\) размеров
+\(m \times n\) может рассматриваться как совокупность \(n\) столбцов из
+некоторой ортогональной матрицы порядка \(m\), а \(R\) --- квадратная
+верхняя треугольная матрица порядка \(n\). Такое разложение будем
+называть \(qR\)-разложением.
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \hypertarget{ux43bux438ux442ux435ux440ux430ux442ux443ux440ux430}{%
+\section{Литература}\label{ux43bux438ux442ux435ux440ux430ux442ux443ux440ux430}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \emph{Strang G.} Linear algebra and learning from data. ---
+  Wellesley-Cambridge Press, 2019
+\item
+  \emph{Стренг Г.} Линейная алгебра и её применения. --- М.: Мир, 1980
+\item
+  \emph{Гантмахер Ф.Р.} Теория матриц. --- М.: Наука, 1967
+\item
+  \emph{Беклемишев Д.В.} Дополнительные главы линейной алгебры. --- М.:
+  Наука, 1983
+\end{enumerate}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
