@@ -1,7 +1,8 @@
 .ipynb_checkpoints
 img
 *.pyc
-1.Intro.ipynb
-2.Matrices.ipynb
-3.Ax=b.ipynb
-4.Orthogonality.ipynb
+1*.ipynb
+2*.ipynb
+3*.ipynb
+4*.ipynb
+5*.ipynb
