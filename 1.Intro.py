@@ -80,9 +80,9 @@
 #
 # **Основные источники:**
 #
-# 1. Воронцов К.В. [Математические методы обучения по прецендентам (теория обучения машин)](http://www.machinelearning.ru/wiki/images/6/6d/Voron-ML-1.pdf). 141 c.
-# 1. Strang G. Linear algebra and learning from data. Wellesley-Cambridge Press, 2019. 432 p.
-# 1. Ширяев А.Н. Вероятность &mdash; 1. М.: МЦНМО, 2007. 517 с.
+# 1. *Воронцов К.В.* [Математические методы обучения по прецендентам (теория обучения машин)](http://www.machinelearning.ru/wiki/images/6/6d/Voron-ML-1.pdf). &mdash; 141 c.
+# 1. *Strang G.* Linear algebra and learning from data. &mdash; Wellesley-Cambridge Press, 2019. &mdash; 432 p.
+# 1. *Ширяев А.Н.* Вероятность &mdash; 1. &mdash; М.: МЦНМО, 2007. &mdash; 517 с.
 # 1. Материалы авторов [P. Roelants](https://peterroelants.github.io/) и [M. Krasser ](http://krasserm.github.io/).
 #
 # **Рекомендованные курсы лекций:**
@@ -145,6 +145,7 @@ matplotlib.rcParams['font.size'] = 14
 matplotlib.rcParams['lines.linewidth'] = 1.5
 matplotlib.rcParams['lines.markersize'] = 4
 cm = plt.cm.tab10  # Colormap
+figsize = (7, 4)
 
 import seaborn
 seaborn.set_style('whitegrid')
@@ -164,7 +165,6 @@ Y_train = Y_true + err  # Dependent variable with noise
 
 # + slideshow={"slide_type": "subslide"} cell_style="center"
 # Show data
-figsize = (7, 4)
 fig, ax = plt.subplots(figsize=figsize)
 ax.plot(X_train, Y_train, 'o', label='data: $(x,y)$')
 plt.xlim((-0.05, 1.05))
@@ -274,7 +274,7 @@ plt.show()
 #   \mathbf{F} = 
 #   \begin{pmatrix}
 #     f_1(x_1) & \ldots & f_n(x_1) \\
-#     \ldots   & \ldots & \ldots   \\
+#     \vdots   & \ddots & \vdots   \\
 #     f_1(x_l) & \ldots & f_n(x_l) \\
 #   \end{pmatrix}.
 # $$
