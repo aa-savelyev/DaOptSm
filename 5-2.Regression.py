@@ -158,7 +158,7 @@ plt.show()
 # Отсюда следует $F^{\top} F \alpha = F^{\top}y$.
 # Эта система линейных уравнений относительно $\alpha$ называется *нормальной системой* для задачи наименьших квадратов.
 #
-# Если матрица $F^{\top} F$ невырождена (для этого столбцы матрицы $F$ олжны быть линейно независимы), то решением нормальной системы является вектор
+# Если матрица $F^{\top} F$ невырождена (для этого столбцы матрицы $F$ должны быть линейно независимы), то решением нормальной системы является вектор
 #
 # $$ \alpha^* = (F^{\top} F)^{-1} F^{\top} y = F^{+} y. $$
 #
@@ -199,24 +199,33 @@ plt.show()
 # Пример построения полиномиальной регрессии для наших данных приведён ниже.
 
 # +
+# The number of features
+Nf = 2
+
 # Make objects-features matrix: stack ones and X
-F = np.vstack((np.ones_like(X_train), X_train)).T
+F = np.ones_like(X_train)
+for i in range(1, Nf):
+    F = np.vstack((F, X_train**i))
+F = F.T
 
 # Find optimal hyperparameters
 Alpha = LA.inv(F.T @ F) @ F.T @ Y_train
+display(Alpha)
 
 # Function representing fitted line
-f = lambda x: Alpha[0] + Alpha[1]*x
+f = lambda x: sum([Alpha[i]*x**i for i in range(Nf)])
 
 # +
 # Show fitted line
 X_disp = np.linspace(0, 1, 100)
+OLS_label = f'$y = {Alpha[0]:.2f} + {Alpha[1]:.2f} x$' \
+if (Nf==2) else 'OLS'
 
 plt.figure(figsize=figsize)
 plt.plot(X_train, Y_train, 'o', ms=4, label='data $(x,y)$')
 plt.plot([0, 1], [b, m+b], 'k-', label=f'$y = {b:.0f} + {m:.0f}x$')
 plt.plot(X_disp, f(X_disp), '-', c=cm(3),
-         label=f'$y = {Alpha[0]:.2f} + {Alpha[1]:.2f} x$')
+         label=OLS_label)
 plt.legend()
 plt.title('Least squares regression fit')
 plt.xlabel('$x$')
@@ -248,8 +257,8 @@ w = LA.inv(L) @ Fty
 # w = LA.solve(L, Fty)
 
 # 3. Solve the upper triangular system L*x = w for x
-x = LA.inv(L.T) @ w
-display(x)
+x_chol = LA.inv(L.T) @ w
+np.disp(x_chol)
 # -
 
 # Алгоритм требует $O(mn^2 + \frac{1}{3}n^3)$ операций. \
@@ -269,8 +278,8 @@ display(x)
 Q, R = LA.qr(F)
 
 # 2. Solve the upper triangular system R*x = Qt*y for x
-x = LA.inv(R) @ Q.T @ Y_train
-display(x)
+x_qr = LA.inv(R) @ Q.T @ Y_train
+np.disp(x_qr)
 # -
 
 # Алгоритм требует $O(2mn^2 - \frac{2}{3}n^3)$ операций. \
@@ -280,7 +289,7 @@ display(x)
 
 # ## Литература ##
 #
-# 1. *Воронцов К.В.* [Математические методы обучения по прецендентам (теория обучения машин)](http://www.machinelearning.ru/wiki/images/6/6d/Voron-ML-1.pdf). &mdash; 141 c.
+# 1. *Воронцов К.В.* [Математические методы обучения по прецедентам (теория обучения машин)](http://www.machinelearning.ru/wiki/images/6/6d/Voron-ML-1.pdf). &mdash; 141 c.
 # 1. [Материалы](http://www.math.iit.edu/~fass/477577_Chapter_5.pdf) автора [G. Fasshauer](http://www.math.iit.edu/~fass/).
 
 # Versions used
