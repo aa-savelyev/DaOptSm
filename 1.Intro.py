@@ -24,6 +24,35 @@
 #
 # # Информация о курсе. Постановка задачи #
 
+# + [markdown] toc=true
+# <h1>Содержание<span class="tocSkip"></span></h1>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Введение" data-toc-modified-id="Введение-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Введение</a></span><ul class="toc-item"><li><span><a href="#Аннотация" data-toc-modified-id="Аннотация-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Аннотация</a></span></li><li><span><a href="#Содержание-курса" data-toc-modified-id="Содержание-курса-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Содержание курса</a></span></li><li><span><a href="#Литература-и-курсы-лекций" data-toc-modified-id="Литература-и-курсы-лекций-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Литература и курсы лекций</a></span></li></ul></li><li><span><a href="#Три-типа-машинного-обучения" data-toc-modified-id="Три-типа-машинного-обучения-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Три типа машинного обучения</a></span></li><li><span><a href="#Постановка-задачи-(пример)" data-toc-modified-id="Постановка-задачи-(пример)-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Постановка задачи (пример)</a></span><ul class="toc-item"><li><span><a href="#Данные" data-toc-modified-id="Данные-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Данные</a></span></li><li><span><a href="#Линейная-регрессия" data-toc-modified-id="Линейная-регрессия-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Линейная регрессия</a></span></li><li><span><a href="#Регрессия-на-основе-гауссовских-процессов" data-toc-modified-id="Регрессия-на-основе-гауссовских-процессов-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Регрессия на основе гауссовских процессов</a></span></li></ul></li><li><span><a href="#Постановка-задачи" data-toc-modified-id="Постановка-задачи-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Постановка задачи</a></span></li><li><span><a href="#Источники" data-toc-modified-id="Источники-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
+
+# + slideshow={"slide_type": "skip"}
+# Imports
+import sys
+import numpy as np
+import matplotlib.pyplot as plt
+
+# + slideshow={"slide_type": "skip"}
+# Styles
+import warnings
+# warnings.simplefilter(action='ignore', category=FutureWarning)
+warnings.filterwarnings('ignore')
+
+import matplotlib
+matplotlib.rcParams['font.size'] = 14
+matplotlib.rcParams['lines.linewidth'] = 1.5
+matplotlib.rcParams['lines.markersize'] = 4
+cm = plt.cm.tab10  # Colormap
+figsize = (7, 4)
+
+import seaborn
+seaborn.set_style('whitegrid')
+# -
+
+# ---
+
 # + [markdown] slideshow={"slide_type": "notes"}
 # ## Введение ##
 #
@@ -127,28 +156,6 @@
 # -
 
 # ### Данные ###
-
-# + slideshow={"slide_type": "skip"}
-# Imports
-import sys
-import numpy as np
-import matplotlib.pyplot as plt
-
-# + slideshow={"slide_type": "skip"}
-# Styles
-import warnings
-# warnings.simplefilter(action='ignore', category=FutureWarning)
-warnings.filterwarnings('ignore')
-
-import matplotlib
-matplotlib.rcParams['font.size'] = 14
-matplotlib.rcParams['lines.linewidth'] = 1.5
-matplotlib.rcParams['lines.markersize'] = 4
-cm = plt.cm.tab10  # Colormap
-figsize = (7, 4)
-
-import seaborn
-seaborn.set_style('whitegrid')
 
 # + slideshow={"slide_type": "skip"}
 # Define the data
@@ -257,6 +264,8 @@ plt.show()
 
 # **Задача (упрощённо)**: построить функцию корректно описывающую обучающие данные и обобщающую их на неизвестные (тестовые) данные.
 
+# ---
+
 # + [markdown] slideshow={"slide_type": "slide"}
 # ## Постановка задачи ##
 #
@@ -287,7 +296,7 @@ plt.show()
 # ---
 
 # + [markdown] slideshow={"slide_type": "slide"}
-# ## Литература ##
+# ## Источники ##
 #
 # 1. *Воронцов К.В.* [Математические методы обучения по прецедентам (теория обучения машин)](http://www.machinelearning.ru/wiki/images/6/6d/Voron-ML-1.pdf). &mdash; 141 c.
 # 1. *Рашка С.* Python и машинное обучение. &mdash; М.: ДМК Пресс, 2017. &mdash; 418 с.

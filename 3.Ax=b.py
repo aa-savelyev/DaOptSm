@@ -18,7 +18,13 @@
 # **Лекция 3**
 #
 # # Теория систем линейных уравнений #
+
+# + [markdown] toc=true
+# <h1>Содержание<span class="tocSkip"></span></h1>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Ранг-матрицы" data-toc-modified-id="Ранг-матрицы-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Ранг матрицы</a></span></li><li><span><a href="#Скелетное-разложение" data-toc-modified-id="Скелетное-разложение-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Скелетное разложение</a></span></li><li><span><a href="#$\mathbf{LU}$-разложение" data-toc-modified-id="$\mathbf{LU}$-разложение-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>$\mathbf{LU}$-разложение</a></span><ul class="toc-item"><li><span><a href="#Определение-и-критерий-существования" data-toc-modified-id="Определение-и-критерий-существования-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Определение и критерий существования</a></span></li><li><span><a href="#Метод-Гаусса" data-toc-modified-id="Метод-Гаусса-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Метод Гаусса</a></span></li><li><span><a href="#Случай-1:-все-главные-миноры-отличны-от-нуля" data-toc-modified-id="Случай-1:-все-главные-миноры-отличны-от-нуля-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Случай 1: все главные миноры отличны от нуля</a></span></li><li><span><a href="#Случай-2:-существуют-ненулевые-главные-миноры-($\mathbf{LUP}$-разложение)" data-toc-modified-id="Случай-2:-существуют-ненулевые-главные-миноры-($\mathbf{LUP}$-разложение)-3.4"><span class="toc-item-num">3.4&nbsp;&nbsp;</span>Случай 2: существуют ненулевые главные миноры ($\mathbf{LUP}$-разложение)</a></span></li><li><span><a href="#$\mathbf{LDU}$-разложение" data-toc-modified-id="$\mathbf{LDU}$-разложение-3.5"><span class="toc-item-num">3.5&nbsp;&nbsp;</span>$\mathbf{LDU}$-разложение</a></span></li><li><span><a href="#Разложение-Холецкого" data-toc-modified-id="Разложение-Холецкого-3.6"><span class="toc-item-num">3.6&nbsp;&nbsp;</span>Разложение Холецкого</a></span></li></ul></li><li><span><a href="#Основная-теорема-линейной-алгебры" data-toc-modified-id="Основная-теорема-линейной-алгебры-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Основная теорема линейной алгебры</a></span><ul class="toc-item"><li><span><a href="#Четыре-основных-подпространства" data-toc-modified-id="Четыре-основных-подпространства-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Четыре основных подпространства</a></span></li><li><span><a href="#Альтернатива-Фредгольма" data-toc-modified-id="Альтернатива-Фредгольма-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Альтернатива Фредгольма</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
 # -
+
+# ---
 
 # ## Ранг матрицы ##
 #
@@ -60,6 +66,8 @@
 # *Замечание.* Свойство 4 работает только в случае, когда $A$ имеет *ровно* $r$ столбцов, а $B$ имеет *ровно* $r$ строк. В частности, $r(BA) \le r$ (в соответствии со свойством 1).
 #
 # Для свойства 3 отметим важный частный случай. Это случай, когда столбцы матрицы $A$ линейно независимы, так что её ранг $r$ равен $n$. Тогда матрица $A^\top A$ является квадратной симметрической обратимой матрицей.
+
+# ---
 
 # ## Скелетное разложение ##
 #
@@ -223,7 +231,7 @@
 # ---
 
 # + [markdown] slideshow={"slide_type": "slide"}
-# ## Литература ##
+# ## Источники ##
 #
 # 1. *Strang G.* Linear algebra and learning from data. &mdash; Wellesley-Cambridge Press, 2019. &mdash; 432 p.
 # 1. *Беклемишев Д.В.* Дополнительные главы линейной алгебры. &mdash; М.: Наука, 1983. &mdash; 336 с.

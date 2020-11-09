@@ -16,14 +16,11 @@
 
 # + [markdown] slideshow={"slide_type": "slide"}
 # # Ортогональное проектирование #
-# -
 
-# ## План ##
-#
-# 1. Метрика, ортогональные векторы и матрицы
-# 1. Ортогонализация ряда векторов, $QR$-разложение
-# 1. Ортогональное проектирование
-# 1. Метод наименьших квадратов
+# + [markdown] toc=true
+# <h1>Содержание<span class="tocSkip"></span></h1>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Метрика-пространства" data-toc-modified-id="Метрика-пространства-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Метрика пространства</a></span><ul class="toc-item"><li><span><a href="#Скалярное-произведение" data-toc-modified-id="Скалярное-произведение-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Скалярное произведение</a></span></li><li><span><a href="#Ортогональные-векторы" data-toc-modified-id="Ортогональные-векторы-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Ортогональные векторы</a></span></li><li><span><a href="#Ортогональные-векторы-и-матрицы" data-toc-modified-id="Ортогональные-векторы-и-матрицы-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Ортогональные векторы и матрицы</a></span></li></ul></li><li><span><a href="#Ортогональное-проектирование" data-toc-modified-id="Ортогональное-проектирование-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Ортогональное проектирование</a></span><ul class="toc-item"><li><span><a href="#Общий-случай" data-toc-modified-id="Общий-случай-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Общий случай</a></span></li><li><span><a href="#Одномерный-случай" data-toc-modified-id="Одномерный-случай-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Одномерный случай</a></span></li><li><span><a href="#Проектирование-на-линейную-оболочку-ортонормированных-векторов" data-toc-modified-id="Проектирование-на-линейную-оболочку-ортонормированных-векторов-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Проектирование на линейную оболочку ортонормированных векторов</a></span></li><li><span><a href="#Ортонормированный-базис" data-toc-modified-id="Ортонормированный-базис-2.4"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>Ортонормированный базис</a></span></li></ul></li><li><span><a href="#Ортогонализация-векторов" data-toc-modified-id="Ортогонализация-векторов-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Ортогонализация векторов</a></span><ul class="toc-item"><li><span><a href="#Алгоритм-Грама-—-Шмидта" data-toc-modified-id="Алгоритм-Грама-—-Шмидта-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Алгоритм Грама — Шмидта</a></span></li><li><span><a href="#$\mathbf{QR}$-разложение" data-toc-modified-id="$\mathbf{QR}$-разложение-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>$\mathbf{QR}$-разложение</a></span><ul class="toc-item"><li><span><a href="#Квадратные-матрицы" data-toc-modified-id="Квадратные-матрицы-3.2.1"><span class="toc-item-num">3.2.1&nbsp;&nbsp;</span>Квадратные матрицы</a></span></li><li><span><a href="#Прямоугольные-матрицы" data-toc-modified-id="Прямоугольные-матрицы-3.2.2"><span class="toc-item-num">3.2.2&nbsp;&nbsp;</span>Прямоугольные матрицы</a></span></li></ul></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
+# -
 
 # ---
 
@@ -236,7 +233,7 @@
 # ---
 
 # + [markdown] slideshow={"slide_type": "slide"}
-# ## Литература ##
+# ## Источники ##
 #
 # 1. *Strang G.* Linear algebra and learning from data. &mdash; Wellesley-Cambridge Press, 2019. &mdash; 432 p.
 # 1. *Стренг Г.* Линейная алгебра и её применения. &mdash; М.: Мир, 1980. &mdash; 454 с.

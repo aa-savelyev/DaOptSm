@@ -18,7 +18,13 @@
 # **Лекция 2**
 #
 # # Матрицы и действия над ними #
+
+# + [markdown] toc=true
+# <h1>Содержание<span class="tocSkip"></span></h1>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Обозначения" data-toc-modified-id="Обозначения-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Обозначения</a></span></li><li><span><a href="#Умножение-матриц" data-toc-modified-id="Умножение-матриц-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Умножение матриц</a></span><ul class="toc-item"><li><span><a href="#Способ-1:-«строка-на-столбец»" data-toc-modified-id="Способ-1:-«строка-на-столбец»-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Способ 1: «строка на столбец»</a></span></li><li><span><a href="#Способ-2:-«столбец-на-строку»" data-toc-modified-id="Способ-2:-«столбец-на-строку»-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Способ 2: «столбец на строку»</a></span></li><li><span><a href="#Способ-3:-«столбец-на-столбец»" data-toc-modified-id="Способ-3:-«столбец-на-столбец»-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Способ 3: «столбец на столбец»</a></span></li><li><span><a href="#Способ-4:-«строка-на-строку»" data-toc-modified-id="Способ-4:-«строка-на-строку»-2.4"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>Способ 4: «строка на строку»</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
 # -
+
+# ---
 
 # ## Обозначения ##
 #
@@ -33,6 +39,8 @@
 #   \end{pmatrix},
 #   \mathbf{a}^* = (a_1, \ldots, a_n).
 # $$
+
+# ---
 
 # ## Умножение матриц ##
 #
@@ -279,7 +287,7 @@
 # ---
 
 # + [markdown] slideshow={"slide_type": "slide"}
-# ## Литература ##
+# ## Источники ##
 #
 # 1. *Strang G.* Linear algebra and learning from data. &mdash; Wellesley-Cambridge Press, 2019. &mdash; 432 p.
 # 1. *Гантмахер Ф.Р.* Теория матриц. &mdash; М.: Наука, 1967. &mdash; 576 с.

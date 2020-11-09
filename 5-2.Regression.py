@@ -18,6 +18,36 @@
 #
 # # Линейная регрессия #
 
+# + [markdown] toc=true
+# <h1>Содержание<span class="tocSkip"></span></h1>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Обозначения" data-toc-modified-id="Обозначения-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Обозначения</a></span></li><li><span><a href="#Генерация-данных" data-toc-modified-id="Генерация-данных-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Генерация данных</a></span></li><li><span><a href="#Метод-наименьших-квадратов" data-toc-modified-id="Метод-наименьших-квадратов-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Метод наименьших квадратов</a></span></li><li><span><a href="#Линейная-регрессия" data-toc-modified-id="Линейная-регрессия-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Линейная регрессия</a></span><ul class="toc-item"><li><span><a href="#Формулировка-задачи" data-toc-modified-id="Формулировка-задачи-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Формулировка задачи</a></span></li><li><span><a href="#Решение" data-toc-modified-id="Решение-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Решение</a></span></li><li><span><a href="#Пример.-Полиномиальная-регрессия" data-toc-modified-id="Пример.-Полиномиальная-регрессия-4.3"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>Пример. Полиномиальная регрессия</a></span></li></ul></li><li><span><a href="#Алгоритмы-решения-задачи-МНК" data-toc-modified-id="Алгоритмы-решения-задачи-МНК-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Алгоритмы решения задачи МНК</a></span><ul class="toc-item"><li><span><a href="#Разложение-Холецкого" data-toc-modified-id="Разложение-Холецкого-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Разложение Холецкого</a></span></li><li><span><a href="#QR-разложение" data-toc-modified-id="QR-разложение-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>QR-разложение</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
+# -
+
+# Imports
+import sys
+import numpy as np
+from numpy import linalg as LA
+import matplotlib.pyplot as plt
+
+# +
+# Styles
+import warnings
+# warnings.simplefilter(action='ignore', category=FutureWarning)
+warnings.filterwarnings('ignore')
+
+import matplotlib
+matplotlib.rcParams['font.size'] = 14
+matplotlib.rcParams['lines.linewidth'] = 1.5
+matplotlib.rcParams['lines.markersize'] = 4
+cm = plt.cm.tab10  # Colormap
+figsize = (8, 5)
+
+import seaborn
+seaborn.set_style('whitegrid')
+# -
+
+# ---
+
 # ## Обозначения ##
 #
 # Задачу обучения по прецедентам при $Y = \mathbb{R}$ принято называть задачей *восстановления регрессии*. Введём основные обозначения.
@@ -56,29 +86,6 @@
 # - $y_i$ &mdash; зависимая (выходная) переменная выборки $i$, с $y = \{y_i \ldots y_m \}$;
 # - $\epsilon_i \sim \mathcal{N}(0, \sigma^2)$ &mdash; нормальный шум, влияющий на выходной сигнал $y_i$;
 # - $\theta = \{\theta_0, \theta_1 \}$ &mdash; набор параметров: смещение $\theta_0$ и наклон $\theta_1$.
-
-# Imports
-import sys
-import numpy as np
-from numpy import linalg as LA
-import matplotlib.pyplot as plt
-
-# +
-# Styles
-import warnings
-# warnings.simplefilter(action='ignore', category=FutureWarning)
-warnings.filterwarnings('ignore')
-
-import matplotlib
-matplotlib.rcParams['font.size'] = 14
-matplotlib.rcParams['lines.linewidth'] = 1.5
-matplotlib.rcParams['lines.markersize'] = 4
-cm = plt.cm.tab10  # Colormap
-figsize = (8, 5)
-
-import seaborn
-seaborn.set_style('whitegrid')
-# -
 
 # Define the data
 np.random.seed(42)
@@ -287,7 +294,7 @@ np.disp(x_qr)
 
 # ---
 
-# ## Литература ##
+# ## Источники ##
 #
 # 1. *Воронцов К.В.* [Математические методы обучения по прецедентам (теория обучения машин)](http://www.machinelearning.ru/wiki/images/6/6d/Voron-ML-1.pdf). &mdash; 141 c.
 # 1. [Материалы](http://www.math.iit.edu/~fass/477577_Chapter_5.pdf) автора [G. Fasshauer](http://www.math.iit.edu/~fass/).

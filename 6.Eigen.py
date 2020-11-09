@@ -18,6 +18,11 @@
 #
 # # Собственные значения и собственные векторы #
 
+# + [markdown] toc=true
+# <h1>Содержание<span class="tocSkip"></span></h1>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Матрицы-линейных-преобразований" data-toc-modified-id="Матрицы-линейных-преобразований-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Матрицы линейных преобразований</a></span></li><li><span><a href="#Основные-понятия" data-toc-modified-id="Основные-понятия-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Основные понятия</a></span></li><li><span><a href="#Диагонализируемость" data-toc-modified-id="Диагонализируемость-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Диагонализируемость</a></span><ul class="toc-item"><li><span><a href="#Подобные-матрицы" data-toc-modified-id="Подобные-матрицы-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Подобные матрицы</a></span></li><li><span><a href="#Диагонализируемые-матрицы" data-toc-modified-id="Диагонализируемые-матрицы-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Диагонализируемые матрицы</a></span></li><li><span><a href="#Недиагонализируемые-матрицы" data-toc-modified-id="Недиагонализируемые-матрицы-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Недиагонализируемые матрицы</a></span></li></ul></li><li><span><a href="#Иллюстрации-на-Питоне" data-toc-modified-id="Иллюстрации-на-Питоне-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Иллюстрации на Питоне</a></span></li><li><span><a href="#Симметричные-матрицы" data-toc-modified-id="Симметричные-матрицы-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Симметричные матрицы</a></span></li><li><span><a href="#Полярное-разложение" data-toc-modified-id="Полярное-разложение-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Полярное разложение</a></span></li><li><span><a href="#Алгоритмы-поиска-собственных-чисел" data-toc-modified-id="Алгоритмы-поиска-собственных-чисел-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Алгоритмы поиска собственных чисел</a></span><ul class="toc-item"><li><span><a href="#$\mathbf{QR}$-алгоритм" data-toc-modified-id="$\mathbf{QR}$-алгоритм-7.1"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>$\mathbf{QR}$-алгоритм</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
+# -
+
 # Imports
 import sys
 import numpy as np
@@ -40,7 +45,9 @@ import seaborn
 seaborn.set_style('whitegrid')
 # -
 
-# ## Введение ##
+# ---
+
+# ## Матрицы линейных преобразований ##
 #
 # Квадратную матрицу $A$ размером $n \times n$ мы интерпретируем как преобразование, действующее на вектор $\mathbf{x} \in \mathbb{R}^n$, преобразуя его в новый вектор $\mathbf{y} = A\mathbf{x}$, также лежащий в $\mathbb{R}^n$.
 #
@@ -71,7 +78,8 @@ theta = 30 * np.pi / 180 # degress in radian
 A = np.array([[np.cos(theta), -np.sin(theta)],
               [np.sin(theta), np.cos(theta)]])
 # Stretching matrix
-B = np.array([[3,0],[0,1]])
+B = np.array([[3,0],
+              [0,1]])
 
 Ax = A @ x  # y1 is the rotated vector
 Bx = B @ x  # y2 is the stretched vector
@@ -604,7 +612,7 @@ plt.show()
 # Найдём $QR$-разложение исходной матрицы. Пусть $A = Q_1 R_1$. \
 # Положим $A_1 = R_1 Q_1$ и найдём для матрицы $A_1$ её $QR$-разложение $A_1 = Q_2 R_2$.
 # Матрицу $A_2$ получим, переставив сомножители $Q_2$ и $R_2$ и т.д.
-# $$ A_{k-1} - Q_k R_k, \quad A_k = R_k Q_k. $$
+# $$ A_{k-1} = Q_k R_k, \quad A_k = R_k Q_k. $$
 #
 # При этом $A_k = Q_k^{-1} A_{k-1} Q_k$.
 # Поэтому все характеристические числа матриц $A_k$ совпадают.
@@ -632,7 +640,7 @@ for i in range(10):
 
 # ---
 
-# ## Литература ##
+# ## Источники ##
 #
 # 1. *Гантмахер Ф.Р.* Теория матриц. &mdash; М.: Наука, 1967. &mdash; 576 с.
 # 1. *Стренг Г.* Линейная алгебра и её применения. &mdash; М.: Мир, 1980. &mdash; 454 с.
