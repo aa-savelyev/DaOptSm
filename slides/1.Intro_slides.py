@@ -20,12 +20,9 @@
 # к.т.н. Савельев Андрей Александрович \
 # savelyev.aa@mipt.ru
 
-# + [markdown] slideshow={"slide_type": "subslide"}
-# ## План лекции ##
-#
-# 1. О курсе
-# 1. Пример прикладной задачи
-# 1. Постановка задачи, основные понятия
+# + [markdown] toc=true slideshow={"slide_type": "subslide"}
+# <h1>Содержание<span class="tocSkip"></span></h1>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#О-курсе" data-toc-modified-id="О-курсе-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>О курсе</a></span><ul class="toc-item"><li><span><a href="#Содержание-курса" data-toc-modified-id="Содержание-курса-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Содержание курса</a></span></li><li><span><a href="#Содержание-курса" data-toc-modified-id="Содержание-курса-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Содержание курса</a></span></li><li><span><a href="#Основная-литература" data-toc-modified-id="Основная-литература-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Основная литература</a></span></li><li><span><a href="#Видеокурсы" data-toc-modified-id="Видеокурсы-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Видеокурсы</a></span></li><li><span><a href="#Технические-особенности" data-toc-modified-id="Технические-особенности-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Технические особенности</a></span></li><li><span><a href="#Организационные-вопросы" data-toc-modified-id="Организационные-вопросы-1.6"><span class="toc-item-num">1.6&nbsp;&nbsp;</span>Организационные вопросы</a></span></li></ul></li><li><span><a href="#Пример-прикладной-задачи" data-toc-modified-id="Пример-прикладной-задачи-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Пример прикладной задачи</a></span><ul class="toc-item"><li><span><a href="#Многорежимное-проектирование-сопла" data-toc-modified-id="Многорежимное-проектирование-сопла-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Многорежимное проектирование сопла</a></span><ul class="toc-item"><li><span><a href="#Постановка-задачи" data-toc-modified-id="Постановка-задачи-2.1.1"><span class="toc-item-num">2.1.1&nbsp;&nbsp;</span>Постановка задачи</a></span></li><li><span><a href="#Процесс-сходимости-однокритериальной-задачи" data-toc-modified-id="Процесс-сходимости-однокритериальной-задачи-2.1.2"><span class="toc-item-num">2.1.2&nbsp;&nbsp;</span>Процесс сходимости однокритериальной задачи</a></span></li><li><span><a href="#Фронт-Парето" data-toc-modified-id="Фронт-Парето-2.1.3"><span class="toc-item-num">2.1.3&nbsp;&nbsp;</span>Фронт Парето</a></span></li><li><span><a href="#Результаты" data-toc-modified-id="Результаты-2.1.4"><span class="toc-item-num">2.1.4&nbsp;&nbsp;</span>Результаты</a></span></li></ul></li></ul></li><li><span><a href="#Постановка-задачи-—-1" data-toc-modified-id="Постановка-задачи-—-1-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Постановка задачи — 1</a></span><ul class="toc-item"><li><span><a href="#Три-типа-машинного-обучения" data-toc-modified-id="Три-типа-машинного-обучения-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Три типа машинного обучения</a></span></li><li><span><a href="#Задача-восстановления-регрессии" data-toc-modified-id="Задача-восстановления-регрессии-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Задача восстановления регрессии</a></span></li></ul></li><li><span><a href="#Постановка-задачи-—-2" data-toc-modified-id="Постановка-задачи-—-2-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Постановка задачи — 2</a></span></li><li><span><a href="#Литература" data-toc-modified-id="Литература-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Литература</a></span></li></ul></div>
 
 # + [markdown] slideshow={"slide_type": "slide"}
 # ## О курсе ##
@@ -95,7 +92,7 @@ import sys
 sys.path.append('../modules')
 import graph_support
 
-# + slideshow={"slide_type": "fragment"}
+# + slideshow={"slide_type": "skip"}
 # Styles
 import warnings 
 # warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -164,29 +161,29 @@ im_width = 1200
 #     .container.slides .celltoolbar, .container.slides .hide-in-slideshow {display: None ! important;}
 # </style>
 
-# + cell_style="center" slideshow={"slide_type": "-"}
+# + cell_style="center" slideshow={"slide_type": "fragment"}
 graph_support.hide_code_in_slideshow()
-display(Image('../img/1.Intro/res_sub030sup070.png', width=im_width))
+display(Image('../pix/1.Intro/res_sub030sup070.png', width=im_width))
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # #### Фронт Парето ####
 
-# + cell_style="center" slideshow={"slide_type": "-"}
+# + cell_style="center" slideshow={"slide_type": "fragment"}
 graph_support.hide_code_in_slideshow()
-display(Image('../img/1.Intro/res_pareto_1-4.png', width=0.8*im_width))
+display(Image('../pix/1.Intro/res_pareto_1-4.png', width=0.8*im_width))
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # #### Результаты ####
 #
 # Вариант $\mathbf \Omega = \{0.3, 0.7\}$
 
-# + cell_style="center" slideshow={"slide_type": "-"}
+# + cell_style="center" slideshow={"slide_type": "fragment"}
 graph_support.hide_code_in_slideshow()
 print('Режим M=0.9')
-display(Image('../img/1.Intro/i095.r1m090.Mach.png', width=im_width))
+display(Image('../pix/1.Intro/i095.r1m090.Mach.png', width=im_width))
 print(40*'-')
 print('Режим M=1.8')
-display(Image('../img/1.Intro/i095.r2m180.Mach.png', width=im_width)) 
+display(Image('../pix/1.Intro/i095.r2m180.Mach.png', width=im_width)) 
 
 
 # + [markdown] slideshow={"slide_type": "-"}
@@ -358,12 +355,5 @@ print('numpy: {}'.format(np.__version__))
 print('matplotlib: {}'.format(matplotlib.__version__))
 print('seaborn: {}'.format(seaborn.__version__))
 # + slideshow={"slide_type": "skip"}
-
-
-
-
-
-
-
 
 
