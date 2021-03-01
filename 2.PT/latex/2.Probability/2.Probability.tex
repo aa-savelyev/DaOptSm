@@ -1,0 +1,1229 @@
+\documentclass[11pt,a4paper]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{iftex}
+    \ifPDFTeX
+      \usepackage[T2A]{fontenc}
+      \usepackage{mathpazo}
+      \usepackage[russian,english]{babel}
+    \else
+      \usepackage{fontspec}
+      \usepackage{polyglossia}
+      \setmainlanguage[babelshorthands=true]{russian}    % Язык по-умолчанию русский с поддержкой приятных команд пакета babel
+      \setotherlanguage{english}                         % Дополнительный язык = английский (в американской вариации по-умолчанию)
+      \newfontfamily\cyrillicfonttt[Scale=0.87,BoldFont={Fira Mono Medium}] {Fira Mono}  % Моноширинный шрифт для кириллицы
+      \defaultfontfeatures{Ligatures=TeX}
+      \newfontfamily\cyrillicfont{STIX Two Text}         % Шрифт с засечками для кириллицы
+    \fi
+    \renewcommand{\linethickness}{0.1ex}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for grffile with XeLaTeX
+    \def\Gread@@xetex#1{%
+      \IfFileExists{"\Gin@base".bb}%
+      {\Gread@eps{\Gin@base.bb}}%
+      {\Gread@@xetex@aux#1}%
+    }
+    \makeatother
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{
+    {\Large Лекция 2} \\
+    Аксиоматика теории вероятностей.
+    Условная вероятность
+  }
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        \ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\pagebreak
+
+
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Imports}
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Styles}
+\PY{k+kn}{import} \PY{n+nn}{warnings}
+\PY{c+c1}{\PYZsh{} warnings.simplefilter(action=\PYZsq{}ignore\PYZsq{}, category=FutureWarning)}
+\PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}
+\PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{14}
+\PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.linewidth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.5}
+\PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.markersize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{4}
+\PY{n}{cm} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}  \PY{c+c1}{\PYZsh{} Colormap}
+
+\PY{k+kn}{import} \PY{n+nn}{seaborn}
+\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \hypertarget{ux43fux440ux435ux434ux43cux435ux442-ux442ux435ux43eux440ux438ux438-ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux435ux439}{%
+\section{Предмет теории
+вероятностей}\label{ux43fux440ux435ux434ux43cux435ux442-ux442ux435ux43eux440ux438ux438-ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux435ux439}}
+
+Предметом теории вероятностей является математический анализ случайных
+явлений --- эмпирических феноменов, которые (при заданном «комплексе
+условий») могут быть охарактеризованы тем, что
+
+\begin{itemize}
+\tightlist
+\item
+  для них отсутствует \emph{детерминистическая регулярность} (наблюдения
+  над ними не всегда приводят к одним и тем же исходам)
+\end{itemize}
+
+и в то же самое время
+
+\begin{itemize}
+\tightlist
+\item
+  они обладают некоторой \emph{статистической регулярностью}
+  (проявляющейся в статистической устойчивости частот).
+\end{itemize}
+
+Поясним сказанное на классическом примере «честного» подбрасывания
+«правильной» монеты. Ясно, что заранее невозможно с определенностью
+предсказать исход каждого подбрасывания. Результаты отдельных
+экспериментов носят крайне нерегулярный характер (то «герб», то
+«решетка»), и кажется, что это лишает нас возможности познать какие-либо
+закономерности, связанные с этими экспериментами. Однако, если провести
+большое число «независимых» подбрасываний, то можно заметить, что для
+«правильной» монеты будет наблюдаться вполне определенная статистической
+регулярность, проявляющаяся в том, что частота выпадания «герба» будет
+«близка» к \(1/2\).
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \hypertarget{ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux43dux430ux44f-ux43cux43eux434ux435ux43bux44c}{%
+\section{Вероятностная
+модель}\label{ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux43dux430ux44f-ux43cux43eux434ux435ux43bux44c}}
+
+Согласно аксиоматике Колмогорова первоначальным объектом теории
+вероятностей является \emph{вероятностное пространство}
+\((\Omega, \mathcal{F}, \mathrm{P})\). Здесь \(\Omega\) --- это
+множество, состоящее из элементарных событий \(\omega\), с выделенной на
+нём системой его подмножеств (событий) \(\mathcal{F}\), образующих
+\(\sigma\)-алгебру, а \(\mathrm{P}\) --- вероятностная мера
+(вероятность), определённая на множествах из \(\mathcal{F}\).
+
+А теперь подробнее.
+
+    \hypertarget{ux43fux440ux43eux441ux442ux440ux430ux43dux441ux442ux432ux43e-ux44dux43bux435ux43cux435ux43dux442ux430ux440ux43dux44bux445-ux438ux441ux445ux43eux434ux43eux432}{%
+\subsection{Пространство элементарных
+исходов}\label{ux43fux440ux43eux441ux442ux440ux430ux43dux441ux442ux432ux43e-ux44dux43bux435ux43cux435ux43dux442ux430ux440ux43dux44bux445-ux438ux441ux445ux43eux434ux43eux432}}
+
+\textbf{Определение}. \emph{Пространством элементарных исходов}
+называется множество \(\Omega\), содержащее все возможные
+\emph{взаимоисключающие} результаты данного случайного эксперимента.
+Элементы множества \(\Omega\) называются элементарными исходами и
+обозначаются буквой \(\omega\).
+
+Элементарный исход --- это мельчайший неделимый результат
+эксперимента.\\
+Выделение пространства элементарных исходов представляет собой первый
+шаг в формулировании понятия \emph{вероятностной модели} (вероятностной
+«теории») того или иного эксперимента.
+
+    \textbf{Примеры:}
+
+\begin{itemize}
+\tightlist
+\item
+  однократное подбрасывание монеты (пространство исходов состоит из двух
+  точек: Г --- «герб», Р --- «решетка»);
+\item
+  n-кратное подбрасывание монеты;
+\item
+  выбор шаров с возвращением (упорядоченные и неупорядоченные выборки);
+\item
+  выбор шаров без возвращения (упорядоченные и неупорядоченные выборки).
+\end{itemize}
+
+    \hypertarget{ux430ux43bux433ux435ux431ux440ux430-ux438-mathbfsigma-ux430ux43bux433ux435ux431ux440ux430-ux441ux43eux431ux44bux442ux438ux439}{%
+\subsection{\texorpdfstring{Алгебра и \(\mathbf{\sigma}\)-алгебра
+событий}{Алгебра и \textbackslash{}mathbf\{\textbackslash{}sigma\}-алгебра событий}}\label{ux430ux43bux433ux435ux431ux440ux430-ux438-mathbfsigma-ux430ux43bux433ux435ux431ux440ux430-ux441ux43eux431ux44bux442ux438ux439}}
+
+Наряду с понятием пространства элементарных исходов введём теперь важное
+понятие события, лежащее в основе построения всякой вероятностной модели
+рассматриваемого эксперимента.
+
+Мы собираемся определить набор подмножеств множества \(\Omega\), которые
+будут называться событиями, и затем задать вероятность как функцию,
+определённую \emph{только} на множестве событий.
+
+\emph{Событиями} мы будем называть не любые подмножества \(\Omega\), а
+лишь элементы некоторого выделенного набора подмножеств множества
+\(\Omega\). В качестве наборов событий целесообразно рассматривать
+системы множеств, являющиеся \emph{алгебрами}. Для этого необходимо
+позаботиться, чтобы этот набор подмножеств был \emph{замкнут}
+относительно операций объединения, пересечения и дополнения.
+
+\textbf{Определение.} Множество \(\mathcal{F}\), элементами которого
+являются подмножества множества \(\Omega\) называется
+\(\sigma\)-\emph{алгеброй}, если оно удовлетворяет следующим аксиомам:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(\Omega \in \mathcal{F}\) (\(\sigma\)-алгебра содержит
+  \emph{достоверное событие});
+\item
+  если \(A \in \mathcal{F}\), то \(\overline{A} \in \mathcal{F}\)
+  (вместе с любым множеством \(\sigma\)-алгебра содержит противоположное
+  к нему);
+\item
+  если \(A_1,\,A_2,\,\ldots \in \mathcal{F}\), то
+  \(\bigcup\limits_{i=1}^{\infty}A_i \in \mathcal{F}\) (вместе с любым
+  \emph{счётным} набором событий \(\sigma\)-алгебра содержит их
+  объединение).
+\end{enumerate}
+
+    \textbf{Свойства:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Из аксиом 1 и 2 следует, что пустое множество
+  \(\emptyset = \overline{\Omega}\) также содержится в \(\mathcal{F}\),
+  т. е. алгебра содержит и \emph{невозможное событие}.\\
+\item
+  Из аксиом 2 и 3 следует, что вместе с любым счётным набором событий
+  \(\sigma\)-алгебра содержит не только их объединение
+  \(\bigcup\limits_{i=1}^{\infty}A_i\), но и их пересечение
+  \(\bigcap\limits_{i=1}^{\infty}A_i\).
+\end{enumerate}
+
+\textbf{Примеры:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(\mathcal{F} = \{ \Omega, \emptyset \}\) --- система, состоящая из
+  \(\Omega\) и пустого множества (так называемая тривиальная алгебра);
+\item
+  \(\mathcal{F} = \{ A, \overline{A}, \Omega, \emptyset \}\) ---
+  система, порождённая событием \(A\);
+\item
+  \(\mathcal{F} = \{ A: A \subseteq \Omega \}\) --- совокупность всех
+  подмножеств \(\Omega\) (обозначается \(2^\Omega\)).
+\end{enumerate}
+
+\begin{quote}
+\emph{Упражнение.} Доказать, что если \(\Omega\) состоит из \(n\)
+элементов, то в множестве всех его подмножеств ровно \(2^n\) элементов.
+\end{quote}
+
+    \hypertarget{ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux43dux430ux44f-ux43cux435ux440ux430}{%
+\subsection{Вероятностная
+мера}\label{ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux43dux430ux44f-ux43cux435ux440ux430}}
+
+Пока мы сделали два первых шага к построению вероятностной модели
+эксперимента: выделили пространство исходов \(\Omega\) и некоторую
+систему \(\mathcal{F}\) его подмножеств, образующих \(\sigma\)-алгебру и
+называемых событиями. Сделаем теперь следующий шаг, а именно введём
+вероятностную меру.
+
+\textbf{Определение.} Пусть \(\Omega\) --- непустое множество, а
+\(\mathcal{F}\) --- \(\sigma\)-алгебра его подмножеств. Функция
+\(\mathrm{P}: \mathcal{F} \rightarrow \mathbb{R}\) называется
+\emph{вероятностной мерой}, если она удовлетворяет следующим аксиомам:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(\mathrm{P}(A) \ge 0\), \(A \in \mathcal{F}\) (неотрицательность);
+\item
+  \(\mathrm{P}\left( \bigcup\limits_{i=1}^{\infty}A_i \right) = \sum\limits_{i=1}^{\infty}\mathrm{P}(A_i)\),
+  где \(A_i \in \mathcal{F}\), \(A_i \cap A_j = \emptyset\), \(i \ne j\)
+  (счётная или \(\sigma\)-аддитивность)\\
+  (для любого счётного набора попарно несовместных событий мера их
+  объединения равна сумме их мер);
+\item
+  \(\mathrm{P}(\Omega) = 1\) (нормированность).
+\end{enumerate}
+
+\emph{Замечание 1.} Аксиомы 1 и 2 задают \emph{меру} как неотрицательную
+\(\sigma\)-аддитивную функцию множеств, аксиома 3 определяет вероятность
+как \emph{нормированную меру}.
+
+\emph{Замечание 2.} Существуют примеры неизмеримых множеств, например,
+\emph{множество Витали}.
+
+    \textbf{Свойства:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(\mathrm{P}(\emptyset) = 0\);
+\item
+  \(\mathrm{P}(\overline{A}) = 1 - \mathrm{P}(A)\);
+\item
+  \(\mathrm{P}(A \cup B) = \mathrm{P}(A) + \mathrm{P}(B) - \mathrm{P}(A \cap B)\);
+\item
+  \(\mathrm{P}\left( \bigcup\limits_{i=1}^{n}A_i \right) = \sum\limits_{i}\mathrm{P}(A_i) - \sum\limits_{i<j}\mathrm{P}(A_i \cap A_j) + \sum\limits_{i<j<k}\mathrm{P}(A_i \cap A_j \cap A_k) + \ldots + (-1)^{n-1} \mathrm{P}\left( \bigcap\limits_{i=1}^{n}A_i \right)\)
+  --- формула включения-исключения.
+\end{enumerate}
+
+    \hypertarget{ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux43dux43eux435-ux43fux440ux43eux441ux442ux440ux430ux43dux441ux442ux432ux43e}{%
+\subsection{Вероятностное
+пространство}\label{ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux43dux43eux435-ux43fux440ux43eux441ux442ux440ux430ux43dux441ux442ux432ux43e}}
+
+\textbf{Определение.} Тройка объектов
+
+\[ \left( \Omega, \mathcal{F}, \mathrm{P} \right), \]
+
+где \(\Omega\) --- множество элементарных исходов, \(\mathcal{F}\) ---
+\(\sigma\)-алгебра его подмножеств и \(\mathrm{P}\) --- вероятностная
+мера на \(\mathcal{F}\), называется \emph{вероятностным пространством}.
+
+    \hypertarget{ux437ux430ux43cux435ux447ux430ux43dux438ux44f}{%
+\subsection{Замечания}\label{ux437ux430ux43cux435ux447ux430ux43dux438ux44f}}
+
+\hypertarget{ux43fux43eux441ux442ux440ux43eux435ux43dux438ux435-ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux43dux43eux433ux43e-ux43fux440ux43eux441ux442ux440ux430ux43dux441ux442ux432ux430}{%
+\paragraph{Построение вероятностного
+пространства}\label{ux43fux43eux441ux442ux440ux43eux435ux43dux438ux435-ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux43dux43eux433ux43e-ux43fux440ux43eux441ux442ux440ux430ux43dux441ux442ux432ux430}}
+
+При построении вероятностных моделей в конкретных ситуациях выделение
+пространства элементарных событий \(\Omega\) и алгебры событий
+\(\mathcal{F}\), как правило, не является сложной задачей. При этом в
+элементарной теории вероятностей в качестве алгебры \(\mathcal{F}\)
+обычно берется алгебра \emph{всех} подмножеств \(\Omega\). Труднее
+обстоит дело с вопросом о том, как задавать вероятности элементарных
+событий. В сущности, ответ на этот вопрос лежит вне рамок теории
+вероятностей, и мы его подробно не рассматриваем, считая, что основной
+нашей задачей является не вопрос о том, как приписывать исходам те или
+иные вероятности, а \emph{вычисление} вероятностей сложных событий
+(событий из \(\mathcal{F}\)) по вероятностям элементарных событий.
+
+С математической точки зрения ясно, что в случае конечного пространства
+элементарных событий с помощью приписывания исходам
+\(\omega_1, \ldots , \omega_N\) неотрицательных чисел
+\(p_1, \ldots , p_N\), удовлетворяющих условию
+\(p_1 + \ldots + p_N = 1\), мы получаем все мыслимые (конечные)
+вероятностные пространства.
+
+\emph{Правильность} же назначенных для конкретной ситуации значений
+\(p_1, \ldots , p_N\) может быть до известной степени проверена с
+помощью \emph{закона больших чисел}, согласно которому в длинных сериях
+«независимых» экспериментов, происходящих при одинаковых условиях,
+частоты появления элементарных событий «близки» к их вероятностям.
+
+    \hypertarget{ux442ux430ux43a-ux447ux442ux43e-ux436ux435-ux442ux430ux43aux43eux435-ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux44c}{%
+\paragraph{Так что же такое
+вероятность?}\label{ux442ux430ux43a-ux447ux442ux43e-ux436ux435-ux442ux430ux43aux43eux435-ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux44c}}
+
+\textbf{Классическое определение вероятности.} Это то, чему нас учат в
+школе. Оно основано на симметрии монет, костей, перетасованных колод
+карт и так далее и может быть сформулировано как «отношение числа
+благоприятных исходов к числу всех исходов, если все исходы
+равновозможны». Например, вероятность выпадения единицы на правильной
+кости равна 1/6, потому что возможны 6 исходов, а нас устраивает один.
+Однако это определение в какой-то степени носит круговой характер,
+поскольку прежде мы должны уяснить, что значит равновозможны.
+
+\textbf{«Перечислительная» вероятность.} Предположим, в ящике лежат три
+белых и четыре черных носка. Если вытаскивать носок случайным образом,
+то чему равна вероятность, что он белый? Ответ 3/7 можно получить путем
+простого перечисления всех возможностей. Многие из нас страдали от таких
+вопросов в школе, и здесь мы фактически имеем дело с расширением
+рассмотренной выше классической идеи, где требуется случайный выбор из
+группы физических объектов. Мы уже использовали эту идею при описании
+случайного выбора элемента данных из общей генеральной совокупности.
+
+\textbf{Вероятность как частота.} Такое определение говорит о
+вероятности как о доле случаев, когда интересующее нас событие наступает
+в бесконечной последовательности идентичных экспериментов --- в точности
+так как при моделировании двух вариантов игры шевалье де Мере. Для
+бесконечно повторяющихся событий это может быть разумно (хотя бы
+теоретически), но как насчет уникальных одноразовых событий, например
+скачек или завтрашней погоды? На деле практически любая реальная
+ситуация даже в принципе не может быть бесконечно воспроизводимой.
+
+\textbf{Субъективная, или «личная», вероятность.} Это степень веры
+конкретного человека в какое-либо событие, основанная на его нынешних
+знаниях. Субъективная вероятность означает, что любая численная
+вероятность фактически \emph{строится} в соответствии с тем, что
+известно в нынешней ситуации, --- и на самом деле вероятность вообще не
+«существует» (за исключением, возможно, субатомного уровня). Такой
+подход лежит в основе \textbf{байесовской} школы статистики.
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \hypertarget{ux43fux440ux438ux43cux435ux440ux44b}{%
+\section{Примеры}\label{ux43fux440ux438ux43cux435ux440ux44b}}
+
+    \hypertarget{ux431ux438ux43dux43eux43cux438ux430ux43bux44cux43dux43eux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux435}{%
+\subsection{Биномиальное
+распределение}\label{ux431ux438ux43dux43eux43cux438ux430ux43bux44cux43dux43eux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux435}}
+
+Предположим, что монета подбрасывается \(n\) раз и результат наблюдений
+записывается в виде упорядоченного набора \((a_1, \ldots, a_n)\), где
+\(a_i = 1\) в случае появления «герба» («успех») и \(a_i = 0\) в случае
+появления «решетки» («неуспех»). Пространство всех исходов имеет
+следующую структуру:
+\[ \Omega= \left\{ \omega: \omega = (a_1, \ldots, a_n), \quad a_i = 0 \; \mathrm{или} \; 1 \right\}. \]
+
+Припишем каждому элементарному событию \(\omega = (a_1, \ldots, a_n)\)
+вероятность («вес») \[ p(\omega) = p^{\sum a_i} q^{n-\sum a_i}, \] где
+неотрицательные числа \(p\) и \(q\) таковы, что \(p + q = 1\).
+
+Итак, пространство \(\Omega\) вместе с системой \(\mathcal{A}\) всех его
+подмножеств и вероятностями
+\(\mathrm{P}(A) = \sum\limits_{\omega \in A}p(\omega), \; A \in \mathcal{A}\)
+(в частности,
+\(\mathrm{P}(\{\omega\}) = p(\omega), \; \omega \in \Omega\)) определяет
+некоторую вероятностную модель. Естественно назвать её
+\emph{вероятностной моделью, описывающей \(n\)-кратное подбрасывание
+монеты}.
+
+Введём в рассмотрение события \[ 
+    A_k = \left\{\omega: \omega=(a_1, \ldots, a_n), a_1 + \ldots + a_n = k\right\}, \quad k = 0, 1, \ldots, n,
+\] означающие, что произойдет в точности \(k\) «успехов». Тогда
+вероятность события \(A_k\) равна
+\[ \mathrm{P}(A_k) = C_n^k p^k q^{n-k}, \] причём
+\(\sum\limits_{k=0}^n \mathrm{P}(A_k) = 1\).
+
+Набор вероятностей \(\{\mathrm{P}(A_0), \ldots,\mathrm{P}(A_n)\}\)
+называется \emph{биномиальным распределением} (числа «успехов» в выборке
+объёма \(n\)).
+
+    \hypertarget{ux433ux438ux43fux435ux440ux433ux435ux43eux43cux435ux442ux440ux438ux447ux435ux441ux43aux43eux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux435}{%
+\subsection{Гипергеометрическое
+распределение}\label{ux433ux438ux43fux435ux440ux433ux435ux43eux43cux435ux442ux440ux438ux447ux435ux441ux43aux43eux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux435}}
+
+Рассмотрим урну, содержащую \(N\) шаров, из которых \(M\) шаров имеют
+белый цвет. Предположим, что осуществляется выбор без возвращения объёма
+\(n < N\). Вероятность события \(B_m\), состоящего в том, что \(m\)
+шаров из выборки имеют белый цвет равна
+
+\[ \mathrm{P}(B_m) = \dfrac{C_M^m C_{N-M}^{n-m}}{C_N^n}. \]
+
+Набор вероятностей \(\{\mathrm{P}(B_0), \ldots,\mathrm{P}(B_n)\}\) носит
+название многомерного гипергеометрического распределения.
+
+    \hypertarget{ux43eux446ux435ux43dux43aux430-ux43cux430ux43aux441ux438ux43cux430ux43bux44cux43dux43eux433ux43e-ux43fux440ux430ux432ux434ux43eux43fux43eux434ux43eux431ux438ux44f}{%
+\section{Оценка максимального
+правдоподобия}\label{ux43eux446ux435ux43dux43aux430-ux43cux430ux43aux441ux438ux43cux430ux43bux44cux43dux43eux433ux43e-ux43fux440ux430ux432ux434ux43eux43fux43eux434ux43eux431ux438ux44f}}
+
+\emph{Задача об оценке генеральной совокупности по выборке}
+
+Пусть \(N\) --- размер некоторой популяции, который требуется оценить
+«минимальными средствами» без простого пересчета всех элементов этой
+совокупности. Подобного рода вопрос интересен, например, при оценке
+числа жителей в той или иной стране, городе и т. д.
+
+В 1786 г. Лаплас для оценки числа \(N\) жителей Франции предложил
+следующий метод.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Выберем некоторое число \(M\), элементов популяции и пометим их.
+\item
+  Возвратим их в основную совокупность и предположим, что они «хорошо
+  перемешаны» с немаркированными элементами.
+\item
+  После этого возьмём из «перемешанной» популяции \(n\) элементов.
+\item
+  Пусть среди них \(m\) элементов оказались маркированными.
+\end{enumerate}
+
+Вероятность \(\mathrm{P}(B_m(N))\) задается формулой
+гипергеометрического распределения: \[
+    \mathrm{P}(B_m(N)) = \frac{C_M^m C_{N-M}^{n-m}}{C_N^n}. \tag{1}\label{eq:prob}
+\]
+
+Нам известны числа \(M\), \(n\) и \(m\), а \(N\) (размер популяциии) ---
+нет, его требуется оценить.
+
+Для каждого частного набора наблюдений \(M\), \(n\) и \(m\) значение
+\(N\), при котором вероятность \(\mathrm{P}(B_m(N))\) максимальна,
+называется \textbf{оценкой максимального правдоподобия}. Обозначим
+наиболее правдоподобное значение через \(\hat{N}\).
+
+Можно показать, что \(\hat{N}\) определяется формулой (\([\cdot]\) ---
+целая часть):
+\[ \hat{N} = \left[\dfrac{Mn}{m}\right]. \tag{2}\label{eq:max} \]
+
+\begin{quote}
+\emph{Задание.} Получить формулу \(\eqref{eq:max}\).\\
+Подсказка: можно воспользоваться формулой Стирлинга
+\(n! \sim \sqrt{2 \pi n}\left( \dfrac{n}{e} \right)^n\).
+\end{quote}
+
+    \hypertarget{ux43fux440ux438ux43cux435ux440}{%
+\subsection{Пример}\label{ux43fux440ux438ux43cux435ux440}}
+
+Применим метод максимального правдоподобия для оценки количества рыб в
+озере. Пусть, например, \(M=1000\), \(n=1000\), а \(m=100\). Тогда всё,
+что нам достоверно известно о количестве рыб, это
+\(N \ge n + M - m = 1900\). Вообще говоря, не исключено, что в озере их
+ровно \(1900\). Однако, отправляясь от этой гипотезы, мы придём к
+выводу, что случилось событие фантастически малой вероятности.
+Действительно, вероятность того, что выборка объёмом \(n=1000\) из
+генеральной совокупности объёма \(N=1900\) будет содержать \(m=100\)
+маркированных объектов, если общее число маркированных объектов
+\(M=1000\), по формуле \eqref{eq:prob} равна \[
+    \mathrm{P}(B_{100}(1900)) = \frac{C_{1000}^{100} C_{900}^{900}}{C_{1900}^{1000}} = \frac{(1000!)^2}{100! \, 1900!} \sim 10^{-430}.
+\]
+
+Аналогичное рассуждение заставляет нас откинуть гипотезу о том, что
+\(N\) очень велико, скажем равно миллиону
+(\(\mathrm{P}(B_{100}(10^6)) \sim 10^{-163}\)).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{mpmath}
+\PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k+kn}{import} \PY{n}{hypergeom}
+
+\PY{n}{P\PYZus{}1e2} \PY{o}{=} \PY{n}{mpmath}\PY{o}{.}\PY{n}{fac}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{/} \PY{n}{mpmath}\PY{o}{.}\PY{n}{fac}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)} \PY{o}{/} \PY{n}{mpmath}\PY{o}{.}\PY{n}{fac}\PY{p}{(}\PY{l+m+mi}{1900}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{P\PYZus{}1e2}\PY{p}{)}
+
+\PY{n}{P\PYZus{}1e6} \PY{o}{=} \PY{n}{hypergeom}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mf}{1e6}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{P\PYZus{}1e6}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5.35146651961926e-430
+1.6996195526413255e-163
+    \end{Verbatim}
+
+    Обозначим вероятность события \(B_{100}(N)\) через \(P(N)\) и построим
+её зависимость от \(N\).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{P}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{hypergeom}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Generate data}
+\PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{5000}\PY{p}{,} \PY{l+m+mi}{28000}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+\PY{n}{Y} \PY{o}{=} \PY{n}{P}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Show data}
+\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}N\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}P(N)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.7\linewidth}{0.7\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Find maximum likelihood estimation}
+\PY{n}{mle\PYZus{}idx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+\PY{n}{x\PYZus{}mle} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{mle\PYZus{}idx}\PY{p}{]}
+\PY{n}{y\PYZus{}mle} \PY{o}{=} \PY{n}{Y}\PY{p}{[}\PY{n}{mle\PYZus{}idx}\PY{p}{]}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}mle}\PY{p}{,} \PY{n}{y\PYZus{}mle}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10000 0.044289171719937244
+    \end{Verbatim}
+
+    В нашем примере оценкой максимального правдоподобия для количества рыб в
+озере является число \(\hat{N} = 10^4\), а вероятность соответствующего
+события \(\mathrm{P}(B_{100}(10^4)) \approx 0.044\).
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \hypertarget{ux443ux441ux43bux43eux432ux43dux430ux44f-ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux44c.-ux43dux435ux437ux430ux432ux438ux441ux438ux43cux43eux441ux442ux44c}{%
+\section{Условная вероятность.
+Независимость}\label{ux443ux441ux43bux43eux432ux43dux430ux44f-ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux44c.-ux43dux435ux437ux430ux432ux438ux441ux438ux43cux43eux441ux442ux44c}}
+
+\hypertarget{ux443ux441ux43bux43eux432ux43dux430ux44f-ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux44c}{%
+\subsection{Условная
+вероятность}\label{ux443ux441ux43bux43eux432ux43dux430ux44f-ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux44c}}
+
+Игральная кость подбрасывается один раз. Известно, что выпало более трёх
+очков. Какова при этом вероятность того, что выпало нечётное число
+очков?
+
+Пусть событие \(A = \{4, 5, 6\}\) означает, что выпало более трёх очков,
+событие \(B = \{1, 3, 5\}\) --- выпало нечётное число очков. Как
+понимать вероятность события \(B\), если известно, что \(A\) случилось?
+Знаем, что произошло событие \(A\), но всё равно не знаем, что именно
+выпало на кости. Однако теперь возможностей осталось только три : могло
+выпасть 4, 5 или 6 очков. Событию \(B\) из этих равновозможных исходов
+благоприятен единственный исход: выпадение пяти очков. Поэтому искомая
+вероятность равна \(1/3\).
+
+Итак, при вычислении условной вероятности события \(B\) при случившемся
+событии \(A\) мы ищем долю исходов, благоприятствующих \(B\), среди всех
+исходов события \(A\). Эту условную вероятность будем обозначать
+\(\mathrm{P}(B|A)\).
+
+Дадим теперь определение условной вероятности, согласующееся с
+интуитивными представлениями о ней.
+
+\textbf{Определение.} Условной вероятностью события \(B\) при условии
+события \(A\) с \(\mathrm{P}(A)>0\) называется величина
+\[ \mathrm{P}(B|A) = \dfrac{\mathrm{P}(AB)}{\mathrm{P}(A)}. \]
+
+    \hypertarget{ux441ux432ux43eux439ux441ux442ux432ux430-ux443ux441ux43bux43eux432ux43dux43eux439-ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux438}{%
+\paragraph{Свойства условной
+вероятности}\label{ux441ux432ux43eux439ux441ux442ux432ux430-ux443ux441ux43bux43eux432ux43dux43eux439-ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux438}}
+
+Все общие теоремы о вероятностях верны также и для условных
+вероятностей, если эти условные вероятности берутся при одном и том же
+условии \(A\).
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(\mathrm{P}(A|A) = 1\),
+\item
+  \(\mathrm{P}(\emptyset|A) = 0\),
+\item
+  \(\mathrm{P}(B|A) = 1\), \(B \supseteq A\),
+\item
+  \(\mathrm{P}(B_1 + B_2|A) = \mathrm{P}(B_1|A) + \mathrm{P}(B_2|A) - \mathrm{P}(B_1 B_2|A)\).
+\end{enumerate}
+
+\begin{quote}
+\textbf{Пример.} Рассмотрим семьи, имеющие двух детей. Спрашивается,
+какова вероятность того, что в семье оба ребенка мальчики, в
+предположении, что: 1. старший ребенок --- мальчик (\emph{1/2}); 2. по
+крайней мере один из детей --- мальчик (\emph{1/3})?
+\end{quote}
+
+    \hypertarget{ux444ux43eux440ux43cux443ux43bux430-ux43fux43eux43bux43dux43eux439-ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux438}{%
+\subsection{Формула полной
+вероятности}\label{ux444ux43eux440ux43cux443ux43bux430-ux43fux43eux43bux43dux43eux439-ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux438}}
+
+Рассмотрим \emph{полную группу несовместимых событий}
+\(\mathcal{D} = \{A_1, \dots, A_n\}\). Имеет место \textbf{формула
+полной вероятности}
+\[ \mathrm{P}(B) = \sum_{i=1}^n \mathrm{P}(B|A_i) \mathrm{P}(A_i). \]
+
+\begin{quote}
+\textbf{Пример.} В урне имеется \(M\) шаров, среди которых \(m\)
+«счастливых». Спрашивается, какова вероятность извлечь на втором шаге
+«счастливый» шар (предполагается, что качество первого извлеченного шара
+неизвестно).
+\end{quote}
+
+Справедлива \textbf{формула умножения вероятностей}:
+\[ \mathrm{P}(AB) = \mathrm{P}(B|A) \mathrm{P}(A). \]
+
+Формула умножения вероятностей обобщается по индукции:
+\[ \mathrm{P}(A_1 \dots A_n) = \mathrm{P}(A_1) \mathrm{P}(A_2|A_1) \dots \mathrm{P}(A_n|A_1 \dots A_{n-1}). \]
+
+    \hypertarget{ux43dux435ux437ux430ux432ux438ux441ux438ux43cux43eux441ux442ux44c}{%
+\paragraph{Независимость}\label{ux43dux435ux437ux430ux432ux438ux441ux438ux43cux43eux441ux442ux44c}}
+
+\textbf{Определение.} События \(A\) и \(B\) называются
+\emph{независимыми} или \emph{статистически независимыми} (относительно
+вероятности \(\mathrm{P}\)), если
+\[ \mathrm{P}(AB) = \mathrm{P}(A) \cdot \mathrm{P}(B). \]
+
+    \hypertarget{ux442ux435ux43eux440ux435ux43cux430-ux431ux430ux439ux435ux441ux430}{%
+\subsection{Теорема
+Байеса}\label{ux442ux435ux43eux440ux435ux43cux430-ux431ux430ux439ux435ux441ux430}}
+
+    Из формул \(\mathrm{P}(B|A) = \dfrac{\mathrm{P}(AB)}{\mathrm{P}(A)}\) и
+\(\mathrm{P}(A|B) = \dfrac{\mathrm{P}(AB)}{\mathrm{P}(B)}\) получаем
+\textbf{формулу Байеса}:
+\[ \mathrm{P}(A|B) = \dfrac{\mathrm{P}(A) \mathrm{P}(B|A)}{\mathrm{P}(B)}. \]
+
+Если события \(A_1, \dots, A_n\) образуют разбиение \(\Omega\), то из
+формул полной вероятности и Байеса следует \textbf{теорема Байеса}:
+\[ \mathrm{P}(A_i|B) = \frac{\mathrm{P}(A_i) \mathrm{P}(B|A_i)}{\sum_{j=1}^{n} \mathrm{P}(A_j) \mathrm{P}(B|A_j)}. \]
+
+    В статистических применениях события \(H_1, \dots, H_n\) образующие
+«полную группу событий» (\(H_1 + \dots + H_n = \Omega\)), часто называют
+«гипотезами», а \(\mathrm{P}(H_i)\) --- \emph{априорной} вероятностью
+гипотезы \(H_i\). Условная вероятность \(\mathrm{P}(H_i|D)\) трактуется
+как \emph{апостериорная} вероятность гипотезы \(H_i\) после наступления
+события (наблюдения данных) \(D\).
+
+Формула Байеса даёт возможность получить ответ на вопрос о том, как
+изменится постериорная вероятность \(\mathrm{P}(H|D)\) гипотезы \(H\)
+при данных наблюдения \(D\) (т.е. оценка, полученная после изучения
+новых экспериментальных данных), при условии, что известны априорная
+вероятность этой гипотезы \(\mathrm{P}(H)\) (т.е. оценка, полученная без
+учета данных \(D\)), вероятность получения данных \(\mathrm{P}(D)\) и
+условная вероятность \(\mathrm{P}(D|H)\) получить данные \(D\), если
+гипотеза \(H\) выполнена.\\
+В этом случае величину \(\mathrm{P}(D|H)\) называют
+\emph{правдоподобием} гипотезы \(H\) с учётом данных \(D\).
+
+    \hypertarget{ux43fux440ux438ux43cux435ux440ux44b}{%
+\subsection{Примеры}\label{ux43fux440ux438ux43cux435ux440ux44b}}
+
+\textbf{Пример 1.}
+
+У вас в кармане три монеты: на одной два орла, на другой две решки,
+третья обычная. Вы наугад вытаскиваете монету, подбрасываете ее, и
+выпадает орёл. Какова вероятность, что на другой стороне монеты тоже
+орёл?
+
+Многие бы решили, что ответ --- \(1/2\), поскольку монета либо обычная,
+либо с двумя орлами, и вероятность выбрать одну из них одинакова.
+Существует много способов это проверить, но проще всего использовать
+идею с ожидаемыми количествами.
+
+Подумаем, чего можно ожидать, если проделать такой эксперимент шесть
+раз. В среднем каждая монета будет выбрана дважды, и каждая из сторон
+выпадет по разу. Орёл выпадает в трех случаях, причем в двух на второй
+стороне также будет орёл. Поэтому вероятность того, что на второй
+стороне монеты тоже орёл, равна \(2/3\), а не \(1/2\). По сути,
+выпадение орла повышает вероятность выбора монеты с двумя орлами, ведь у
+такой монеты есть два варианта упасть орлом вверх, а у симметричной ---
+только один.
+
+    \textbf{Пример 2.}
+
+Используемый в эксперименте детектор сложных молекул правильно различает
+молекулы \(A\) и \(B\) в \(90\,\%\) случаев, т.е.
+\(\mathrm{P}(a|A) = 0.9\), \(\mathrm{P}(b|B) = 0.9\), где \(a\) и \(b\)
+означают результат тестирования для соответствующей молекулы.
+Следовательно, вероятности ошибочных результатов равны
+\(\mathrm{P}(b|A) = \mathrm{P}(a|B) = 0.1\). Эти цифры характеризуют
+аппаратную надежность тестов. Предположим, что молекулы типов \(A\) и
+\(B\) в потоке частиц встречаются с вероятностями
+\(\mathrm{P}(A) = 0.95\) и \(\mathrm{P}(B) = 0.05\) соответственно.
+Какова вероятность \(\mathrm{P}(B|b)\) того, что молекула действительно
+имеет тип \(B\) при условии, что об этом свидетельствует результат
+тестирования \(b\)?
+
+\begin{align*}
+  \mathrm{P}(B|b) = \mathrm{P}(B) \dfrac{\mathrm{P}(b|B)}{\mathrm{P}(b)} 
+  &= \mathrm{P}(B) \dfrac{\mathrm{P}(b|B)}{\mathrm{P}(B)\mathrm{P}(b|B) + \mathrm{P}(A)\mathrm{P}(b|A)} \\
+  &= 0.05\dfrac{0.9}{0.05 \cdot 0.9 + 0.95 \cdot 0.1} = 0.321.
+\end{align*}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{p1} \PY{o}{=} \PY{l+m+mf}{0.05}\PY{o}{*}\PY{l+m+mf}{0.9}\PY{o}{/}\PY{p}{(}\PY{l+m+mf}{0.05}\PY{o}{*}\PY{l+m+mf}{0.9} \PY{o}{+} \PY{l+m+mf}{0.95}\PY{o}{*}\PY{l+m+mf}{0.1}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{p1}\PY{p}{)} 
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.32142857142857145
+    \end{Verbatim}
+
+    \textbf{Пример 3.}
+
+В задаче из примера 2 после первого детектора поставили такой же
+второй.\\
+Пусть оба детектора показывают результат «b»: \(b_1\) и \(b_2\). Как при
+этом изменится вероятность ложноположительного результата? Вероятность
+ошибки должна уменьшиться, но насколько именно?
+
+Применим формулу Байеса для события \(\{b_1 \cap b_2\}\):
+\[ \mathrm{P}(B|b_1 b_2) = \mathrm{P}(B) \dfrac{\mathrm{P}(b_1 b_2|B)}{\mathrm{P}(b_1 b_2)}. \]
+
+Обратим внимание, что события \(b_1\) и \(b_2\), не являясь независимыми
+сами по себе, являются независимыми для каждой из частиц по отдельности:
+\(\mathrm{P}(b_1 b_2) \ne \mathrm{P}(b_1) \mathrm{P}(b_2)\), но
+\(\mathrm{P}(b_1 b_2|B) = \mathrm{P}(b_1|B) \mathrm{P}(b_2|B)\).
+Поэтому
+\begin{align*}
+  \mathrm{P}(B|b_1 b_2) 
+  &= \mathrm{P}(B) \dfrac{\mathrm{P}(b_1|B) \mathrm{P}(b_2|B)}{\mathrm{P}(B)\mathrm{P}(b_1|B)\mathrm{P}(b_2|B) + \mathrm{P}(A)\mathrm{P}(b_1|A)\mathrm{P}(b_2|A)} \\
+  &= 0.05 \dfrac{0.9 \cdot 0.9}{0.05 \cdot 0.9 \cdot 0.9 + 0.95 \cdot 0.1 \cdot 0.1} = 0.81.
+\end{align*}
+
+
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{p2} \PY{o}{=} \PY{l+m+mf}{0.05}\PY{o}{*}\PY{l+m+mf}{0.9}\PY{o}{*}\PY{l+m+mf}{0.9}\PY{o}{/}\PY{p}{(}\PY{l+m+mf}{0.05}\PY{o}{*}\PY{l+m+mf}{0.9}\PY{o}{*}\PY{l+m+mf}{0.9} \PY{o}{+} \PY{l+m+mf}{0.95}\PY{o}{*}\PY{l+m+mf}{0.1}\PY{o}{*}\PY{l+m+mf}{0.1}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{p2}\PY{p}{)} 
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.81
+    \end{Verbatim}
+
+    \hypertarget{ux43eux442ux43dux43eux448ux435ux43dux438ux435-ux448ux430ux43dux441ux43eux432-ux438-ux43eux442ux43dux43eux448ux435ux43dux438ux435-ux43fux440ux430ux432ux434ux43eux43fux43eux434ux43eux431ux438ux44f}{%
+\subsection{Отношение шансов и отношение
+правдоподобия}\label{ux43eux442ux43dux43eux448ux435ux43dux438ux435-ux448ux430ux43dux441ux43eux432-ux438-ux43eux442ux43dux43eux448ux435ux43dux438ux435-ux43fux440ux430ux432ux434ux43eux43fux43eux434ux43eux431ux438ux44f}}
+
+Рассмотрим две конкурирующие гипотезы \(H_1\) и \(H_2\).\\
+\emph{Отношение правдоподобия} --- это вероятность некоторого факта
+\(D\) при условии гипотезы \(H_1\), делённая на вероятность того же
+факта при условии гипотезы \(H_2\):
+\(LR = \dfrac{\mathrm{P}(D|H_1)}{\mathrm{P}(D|H_2)}\).
+
+Отношение правдоподобия фактически сравнивает относительную поддержку,
+предоставляемую неким фактом (свидетельством, доказательством) для двух
+конкурирующих гипотез, например, означающих виновность и невиновность.
+
+\emph{Шансы} на какое-то событие --- это вероятность того, что оно
+произойдет, делённая на вероятность того, что оно не произойдет.
+Например, если мы бросаем игральную кость, то шансы на выпадение
+шестерки --- 1 к 5.
+
+    Вычислим шансы в эксперименте из \textbf{примера 2}: \[
+  \dfrac{\mathrm{P}(B|b)}{\mathrm{P}(A|b)} = \dfrac{\frac{\mathrm{P}(B)\mathrm{P}(b|B)}{\mathrm{P}(b)}} {\frac{\mathrm{P}(A)\mathrm{P}(b|A)}{\mathrm{P}(b)}} = \frac{\mathrm{P}(B)}{\mathrm{P}(A)} \cdot \dfrac{\mathrm{P}(b|B)}{\mathrm{P}(b|A)}. \tag{3}\label{eq:chances} 
+\]
+
+Множитель \(\mathrm{P}(b)\) удачно сократился и формула
+\eqref{eq:chances} в итоге выражает апостериорные шансы гипотезы через её
+начальные шансы и отношение правдоподобия.
+
+\[
+  c_1 = \dfrac{\mathrm{P}(B|b)}{\mathrm{P}(A|b)} = \frac{0.05}{0.95} \cdot \dfrac{0.9}{0.1} = 0.05263 \cdot 9 = 0.474, \\
+  \mathrm{P}(B|b) = \dfrac{c_1}{1+c_1} = 0.321.
+\]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{c1} \PY{o}{=} \PY{l+m+mf}{0.05}\PY{o}{/}\PY{l+m+mf}{0.95} \PY{o}{*} \PY{l+m+mf}{0.9}\PY{o}{/}\PY{l+m+mf}{0.1}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{c1}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{c1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{c1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.47368421052631576
+0.32142857142857145
+    \end{Verbatim}
+
+    Продолжим с экспериментом из \textbf{примера 3}.
+
+Формулу \eqref{eq:chances} можно применить ещё раз, тогда апостериорные шансы после первого факта станут априорными перед учётом второго факта (при условии его независимости).
+
+В итоге получаем красивый результат: при объединении всех этапов процесс
+эквивалентен \emph{умножению независимых отношений правдоподобия} и
+формированию общего составного отношения правдоподобия. А апостериорные
+шансы равны произведению априорных шансов на общее отношение
+правдоподобия всех фактов.
+
+\[
+  c_2 = \dfrac{\mathrm{P}(B|b_1 b_2)}{\mathrm{P}(A|b_1 b_2)} = \dfrac{\mathrm{P}(B)}{\mathrm{P}(A)} \cdot \dfrac{\mathrm{P}(b_1|B)}{\mathrm{P}(b_1|A)} \cdot \dfrac{\mathrm{P}(b_2|B)}{\mathrm{P}(b_2|A)}
+  = \dfrac{0.05}{0.95} \cdot \frac{0.9}{0.1} \cdot \dfrac{0.9}{0.1} = 0.05263 \cdot 81 = 4.263.
+\]
+
+В итоге искомая условная вероятность равна
+\[ \mathrm{P}(B|b_1 b_2) = \dfrac{c_2}{1+c_2} = 0.81. \]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{11}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{c2} \PY{o}{=} \PY{n}{c1} \PY{o}{*} \PY{l+m+mf}{0.9}\PY{o}{/}\PY{l+m+mf}{0.1}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{c2}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{c2}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{c2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+4.263157894736842
+0.8099999999999999
+    \end{Verbatim}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \hypertarget{ux438ux441ux442ux43eux447ux43dux438ux43aux438}{%
+\section{Источники}\label{ux438ux441ux442ux43eux447ux43dux438ux43aux438}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \emph{Ширяев А.Н.} Вероятность --- 1. --- М.: МЦНМО, 2007. --- 517 с.
+\item
+  \emph{Чернова Н. И.} Теория вероятностей. Учебное пособие. ---
+  Новосибирск, 2007. --- 160 с.
+\item
+  \emph{Феллер В.} Введение в теорию вероятностей и её приложения. ---
+  М.: Мир, 1964. --- 498 с.
+\item
+  \emph{Шпигельхалтер Д.} Искусство статистики. Как находить ответы в
+  данных. --- М.: Манн, Иванов и Фербер, 2021. --- 448 с.
+\end{enumerate}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
