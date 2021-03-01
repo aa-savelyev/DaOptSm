@@ -1,5 +1,4 @@
 .ipynb_checkpoints
 *.pyc
 /pix/*/_mat
-/projects
 /mat

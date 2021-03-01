@@ -505,7 +505,7 @@ plt.show()
 
 # ## Источники ##
 #
-# 1. Лабинцев А. [Scipy, оптимизация.](https://habr.com/ru/post/439288/)
+# 1. *Лабинцев А.* [Scipy, оптимизация.](https://habr.com/ru/post/439288/)
 # 1. *Воронцов К.В.* [Математические методы обучения по прецедентам (теория обучения машин)](http://www.machinelearning.ru/wiki/images/6/6d/Voron-ML-1.pdf). &mdash; 141 c.
 # 1. *Strang G.* Linear algebra and learning from data. &mdash; Wellesley-Cambridge Press, 2019. &mdash; 432 p.
 
