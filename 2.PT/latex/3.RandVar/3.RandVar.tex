@@ -155,9 +155,8 @@
     % Document parameters
     % Document title
     \title{
-    Лекция 2 \\
-    Необходимые сведения из теории вероятностей --- 2 \\
-    \emph{\large Математические основания теории вероятностей}
+    {\Large Лекция 3} \\
+    Случайные величины и их распределения
   }
     
     
@@ -376,139 +375,16 @@
     
 
 \begin{document}
-    
+
 \maketitle
-%\thispagestyle{empty}
+\tableofcontents
+\pagebreak
 
-
-\begin{quote}
-Теория вероятностей как математическая дисциплина может и должна быть
-аксиоматизирована совершенно в том же смысле, как геометрия и алгебра.
-Это означает, что, после того как даны названия изучаемым объектам и их
-основным отношениям, а также аксиомы, которым эти соотношения должны
-подчиняться, все дальнейшее изложение должно основываться исключительно
-лишь на этих аксиомах, не опираясь на обычное конкретное значение этих
-объектов и их отношений.\\
-А. Н. Колмогоров. «Основные понятия теории вероятностей»
-\end{quote}
-
-%\tableofcontents
-%\pagebreak
-
-
-
-    \hypertarget{ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux43dux43eux435-ux43fux440ux43eux441ux442ux440ux430ux43dux441ux442ux432ux43e}{%
-\section{Вероятностное
-пространство}\label{ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux43dux43eux435-ux43fux440ux43eux441ux442ux440ux430ux43dux441ux442ux432ux43e}}
-
-Согласно аксиоматике Колмогорова первоначальным объектом теории
-вероятностей является вероятностное пространство
-\((\Omega, \mathcal{F}, \mathrm{P})\). Здесь \((\Omega, \mathcal{F})\)
---- измеримое пространство, т. е. множество \(\Omega\), состоящее из
-элементарных событий \(\omega\), с выделенной на нём системой
-\(\mathcal{F}\) его подмножеств (событий), образующих
-\(\sigma\)-алгебру, а \(\mathrm{P}\) --- вероятностная мера
-(вероятность), определённая на множествах из \(\mathcal{F}\).
-
-А теперь подробнее.
-
-    \hypertarget{ux430ux43bux433ux435ux431ux440ux430}{%
-\subsection{Алгебра}\label{ux430ux43bux433ux435ux431ux440ux430}}
-
-В данной главе нам потребуется расширить понятие \emph{алгебры событий},
-которое мы использовали в рамках элементарной теории веротяностей.
-
-\hypertarget{sigma-ux430ux43bux433ux435ux431ux440ux430-ux441ux43eux431ux44bux442ux438ux439}{%
-\paragraph{\texorpdfstring{\(\sigma\)-алгебра
-событий}{\textbackslash{}sigma-алгебра событий}}\label{sigma-ux430ux43bux433ux435ux431ux440ux430-ux441ux43eux431ux44bux442ux438ux439}}
-
-\textbf{Определение.} Множество \(\mathcal{F}\), элементами которого
-являются подмножества множества \(\Omega\) называется
-\(\sigma\)-\emph{алгеброй}, если оно удовлетворяет следующим условиям:
-1. \(\Omega \in \mathcal{F}\) (\(\sigma\)-алгебра содержит достоверное
-событие); 2. если \(A \in \mathcal{F}\), то
-\(\overline{A} \in \mathcal{F}\) (вместе с любым множеством
-\(\sigma\)-алгебра содержит противоположное к нему); 3. если
-\(A_1,\,A_2,\,\ldots \in \mathcal{F}\), то
-\(\bigcup\limits_{i=1}^{\infty}A_i \in \mathcal{F}\) (вместе с любым
-\emph{счётным} набором событий \(\sigma\)-алгебра содержит их
-объединение)
-
-\hypertarget{ux431ux43eux440ux435ux43bux435ux432ux441ux43aux430ux44f-sigma-ux430ux43bux433ux435ux431ux440ux430-ux441ux43eux431ux44bux442ux438ux439}{%
-\paragraph{\texorpdfstring{борелевская \(\sigma\)-алгебра
-событий}{борелевская \textbackslash{}sigma-алгебра событий}}\label{ux431ux43eux440ux435ux43bux435ux432ux441ux43aux430ux44f-sigma-ux430ux43bux433ux435ux431ux440ux430-ux441ux43eux431ux44bux442ux438ux439}}
-
-Борелевской \(\sigma\)-алгеброй в \(\mathbb{R}\) называется \emph{самая
-маленькая} среди всех возможных \(\sigma\)-алгебр, содержащих
-\emph{любые} интервалы на прямой.
-
-\textbf{Определение.} Минимальной \(\sigma\)-алгебр, содержащей набор
-множеств \(\mathcal{A}\), называется пересечение всех \(\sigma\)-алгебр,
-содержащих \(\mathcal{A}\).
-
-Пусть \(\Omega = \mathbb{R}\), а множество \(\mathcal{A}\) состоит из
-всевозможных открытых интервалов \((a, b)\), где
-\(a < b : \mathcal{A} = \left\{ (a, b) | -\infty < a < b < \infty \right\}\).
-
-\textbf{Определение.} Минимальная \(\sigma\)-алгебра, содержащая
-множество \(\mathcal{A}\) всех интервалов на вещественной прямой,
-называется \emph{борелевской} \(\sigma\)-алгеброй в \(\mathbb{R}\) и
-обозначается \(\mathcal{B}(\mathbb{R})\).
-
-Если множество \(B\) содержится в \(\mathcal{B}(\mathbb{R}^n)\), то
-говорят, что \(B\) --- \emph{борелевское множество}. Перечислим
-некоторые множества на прямой, содержащиеся в
-\(\mathcal{B}(\mathbb{R})\). Таковы все привычные нам множества:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \(\mathbb{R} \in \mathcal{B}(\mathbb{R})\);
-\item
-  Все интервалы на прямой принадлежат \(\mathcal{B}(\mathbb{R})\);
-\item
-  Все одноточечные множества \(\{x\}\), где \(x \in \mathbb{R}\),
-  принадлежат \(\mathcal{B}(\mathbb{R})\);
-\item
-  \(\mathbb{N} \in \mathcal{B}(\mathbb{R})\),
-  \(\mathbb{Q} \in \mathcal{B}(\mathbb{R})\).
-\end{enumerate}
-
-Другими словами, получить множество, не содержащееся в
-\(\mathcal{B}(\mathbb{R})\) не так-то просто, для этого требуются
-специальные построения.
-
-    \hypertarget{ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux43dux430ux44f-ux43cux435ux440ux430}{%
-\subsection{Вероятностная
-мера}\label{ux432ux435ux440ux43eux44fux442ux43dux43eux441ux442ux43dux430ux44f-ux43cux435ux440ux430}}
-
-\textbf{Определение.} Пусть \(\Omega\) --- непустое множество, а
-\(\mathcal{F}\) --- \(\sigma\)-алгебра его подмножеств. Функция
-\(\mathrm{P}: \mathcal{F} \rightarrow \mathbb{R}\) называется
-\emph{вероятностной мерой}, если она обладает следующими свойствами:
-
-\begin{enumerate}
-  \item \(\mathrm{P}(A) \ge 0\), \(A \in \mathcal{F}\) (неотрицательность);
-  \item \(\mathrm{P}\left( \bigcup\limits_{i=1}^{\infty}A_i \right) = \sum\limits_{i=1}^{\infty}\mathrm{P}(A_i)\), где \(A_i \in \mathcal{F}\), \(A_i \cap A_j = \emptyset\), \(i \ne j\) (счётная или \(\sigma\)-аддитивность)\\
-(для любого счётного набора попарно несовместных событий мера их
-объединения равна сумме их мер);
-  \item \(\mathrm{P}(\Omega) = 1\) (нормированность).
-\end{enumerate}
-
-\begin{quote}
-\emph{Замечание.} Существуют примеры неизмеримых множеств, например,
-\emph{множество Витали}.
-\end{quote}
 
     \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-    \hypertarget{ux441ux43bux443ux447ux430ux439ux43dux44bux435-ux432ux435ux43bux438ux447ux438ux43dux44b-ux438-ux438ux445-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}{%
-\section{Случайные величины и их
-распределения}\label{ux441ux43bux443ux447ux430ux439ux43dux44bux435-ux432ux435ux43bux438ux447ux438ux43dux44b-ux438-ux438ux445-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}}
-
-\hypertarget{ux43fux43eux43dux44fux442ux438ux435-ux441ux43bux443ux447ux430ux439ux43dux43eux439-ux432ux435ux43bux438ux447ux438ux43dux44b}{%
-\subsection{Понятие случайной
+    \hypertarget{ux43fux43eux43dux44fux442ux438ux435-ux441ux43bux443ux447ux430ux439ux43dux43eux439-ux432ux435ux43bux438ux447ux438ux43dux44b}{%
+\section{Понятие случайной
 величины}\label{ux43fux43eux43dux44fux442ux438ux435-ux441ux43bux443ux447ux430ux439ux43dux43eux439-ux432ux435ux43bux438ux447ux438ux43dux44b}}
 
 Пусть и \((\Omega, \mathcal{F})\) и \((E, \mathcal{B})\) --- два
@@ -531,24 +407,37 @@
 множества \(B \in \mathcal{B}(\mathbb{R})\) множество \(\xi^{-1}(B)\)
 является событием, т. е. принадлежит \(\sigma\)-алгебре \(\mathcal{F}\).
 
+И ещё раз другими словами:\\
+\textbf{Определение.} Функция \(\xi: \Omega \rightarrow \mathbb{R}\)
+называется \emph{случайной величиной}, если для любого
+\(x \in \mathbb{R}\) множество \(\{\omega : \xi(\omega) \le x\}\)
+принадлежит \(\sigma\)-алгебре \(\mathcal{F}\).
+
 \begin{quote}
-\emph{Замечание.} В рамках нашего курса можно смело считать, что любое
-множество элементарных исходов есть событие, и, следовательно, случайная
-величина есть \emph{произвольная функция} из \(\Omega\) в
-\(\mathbb{R}\).
+\textbf{Замечание.} Читатель, не желающий забивать себе голову
+абстракциями, связанными с \(\sigma\)-алгебрами событий и с
+измеримостью, может смело считать, что любое множество элементарных
+исходов есть событие, и, следовательно, случайная величина есть
+произвольная функция из \(\Omega\) в \(\mathbb{R}\).
 \end{quote}
 
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
     \hypertarget{ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f-ux441ux43bux443ux447ux430ux439ux43dux44bux445-ux432ux435ux43bux438ux447ux438ux43d}{%
-\subsection{Распределения случайных
+\section{Распределения случайных
 величин}\label{ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f-ux441ux43bux443ux447ux430ux439ux43dux44bux445-ux432ux435ux43bux438ux447ux438ux43d}}
+
+\hypertarget{ux444ux443ux43dux43aux446ux438ux44f-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}{%
+\subsection{Функция
+распределения}\label{ux444ux443ux43dux43aux446ux438ux44f-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}}
 
 Существуют различные типы распределений случайных величин. Вся
 вероятностная мера может быть сосредоточена в нескольких точках прямой,
 а может быть «размазана» по некоторому интервалу или по всей прямой. В
 зависимости от типа множества, на котором сосредоточена вероятностная
 мера, распределения делят на дискретные, абсолютно непрерывные,
-сингулярные и их смеси. Нас будут интересовать дискретные и абсолютно
-непрерывные случайные величины.
+сингулярные и их смеси. Нас будут интересовать \emph{дискретные} и
+\emph{абсолютно непрерывные} случайные величины.
 
 \textbf{Определение.} Вероятностная мера \(P_\xi\) на
 \((\mathbb{R}, \mathcal{B}(\mathbb{R}))\) c
@@ -559,6 +448,10 @@
 \textbf{Определение.} Функция
 \[ F_\xi(x) = \mathrm{P}\left\{ \omega: \xi(\omega) \le x \right\}, \quad x \in \mathbb{R} \]
 называется \emph{функцией распределения} случайной величины \(\xi\).
+
+    \hypertarget{ux434ux438ux441ux43aux440ux435ux442ux43dux44bux435-ux441ux43bux443ux447ux430ux439ux43dux44bux435-ux432ux435ux43bux438ux447ux438ux43dux44b}{%
+\subsection{Дискретные случайные
+величины}\label{ux434ux438ux441ux43aux440ux435ux442ux43dux44bux435-ux441ux43bux443ux447ux430ux439ux43dux44bux435-ux432ux435ux43bux438ux447ux438ux43dux44b}}
 
 \textbf{Определение.} Случайная величина \(\xi\) называется
 \emph{дискретной} (имеет \emph{дискретное распределение}), если она
@@ -572,11 +465,33 @@
 \[ \mathrm{P}\{\xi \in B\} \equiv P_\xi(B) = \sum\limits_{k:x_k \in B}p(x_k), \]
 где \(p(x_k) = \mathrm{P}\{\xi=x_k\}\).
 
+    \hypertarget{ux430ux431ux441ux43eux43bux44eux442ux43dux43e-ux43dux435ux43fux440ux435ux440ux44bux432ux43dux44bux435-ux441ux43bux443ux447ux430ux439ux43dux44bux435-ux432ux435ux43bux438ux447ux438ux43dux44b}{%
+\subsection{Абсолютно непрерывные случайные
+величины}\label{ux430ux431ux441ux43eux43bux44eux442ux43dux43e-ux43dux435ux43fux440ux435ux440ux44bux432ux43dux44bux435-ux441ux43bux443ux447ux430ux439ux43dux44bux435-ux432ux435ux43bux438ux447ux438ux43dux44b}}
+
 \textbf{Определение.} Случайная величина \(\xi\) называется
 \emph{абсолютно непрерывной}, если существует неотрицательная функция
-\(f=f_\xi(x)\), называемая \emph{плотностью}, такая, что
-\[ F_\xi(x) = \int\limits_{-\infty}^x f_\xi(t) dt, \quad x \in \mathbb{R}. \]
+\(f=f_\xi(x)\), называемая \emph{плотностью распределения}, такая, что
+\[ F_\xi(x) = \int\limits_{-\infty}^x f_\xi(t) dt, \quad \forall x \in \mathbb{R}. \]
 
+\textbf{Свойства:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(\forall x: f_\xi (x) \ge 0\);
+\item
+  \(\int\limits_{-\infty}^{\infty} f_\xi(t) dt = 1\).
+\end{enumerate}
+
+Эти два свойства полностью характеризуют класс плотностей.
+
+\textbf{Теорема.} Если функция \(f\) обладает свойствами (1) и (2), то
+существует вероятностное пространство и случайная величина \(\xi\) на
+нём, для которой \(f\) является плотностью распределения.
+
+\textbf{Борель!}\\
 Если \(\xi\) --- абсолютно непрерывная случайная величина с плотностью
 \(f_\xi(x)\), то для любого борелевского множества \(B\) имеет место
 равенство: \[ P_\xi(B) = \int\limits_B f_\xi(x)dx, \] где интеграл
@@ -609,8 +524,12 @@
 то \(\xi\) и \(\eta\) в отдельности также имеют абсолютно непрерывное
 распределение с плотностями:
 \[ f_{\xi}(x) = \int\limits_{-\infty}^{\infty} f_{\xi, \eta}(x, y)dy \quad \mathrm{и} \quad f_{\eta}(y) = \int\limits_{-\infty}^{\infty} f_{\xi, \eta}(x, y)dx. \]
-Соотвествующие распределения называются \emph{частными} или
+Соответствующие распределения называются \emph{частными} или
 \emph{маргинальными}.
+
+\begin{quote}
+Операция ``маргинализация''?
+\end{quote}
 
     \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -638,30 +557,179 @@
 \[ \mathrm{E}\xi = \int\limits_{-\infty}^{\infty} xdF_\xi(x) = \int\limits_{-\infty}^{\infty} xf_\xi(x)dx, \]
 если этот интеграл сходится абсолютно.
 
+\textbf{Свойства математического ожидания:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Если \(\xi \ge 0\), то \(\mathrm{E}\xi \ge 0\).
+\item
+  \(\mathrm{E}(a\xi +b\eta) = a\mathrm{E}\xi +b\mathrm{E}\eta\),
+  \(\hspace{0.5em}\) \(a\), \(b\) --- постоянные (\emph{линейность}).
+\item
+  Если \(\xi \ge \eta\), то \(\mathrm{E}\xi \ge \mathrm{E}\eta\).
+\item
+  \(|\mathrm{E}\xi| \le \mathrm{E}|\xi|\).
+\item
+  Если \(\xi\) и \(\eta\) независимы, то
+  \(\mathrm{E}\xi\eta = \mathrm{E}\xi \cdot \mathrm{E}\eta\).
+\item
+  \((\mathrm{E}|\xi\eta|)^2 \le \mathrm{E}\xi^2 \cdot \mathrm{E}\eta^2\)
+  (\emph{неравенство Коши--Буняковского--Шварца}).
+\end{enumerate}
+
+    \hypertarget{ux434ux438ux441ux43fux435ux440ux441ux438ux44f}{%
+\subsection{Дисперсия}\label{ux434ux438ux441ux43fux435ux440ux441ux438ux44f}}
+
+\textbf{Определение.} \emph{Дисперсией} случайной величины \(\xi\)
+называется величина
+\[ \mathrm{D} \xi = \mathrm{E} \left( \xi - \mathrm{E} \xi \right)^2. \]
+
+Величина \(\sigma_\xi = +\sqrt{\mathrm{D} \xi}\) называется
+\emph{стандартным отклонением} значений случайной величины \(\xi\) от её
+среднего значения \(\mathrm{E} \xi\).
+
+\textbf{Свойства дисперсии:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Дисперсию случайной величины \(\xi\) можно вычислить как разность
+  математического ожидания кавдрата величины и квадрата математического
+  ожидания:
+  \(\mathrm{D}\xi = \mathrm{E} \xi^2 - \left( \mathrm{E} \xi \right)^2\).
+\item
+  \(\mathrm{D}\xi \ge 0\).
+\item
+  \(\mathrm{D}(a + b\xi) = b^2 \mathrm{D}\xi\), \(\hspace{0.5em}\)
+  \(a\), \(b\) --- постоянные.
+\item
+  \(\mathrm{D}(\xi + \eta) = \mathrm{E} \left[ (\xi-\mathrm{E}\xi) + (\eta-\mathrm{E}\eta) \right]^2 = \mathrm{D}\xi + \mathrm{D}\eta + 2\mathrm{E}(\xi-\mathrm{E}\xi)(\eta-\mathrm{E}\eta)\)
+\end{enumerate}
+
+    \hypertarget{ux43aux43eux432ux430ux440ux438ux430ux446ux438ux44f}{%
+\subsection{Ковариация}\label{ux43aux43eux432ux430ux440ux438ux430ux446ux438ux44f}}
+
+\textbf{Определение.} Пусть \(\xi\) и \(\eta\) --- две случайные
+величины. Их \emph{ковариацией} называется величина \[
+    \mathrm{cov}(\xi, \eta) = \mathrm{E} (\xi-\mathrm{E}\xi)(\eta-\mathrm{E}\eta) = \mathrm{E}(\xi \eta) - \mathrm{E}\xi \mathrm{E}\eta.
+\]
+
+С учётом введённого обозначения для ковариации находим, что
+\[ \mathrm{D}(\xi+\eta) = \mathrm{D}\xi  + \mathrm{D}\eta +  2\mathrm{cov}(\xi, \eta).\]
+
+Если \(\mathrm{cov}\left( \xi, \eta \right) = 0\), то говорят, что
+случайные величины \(\xi\) и \(\eta\) \emph{некоррелированы}.\\
+Если \(\xi\) и \(\eta\) некоррелированы, то дисперсия суммы
+\(\mathrm{D}(\xi+\eta)\) равна сумме дисперсий:
+\[ \mathrm{D}(\xi+\eta) = \mathrm{D}\xi + \mathrm{D}\eta. \]
+
+\textbf{Замечание.} Из некоррелированности \(\xi\) и \(\eta\), вообще
+говоря, не следует их независимость. Проиллюстрируем этот факт следующим
+примером.
+
 \begin{quote}
-\emph{Замечание.} Определения и свойства дисперсии, ковариации и
-коэффициента корреляции случайных величин в \emph{общем случае} такие
-же, как и в случае \emph{простых} случайных величин (см. предыдущую
-главу).
+\textbf{Пример.} Пусть случайная величина \(\alpha\) принимает значения
+0, \(\pi/2\) и \(\pi\) с вероятностями 1/3. Рассмотрим две случайные
+величины \(\xi = \sin \alpha\) и \(\eta = \cos \alpha\).\\
+Величины \(\xi\) и \(\eta\) некоррелированы, однако они не только
+зависимы относительно вероятности, но и \emph{функционально зависимы}:
+\(\xi^2 + \eta^2 = 1\).
 \end{quote}
+
+    \hypertarget{ux43aux43eux44dux444ux444ux438ux446ux438ux435ux43dux442-ux43aux43eux440ux440ux435ux43bux44fux446ux438ux438}{%
+\subsection{Коэффициент
+корреляции}\label{ux43aux43eux44dux444ux444ux438ux446ux438ux435ux43dux442-ux43aux43eux440ux440ux435ux43bux44fux446ux438ux438}}
+
+\textbf{Определение.} Если \(\mathrm{D}\xi > 0\),
+\(\mathrm{D}\eta > 0\), то величина \[
+    \rho(\xi, \eta) = \dfrac{\mathrm{cov}(\xi, \eta)}{\sqrt{\mathrm{D}\xi \cdot \mathrm{D}\eta}} = \dfrac{\mathrm{cov}(\xi, \eta)}{\sigma_\xi \cdot \sigma_\eta}
+\] называется \emph{коэффициентом корреляции} случайных величин \(\xi\)
+и \(\eta\).
+
+Eсли \(\rho(\xi, \eta) = \pm 1\), то величины \(\xi\) и \(\eta\) линейно
+зависимы: \[ \eta =a \xi + b, \] где \(a>0\), если
+\(\rho(\xi, \eta) = 1\), \(a<0\), если \(\rho(\xi, \eta) = -1\).
+
+\textbf{Определение.} Говорят, что \(\xi\) и \(\eta\) отрицательно
+коррелированы, если \(\rho(\xi, \eta) < 0\); положительно коррелированы,
+если \(\rho(\xi, \eta) > 0\); некоррелированы, если
+\(\rho(\xi, \eta) = 0\).
 
     \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-%    \hypertarget{ux43bux438ux442ux435ux440ux430ux442ux443ux440ux430}{%
-%\section{Литература}\label{ux43bux438ux442ux435ux440ux430ux442ux443ux440ux430}}
-%
-%\begin{enumerate}
-%\def\labelenumi{\arabic{enumi}.}
-%\tightlist
-%\item
-%  Ширяев А.Н. Вероятность --- 1. М.: МЦНМО, 2007. 517 с.
-%\item
-%  Чернова Н.И. Теория вероятностей. Учебное пособие. Новосибирск, 2007.
-%  160 с.
-%\item
-%  Липцер Р.Ш., Ширяев А.Н. Статистика случайных процессов (нелинейная
-%  фильтрация и смежные вопросы). М.: Наука, 1974. 697 с.
-%\end{enumerate}
+    \hypertarget{ux43eux43fux442ux438ux43cux430ux43bux44cux43dux430ux44f-ux43eux446ux435ux43dux43aux430-ux441ux43bux443ux447ux430ux439ux43dux44bux445-ux432ux435ux43bux438ux447ux438ux43d}{%
+\section{Оптимальная оценка случайных
+величин}\label{ux43eux43fux442ux438ux43cux430ux43bux44cux43dux430ux44f-ux43eux446ux435ux43dux43aux430-ux441ux43bux443ux447ux430ux439ux43dux44bux445-ux432ux435ux43bux438ux447ux438ux43d}}
+
+Рассмотрим две случайные величины \(\xi\) и \(\eta\). Предположим, что
+наблюдению подлежит лишь случайная величина \(\xi\). Если величины
+\(\xi\) и \(\eta\) коррелированы, то можно ожидать, что знание значений
+\(\xi\) позволит вынести некоторые суждения и о значениях ненаблюдаемой
+величины \(\eta\).
+
+Всякую функцию \(f = f(\xi)\) от \(\xi\) будем называть \emph{оценкой}
+для \(\eta\). Будем говорить также, что \emph{оценка}
+\(f^\ast = f^\ast(\xi)\) \emph{оптимальна в среднеквадратическом
+смысле}, если
+\[ \mathrm{E}(\eta − f^\ast(\xi))^2 = \inf_f \mathrm{E}(\eta − f(\xi))^2. \]
+
+Покажем, как найти оптимальную оценку в классе \emph{линейных} оценок
+\(\lambda(\xi) = a + b\xi\). Для этого рассмотрим функцию
+\(g(a, b) = \mathrm{E}(\eta − (a+b\xi))^2\). Дифференцируя \(g(a, b)\)
+по \(a\) и \(b\), получаем \[
+\begin{split}
+    \frac{\partial g(a, b)}{\partial a} &= −2 \mathrm{E} \left[ \eta − (a+b\xi) \right], \\
+    \frac{\partial g(a, b)}{\partial b} &= −2 \mathrm{E} \left[ (\eta − (a+b\xi))\xi \right],
+\end{split}
+\] откуда, приравнивая производные к нулю, находим, что
+\emph{оптимальная} в среднеквадратическом смысле \emph{линейная} оценка
+есть \(\lambda^\ast (\xi) = a^\ast + b^\ast \xi\), где \[
+    a^\ast = \mathrm{E}\eta − b^\ast\mathrm{E}\xi, \quad b^\ast = \frac{\mathrm{cov}(\xi, \eta)}{\mathrm{D}\xi}.
+\]
+
+Иначе говоря, \[
+    \lambda^\ast(\xi) = \mathrm{E}\eta + \frac{\mathrm{cov}(\xi, \eta)}{\mathrm{D}\xi} (\xi - \mathrm{E}\xi).
+\]
+
+Величина \(\mathrm{E}(\eta − \lambda^\ast(\xi))^2\) называется
+\emph{среднеквадратической ошибкой} оценивания. Простой подсчёт
+показывает, что эта ошибка равна \[
+\Delta^\ast = \mathrm{E}(\eta − \lambda^\ast(\xi))^2 = \mathrm{D}\eta − \frac{\mathrm{cov}^2(\xi, \eta)}{\mathrm{D}\xi} = \mathrm{D}\eta \cdot [1 - \rho^2(\xi, \eta)].
+\]
+
+Таким образом, чем больше по модулю коэффициент корреляции
+\(\rho(\xi, \eta)\) между \(\xi\) и \(\eta\), тем меньше
+среднеквадратическая ошибка оценивания \(\Delta^\ast\). В частности,
+если \(|\rho(\xi, \eta)|=1\), то \(\Delta^\ast = 0\). Если же случайные
+величины \(\xi\) и \(\eta\) не коррелированы (т. е.
+\(\rho(\xi, \eta)=0\)), то \(\lambda^\ast(\xi) = \mathrm{E}\eta\). Таким
+образом, в случае отсутствия корреляции между \(\xi\) и \(\eta\) лучшей
+оценкой \(\eta\) по \(\xi\) является просто \(\mathrm{E}\eta\).
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \hypertarget{ux438ux441ux442ux43eux447ux43dux438ux43aux438}{%
+\section{Источники}\label{ux438ux441ux442ux43eux447ux43dux438ux43aux438}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \emph{Ширяев А.Н.} Вероятность --- 1. --- М.: МЦНМО, 2007. --- 517 с.
+\item
+  \emph{Чернова Н. И.} Теория вероятностей. Учебное пособие. ---
+  Новосибирск, 2007. --- 160 с.
+\item
+  \emph{Феллер В.} Введение в теорию вероятностей и её приложения. ---
+  М.: Мир, 1964. --- 498 с.
+\item
+  \emph{Шпигельхалтер Д.} Искусство статистики. Как находить ответы в
+  данных. --- М.: Манн, Иванов и Фербер, 2021. --- 448 с.
+\end{enumerate}
+
 
 
     % Add a bibliography block to the postdoc

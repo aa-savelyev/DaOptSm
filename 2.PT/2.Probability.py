@@ -19,7 +19,7 @@
 
 # + [markdown] toc=true
 # <h1>Содержание<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Предмет-теории-вероятностей" data-toc-modified-id="Предмет-теории-вероятностей-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Предмет теории вероятностей</a></span></li><li><span><a href="#Вероятностная-модель" data-toc-modified-id="Вероятностная-модель-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Вероятностная модель</a></span><ul class="toc-item"><li><span><a href="#Пространство-элементарных-исходов" data-toc-modified-id="Пространство-элементарных-исходов-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Пространство элементарных исходов</a></span></li><li><span><a href="#Алгебра-и-$\mathbf{\sigma}$-алгебра-событий" data-toc-modified-id="Алгебра-и-$\mathbf{\sigma}$-алгебра-событий-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Алгебра и $\mathbf{\sigma}$-алгебра событий</a></span></li><li><span><a href="#Вероятностная-мера" data-toc-modified-id="Вероятностная-мера-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Вероятностная мера</a></span></li><li><span><a href="#Вероятностное-пространство" data-toc-modified-id="Вероятностное-пространство-2.4"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>Вероятностное пространство</a></span></li><li><span><a href="#Замечания" data-toc-modified-id="Замечания-2.5"><span class="toc-item-num">2.5&nbsp;&nbsp;</span>Замечания</a></span><ul class="toc-item"><li><span><a href="#Построение-вероятностного-пространства" data-toc-modified-id="Построение-вероятностного-пространства-2.5.1"><span class="toc-item-num">2.5.1&nbsp;&nbsp;</span>Построение вероятностного пространства</a></span></li><li><span><a href="#Так-что-же-такое-вероятность?" data-toc-modified-id="Так-что-же-такое-вероятность?-2.5.2"><span class="toc-item-num">2.5.2&nbsp;&nbsp;</span>Так что же такое вероятность?</a></span></li></ul></li></ul></li><li><span><a href="#Примеры" data-toc-modified-id="Примеры-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Примеры</a></span><ul class="toc-item"><li><span><a href="#Биномиальное-распределение" data-toc-modified-id="Биномиальное-распределение-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Биномиальное распределение</a></span></li><li><span><a href="#Гипергеометрическое-распределение" data-toc-modified-id="Гипергеометрическое-распределение-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Гипергеометрическое распределение</a></span></li></ul></li><li><span><a href="#Оценка-максимального-правдоподобия" data-toc-modified-id="Оценка-максимального-правдоподобия-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Оценка максимального правдоподобия</a></span><ul class="toc-item"><li><span><a href="#Пример" data-toc-modified-id="Пример-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Пример</a></span></li></ul></li><li><span><a href="#Условная-вероятность.-Независимость" data-toc-modified-id="Условная-вероятность.-Независимость-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Условная вероятность. Независимость</a></span><ul class="toc-item"><li><span><a href="#Условная-вероятность" data-toc-modified-id="Условная-вероятность-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Условная вероятность</a></span><ul class="toc-item"><li><span><a href="#Свойства-условной-вероятности" data-toc-modified-id="Свойства-условной-вероятности-5.1.1"><span class="toc-item-num">5.1.1&nbsp;&nbsp;</span>Свойства условной вероятности</a></span></li></ul></li><li><span><a href="#Формула-полной-вероятности" data-toc-modified-id="Формула-полной-вероятности-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>Формула полной вероятности</a></span><ul class="toc-item"><li><span><a href="#Независимость" data-toc-modified-id="Независимость-5.2.1"><span class="toc-item-num">5.2.1&nbsp;&nbsp;</span>Независимость</a></span></li></ul></li><li><span><a href="#Теорема-Байеса" data-toc-modified-id="Теорема-Байеса-5.3"><span class="toc-item-num">5.3&nbsp;&nbsp;</span>Теорема Байеса</a></span></li><li><span><a href="#Примеры" data-toc-modified-id="Примеры-5.4"><span class="toc-item-num">5.4&nbsp;&nbsp;</span>Примеры</a></span></li><li><span><a href="#Отношение-шансов-и-отношение-правдоподобия" data-toc-modified-id="Отношение-шансов-и-отношение-правдоподобия-5.5"><span class="toc-item-num">5.5&nbsp;&nbsp;</span>Отношение шансов и отношение правдоподобия</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Предмет-теории-вероятностей" data-toc-modified-id="Предмет-теории-вероятностей-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Предмет теории вероятностей</a></span></li><li><span><a href="#Вероятностная-модель" data-toc-modified-id="Вероятностная-модель-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Вероятностная модель</a></span><ul class="toc-item"><li><span><a href="#Пространство-элементарных-исходов" data-toc-modified-id="Пространство-элементарных-исходов-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Пространство элементарных исходов</a></span></li><li><span><a href="#Алгебра-и-$\mathbf{\sigma}$-алгебра-событий" data-toc-modified-id="Алгебра-и-$\mathbf{\sigma}$-алгебра-событий-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Алгебра и $\mathbf{\sigma}$-алгебра событий</a></span></li><li><span><a href="#Вероятностная-мера" data-toc-modified-id="Вероятностная-мера-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Вероятностная мера</a></span></li><li><span><a href="#Вероятностное-пространство" data-toc-modified-id="Вероятностное-пространство-2.4"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>Вероятностное пространство</a></span></li><li><span><a href="#Замечания" data-toc-modified-id="Замечания-2.5"><span class="toc-item-num">2.5&nbsp;&nbsp;</span>Замечания</a></span><ul class="toc-item"><li><span><a href="#Построение-вероятностного-пространства" data-toc-modified-id="Построение-вероятностного-пространства-2.5.1"><span class="toc-item-num">2.5.1&nbsp;&nbsp;</span>Построение вероятностного пространства</a></span></li><li><span><a href="#Так-что-же-такое-вероятность?" data-toc-modified-id="Так-что-же-такое-вероятность?-2.5.2"><span class="toc-item-num">2.5.2&nbsp;&nbsp;</span>Так что же такое вероятность?</a></span></li></ul></li></ul></li><li><span><a href="#Примеры" data-toc-modified-id="Примеры-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Примеры</a></span><ul class="toc-item"><li><span><a href="#Биномиальное-распределение" data-toc-modified-id="Биномиальное-распределение-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Биномиальное распределение</a></span></li><li><span><a href="#Гипергеометрическое-распределение" data-toc-modified-id="Гипергеометрическое-распределение-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Гипергеометрическое распределение</a></span></li></ul></li><li><span><a href="#Оценка-максимального-правдоподобия" data-toc-modified-id="Оценка-максимального-правдоподобия-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Оценка максимального правдоподобия</a></span><ul class="toc-item"><li><span><a href="#Задача-об-оценке-генеральной-совокупности-по-выборке" data-toc-modified-id="Задача-об-оценке-генеральной-совокупности-по-выборке-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Задача об оценке генеральной совокупности по выборке</a></span></li></ul></li><li><span><a href="#Условная-вероятность.-Независимость" data-toc-modified-id="Условная-вероятность.-Независимость-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Условная вероятность. Независимость</a></span><ul class="toc-item"><li><span><a href="#Условная-вероятность" data-toc-modified-id="Условная-вероятность-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Условная вероятность</a></span><ul class="toc-item"><li><span><a href="#Свойства-условной-вероятности" data-toc-modified-id="Свойства-условной-вероятности-5.1.1"><span class="toc-item-num">5.1.1&nbsp;&nbsp;</span>Свойства условной вероятности</a></span></li><li><span><a href="#Формула-полной-вероятности" data-toc-modified-id="Формула-полной-вероятности-5.1.2"><span class="toc-item-num">5.1.2&nbsp;&nbsp;</span>Формула полной вероятности</a></span></li><li><span><a href="#Формула-умножения-вероятностей" data-toc-modified-id="Формула-умножения-вероятностей-5.1.3"><span class="toc-item-num">5.1.3&nbsp;&nbsp;</span>Формула умножения вероятностей</a></span></li></ul></li><li><span><a href="#Теорема-Байеса" data-toc-modified-id="Теорема-Байеса-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>Теорема Байеса</a></span></li><li><span><a href="#Независимость" data-toc-modified-id="Независимость-5.3"><span class="toc-item-num">5.3&nbsp;&nbsp;</span>Независимость</a></span></li><li><span><a href="#Примеры" data-toc-modified-id="Примеры-5.4"><span class="toc-item-num">5.4&nbsp;&nbsp;</span>Примеры</a></span></li><li><span><a href="#Отношение-шансов-и-отношение-правдоподобия" data-toc-modified-id="Отношение-шансов-и-отношение-правдоподобия-5.5"><span class="toc-item-num">5.5&nbsp;&nbsp;</span>Отношение шансов и отношение правдоподобия</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
 # -
 
 # Imports
@@ -243,7 +243,6 @@ seaborn.set_style('whitegrid')
 # -
 
 # ## Оценка максимального правдоподобия ##
-# *Задача об оценке генеральной совокупности по выборке*
 #
 # Пусть $N$ &mdash; размер некоторой популяции, который требуется оценить &laquo;минимальными средствами&raquo; без простого пересчета всех элементов этой совокупности.
 # Подобного рода вопрос интересен, например, при оценке числа жителей в той или иной стране, городе и т. д.
@@ -271,7 +270,7 @@ seaborn.set_style('whitegrid')
 # >*Задание.* Получить формулу $\eqref{eq:max}$. \
 # Подсказка: можно воспользоваться формулой Стирлинга $n! \sim \sqrt{2 \pi n}\left( \dfrac{n}{e} \right)^n$.
 
-# ### Пример ###
+# ### Задача об оценке генеральной совокупности по выборке ###
 #
 # Применим метод максимального правдоподобия для оценки количества рыб в озере.
 # Пусть, например, $M=1000$, $n=1000$, а $m=100$.
@@ -370,30 +369,27 @@ print(x_mle, y_mle)
 # 2. по крайней мере один из детей &mdash; мальчик (*1/3*)?
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# ### Формула полной вероятности ###
+# #### Формула полной вероятности ####
 #
-# Рассмотрим *полную группу несовместимых событий* $\mathcal{D} = \{A_1, \dots, A_n\}$.
-# Имеет место **формула полной вероятности**
+# Рассмотрим *полную группу несовместимых (непересекающихся) событий* $\mathcal{D} = \{A_1, \dots, A_n\}$.
+# Имеет место *формула полной вероятности*
 # $$ \mathrm{P}(B) = \sum_{i=1}^n \mathrm{P}(B|A_i) \mathrm{P}(A_i). $$
 #
-# > **Пример.** В урне имеется $M$ шаров, среди которых $m$ &laquo;счастливых&raquo;. Спрашивается, какова вероятность извлечь на втором шаге &laquo;счастливый&raquo; шар (предполагается, что качество первого извлеченного шара неизвестно).
+# > **Пример.** В урне имеется $M$ шаров, среди которых $m$ &laquo;счастливых&raquo;. Спрашивается, какова вероятность извлечь на втором шаге &laquo;счастливый&raquo; шар (предполагается, что качество первого извлеченного шара неизвестно). \
+# *Ответ:* $\frac{m}{M}$.
+# -
+
+# #### Формула умножения вероятностей ####
 #
-# Справедлива **формула умножения вероятностей**:
+# Из определения условной вероятности получим формулу *умножения вероятностей*:
 # $$ \mathrm{P}(AB) = \mathrm{P}(B|A) \mathrm{P}(A). $$
 #
 # Формула умножения вероятностей обобщается по индукции:
 # $$ \mathrm{P}(A_1 \dots A_n) = \mathrm{P}(A_1) \mathrm{P}(A_2|A_1) \dots \mathrm{P}(A_n|A_1 \dots A_{n-1}). $$
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# #### Независимость ####
-#
-# **Определение.** События $A$ и $B$ называются *независимыми* или *статистически независимыми* (относительно вероятности $\mathrm{P}$), если
-# $$ \mathrm{P}(AB) = \mathrm{P}(A) \cdot \mathrm{P}(B). $$
-# -
-
 # ### Теорема Байеса ###
-
-# + [markdown] slideshow={"slide_type": "subslide"}
+#
 # Из формул $\mathrm{P}(B|A) = \dfrac{\mathrm{P}(AB)}{\mathrm{P}(A)}$ и $\mathrm{P}(A|B) = \dfrac{\mathrm{P}(AB)}{\mathrm{P}(B)}$ получаем **формулу Байеса**:
 # $$ \mathrm{P}(A|B) = \dfrac{\mathrm{P}(A) \mathrm{P}(B|A)}{\mathrm{P}(B)}. $$
 #
@@ -406,6 +402,16 @@ print(x_mle, y_mle)
 #
 # Формула Байеса даёт возможность получить ответ на вопрос о том, как изменится постериорная вероятность $\mathrm{P}(H|D)$ гипотезы $H$ при данных наблюдения $D$ (т.е. оценка, полученная после изучения новых экспериментальных данных), при условии, что известны априорная вероятность этой гипотезы $\mathrm{P}(H)$ (т.е. оценка, полученная без учета данных $D$), вероятность получения данных $\mathrm{P}(D)$ и условная вероятность $\mathrm{P}(D|H)$ получить данные $D$, если гипотеза $H$ выполнена. \
 # В этом случае величину $\mathrm{P}(D|H)$ называют *правдоподобием* гипотезы $H$ с учётом данных $D$.
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# ### Независимость ###
+#
+# **Определение.** События $A$ и $B$ называются *независимыми* или *статистически независимыми* (относительно вероятности $\mathrm{P}$), если
+# $$ \mathrm{P}(AB) = \mathrm{P}(A) \cdot \mathrm{P}(B). $$
+#
+# Для независимых событий получаем закономерный результат:
+# $$ \mathrm{P}(B|A) = \dfrac{\mathrm{P}(AB)}{\mathrm{P}(A)} = \dfrac{\mathrm{P}(A)\mathrm{P}(B)}{\mathrm{P}(A)} = \mathrm{P}(B). $$
+# -
 
 # ### Примеры ###
 #
