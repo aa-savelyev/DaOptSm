@@ -1,0 +1,1023 @@
+\documentclass[11pt,a4paper]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{iftex}
+    \ifPDFTeX
+      \usepackage[T2A]{fontenc}
+      \usepackage{mathpazo}
+      \usepackage[russian,english]{babel}
+    \else
+      \usepackage{fontspec}
+      \usepackage{polyglossia}
+      \setmainlanguage[babelshorthands=true]{russian}    % Язык по-умолчанию русский с поддержкой приятных команд пакета babel
+      \setotherlanguage{english}                         % Дополнительный язык = английский (в американской вариации по-умолчанию)
+      \newfontfamily\cyrillicfonttt[Scale=0.87,BoldFont={Fira Mono Medium}] {Fira Mono}  % Моноширинный шрифт для кириллицы
+      \defaultfontfeatures{Ligatures=TeX}
+      \newfontfamily\cyrillicfont{STIX Two Text}         % Шрифт с засечками для кириллицы
+    \fi
+    \renewcommand{\linethickness}{0.1ex}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for grffile with XeLaTeX
+    \def\Gread@@xetex#1{%
+      \IfFileExists{"\Gin@base".bb}%
+      {\Gread@eps{\Gin@base.bb}}%
+      {\Gread@@xetex@aux#1}%
+    }
+    \makeatother
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{
+    {\Large Лекция 5} \\
+    Гауссовские процессы
+  }
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        \ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+    
+  \maketitle
+  \tableofcontents
+  \pagebreak
+
+
+На этом занятии рассматриваются некоторые концепции гауссовских
+процессов, такие как стохастические процессы и функция ядра. Мы будем
+углублять понимание того, как реализовать регрессию с помощью
+гауссовских процессов «с нуля».
+
+Предполагается, что студент знаком с основами теории вероятности и
+линейной алгебры, особенно в контексте многомерных гауссовых
+распределений.
+
+
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{2}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Imports}
+%\PY{k+kn}{import} \PY{n+nn}{sys}
+%\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+%\PY{k+kn}{import} \PY{n+nn}{scipy}
+%
+%\PY{k+kn}{import} \PY{n+nn}{matplotlib}
+%\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+%\PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k+kn}{import} \PY{n}{cm}
+%\PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{axes\PYZus{}grid1} \PY{k+kn}{import} \PY{n}{make\PYZus{}axes\PYZus{}locatable}
+%\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{gridspec} \PY{k}{as} \PY{n+nn}{gridspec}
+%\PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+%\end{Verbatim}
+%\end{tcolorbox}
+%
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{3}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Styles, fonts}
+%\PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{12}
+%\end{Verbatim}
+%\end{tcolorbox}
+
+    \hypertarget{ux441ux43bux443ux447ux430ux439ux43dux44bux435-ux43fux440ux43eux446ux435ux441ux441ux44b}{%
+\section{Случайные
+процессы}\label{ux441ux43bux443ux447ux430ux439ux43dux44bux435-ux43fux440ux43eux446ux435ux441ux441ux44b}}
+
+Что такое гауссовский процесс? Как можно догадаться из названия, это
+процесс, состоящий из случайных величин, распределённых по Гауссу.
+Точное определение гласит, что гауссовский процесс --- это случайный
+процесс, все конечномерные распределения которого гауссовские. Данное
+определение (хотя оно и абсолютно верное) всё же не до конца проясняет
+ситуацию. Поэтому давайте копнём немного глубже.
+
+    \hypertarget{ux431ux430ux437ux43eux432ux44bux435-ux43fux43eux43dux44fux442ux438ux44f-ux438-ux43eux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}{%
+\subsection{Базовые понятия и
+определения}\label{ux431ux430ux437ux43eux432ux44bux435-ux43fux43eux43dux44fux442ux438ux44f-ux438-ux43eux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}}
+
+Вначале теория веротяностей имела дело со \emph{случайными
+экспериментами} (подбрасывание монеты, игральной кости и т.п.), для
+которых подсчитывались вероятности, в которыми может произойти то или
+иное событие. Затем возникло понятие \emph{случайной величины},
+позволившее количественно описывать результаты проводимых экспериментов,
+например, размер выигрыша в лотерее. Наконец, в случайные эксперименты
+был явно введён \emph{фактор времени}, что дало возможность строить
+\emph{стохастические модели}, в основу которых легло понятие
+\emph{случайного процесса}, описывающего динамику развития изучаемого
+случайного явления.
+
+Случайные (или стохастические) процессы обычно описывают системы,
+случайно меняющиеся с течением времени. Процессы являются
+стохастическими из-за наличия в системе неопределённости. Даже если
+исходная точка известна, существует несколько направлений, в которых
+такие процессы могут развиваться.
+
+\textbf{Определение 1.} \emph{Случайным процессом} называется семейство
+случайных величин \(X(\omega, t)\), \(\omega \in \Omega\), заданных на
+одном вероятностном пространстве \((\Omega, \mathcal{F}, \mathrm{P})\) и
+зависящих от параметра \(t\), принимающего значения из некоторого
+множества \(T \in \mathbb{R}\). Параметр \(t\) обычно называют
+\emph{временем}.
+
+К случайному процессу всегда следует относиться как к функции двух
+переменных: исхода \(\omega\) и времени \(t\). Это независимые
+переменные.
+
+\textbf{Определение 2.} При фиксированном времени \(t = t_0\) случайная
+величина \(X(\omega, t_0)\) называется \emph{сечением процесса} в точке
+\(t_0\). При фиксированном исходе \(\omega = \omega_0\) функция времени
+\(X(\omega_0, t)\) называется \emph{траекторией} (\emph{реализацией},
+\emph{выборочной функцией}) процесса.
+
+    \hypertarget{ux43fux440ux438ux43cux435ux440}{%
+\subsection{Пример}\label{ux43fux440ux438ux43cux435ux440}}
+
+Известным примером стохастического процесса является модель броуновского
+движения (известная также как винеровский процесс). Броуновское движение
+--- это случайное движение частиц, взвешенных в жидкости. Такое движение
+может рассматриваться как непрерывное случайное движение, при котором
+частица перемещается в жидкости из-за случайного столкновения с ней
+других частиц. Мы можем моделировать этот процесс во времени \(t\) в
+одном измерении \(d\), начиная с точки \(0\) и перемещая частицу за
+определенное количество времени \(\Delta t\) на случайное расстояние
+\(\Delta d\) от предыдущего положения. Случайное расстояние выбирается
+из нормального распределения со средним \(0\) и дисперсией \(\Delta t\).
+Выборку \(\Delta d\) из этого нормального распределения обозначим как
+\(\Delta d \sim \mathcal{N}(0, \Delta t)\). Позицию \(d(t)\) изменяется
+со временем по следующему закону \(d(t + \Delta t) = d(t) + \Delta d\).
+
+На следующем рисунке мы смоделировали 10 различных траекторий
+броуновского движения, каждый из которых проиллюстрирован разным цветом.
+
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{4}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} 1D simulation of the Brownian motion process}
+%\PY{n}{total\PYZus{}time} \PY{o}{=} \PY{l+m+mi}{1}
+%\PY{n}{nb\PYZus{}steps} \PY{o}{=} \PY{l+m+mi}{500}
+%\PY{n}{delta\PYZus{}t} \PY{o}{=} \PY{n}{total\PYZus{}time} \PY{o}{/} \PY{n}{nb\PYZus{}steps}
+%\PY{n}{nb\PYZus{}processes} \PY{o}{=} \PY{l+m+mi}{10}  \PY{c+c1}{\PYZsh{} Simulate N different motions}
+%\PY{n}{mean} \PY{o}{=} \PY{l+m+mf}{0.}  \PY{c+c1}{\PYZsh{} Mean of each movement}
+%\PY{n}{stdev} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{delta\PYZus{}t}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Standard deviation of each movement}
+%
+%\PY{c+c1}{\PYZsh{} Simulate the brownian motions in a 1D space by cumulatively making a new movement delta\PYZus{}d}
+%\PY{c+c1}{\PYZsh{} Move randomly from current location to N(0, delta\PYZus{}t)}
+%\PY{n}{distances} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{stdev}\PY{p}{,} \PY{p}{(}\PY{n}{nb\PYZus{}processes}\PY{p}{,} \PY{n}{nb\PYZus{}steps}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+%
+%\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+%\PY{c+c1}{\PYZsh{} Make the plots}
+%\PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{total\PYZus{}time}\PY{p}{,} \PY{n}{delta\PYZus{}t}\PY{p}{)}
+%\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nb\PYZus{}processes}\PY{p}{)}\PY{p}{:}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{distances}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}
+%    \PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Процесс броуновского движения,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}}
+%\PY{l+s+s1}{    траектории }\PY{l+s+si}{\PYZob{}}\PY{n}{nb\PYZus{}processes}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{ реализаций процесса}\PY{l+s+s1}{\PYZsq{}}
+%\PY{p}{)}
+%\PY{c+c1}{\PYZsh{} plt.fill\PYZus{}between(t, \PYZhy{}2*t**0.5, 2*t**0.5, color=\PYZsq{}grey\PYZsq{}, alpha=0.1)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}t\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}d(t)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{total\PYZus{}time}\PY{p}{]}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.8\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux43cux43eux43cux435ux43dux442ux43dux44bux435-ux445ux430ux440ux430ux43aux442ux435ux440ux438ux441ux442ux438ux43aux438-ux43fux440ux43eux446ux435ux441ux441ux43eux432}{%
+\subsection{Моментные характеристики
+процессов}\label{ux43cux43eux43cux435ux43dux442ux43dux44bux435-ux445ux430ux440ux430ux43aux442ux435ux440ux438ux441ux442ux438ux43aux438-ux43fux440ux43eux446ux435ux441ux441ux43eux432}}
+
+На рисунке выше можно видеть несколько траекторий стохастического
+процесса. Каждая реализация определяет позицию \(d\) для каждого
+возможного временного шага \(t\). Таким образом, каждая реализация
+соответствует функции \(f(t) = d\).
+
+Это означает, что случайный процесс можно интерпретировать как случайное
+распределение функции. Мы можем получить реализацию функции с помощью
+стохастического процесса. Однако каждая реализация функции будет
+различной из-за случайности стохастического процесса.
+
+\textbf{Определение 3.} \emph{Математическим ожиданием} случайного
+процесса \(X(t)\) называется функция \(m_x : T \rightarrow \mathbb{R}\),
+значение который в каждый момент времени равно математическому ожиданию
+соответствующего сечения, т.е.
+\(\forall t \in T \; m_x(t) = \mathrm{E}X(t)\).
+
+\textbf{Определение 4.} \emph{Ковариационной функцией} случайного
+процесса \(X(t)\) называется функция двух переменных
+\(K_x : T \times T \rightarrow \mathbb{R}\), которая каждой паре
+моментов времени сопоставляет корреляционный момент соответствующих
+сечений процесса, т.е. \[
+    K_x(t_1, t_2) = \mathrm{E} \left[ \left(X(t_1) - \mathrm{E}X(t_1)\right) \cdot \left(X(t_2) - \mathrm{E}X(t_2)\right) \right].
+\]
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \hypertarget{ux433ux430ux443ux441ux441ux43eux432ux441ux43aux438ux435-ux43fux440ux43eux446ux435ux441ux441ux44b}{%
+\section{Гауссовские
+процессы}\label{ux433ux430ux443ux441ux441ux43eux432ux441ux43aux438ux435-ux43fux440ux43eux446ux435ux441ux441ux44b}}
+
+\hypertarget{ux431ux430ux437ux43eux432ux44bux435-ux43fux43eux43dux44fux442ux438ux44f-ux438-ux43eux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}{%
+\subsection{Базовые понятия и
+определения}\label{ux431ux430ux437ux43eux432ux44bux435-ux43fux43eux43dux44fux442ux438ux44f-ux438-ux43eux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}}
+
+\textbf{Определение 5.} Случайный процесс \(\{X(t), \; t \ge 0\}\)
+называется \emph{гауссовским}, если для любого \(n \ge 1\) и точек
+\(0 \le t_1 < \ldots < t_n\) вектор \((X(t_1), \, \ldots \,, X(t_n))\)
+является нормальным случайным вектором.
+
+Гауссовский процесс --- это процесс, все конечномерные распределения
+которого нормальные (гауссовские). Это значит, что любой случайный
+вектор, составленный из сечений такого процесса, имеет нормальное
+распределение.
+
+Гауссовские процессы --- это распределение функций \(f(x)\), которое
+определяется средней функцией \(m(t)\) и положительной ковариационной
+функцией \(k(t,t')\), где \(t\) --- параметр функции, а \((t,t')\) ---
+все возможные пары из области определения. Обозначаются гауссовские
+процессы так:
+
+\[ f(t) \sim \mathcal{GP}(m(t), k(t,t')). \]
+
+Для любого конечного подмножества \(T=\{{t}_1 \ldots {t}_n \}\) области
+определения \(t\) распределение \(f(T)\) представляет собой многомерное
+гауссовское распределение
+
+\[ f(T) \sim \mathcal{N}(m(T), k(T, T)) \]
+
+со средним вектором \(\mathbf{\mu} = m(T)\) и ковариационной матрицей
+\(\Sigma = k(T, T)\).
+
+В то время как многомерное гауссовское распределение задаёт конечное
+количество совместно распределённых по Гауссу величин, гауссовский
+процесс не имеет этого ограничения. Его среднее и ковариация
+определяются функциями. Каждый вход в эту функцию является переменной,
+коррелирующей с другими переменными входного домена в соотвествии с
+ковариационной функцией. Поскольку функции могут иметь бесконечный
+входной домен, гауссовский процесс можно интерпретировать как
+бесконечную размерную гауссовскую случайную величину.
+
+    \hypertarget{ux43aux43eux432ux430ux440ux438ux430ux446ux438ux43eux43dux43dux44bux435-ux444ux443ux43dux43aux446ux438ux438}{%
+\subsection{Ковариационные
+функции}\label{ux43aux43eux432ux430ux440ux438ux430ux446ux438ux43eux43dux43dux44bux435-ux444ux443ux43dux43aux446ux438ux438}}
+
+Гауссовский процесс полноcтью определяется функцией среднего и
+ковариационной функцией. Ковариационная функция \(k(x_a, x_b)\)
+моделирует совместную изменчивость случайных переменных гауссовского
+процесса, она возвращает значение ковариации между каждой парой в
+\(x_a\) и \(x_b\).
+
+Спецификация ковариационной функции (также известной как функция ядра)
+неявно задаёт распределение по функциям \(f(x)\). Выбирая конкретный вид
+функции ядра \(k\), мы задаём апроиорную информацию о данном
+распределении. Функция ядра должна быть симметричной и
+положительно-определённой.
+
+Мы будем использовать квадратичное экспоненциальтное ковариационную
+функцию (также известную как гауссовское ядро):
+
+\[ k(x_a, x_b) = \sigma_f^2 \exp{ \left( -\frac{1}{2l^2} \lVert x_a - x_b \rVert^2 \right) }. \]
+
+Параметр длины \(l\) контролирует гладкость функции, а \(\sigma_f\) ---
+вертикальную вариацию. Для простоты используется один и тот же параметр
+длины \(l\) для всех входных размеров (изотропное ядро).
+
+Могут быть определены и другие функции ядра, приводящие к различным
+свойствам распределения гауссовского процесса.
+
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{5}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Isotropic squared exponential kernel.}
+%\PY{k}{def} \PY{n+nf}{kernel}\PY{p}{(}\PY{n}{X1}\PY{p}{,} \PY{n}{X2}\PY{p}{,} \PY{n}{l}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{sigma\PYZus{}f}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}\PY{p}{:}
+%    \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+%\PY{l+s+sd}{    Isotropic squared exponential kernel. Computes }
+%\PY{l+s+sd}{    a covariance matrix from points in X1 and X2.}
+%\PY{l+s+sd}{    }
+%\PY{l+s+sd}{    Args:}
+%\PY{l+s+sd}{        X1: Array of m points (m x d).}
+%\PY{l+s+sd}{        X2: Array of n points (n x d).}
+%
+%\PY{l+s+sd}{    Returns:}
+%\PY{l+s+sd}{        Covariance matrix (m x n).}
+%\PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+%    
+%    \PY{n}{sqdist} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{X1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{X2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X1}\PY{p}{,} \PY{n}{X2}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+%    \PY{k}{return} \PY{n}{sigma\PYZus{}f}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5} \PY{o}{/} \PY{n}{l}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{sqdist}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+
+    Пример ковариационной матрицы с гауссовским ядром приведён на рисунке
+слева внизу. Справа показана значение ковариационной функции, если одна
+из переменных равна \(0\): \(k(x,0) = k(0,x) = 0\).\\
+Обратите внимание, что по мере удаления \(x\) от \(0\) ковариация
+уменьшается экспоненциально.
+
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{6}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Illustrate covariance matrix and function}
+%
+%\PY{c+c1}{\PYZsh{} Show covariance matrix example from exponentiated quadratic}
+%\PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{9.}\PY{p}{,} \PY{l+m+mf}{4.}\PY{p}{)}\PY{p}{)}
+%\PY{n}{xlim} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+%\PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{*}\PY{n}{xlim}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+%\PY{n}{Sigma} \PY{o}{=} \PY{n}{kernel}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+%\PY{c+c1}{\PYZsh{} Plot covariance matrix}
+%\PY{n}{im} \PY{o}{=} \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{Sigma}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{viridis\PYZus{}r}\PY{p}{)}
+%\PY{n}{cbar} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}
+%    \PY{n}{im}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax1}\PY{p}{,} \PY{n}{fraction}\PY{o}{=}\PY{l+m+mf}{0.045}\PY{p}{,} \PY{n}{pad}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}
+%\PY{n}{cbar}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}k(x\PYZus{}1,x\PYZus{}2)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}
+%    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Пример ковариационной матрицы}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}}
+%\PY{l+s+s1}{    для квадратичного экспоненциального ядра}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+%    \PY{n}{pad}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+%\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}1\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}2\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{ticks} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{xlim}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{xlim}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+%\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ticks}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+%\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ticks}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+%\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ticks}\PY{p}{)}
+%\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticklabels}\PY{p}{(}\PY{n}{ticks}\PY{p}{)}
+%\PY{n}{ax1}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+%
+%\PY{c+c1}{\PYZsh{} Show covariance with X=0}
+%\PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{*}\PY{n}{xlim}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+%\PY{n}{zero} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+%\PY{n}{Sigma\PYZus{}0} \PY{o}{=} \PY{n}{kernel}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{zero}\PY{p}{)}
+%\PY{c+c1}{\PYZsh{} Make the plots}
+%\PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Sigma\PYZus{}0}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}k(x,0)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}k(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}
+%    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ковариация между \PYZdl{}x\PYZdl{} и \PYZdl{}0\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+%    \PY{n}{pad}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+%\PY{c+c1}{\PYZsh{} ax2.set\PYZus{}ylim([0, 1.1])}
+%\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{o}{*}\PY{n}{xlim}\PY{p}{)}
+%\PY{n}{ax2}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+%
+%\PY{n}{fig}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux433ux435ux43dux435ux440ux430ux446ux438ux44f-ux441ux43bux443ux447ux430ux439ux43dux43eux439-ux432ux44bux431ux43eux440ux43aux438-ux433ux430ux443ux441ux441ux43eux432ux441ux43aux438ux445-ux43fux440ux43eux446ux435ux441ux441ux43eux432}{%
+\subsection{Генерация случайной выборки гауссовских
+процессов}\label{ux433ux435ux43dux435ux440ux430ux446ux438ux44f-ux441ux43bux443ux447ux430ux439ux43dux43eux439-ux432ux44bux431ux43eux440ux43aux438-ux433ux430ux443ux441ux441ux43eux432ux441ux43aux438ux445-ux43fux440ux43eux446ux435ux441ux441ux43eux432}}
+
+На практике мы не можем просто взять пример полной функциональной оценки
+\(f\) из распределения гауссовского процесса, так как это означает
+оценку \(m(x)\) и \(k(x,x')\) в бесконечном количестве точек, поскольку
+\(\mathbf{x}\) может иметь бесконечный размер. Однако мы можем привести
+пример оценки функции \(\mathbf{y}\) функции \(f\), взятой из гаусского
+процесса, по конечному, но произвольному набору точек \(X\):
+\(\mathbf{y} = f(X)\).
+
+Конечное размерное подмножество распределения гауссовского процесса
+приводит к частному распределению, которое является гауссовским
+распределением \(\mathbf{y} \sim \mathcal{N}(\mathbf{\mu}, \Sigma)\) со
+средним вектором \(\mathbf{\mu} = m(X)\) и ковариационной матрицей
+\(\Sigma = k(X, X)\).
+
+На рисунке ниже приведена выборка из 5 различных функциональных
+реализаций гауссовского процесса с экспоненциальным квадратичным ядром
+без каких-либо наблюдаемых данных. Для этого мы нарисуем коррелированные
+образцы из 41-мерного гауссианы \(\mathcal{N}(0, k(X, X))\) с
+\(X = [X_1, \ldots, X_{41}]\).
+
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{7}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Sample from the Gaussian process distribution}
+%\PY{n}{nb\PYZus{}of\PYZus{}samples} \PY{o}{=} \PY{l+m+mi}{41}  \PY{c+c1}{\PYZsh{} Number of points in each function}
+%\PY{n}{number\PYZus{}of\PYZus{}functions} \PY{o}{=} \PY{l+m+mi}{5}  \PY{c+c1}{\PYZsh{} Number of functions to sample}
+%\PY{c+c1}{\PYZsh{} Independent variable samples}
+%\PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{n}{nb\PYZus{}of\PYZus{}samples}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+%\PY{n}{Sigma} \PY{o}{=} \PY{n}{kernel}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{X}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Kernel of data points}
+%
+%\PY{c+c1}{\PYZsh{} Draw samples from the prior at our data points.}
+%\PY{c+c1}{\PYZsh{} Assume a mean of 0 for simplicity}
+%\PY{n}{ys} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{multivariate\PYZus{}normal}\PY{p}{(}
+%    \PY{n}{mean}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{nb\PYZus{}of\PYZus{}samples}\PY{p}{)}\PY{p}{,} \PY{n}{cov}\PY{o}{=}\PY{n}{Sigma}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{number\PYZus{}of\PYZus{}functions}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{8}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Plot the sampled functions}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+%\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}functions}\PY{p}{)}\PY{p}{:}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{ys}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}t\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y = f(t)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}
+%    \PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Траектории }\PY{l+s+si}{\PYZob{}}\PY{n}{number\PYZus{}of\PYZus{}functions}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{ гауссовских процессов,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}}
+%\PY{l+s+s1}{    построенных по }\PY{l+s+si}{\PYZob{}}\PY{n}{nb\PYZus{}of\PYZus{}samples}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{ точке каждый}\PY{l+s+s1}{\PYZsq{}}
+%\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.66\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Другой способ визуализировать это --- взять только 2 измерения 41-мерной
+функции Гаусса и нарисовать некоторые его частные двумерные
+распределения.
+
+Следующий рисунок слева визуализирует 2D распределение для
+\(X = [0, 0.2]\), где ковариация \(k(0, 0.2) = 0.98\). Рисунок справа
+визуализирует 2D распределение для \(X = [0, 2]\), где ковариация
+\(k(0, 2) = 0.14\).
+
+Для каждого из 2D гауссовых полей соответствующие примеры реализации
+функций, приведенные выше, представлены на рисунке цветными точками.
+
+Обратите внимание, что точки, близкие друг к другу во входной области
+\(x\), сильно коррелируют (\(y_1\) близко к \(y_2\)), в то время как
+точки, находящиеся дальше друг от друга, практически независимы. Это
+связано с тем, что эти поля являются результатом гауссовского процесса с
+квадратичной ковариацией, которая добавляет предыдущую информацию о том,
+что точки в области ввода \(X\) должны быть близко друг к другу в
+области вывода \(y\).
+
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{9}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{k}{def} \PY{n+nf}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{covariance}\PY{p}{)}\PY{p}{:}
+%    \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Helper function to generate density surface.\PYZdq{}\PYZdq{}\PYZdq{}}
+%    \PY{n}{nb\PYZus{}of\PYZus{}x} \PY{o}{=} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{} grid size}
+%    \PY{n}{x1s} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{nb\PYZus{}of\PYZus{}x}\PY{p}{)}
+%    \PY{n}{x2s} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{nb\PYZus{}of\PYZus{}x}\PY{p}{)}
+%    \PY{n}{x1}\PY{p}{,} \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{x1s}\PY{p}{,} \PY{n}{x2s}\PY{p}{)} \PY{c+c1}{\PYZsh{} Generate grid}
+%    \PY{n}{pdf} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{nb\PYZus{}of\PYZus{}x}\PY{p}{,} \PY{n}{nb\PYZus{}of\PYZus{}x}\PY{p}{)}\PY{p}{)}
+%    \PY{c+c1}{\PYZsh{} Fill the cost matrix for each combination of weights}
+%    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nb\PYZus{}of\PYZus{}x}\PY{p}{)}\PY{p}{:}
+%        \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nb\PYZus{}of\PYZus{}x}\PY{p}{)}\PY{p}{:}
+%            \PY{n}{pdf}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{multivariate\PYZus{}normal}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}
+%                \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{x1}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{n}{x2}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} 
+%                \PY{n}{mean}\PY{o}{=}\PY{n}{mean}\PY{p}{,} \PY{n}{cov}\PY{o}{=}\PY{n}{covariance}\PY{p}{)}
+%    \PY{k}{return} \PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{pdf}  \PY{c+c1}{\PYZsh{} x1, x2, pdf(x1,x2)}
+%\end{Verbatim}
+%\end{tcolorbox}
+
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{10}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Show marginal 2D Gaussians}
+%
+%\PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{9.0}\PY{p}{,} \PY{l+m+mf}{4.0}\PY{p}{)}\PY{p}{)} 
+%\PY{n}{gs} \PY{o}{=} \PY{n}{gridspec}\PY{o}{.}\PY{n}{GridSpec}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+%\PY{n}{ax\PYZus{}p1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+%\PY{n}{ax\PYZus{}p2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{n}{ax\PYZus{}p1}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{n}{ax\PYZus{}p1}\PY{p}{)}
+%
+%\PY{c+c1}{\PYZsh{} Plot of strong correlation}
+%\PY{n}{X\PYZus{}strong} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.2}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+%\PY{n}{mu} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{)}
+%\PY{n}{Sigma\PYZus{}strong} \PY{o}{=} \PY{n}{kernel}\PY{p}{(}\PY{n}{X\PYZus{}strong}\PY{p}{,} \PY{n}{X\PYZus{}strong}\PY{p}{)}
+%\PY{n}{y1}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{mu}\PY{p}{,} \PY{n}{Sigma\PYZus{}strong}\PY{p}{)}
+%\PY{c+c1}{\PYZsh{} Plot bivariate distribution}
+%\PY{n}{con1} \PY{o}{=} \PY{n}{ax\PYZus{}p1}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{y1}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{magma\PYZus{}r}\PY{p}{)}
+%\PY{n}{ax\PYZus{}p1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZus{}1 = f(X=}\PY{l+s+si}{\PYZob{}}\PY{n}{X\PYZus{}strong}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{ax\PYZus{}p1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZus{}2 = f(X=}\PY{l+s+si}{\PYZob{}}\PY{n}{X\PYZus{}strong}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{ax\PYZus{}p1}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.7}\PY{p}{,} \PY{l+m+mf}{2.7}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{2.7}\PY{p}{,} \PY{l+m+mf}{2.7}\PY{p}{]}\PY{p}{)}
+%\PY{n}{ax\PYZus{}p1}\PY{o}{.}\PY{n}{set\PYZus{}aspect}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{ax\PYZus{}p1}\PY{o}{.}\PY{n}{text}\PY{p}{(}
+%    \PY{o}{\PYZhy{}}\PY{l+m+mf}{2.3}\PY{p}{,} \PY{l+m+mf}{2.1}\PY{p}{,} 
+%    \PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}k(}\PY{l+s+si}{\PYZob{}}\PY{n}{X\PYZus{}strong}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{, }\PY{l+s+si}{\PYZob{}}\PY{n}{X\PYZus{}strong}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{) = }\PY{l+s+si}{\PYZob{}}\PY{n}{Sigma\PYZus{}strong}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{l+s+si}{:}\PY{l+s+s1}{.2f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+%    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+%\PY{n}{ax\PYZus{}p1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}X = [}\PY{l+s+si}{\PYZob{}}\PY{n}{X\PYZus{}strong}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{, }\PY{l+s+si}{\PYZob{}}\PY{n}{X\PYZus{}strong}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{]\PYZdl{} }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+%\PY{c+c1}{\PYZsh{} Select samples}
+%\PY{n}{X\PYZus{}0\PYZus{}index} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{isclose}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{)}\PY{p}{)}
+%\PY{n}{X\PYZus{}02\PYZus{}index} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{isclose}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{)}\PY{p}{)}
+%\PY{n}{y\PYZus{}strong} \PY{o}{=} \PY{n}{ys}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{n}{X\PYZus{}0\PYZus{}index}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}02\PYZus{}index}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{]}
+%\PY{c+c1}{\PYZsh{} Show samples on surface}
+%\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{y\PYZus{}strong}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+%    \PY{n}{ax\PYZus{}p1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{y\PYZus{}strong}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}strong}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%
+%\PY{c+c1}{\PYZsh{} Plot weak correlation}
+%\PY{n}{X\PYZus{}weak} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+%\PY{n}{mu} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{)}
+%\PY{n}{Sigma\PYZus{}weak} \PY{o}{=} \PY{n}{kernel}\PY{p}{(}\PY{n}{X\PYZus{}weak}\PY{p}{,} \PY{n}{X\PYZus{}weak}\PY{p}{)}
+%\PY{n}{y1}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{mu}\PY{p}{,} \PY{n}{Sigma\PYZus{}weak}\PY{p}{)}
+%\PY{c+c1}{\PYZsh{} Plot bivariate distribution}
+%\PY{n}{con2} \PY{o}{=} \PY{n}{ax\PYZus{}p2}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{y1}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{magma\PYZus{}r}\PY{p}{)}
+%\PY{n}{con2}\PY{o}{.}\PY{n}{set\PYZus{}cmap}\PY{p}{(}\PY{n}{con1}\PY{o}{.}\PY{n}{get\PYZus{}cmap}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+%\PY{n}{con2}\PY{o}{.}\PY{n}{set\PYZus{}clim}\PY{p}{(}\PY{n}{con1}\PY{o}{.}\PY{n}{get\PYZus{}clim}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+%\PY{n}{ax\PYZus{}p2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZus{}1 = f(X=}\PY{l+s+si}{\PYZob{}}\PY{n}{X\PYZus{}weak}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{ax\PYZus{}p2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZus{}2 = f(X=}\PY{l+s+si}{\PYZob{}}\PY{n}{X\PYZus{}weak}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{ax\PYZus{}p2}\PY{o}{.}\PY{n}{set\PYZus{}aspect}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{ax\PYZus{}p2}\PY{o}{.}\PY{n}{text}\PY{p}{(}
+%    \PY{o}{\PYZhy{}}\PY{l+m+mf}{2.3}\PY{p}{,} \PY{l+m+mf}{2.1}\PY{p}{,} 
+%    \PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}k(}\PY{l+s+si}{\PYZob{}}\PY{n}{X\PYZus{}weak}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{, }\PY{l+s+si}{\PYZob{}}\PY{n}{X\PYZus{}weak}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{) = }\PY{l+s+si}{\PYZob{}}\PY{n}{Sigma\PYZus{}weak}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{l+s+si}{:}\PY{l+s+s1}{.2f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+%    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+%\PY{n}{ax\PYZus{}p2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}X = [}\PY{l+s+si}{\PYZob{}}\PY{n}{X\PYZus{}weak}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{, }\PY{l+s+si}{\PYZob{}}\PY{n}{X\PYZus{}weak}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{]\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+%\PY{c+c1}{\PYZsh{} Add colorbar}
+%\PY{n}{divider} \PY{o}{=} \PY{n}{make\PYZus{}axes\PYZus{}locatable}\PY{p}{(}\PY{n}{ax\PYZus{}p2}\PY{p}{)}
+%\PY{n}{cax} \PY{o}{=} \PY{n}{divider}\PY{o}{.}\PY{n}{append\PYZus{}axes}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{5}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pad}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}
+%\PY{n}{cbar} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{con1}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax\PYZus{}p2}\PY{p}{,} \PY{n}{cax}\PY{o}{=}\PY{n}{cax}\PY{p}{)}
+%\PY{n}{cbar}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{density: \PYZdl{}p(y\PYZus{}1, y\PYZus{}2)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
+%\PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}
+%    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Частные 2D распределения: \PYZdl{}y }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{sim }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{mathcal}\PY{l+s+si}{\PYZob{}N\PYZcb{}}\PY{l+s+s1}{(0, k(X, X))\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+%    \PY{n}{x}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.05}\PY{p}{)}
+%\PY{c+c1}{\PYZsh{} Select samples}
+%\PY{n}{X\PYZus{}0\PYZus{}index} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{isclose}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{)}\PY{p}{)}
+%\PY{n}{X\PYZus{}2\PYZus{}index} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{isclose}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{l+m+mf}{2.}\PY{p}{)}\PY{p}{)}
+%\PY{n}{y\PYZus{}weak} \PY{o}{=} \PY{n}{ys}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{n}{X\PYZus{}0\PYZus{}index}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}2\PYZus{}index}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{]}
+%\PY{c+c1}{\PYZsh{} Show samples on surface}
+%\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{y\PYZus{}weak}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+%    \PY{n}{ax\PYZus{}p2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{y\PYZus{}weak}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}weak}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%
+%\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux435ux449ux451-ux43fux440ux438ux43cux435ux440ux44b-ux442ux440ux430ux435ux43aux442ux43eux440ux438ux439}{%
+\subsection{Ещё примеры
+траекторий}\label{ux435ux449ux451-ux43fux440ux438ux43cux435ux440ux44b-ux442ux440ux430ux435ux43aux442ux43eux440ux438ux439}}
+
+Сгенерируем выборку из 500 гауссовых процессов со средней функцией
+\(\mu(t) = 0\) и квадратичной экспоненциальной функцией ядра,
+определённой выше \( k(t\_1, t\_2) =
+\exp{ \left( -\frac{1}{2\sigma^2} (t_1 - t_2)^2 \right) } \).
+
+На рисунке ниже приведена траектории первых 50 процессов выборки (всю
+1000 рисовать долго, да и незачем).
+
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{12}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{k}{def} \PY{n+nf}{plot\PYZus{}gp}\PY{p}{(}\PY{n}{mu}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{samples}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+%    \PY{n}{X} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}
+%    \PY{n}{mu} \PY{o}{=} \PY{n}{mu}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}
+%    \PY{n}{uncertainty} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{cov}\PY{p}{)}\PY{p}{)}
+%    
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{fill\PYZus{}between}\PY{p}{(}
+%        \PY{n}{X}\PY{p}{,} \PY{n}{mu} \PY{o}{+} \PY{n}{uncertainty}\PY{p}{,} \PY{n}{mu} \PY{o}{\PYZhy{}} \PY{n}{uncertainty}\PY{p}{,}
+%        \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{pm 2}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{sigma\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{samples}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{mu}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{среднее значение}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%    \PY{k}{if} \PY{n}{X\PYZus{}train} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+%        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{kx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mew}\PY{o}{=}\PY{l+m+mf}{1.5}\PY{p}{)}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{n}{X}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}t\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}f(t)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{11}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Test data}
+%\PY{n}{x\PYZus{}min}\PY{p}{,} \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}
+%\PY{n}{N\PYZus{}test} \PY{o}{=} \PY{l+m+mi}{1001}
+%\PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{x\PYZus{}min}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{,} \PY{n}{N\PYZus{}test}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+%
+%\PY{c+c1}{\PYZsh{} Set mean and covariance}
+%\PY{n}{M} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+%\PY{n}{l} \PY{o}{=} \PY{l+m+mf}{10e\PYZhy{}2}\PY{o}{*}\PY{p}{(}\PY{n}{x\PYZus{}max}\PY{o}{\PYZhy{}}\PY{n}{x\PYZus{}min}\PY{p}{)}
+%\PY{n}{K} \PY{o}{=} \PY{n}{kernel}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{l}\PY{o}{=}\PY{n}{l}\PY{p}{)}
+%
+%\PY{c+c1}{\PYZsh{} Generate samples from the prior}
+%\PY{n}{N\PYZus{}gp} \PY{o}{=} \PY{l+m+mi}{1000}
+%\PY{n}{L} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{cholesky}\PY{p}{(}\PY{n}{K} \PY{o}{+} \PY{l+m+mf}{1e\PYZhy{}6}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{N\PYZus{}test}\PY{p}{)}\PY{p}{)}
+%\PY{n}{gp} \PY{o}{=} \PY{n}{M} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{L}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{n}{N\PYZus{}test}\PY{p}{,}\PY{n}{N\PYZus{}gp}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{17}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Draw samples from the prior}
+%\PY{n}{x\PYZus{}i} \PY{o}{=} \PY{l+m+mf}{2.}
+%\PY{n}{plot\PYZus{}gp}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{K}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{samples}\PY{o}{=}\PY{n}{gp}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{l+m+mi}{50}\PY{p}{]}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x\PYZus{}i}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+
+%    \begin{center}
+%    \adjustimage{max size={0.8\linewidth}{0.9\paperheight}}{output_24_0.png}
+%    \end{center}
+%    { \hspace*{\fill} \\}
+%    
+%    Убедимся в правильных статистических характеристиках нашей выборки. Для
+%этого нарисуем гистограмму значений \(f(x)\) в каком-либо сечении
+%\(x = \mathrm{const}\). По определению гауссовского процесса,
+%распределение \(f(x)\) должно быть гауссовым. Так и есть.
+
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{25}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Draw section histogram}
+%\PY{n}{gp\PYZus{}i} \PY{o}{=} \PY{n}{gp}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{flatnonzero}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{n}{x\PYZus{}i}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{gp\PYZus{}i}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{histtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stepfilled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Гистограмма значений \PYZdl{}f(x)\PYZdl{} в сечении \PYZdl{}x=}\PY{l+s+si}{\PYZob{}}\PY{n}{x\PYZus{}i}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+
+%    \begin{center}
+%    \adjustimage{max size={0.6\linewidth}{0.9\paperheight}}{output_26_0.png}
+%    \end{center}
+%    { \hspace*{\fill} \\}
+%    
+%    \hypertarget{ux43bux438ux442ux435ux440ux430ux442ux443ux440ux430}{%
+%\section{Литература}\label{ux43bux438ux442ux435ux440ux430ux442ux443ux440ux430}}
+
+%\begin{enumerate}
+%\def\labelenumi{\arabic{enumi}.}
+%\tightlist
+%\item
+%  Roelants P.
+%  \href{https://peterroelants.github.io/posts/gaussian-process-tutorial/}{Understanding
+%  Gaussian processes}.
+%\item
+%  Krasser M. \href{}{Gaussian\_processes.ipynb}.
+%\item
+%  Лекции по случайным процессам / под ред. А.В. Гасникова. М.: МФТИ,
+%  2019.
+%\end{enumerate}
+
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{15}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Versions used}
+%\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Python: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{o}{*}\PY{n}{sys}\PY{o}{.}\PY{n}{version\PYZus{}info}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+%\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numpy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+%\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{matplotlib: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+%\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seaborn: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+
+%    \begin{Verbatim}[commandchars=\\\{\}]
+%Python: 3.7.7
+%numpy: 1.18.1
+%matplotlib: 3.2.1
+%seaborn: 0.10.1
+%    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
