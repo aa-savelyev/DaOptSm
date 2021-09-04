@@ -375,9 +375,12 @@
 
 \begin{document}
     
-    \maketitle
-    
-    
+\maketitle
+\thispagestyle{empty}
+\tableofcontents
+\pagebreak
+
+
     \hypertarget{ux440ux430ux43dux433-ux43cux430ux442ux440ux438ux446ux44b}{%
 \section{Ранг
 матрицы}\label{ux440ux430ux43dux433-ux43cux430ux442ux440ux438ux446ux44b}}
@@ -506,9 +509,11 @@
 строк матрицы \(A\), а матрица \(M\) размером \(r \times r\) называется
 смешанной матрицей (mixing matrix). Для \(M\) можно получить следующую
 формулу: \[
-  A = CMR \\
-  C^\top A R^\top = C^\top C M R R^\top \\
-  M = (C^\top C)^{-1} (C^\top A R^\top) (R R^\top)^{-1}.
+\begin{aligned}
+  &A = CMR \\
+  &C^\top A R^\top = C^\top C M R R^\top \\
+  &M = (C^\top C)^{-1} (C^\top A R^\top) (R R^\top)^{-1}.
+\end{aligned}
 \]
 
 Обратим внимание на используемый приём --- домножение прямоугольной

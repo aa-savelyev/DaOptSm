@@ -267,7 +267,7 @@
 #   =
 #   \begin{pmatrix}
 #     A_1 A_1^\top & A_1 A_2^\top \\
-#     A_2 A_2^\top & A_2 A_2^\top \\
+#     A_2 A_1^\top & A_2 A_2^\top \\
 #   \end{pmatrix}
 # $$
 # 2. Для $A^\top A$ удобно применить способ &laquo;столбец на строку&raquo;:
