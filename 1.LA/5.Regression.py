@@ -14,7 +14,7 @@
 #     name: python3
 # ---
 
-# **Лекция 5-2**
+# **Лекция 5**
 #
 # # Линейная регрессия #
 
@@ -244,7 +244,7 @@ plt.show()
 
 # ## Алгоритмы решения задачи МНК ##
 #
-# Теперь попробуем в вычислительную математику.
+# Рассмотрим задачу МНК с точки зрения вычислительной математики.
 #
 # ### Разложение Холецкого ###
 #
@@ -263,7 +263,6 @@ L = LA.cholesky(FtF)
 # 2. Solve the lower triangular system Lt*w = Ft*y for w
 L_inv = LA.inv(L)
 w = L_inv @ Fty
-# w = LA.solve(L, Fty)
 
 # 3. Solve the upper triangular system L*x = w for x
 x_chol = L_inv.T @ w
