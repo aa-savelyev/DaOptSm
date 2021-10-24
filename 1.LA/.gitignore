@@ -1,4 +1,5 @@
 .ipynb_checkpoints
 *.pyc
-/pix/*/_mat
 /mat
+/pix/*/_mat
+/pix/portraits

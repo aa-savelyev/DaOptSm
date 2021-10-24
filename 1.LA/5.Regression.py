@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.5.2
+#       jupytext_version: 1.10.3
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -261,11 +261,12 @@ Fty = F.T @ Y_train
 L = LA.cholesky(FtF)
 
 # 2. Solve the lower triangular system Lt*w = Ft*y for w
-w = LA.inv(L) @ Fty
+L_inv = LA.inv(L)
+w = L_inv @ Fty
 # w = LA.solve(L, Fty)
 
 # 3. Solve the upper triangular system L*x = w for x
-x_chol = LA.inv(L.T) @ w
+x_chol = L_inv.T @ w
 np.disp(x_chol)
 # -
 
@@ -283,10 +284,10 @@ np.disp(x_chol)
 # Already done
 
 # 1. Compute reduced QR factorization of F
-Q, R = LA.qr(F)
+q, R = LA.qr(F)
 
 # 2. Solve the upper triangular system R*x = Qt*y for x
-x_qr = LA.inv(R) @ Q.T @ Y_train
+x_qr = LA.inv(R) @ q.T @ Y_train
 np.disp(x_qr)
 # -
 
