@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.5.2
+#       jupytext_version: 1.10.3
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -18,6 +18,10 @@
 # **Лекция 6**
 #
 # # Собственные значения и собственные векторы #
+
+# + [markdown] toc=true
+# <h1>Содержание<span class="tocSkip"></span></h1>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Введение" data-toc-modified-id="Введение-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Введение</a></span></li><li><span><a href="#Основные-понятия" data-toc-modified-id="Основные-понятия-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Основные понятия</a></span></li><li><span><a href="#Диагонализируемость" data-toc-modified-id="Диагонализируемость-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Диагонализируемость</a></span><ul class="toc-item"><li><span><a href="#Подобные-матрицы" data-toc-modified-id="Подобные-матрицы-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Подобные матрицы</a></span></li><li><span><a href="#Диагонализируемые-матрицы" data-toc-modified-id="Диагонализируемые-матрицы-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Диагонализируемые матрицы</a></span></li><li><span><a href="#Недиагонализируемые-матрицы" data-toc-modified-id="Недиагонализируемые-матрицы-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Недиагонализируемые матрицы</a></span></li></ul></li><li><span><a href="#Иллюстрации-на-Питоне" data-toc-modified-id="Иллюстрации-на-Питоне-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Иллюстрации на Питоне</a></span></li><li><span><a href="#Симметричные-матрицы" data-toc-modified-id="Симметричные-матрицы-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Симметричные матрицы</a></span></li><li><span><a href="#Полярное-разложение" data-toc-modified-id="Полярное-разложение-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Полярное разложение</a></span></li><li><span><a href="#Алгоритмы-поиска-собственных-чисел" data-toc-modified-id="Алгоритмы-поиска-собственных-чисел-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Алгоритмы поиска собственных чисел</a></span><ul class="toc-item"><li><span><a href="#$QR$-алгоритм" data-toc-modified-id="$QR$-алгоритм-7.1"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>$QR$-алгоритм</a></span></li></ul></li><li><span><a href="#Литература" data-toc-modified-id="Литература-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Литература</a></span></li></ul></div>
 
 # + slideshow={"slide_type": "subslide"}
 # Imports
@@ -470,7 +474,7 @@ X2 = np.diag(lmbd) @ X1
 X3 = U @ X2
 Xn = [X, X1, X2, X3]
 Xn_str = ["$\mathbf{X}$", "$\mathbf{U^{-1}X}$",
-          "$\mathbf{\Lambda U^{-1}X}$", "$\mathbf{S\Lambda U^{-1}X}$"]
+          "$\mathbf{\Lambda U^{-1}X}$", "$\mathbf{U\Lambda U^{-1}X}$"]
 
 U1 = LA.inv(U) @ U
 U2 = np.diag(lmbd) @ U1
@@ -605,7 +609,7 @@ plt.show()
 # ## Полярное разложение ##
 #
 # Каждое комплексное число $z = x + iy$ можно представить в виде $z = r e^{i\theta}$.
-# Вектор $e^{i\theta}$, лежащий на единичной окуржности, умножается на число $r \ge 0$ (&laquo;растягивается&raquo; в $r$ раз).
+# Вектор $e^{i\theta}$, лежащий на единичной окружности, умножается на число $r \ge 0$ (&laquo;растягивается&raquo; в $r$ раз).
 #
 # Между комплексными числами и матрицами можно провести аналогию: $r$ и $e^{i\theta}$ &mdash; это симметричная матрица $S$ и ортогональная $Q$.
 
@@ -614,11 +618,11 @@ plt.show()
 #
 # $$ A = QS, $$
 #
-# где $Q$ &mdash; ортогональная, а $S$ &mdash; положительно полуопределённая матрицы.
+# где $Q$ &mdash; ортогональная, а $S$ &mdash; симметричная положительно полуопределённая матрицы.
 # Причём если $A$ невырождена, то $S$ &mdash; строго положительно определённая матрица.
 # Такое разложение называется *полярным разложением* матрицы $A$.
 #
-# Таким образом, любое линейное преобразование $A$ можно представить в виде комбинации *вращения* и *растяжения к взаимно препендикулярным осям*.
+# Таким образом, любое линейное преобразование $A$ можно представить в виде комбинации *вращения* и *растяжения к взаимно перпендикулярным осям*.
 
 # + [markdown] slideshow={"slide_type": "skip"}
 # ---
@@ -643,12 +647,12 @@ plt.show()
 # Найдём $QR$-разложение исходной матрицы. Пусть $A = Q_1 R_1$. \
 # Положим $A_1 = R_1 Q_1$ и найдём для матрицы $A_1$ её $QR$-разложение $A_1 = Q_2 R_2$.
 # Матрицу $A_2$ получим, переставив сомножители $Q_2$ и $R_2$ и т.д.
-# $$ A_{k-1} - Q_k R_k, \quad A_k = R_k Q_k. $$
+# $$ A_{k-1} = Q_k R_k, \quad A_k = R_k Q_k. $$
 #
 # При этом $A_k = Q_k^{-1} A_{k-1} Q_k$.
 # Поэтому все характеристические числа матриц $A_k$ совпадают.
 #
-# Можно доказать, что те элементы $A_k$, которые лежат ниже диагональных клеток, стремятся к нулю, а элементы этих клеток и вышележащие элеенты ограничены.
+# Можно доказать, что те элементы $A_k$, которые лежат ниже диагональных клеток, стремятся к нулю, а элементы этих клеток и вышележащие элементы ограничены.
 
 # + slideshow={"slide_type": "subslide"}
 np.random.seed(12345)
@@ -663,11 +667,13 @@ print('lambda = ', np.round(lmbd, 4))
 np.disp(A)
 
 # + slideshow={"slide_type": "subslide"}
+from time import sleep
 Ak = A
 for i in range(15):
+    sleep(1)
     Q, R = LA.qr(Ak)
-    Ak = R@Q
-    print(f'iter {i+1:2}: diag =', np.diag(Ak))
+    Ak = R @ Q
+    print(f'iter {i+1:2}:  diag =', np.diag(Ak))
 
 # + [markdown] slideshow={"slide_type": "skip"}
 # ---

@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.5.2
+#       jupytext_version: 1.10.3
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -343,17 +343,11 @@ plt.show()
 #
 # Но для начала проверим наши недиагонализируемые матрицы.
 
-# +
 def diagonalize(A):
     lmbd, U = LA.eig(A)
     print('lambda = ', np.round(lmbd, 4))
     print('U = ')
     np.disp(U)
-
-#     Lmbd = LA.inv(U) @ A @ U
-#     np.disp(LA.inv(U))
-#     print('Lmbd = ')
-#     np.disp(Lmbd)
 
 
 # +
@@ -441,7 +435,7 @@ ax2.text(1.0, -1.7, "$\mathbf{CX}$", color='b', fontsize=14)
 
 plt.show()
 # -
-# Теперь рассмотрим действие матрицы $S \Lambda S^{-1}$ пошагово.
+# Теперь рассмотрим действие матрицы $U \Lambda U^{-1}$ пошагово.
 
 # +
 X1 = LA.inv(U) @ X
@@ -449,7 +443,7 @@ X2 = np.diag(lmbd) @ X1
 X3 = U @ X2
 Xn = [X, X1, X2, X3]
 Xn_str = ["$\mathbf{X}$", "$\mathbf{U^{-1}X}$",
-          "$\mathbf{\Lambda U^{-1}X}$", "$\mathbf{S\Lambda U^{-1}X}$"]
+          "$\mathbf{\Lambda U^{-1}X}$", "$\mathbf{U\Lambda U^{-1}X}$"]
 
 U1 = LA.inv(U) @ U
 U2 = np.diag(lmbd) @ U1
@@ -492,15 +486,15 @@ for i, axi in enumerate(ax.flatten()):
 #
 # Следовательно, любая симметричная матрица может быть представлена в виде
 #
-# $$ S = \sum\limits_{i=1}^n \lambda_i \mathbf{u}_i \mathbf{u}_i^\top. $$
+# $$ S = \sum\limits_{i=1}^n \lambda_i \mathbf{q}_i \mathbf{q}_i^\top. $$
 #
 # Это разложение известно под названием **спектральное разложение**. \
 # Оно выражает матрицу $S$ в виде комбинации одномерных проекций.
-# Они разбивают любой вектор $\mathbf{v}$ на его компоненты $\mathbf{p} = \mathbf{u}_i \mathbf{u}_i^\top \mathbf{v}$ по направлениям единичных собственных векторов.
+# Они разбивают любой вектор $\mathbf{v}$ на его компоненты $\mathbf{p} = \mathbf{q}_i \mathbf{q}_i^\top \mathbf{v}$ по направлениям единичных собственных векторов.
 #
 # Действие оператора с матрицей $S$ сводится к растяжению этих проекций в $\lambda_i$ раз:
 #
-# $$ S\mathbf{v} = \sum\limits_{i=1}^n \lambda_i \mathbf{u}_i \mathbf{u}_i^\top \mathbf{v}. $$
+# $$ S\mathbf{v} = \sum\limits_{i=1}^n \lambda_i \mathbf{q}_i \mathbf{q}_i^\top \mathbf{v}. $$
 
 # Рассмотрим симметричную матрицу:
 # $$
@@ -514,18 +508,16 @@ for i, axi in enumerate(ax.flatten()):
 # Найдём собственные значения и нарисуем собственные векторы.
 #
 # Мы видим, что собственные векторы находятся вдоль главных осей эллипса.
-# Таким образом, матрица $U$ преобразует начальную окружность, растягивая её вдоль собственных векторов $\mathbf{u_1}$ и $\mathbf{u_2}$ в $\lambda_1$ и $\lambda_2$ раз соответственно.
+# Таким образом, матрица $Q$ преобразует начальную окружность, растягивая её вдоль собственных векторов $\mathbf{q_1}$ и $\mathbf{q_2}$ в $\lambda_1$ и $\lambda_2$ раз соответственно.
 #
 # <!-- Если абсолютное значение собственного значения больше 1, то вдоль него происходит растяжение, а если меньше &mdash; сжитие. -->
 # <!-- Отрицательные собственные значения соответствуют зеркальному отражению. -->
 
 S = np.array([[3, 1],
               [1, 2]])
-lmbd, U = LA.eig(S)
-SU = U @ np.diag(lmbd)   # S*U = U*Lmbd
+lmbd, Q = LA.eig(S)
+SQ = Q @ np.diag(lmbd)   # S*Q = Q*Lmbd
 print('lambda = ', np.round(lmbd, 4))
-# print('u = ')
-# np.disp(np.round(u, 4))
 
 # +
 Y = S @ X   # Vectors in t are the transformed vectors of x
@@ -535,7 +527,7 @@ plt.subplots_adjust(wspace=0.4)
 
 # Plotting X
 ax1.plot(X[0,:], X[1,:], color='b')
-ax1.quiver(*origin, U[0,:], U[1,:], color=['g'],
+ax1.quiver(*origin, Q[0,:], Q[1,:], color=['g'],
            width=0.012, angles='xy', scale_units='xy', scale=1)
 ax1.set_xlabel('x', fontsize=14)
 ax1.set_ylabel('y', fontsize=14)
@@ -546,15 +538,15 @@ ax1.grid(True)
 ax1.set_title("До преобразования")
 ax1.axhline(y=0, color='k')
 ax1.axvline(x=0, color='k')
-ax1.text(1, 0.3, "$\mathbf{u_1}$", fontsize=14)
-ax1.text(-1.2, 1.0, "$\mathbf{u_2}$", fontsize=14)
+ax1.text(1, 0.3, "$\mathbf{q_1}$", fontsize=14)
+ax1.text(-1.2, 1.0, "$\mathbf{q_2}$", fontsize=14)
 ax1.text(0.3, -1.3, "$\mathbf{X}$", color='b', fontsize=14)
 
 # Plotting Y
 ax2.plot(Y[0, :], Y[1, :], color='b')
-ax2.quiver(*origin, SU[0,:], SU[1,:], color=cm(3),
+ax2.quiver(*origin, SQ[0,:], SQ[1,:], color=cm(3),
            width=0.012, angles='xy', scale_units='xy', scale=1)
-ax2.quiver(*origin, U[0,:], U[1,:], color=cm(2),
+ax2.quiver(*origin, Q[0,:], Q[1,:], color=cm(2),
            width=0.012, angles='xy', scale_units='xy', scale=1)
 ax2.set_xlabel('x', fontsize=14)
 ax2.set_ylabel('y', fontsize=14)
@@ -565,8 +557,8 @@ ax2.grid(True)
 ax2.set_title("После преобразования")
 ax2.axhline(y=0, color='k')
 ax2.axvline(x=0, color='k')
-ax2.text(2.7, 2.3, "$\lambda_1 \mathbf{u_1}$", fontsize=14)
-ax2.text(-2.0, 1.4, "$\lambda_2 \mathbf{u_2}$", fontsize=14)
+ax2.text(2.7, 2.3, "$\lambda_1 \mathbf{q_1}$", fontsize=14)
+ax2.text(-2.0, 1.4, "$\lambda_2 \mathbf{q_2}$", fontsize=14)
 ax2.text(0.9, -1.5, "$\mathbf{SX}$", color='b', fontsize=14)
 
 plt.show()
@@ -584,11 +576,49 @@ plt.show()
 #
 # $$ A = QS, $$
 #
-# где $Q$ &mdash; ортогональная, а $S$ &mdash; положительно полуопределённая матрицы.
+# где $Q$ &mdash; ортогональная, а $S$ &mdash; симметричная положительно полуопределённая матрица.
 # Причём если $A$ невырождена, то $S$ &mdash; строго положительно определённая матрица.
 # Такое разложение называется *полярным разложением* матрицы $A$.
 #
-# Таким образом, любое линейное преобразование $A$ можно представить в виде комбинации *вращения* и *растяжения к взаимно препендикулярным осям*.
+# Таким образом, любое линейное преобразование $A$ можно представить в виде комбинации *вращения* и *растяжения к взаимно перпендикулярным осям*.
+
+from scipy.linalg import polar
+Q, S = polar(C)
+
+# +
+X1 = S @ X
+X2 = Q @ X1
+Xn = [X, X1, X2]
+Xn_str = ["$\mathbf{X}$", "$\mathbf{SX}$", "$\mathbf{QSX}$"]
+
+lmbd, U = LA.eig(S)
+U1 = U @ np.diag(lmbd)   # S*U = U*Lmbd
+U1 = S @ U
+U2 = Q @ U1
+Un = [U, U1, U2]
+
+# +
+fig, ax = plt.subplots(1, 3, figsize=(15,10))
+plt.subplots_adjust(wspace=0.4)
+titles = ["До преобразования", "Растяжение", "Вращение"]
+
+for i, axi in enumerate(ax.flatten()):
+    axi.plot(Xn[i][0,:], Xn[i][1,:], color='b')
+    axi.quiver(*origin, Un[i][0,:], Un[i][1,:], color=['g'],
+               width=0.012, angles='xy', scale_units='xy', scale=1)
+    axi.set_xlabel('x', fontsize=14)
+    axi.set_ylabel('y', fontsize=14)
+    axi.set_xlim([-4, 4])
+    axi.set_ylim([-4, 4])
+    axi.set_aspect('equal')
+    axi.grid(True)
+    axi.set_title(titles[i])
+    axi.axhline(y=0, color='k')
+    axi.axvline(x=0, color='k')
+    axi.text(*(Un[i].T[0]+[.1,.1]), "$\mathbf{q_1}$", fontsize=14)
+    axi.text(*(Un[i].T[1]+[.1,.1]), "$\mathbf{q_2}$", fontsize=14)
+    axi.text(1, -2, Xn_str[i], color='b', fontsize=14)
+# -
 
 # ---
 
@@ -643,7 +673,7 @@ for i in range(10):
 # 1. *Гантмахер Ф.Р.* Теория матриц. &mdash; М.: Наука, 1967. &mdash; 576 с.
 # 1. *Стренг Г.* Линейная алгебра и её применения. &mdash; М.: Мир, 1980. &mdash; 454 с.
 # 1. *Strang G.* Linear algebra and learning from data. &mdash; Wellesley-Cambridge Press, 2019. &mdash; 432 p.
-# 1. [Материалы](https://towardsdatascience.com/understanding-singular-value-decomposition-and-its-application-in-data-science-388a54be95d) автора [Reza Bagheri](https://medium.com/@reza.bagheri79).
+# 1. [Материалы](https://towardsdatascience.com/understanding-singular-value-decomposition-and-its-application-in-data-science-388a54be95d) автора [Reza Bagheri](https://medium.com/@reza.bagheri79)
 # 1. *Беклемишев Д.В.* Дополнительные главы линейной алгебры. &mdash; М.: Наука, 1983. &mdash; 336 с.
 
 # Versions used
