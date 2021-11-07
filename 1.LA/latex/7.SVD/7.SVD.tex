@@ -31,8 +31,6 @@
     \DeclareCaptionFormat{nocaption}{}
     \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
 
-    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
-    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
     \usepackage{float}
     \floatplacement{figure}{H} % forces figures to be placed at the correct location
     \usepackage{xcolor} % Allow colors to be defined
@@ -51,13 +49,21 @@
     \usepackage{fancyvrb} % verbatim replacement that allows latex
     \usepackage{grffile} % extends the file name processing of package graphics 
                          % to support a larger range
-    \makeatletter % fix for grffile with XeLaTeX
-    \def\Gread@@xetex#1{%
-      \IfFileExists{"\Gin@base".bb}%
-      {\Gread@eps{\Gin@base.bb}}%
-      {\Gread@@xetex@aux#1}%
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
     }
     \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
 
     % The hyperref package gives us a pdf with properly built
     % internal navigation ('pdf bookmarks' for the table of contents,
@@ -99,6 +105,9 @@
     \definecolor{ansi-white-intense}{HTML}{A1A6B2}
     \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
     \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
 
     % commands and environments needed by pandoc snippets
     % extracted from the output of `pandoc -s`
@@ -157,6 +166,7 @@
     \title{Лекция 7 \\
     Сингулярное разложение
     }
+    \date{20 октября 2021\,г.}
     
     
     
@@ -174,73 +184,73 @@
     \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
 \def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
 
-\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
-\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
-\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
-\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
-\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
-\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
-\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
-\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
-\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
-\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
-\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
-\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
-\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
-\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
-\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
-\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
-\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
-\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
-\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
-\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
-\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
-\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
-\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
-\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
 
 \def\PYZbs{\char`\\}
 \def\PYZus{\char`\_}
@@ -352,7 +362,7 @@
     \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
     \makeatother
     \newcommand{\prompt}[4]{
-        \ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
     }
     
 
@@ -393,11 +403,10 @@
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{2}{\boxspacing}
+\prompt{In}{incolor}{11}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Styles}
 \PY{k+kn}{import} \PY{n+nn}{warnings}
-\PY{c+c1}{\PYZsh{} warnings.simplefilter(action=\PYZsq{}ignore\PYZsq{}, category=FutureWarning)}
 \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 
 \PY{k+kn}{import} \PY{n+nn}{matplotlib}
@@ -411,14 +420,14 @@
 \end{Verbatim}
 \end{tcolorbox}
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux43fux43eux441ux442ux430ux43dux43eux432ux43aux430-ux437ux430ux434ux430ux447ux438}{%
 \section{Постановка
 задачи}\label{ux43fux43eux441ux442ux430ux43dux43eux432ux43aux430-ux437ux430ux434ux430ux447ux438}}
 
 В прошлый раз мы увидели: некоторые квадратные матрицы могут быть
-представлены в виде \(A = S \Lambda S^\top\). Наилучшие представители
+представлены в виде \(A = S \Lambda S^{-1}\). Наилучшие представители
 квадратных матриц --- симметричные матрицы --- представимы в виде
 \(A = Q \Lambda Q^\top\) (\(Q\) --- ортогональная матрица).\\
 Но как быть, если матрица недиагонализируема? И как быть, если матрица
@@ -437,11 +446,11 @@
 
 \[ A V = U \Sigma \] и \[ A = U \Sigma V^\top. \]
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux43fux440ux435ux43eux431ux440ux430ux437ux43eux432ux430ux43dux438ux44f-mathbfatop-a-ux438-mathbfa-atop}{%
 \section{\texorpdfstring{Преобразования \(\mathbf{A^\top A}\) и
-\(\mathbf{A A^\top}\)}{Преобразования \textbackslash{}mathbf\{A\^{}\textbackslash{}top A\} и \textbackslash{}mathbf\{A A\^{}\textbackslash{}top\}}}\label{ux43fux440ux435ux43eux431ux440ux430ux437ux43eux432ux430ux43dux438ux44f-mathbfatop-a-ux438-mathbfa-atop}}
+\(\mathbf{A A^\top}\)}{Преобразования \textbackslash mathbf\{A\^{}\textbackslash top A\} и \textbackslash mathbf\{A A\^{}\textbackslash top\}}}\label{ux43fux440ux435ux43eux431ux440ux430ux437ux43eux432ux430ux43dux438ux44f-mathbfatop-a-ux438-mathbfa-atop}}
 
 Рассмотрим преобразования \(A^\top A\) и \(A A^\top\). Сначала повторим
 то, что уже знаем о них:
@@ -499,7 +508,7 @@
 матриц позволяют их таким образом умножать).
 \end{quote}
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux441ux438ux43dux433ux443ux43bux44fux440ux43dux44bux435-ux431ux430ux437ux438ux441ux44b-ux441ux438ux43dux433ux443ux43bux44fux440ux43dux43eux435-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}{%
 \section{Сингулярные базисы, сингулярное
@@ -573,10 +582,10 @@ value decomposition, SVD).
   векторов.
 \item
   С помощью SVD можно получить явную формулу для псевдообратной матрицы:
-  \[ A^{+} = U \Sigma^{+} V^\top = \sum_{i=1}^r \frac{1}{\sigma_i} \mathbf{u}_i \mathbf{v}_i^\top. \]
+  \[ A^{+} = V \Sigma^{+} U^\top = \sum_{i=1}^r \frac{1}{\sigma_i} \mathbf{v}_i \mathbf{u}_i^\top. \]
 \end{enumerate}
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux433ux435ux43eux43cux435ux442ux440ux438ux447ux435ux441ux43aux438ux439-ux441ux43cux44bux441ux43b}{%
 \section{Геометрический
@@ -636,8 +645,8 @@ U =
 \PY{n}{Sq2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{lmbd}\PY{p}{)} \PY{o}{@} \PY{n}{Sq1}
 \PY{n}{Sq3} \PY{o}{=} \PY{n}{U} \PY{o}{@} \PY{n}{Sq2}
 \PY{n}{Sqn} \PY{o}{=} \PY{p}{[}\PY{n}{Sq}\PY{p}{,} \PY{n}{Sq1}\PY{p}{,} \PY{n}{Sq2}\PY{p}{,} \PY{n}{Sq3}\PY{p}{]}
-\PY{n}{Sqn\PYZus{}str} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+si}{\PYZob{}Sq\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{U\PYZca{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZhy{}1\PYZcb{}Sq\PYZcb{}\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
-         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Lambda U\PYZca{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZhy{}1\PYZcb{}Sq\PYZcb{}\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{U}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Lambda U\PYZca{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZhy{}1\PYZcb{}Sq\PYZcb{}\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\PY{n}{Sqn\PYZus{}str} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+si}{\PYZob{}X\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{U\PYZca{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZhy{}1\PYZcb{} X\PYZcb{}\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Lambda U\PYZca{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZhy{}1\PYZcb{} X\PYZcb{}\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{U}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Lambda U\PYZca{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZhy{}1\PYZcb{} X\PYZcb{}\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
 
 \PY{n}{U1} \PY{o}{=} \PY{n}{LA}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{U}\PY{p}{)} \PY{o}{@} \PY{n}{U}
 \PY{n}{U2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{lmbd}\PY{p}{)} \PY{o}{@} \PY{n}{U1}
@@ -665,14 +674,14 @@ U =
     \PY{c+c1}{\PYZsh{} axi.set\PYZus{}title(\PYZdq{}Original vectors\PYZdq{})}
     \PY{n}{axi}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
     \PY{n}{axi}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-    \PY{n}{axi}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{o}{*}\PY{p}{(}\PY{n}{Un}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+si}{\PYZob{}u\PYZus{}1\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-    \PY{n}{axi}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{o}{*}\PY{p}{(}\PY{n}{Un}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+si}{\PYZob{}u\PYZus{}2\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{axi}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{o}{*}\PY{p}{(}\PY{n}{Un}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{p}{[}\PY{l+m+mf}{.1}\PY{p}{,}\PY{l+m+mf}{.1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+si}{\PYZob{}u\PYZus{}1\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{axi}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{o}{*}\PY{p}{(}\PY{n}{Un}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{p}{[}\PY{l+m+mf}{.1}\PY{p}{,}\PY{l+m+mf}{.1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+si}{\PYZob{}u\PYZus{}2\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
     \PY{n}{axi}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{1.4}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{Sqn\PYZus{}str}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -712,8 +721,8 @@ Vt =
 \PY{n}{Sq2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{sgm}\PY{p}{)} \PY{o}{@} \PY{n}{Sq1}
 \PY{n}{Sq3} \PY{o}{=} \PY{n}{U} \PY{o}{@} \PY{n}{Sq2}
 \PY{n}{Sqn} \PY{o}{=} \PY{p}{[}\PY{n}{Sq}\PY{p}{,} \PY{n}{Sq1}\PY{p}{,} \PY{n}{Sq2}\PY{p}{,} \PY{n}{Sq3}\PY{p}{]}
-\PY{n}{Sqn\PYZus{}str} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+si}{\PYZob{}Sq\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{V\PYZca{}TSq\PYZcb{}\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
-          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Sigma V\PYZca{}T Sq\PYZcb{}\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{U }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Sigma V\PYZca{}T Sq\PYZcb{}\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\PY{n}{Sqn\PYZus{}str} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+si}{\PYZob{}X\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{U\PYZca{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZhy{}1\PYZcb{} X\PYZcb{}\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Lambda U\PYZca{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZhy{}1\PYZcb{} X\PYZcb{}\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{U}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Lambda U\PYZca{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZhy{}1\PYZcb{} X\PYZcb{}\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
 
 \PY{n}{V} \PY{o}{=} \PY{n}{Vt}\PY{o}{.}\PY{n}{T}
 \PY{n}{V1} \PY{o}{=} \PY{n}{Vt} \PY{o}{@} \PY{n}{V}
@@ -744,459 +753,18 @@ Vt =
     \PY{c+c1}{\PYZsh{} axi.set\PYZus{}title(\PYZdq{}Original vectors\PYZdq{})}
     \PY{n}{axi}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
     \PY{n}{axi}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-    \PY{n}{axi}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{o}{*}\PY{p}{(}\PY{n}{Vn}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{05}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{05}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+si}{\PYZob{}v\PYZus{}1\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-    \PY{n}{axi}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{o}{*}\PY{p}{(}\PY{n}{Vn}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{05}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{05}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+si}{\PYZob{}v\PYZus{}2\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{axi}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{o}{*}\PY{p}{(}\PY{n}{Vn}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{p}{[}\PY{l+m+mf}{.05}\PY{p}{,}\PY{l+m+mf}{.05}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+si}{\PYZob{}v\PYZus{}1\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{axi}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{o}{*}\PY{p}{(}\PY{n}{Vn}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{p}{[}\PY{l+m+mf}{.05}\PY{p}{,}\PY{l+m+mf}{.05}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+si}{\PYZob{}v\PYZus{}2\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
     \PY{n}{axi}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{Sqn\PYZus{}str}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-    \hypertarget{ux43cux430ux43bux43eux440ux430ux43dux433ux43eux432ux44bux435-ux430ux43fux43fux440ux43eux43aux441ux438ux43cux430ux446ux438ux438-ux43cux430ux442ux440ux438ux446}{%
-\section{Малоранговые аппроксимации
-матриц}\label{ux43cux430ux43bux43eux440ux430ux43dux433ux43eux432ux44bux435-ux430ux43fux43fux440ux43eux43aux441ux438ux43cux430ux446ux438ux438-ux43cux430ux442ux440ux438ux446}}
-
-В некоторых практических задачах требуется приближать заданную матрицу
-\(A\) некоторой другой матрицей \(A_k\) с заранее заданным рангом \(k\).
-
-Возникает вопрос, в каком смысле приближать? Ответ: в смысле нормы.
-
-    \hypertarget{ux43dux43eux440ux43cux44b-ux432ux435ux43aux442ux43eux440ux43eux432}{%
-\subsection{Нормы
-векторов}\label{ux43dux43eux440ux43cux44b-ux432ux435ux43aux442ux43eux440ux43eux432}}
-
-Во многих задачах, связанных с линейными пространствами, возникает
-необходимость сравнивать между собой элементы пространства, например,
-иметь возможность сказать, что один вектор в каком-то смысле мал по
-сравнению с другими. Если пространство евклидово, естественно сравнивать
-векторы по длине. Можно ввести скалярное произведение в пространство
-специально с этой целью, но часто природа объектов, составляющих
-пространство, такова, что нет никакого естественно связанного с ней
-скалярного произведения. Кроме того, скалярное произведение как таковое
-может быть и ненужным, нужен только какой-то аналог длины вектора ---
-числовая функция от вектора, обладающая несколькими важными свойствами.
-
-\textbf{Определение.} \emph{Нормой вектора} \(\mathbf{x}\) называется
-вещественное число \(\|\mathbf{x}\|\), удовлетворяющее следующим
-условиям:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \(\|\mathbf{x}\| \ge 0\), причём \(\|\mathbf{x}\| = 0\) только при
-  \(\mathbf{x} = 0\);
-\item
-  \(\forall \alpha \in \mathbb{R}\):
-  \(\|\alpha \mathbf{x}\| = |\alpha| \|\mathbf{x}\|\);
-\item
-  \(\|\mathbf{x} + \mathbf{y}\| \le \|\mathbf{x}\| + \|\mathbf{y}\|\)
-  (выпуклость).
-\end{enumerate}
-
-Линейное пространство, в котором задана норма, называется
-\emph{нормированным}.
-
-    \begin{quote}
-В нормированном пространстве мы можем определить \emph{расстояние} между
-векторами \(\mathbf{x}\) и \(\mathbf{y}\) как норму их разности
-\(\|\mathbf{y} - \mathbf{x}\|\). Множество векторов нормированного
-пространства, расстояние от которых до некоторого вектора \(\mathbf{a}\)
-не превосходит заданного числа \(\varepsilon\), называется
-\(\varepsilon\)-\emph{окрестностью} вектора \(\mathbf{a}\). Используя
-понятие окрестности, можно определить предел последовательности векторов
-нормированного пространства. Таким образом, возникает возможность
-перенести на нормированные пространства в том или ином виде все понятия
-элементарного математического анализа. Так возникают функциональные
-пространства и функциональный анализ.
-\end{quote}
-
-    \textbf{Примеры норм:}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Норма \(L_1\) (\emph{октаэдрическая}):
-  \(\|\mathbf{x}\|_1 = \sum\limits_i |x_i|\);
-\item
-  Норма \(L_2\) (\emph{евклидова}):
-  \(\|\mathbf{x}\|_2 = \left( \sum\limits_i |x_i|^2 \right)^{1/2}\);
-\item
-  Норма \(L_p\) (норма \emph{Гёльдера}):
-  \(\|\mathbf{x}\|_p = \left( \sum\limits_i |x_i|^p \right)^{1/p}\),
-  \(p \ge 1\);
-\item
-  Норма \(L_\infty\) (\emph{кубическая}):
-  \(\|\mathbf{x}\|_\infty = \max\limits_i |x_i|\).
-\end{enumerate}
-
-\textbf{Определение.} Пусть концы отрезка принадлежат некоторому
-множеству. Множество, называется \emph{выпуклыми}, если ему принадлежит
-и весь отрезок.
-
-\textbf{Предложение.} Единичный шар любой нормы является выпуклым
-множеством.
-
-    Нарисуем единичные сферы в двумерном пространстве, соответствующие
-различным нормам.\\
-Сделаем несколько наблюдений:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Из рисунка становится ясным смысл названия октаэдрической и кубической
-  норм.
-\item
-  При \(p = 1\) норма Гёльдера переходит в октаэдрическую, а при
-  \(p \to \infty\) --- в кубическую.
-\item
-  При \(p < 1\) норма Гёльдера теряет свойство выпуклости и поэтому
-  перестаёт быть нормой.
-\end{enumerate}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{10}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{k}{def} \PY{n+nf}{x\PYZus{}t}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{:}
-    \PY{k}{return} \PY{n}{r} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sign}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{p}\PY{p}{)}
-
-\PY{k}{def} \PY{n+nf}{y\PYZus{}t}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{:}
-    \PY{k}{return} \PY{n}{r} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sign}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{p}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{11}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{l+m+mi}{501}\PY{p}{)}
-\PY{n}{r} \PY{o}{=} \PY{l+m+mf}{1.}
-
-\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Единичные сферы}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{]}\PY{p}{:}
-    \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}t}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}t}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}|x|\PYZca{}}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+si}{\PYZob{}}\PY{n}{p}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s1}{ + |y|\PYZca{}}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+si}{\PYZob{}}\PY{n}{p}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s1}{ = 1\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-
-\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{p}{;}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{center}
-    \adjustimage{max size={0.6\linewidth}{0.9\paperheight}}{output_29_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \hypertarget{ux43dux43eux440ux43cux44b-ux43cux430ux442ux440ux438ux446}{%
-\subsection{Нормы
-матриц}\label{ux43dux43eux440ux43cux44b-ux43cux430ux442ux440ux438ux446}}
-
-Рассмотрим линейное пространство \(\mathbb{M}_{m, n}\) матриц размеров
-\(m \times n\). В нём, как и в любом линейном пространстве, могут быть
-введены различные нормы.
-
-\textbf{Определение.} Матричная норма \(\|A\|\) называется
-\emph{согласованной} с векторной норме \(\|\mathbf{x}\|\), если
-\[ \|A \mathbf{x}\| \le \|A\| \cdot \|\mathbf{x}\|. \]
-
-\textbf{Определение.} Матричная норма \(\|A\|\) называется
-\emph{подчинённой} векторной нормой \(\|\mathbf{x}\|\), если
-\[ \|A\| \equiv \sup\limits_{\mathbf{x} \ne 0} \dfrac{\|A \mathbf{x}\|}{\|\mathbf{x}\|} = \sup\limits_{\|\mathbf{x}\| = 1} \|A \mathbf{x}\|. \]
-
-В этом случае случае говорят также, что векторная норма
-\emph{индуцирует} матричную норму.
-
-\textbf{Предложение.} Если норма \(\|A\|\) подчинена какой-то векторной
-норме \(\|\mathbf{x}\|\), то она с ней согласована. Более того,
-существует вектор \(\mathbf{x}_0\), на котором достигается точная
-верхняя грань: \[ \|A \mathbf{x}_0\| = \|A\| \cdot \|\mathbf{x}_0\|. \]
-
-    \textbf{Примеры:}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Евклидова норма векторов индуцирует \emph{спектральную норму} матриц
-  \[ \|A\|_2 = \max \dfrac{\|A \mathbf{x}\|_2}{\|\mathbf{x}\|_2} = \sigma_1, \]
-  где \(\sigma_1\) --- максимальное сингулярное число.
-\item
-  \emph{Норма Фробениуса}:
-  \[ \|A\|_F = \left( \sum\limits_{i,j} |a_{ij}|^2 \right)^{1/2}. \]
-  Можно показать, что
-  \(\|A\|_F = \sqrt{\mathrm{tr} (A^\top A)} = \sqrt{\sigma_1^2 + \ldots + \sigma_r^2}\).
-\item
-  Ядерная норма: \(\|A\|_N = \sigma_1 + \ldots + \sigma_r\).
-\end{enumerate}
-
-    \hypertarget{ux442ux435ux43eux440ux435ux43cux430-ux44dux43aux43aux430ux440ux442ux430-ux44fux43dux433ux430}{%
-\subsection{Теорема Эккарта ---
-Янга}\label{ux442ux435ux43eux440ux435ux43cux430-ux44dux43aux43aux430ux440ux442ux430-ux44fux43dux433ux430}}
-
-\textbf{Теорема.} Наилучшая (в смысле нормы Фробениуса) матрица ранга
-\(k\), соответствующая матрице \(A\) является матрица
-\(A_k = U \Sigma_k V^\top\).
-
-\begin{quote}
-\textbf{Примечание.} В 1955 году Мирский доказал, что подходит любая
-норма матрицы, если зависит только от сингулярных чисел.
-\end{quote}
-
-Итак, для любой нормы из приведённых выше,
-
-\[ \|A - B\| \ge \|A - A_k\|. \]
-
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-    \hypertarget{ux43cux435ux442ux43eux434-ux433ux43bux430ux432ux43dux44bux445-ux43aux43eux43cux43fux43eux43dux435ux43dux442}{%
-\section{Метод главных
-компонент}\label{ux43cux435ux442ux43eux434-ux433ux43bux430ux432ux43dux44bux445-ux43aux43eux43cux43fux43eux43dux435ux43dux442}}
-
-В методе главных компонент (principal component analysis, PCA) строится
-минимальное число новых признаков, по которым исходные признаки
-восстанавливаются линейным преобразованием с минимальными погрешностями.
-PCA относится к методам обучения без учителя.
-
-    \hypertarget{ux43fux43eux441ux442ux430ux43dux43eux432ux43aux430-ux437ux430ux434ux430ux447ux438}{%
-\subsection{Постановка
-задачи}\label{ux43fux43eux441ux442ux430ux43dux43eux432ux43aux430-ux437ux430ux434ux430ux447ux438}}
-
-Пусть дана матрица признаков \(F_{m \times n}\).
-
-Обозначим через \(G_{m \times k}\) признаков тех же объектов в новом
-пространстве меньшей размерности \(k < n\).
-
-Потребуем, чтобы исходные признаки можно было восстановить по новым с
-помощью некоторого линейного преобразования, определяемого матрицей
-\(V\): \[ \hat{F} = G V^\top. \]
-
-Восстановленное описание \(\hat{F}\) не обязано в точности совпадать с
-исходным описанием \(F\), но их отличие на объектах обучающей выборки
-должно быть как можно меньше при выбранной размерности \(m\):
-\[ \Delta^2(G, V) = \|G V^\top - F\|^2 \rightarrow \min_{G, V}. \]
-
-\textbf{Теорема.} Минимум \(\Delta^2(G, V)\) достигается, когда столбцы
-матрицы \(V\) есть собственные векторы \(F^\top F\), соответствующие
-\(k\) максимальным собственным значениям. При этом \(G = FV\), матрица
-\(V\) ортогональна.
-
-\textbf{Определение.} Собственные векторы
-\(\mathbf{v}_1, \ldots, \mathbf{v}_k\), отвечающие максимальным
-собственным значениям, называются \emph{главными компонентами}.
-
-    \hypertarget{ux441ux432ux44fux437ux44c-ux441-ux441ux438ux43dux433ux443ux43bux44fux440ux43dux44bux43c-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435ux43c}{%
-\subsection{Связь с сингулярным
-разложением}\label{ux441ux432ux44fux437ux44c-ux441-ux441ux438ux43dux433ux443ux43bux44fux440ux43dux44bux43c-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435ux43c}}
-
-Если \(k = n\), то \(\Delta^2(G, V) = 0\). В этом случае представление
-\(F = G V^\top\) является точным и совпадает с сингулярным разложением:
-\(F = G V^\top = U \Sigma V^\top\).
-
-Если \(k < n\), то представление \(F \approx G V^\top\) является
-приближённым. Разложение матрицы \(G V^\top\) получается из сингулярного
-разложения матрицы \(F\) путём отбрасывания (обнуления) \(n − k\)
-минимальных собственных значений.
-
-Диагональность матрицы \(G^\top G = \Lambda\) означает, что новые
-признаки \(g_1, \ldots, g_k\) не коррелируют на обучающих объектах.
-Поэтому ортогональное отображение \(V\) называют \emph{декоррелирующим}
-или отображением \emph{Карунена --- Лоэва}.
-
-    \hypertarget{ux44dux444ux444ux435ux43aux442ux438ux432ux43dux430ux44f-ux440ux430ux437ux43cux435ux440ux43dux43eux441ux442ux44c}{%
-\subsection{Эффективная
-размерность}\label{ux44dux444ux444ux435ux43aux442ux438ux432ux43dux430ux44f-ux440ux430ux437ux43cux435ux440ux43dux43eux441ux442ux44c}}
-
-Главные компоненты содержат основную информацию о матрице \(F\). Число
-главных компонент \(k\) называют также эффективной размерностью задачи.
-На практике её определяют следующим образом. Все сингулярные числа
-матрицы \(F\) упорядочиваются по убыванию:
-\(\sigma_1 > \ldots > \sigma_n > 0\).
-
-Задаётся пороговое значение \(\varepsilon \in [0, 1]\), достаточно
-близкое к нулю, и определяется наименьшее целое \(k\), при котором
-относительная погрешность приближения матрицы \(F\) не превышает
-\(\varepsilon\):
-
-\[
-  E(k) = \frac{\|G V^\top − F\|^2}{\|F\|^2} = \frac{\sigma_{k+1} + \ldots + \sigma_n}{\sigma_1 + \ldots + \sigma_n} \le \varepsilon.
-\]
-
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-    \hypertarget{ux43fux440ux438ux43cux435ux440ux44b}{%
-\section{Примеры}\label{ux43fux440ux438ux43cux435ux440ux44b}}
-
-    \hypertarget{dimension-reduction-ux430ux43fux43fux440ux43eux43aux441ux438ux43cux430ux446ux438ux438-ux438ux437ux43eux431ux440ux430ux436ux435ux43dux438ux439}{%
-\subsection{Dimension reduction: аппроксимации
-изображений}\label{dimension-reduction-ux430ux43fux43fux440ux43eux43aux441ux438ux43cux430ux446ux438ux438-ux438ux437ux43eux431ux440ux430ux436ux435ux43dux438ux439}}
-
-Посмотрим на главные компоненты картин или фотографий.
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{12}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} Reading the image}
-\PY{n}{img} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pix/7.SVD/Mona Lisa.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n}{img}\PY{p}{)}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-(640, 429)
-    \end{Verbatim}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{13}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
-
-\PY{n}{axes}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{axes}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Original image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-
-\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{center}
-    \adjustimage{max size={0.5\linewidth}{0.9\paperheight}}{output_42_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{14}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} SVD }
-\PY{n}{U}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{VT} \PY{o}{=} \PY{n}{LA}\PY{o}{.}\PY{n}{svd}\PY{p}{(}\PY{n}{img}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{)}
-
-\PY{n}{S\PYZus{}s} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{s}\PY{p}{)}
-\PY{n}{eds} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{i}\PY{p}{:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{s}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{n}{S\PYZus{}s}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-(429,)
-    \end{Verbatim}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{15}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{whitegrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
-
-\PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{s}\PY{p}{)}
-\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{singular values}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
-\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{l+m+mf}{10e\PYZhy{}1}\PY{p}{,} \PY{l+m+mf}{1e2}\PY{p}{)}
-\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{sigma\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-
-\PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{eds}\PY{p}{)}
-\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
-\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{l+m+mf}{0.25}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{)}
-\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E(k)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-
-\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{16}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{whitegrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
-
-\PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{U}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{U}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-
-\PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{VT}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{)}
-\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{VT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-
-\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{17}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
-
-\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{original image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{k} \PY{o}{=} \PY{l+m+mi}{5}
-\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{:}
-    \PY{n}{img\PYZus{}i} \PY{o}{=} \PY{n}{s}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{U}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{@} \PY{n}{VT}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
-    \PY{n}{axes}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{3}\PY{p}{,} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}i}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-    \PY{n}{axes}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{3}\PY{p}{,} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}
-        \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sigma\PYZus{}}\PY{l+s+si}{\PYZob{}}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+s2}{u}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s2}{\PYZus{}}\PY{l+s+si}{\PYZob{}}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+s2}{v}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s2}{\PYZus{}}\PY{l+s+si}{\PYZob{}}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZca{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{top\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-    
-\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{18}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{Sigma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{img}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{img}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
-\PY{n}{Sigma}\PY{p}{[}\PY{p}{:}\PY{n+nb}{min}\PY{p}{(}\PY{n}{img}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{img}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{p}{:}\PY{n+nb}{min}\PY{p}{(}\PY{n}{img}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{img}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{s}\PY{p}{)}
-
-\PY{c+c1}{\PYZsh{} Reconstruction of the matrix using the first k singular values}
-\PY{n}{img\PYZus{}k} \PY{o}{=} \PY{n}{U}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{n}{k}\PY{p}{]} \PY{o}{@} \PY{n}{Sigma}\PY{p}{[}\PY{p}{:}\PY{n}{k}\PY{p}{,} \PY{p}{:}\PY{n}{k}\PY{p}{]} \PY{o}{@} \PY{n}{VT}\PY{p}{[}\PY{p}{:}\PY{n}{k}\PY{p}{,} \PY{p}{:}\PY{p}{]}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{19}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
-
-\PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Original image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-
-\PY{n}{ax2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}k}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}}\PY{n}{k}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ principal components}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux438ux441ux442ux43eux447ux43dux438ux43aux438}{%
 \section{Источники}\label{ux438ux441ux442ux43eux447ux43dux438ux43aux438}}
@@ -1205,38 +773,31 @@ PCA относится к методам обучения без учителя.
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \emph{Strang G.} Linear algebra and learning from data. ---
-  Wellesley-Cambridge Press, 2019.
-\item
   \emph{Беклемишев Д.В.} Дополнительные главы линейной алгебры. --- М.:
-  Наука, 1983.
-\item
-  \emph{Воронцов К.В.}
-  \href{http://www.machinelearning.ru/wiki/images/6/6d/Voron-ML-1.pdf}{Математические
-  методы обучения по прецедентам (теория обучения машин)}. --- 141 c.
+  Наука, 1983. --- 336\,с.
 \item
   \href{https://towardsdatascience.com/understanding-singular-value-decomposition-and-its-application-in-data-science-388a54be95d}{Материалы}
-  автора \href{https://medium.com/@reza.bagheri79}{Reza Bagheri}.
+  автора \href{https://reza-bagheri79.medium.com/}{Reza Bagheri}.
 \end{enumerate}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{20}{\boxspacing}
+\prompt{In}{incolor}{10}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Versions used}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Python: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{o}{*}\PY{n}{sys}\PY{o}{.}\PY{n}{version\PYZus{}info}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numpy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{matplotlib: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seaborn: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{seaborn}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
-\PY{c+c1}{\PYZsh{} print(\PYZsq{}scipy: \PYZob{}\PYZcb{}\PYZsq{}.format(sp.\PYZus{}\PYZus{}version\PYZus{}\PYZus{}))}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-Python: 3.7.7
-numpy: 1.18.1
-matplotlib: 3.2.1
-seaborn: 0.10.1
+Python: 3.7.11
+numpy: 1.21.2
+matplotlib: 3.4.2
+seaborn: 0.11.2
     \end{Verbatim}
+
 
 
     % Add a bibliography block to the postdoc

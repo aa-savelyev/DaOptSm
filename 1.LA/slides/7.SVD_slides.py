@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.5.2
+#       jupytext_version: 1.10.3
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -21,7 +21,7 @@
 
 # + [markdown] toc=true slideshow={"slide_type": "subslide"}
 # <h1>Содержание<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Постановка-задачи" data-toc-modified-id="Постановка-задачи-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Постановка задачи</a></span></li><li><span><a href="#Преобразования-$\mathbf{A^\top-A}$-и-$\mathbf{A-A^\top}$" data-toc-modified-id="Преобразования-$\mathbf{A^\top-A}$-и-$\mathbf{A-A^\top}$-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Преобразования $\mathbf{A^\top A}$ и $\mathbf{A A^\top}$</a></span></li><li><span><a href="#Сингулярные-базисы,-сингулярное-разложение" data-toc-modified-id="Сингулярные-базисы,-сингулярное-разложение-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Сингулярные базисы, сингулярное разложение</a></span></li><li><span><a href="#Геометрический-смысл" data-toc-modified-id="Геометрический-смысл-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Геометрический смысл</a></span><ul class="toc-item"><li><span><a href="#Спектральное-разложение" data-toc-modified-id="Спектральное-разложение-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Спектральное разложение</a></span></li><li><span><a href="#Сингулярное-разложение" data-toc-modified-id="Сингулярное-разложение-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Сингулярное разложение</a></span></li></ul></li><li><span><a href="#Малоранговые-аппроксимации-матриц" data-toc-modified-id="Малоранговые-аппроксимации-матриц-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Малоранговые аппроксимации матриц</a></span></li><li><span><a href="#Метод-главных-компонент" data-toc-modified-id="Метод-главных-компонент-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Метод главных компонент</a></span><ul class="toc-item"><li><span><a href="#Постановка-задачи" data-toc-modified-id="Постановка-задачи-6.1"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>Постановка задачи</a></span></li><li><span><a href="#Связь-с-сингулярным-разложением" data-toc-modified-id="Связь-с-сингулярным-разложением-6.2"><span class="toc-item-num">6.2&nbsp;&nbsp;</span>Связь с сингулярным разложением</a></span></li><li><span><a href="#Эффективная-размерность" data-toc-modified-id="Эффективная-размерность-6.3"><span class="toc-item-num">6.3&nbsp;&nbsp;</span>Эффективная размерность</a></span></li></ul></li><li><span><a href="#Примеры" data-toc-modified-id="Примеры-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Примеры</a></span><ul class="toc-item"><li><span><a href="#Data-mining:-таблица-оценок-фильмов" data-toc-modified-id="Data-mining:-таблица-оценок-фильмов-7.1"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>Data mining: таблица оценок фильмов</a></span></li><li><span><a href="#Dimension-reduction:-аппроксимации-изображений" data-toc-modified-id="Dimension-reduction:-аппроксимации-изображений-7.2"><span class="toc-item-num">7.2&nbsp;&nbsp;</span>Dimension reduction: аппроксимации изображений</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Постановка-задачи" data-toc-modified-id="Постановка-задачи-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Постановка задачи</a></span></li><li><span><a href="#Преобразования-$\mathbf{A^\top-A}$-и-$\mathbf{A-A^\top}$" data-toc-modified-id="Преобразования-$\mathbf{A^\top-A}$-и-$\mathbf{A-A^\top}$-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Преобразования $\mathbf{A^\top A}$ и $\mathbf{A A^\top}$</a></span></li><li><span><a href="#Сингулярные-базисы,-сингулярное-разложение" data-toc-modified-id="Сингулярные-базисы,-сингулярное-разложение-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Сингулярные базисы, сингулярное разложение</a></span></li><li><span><a href="#Геометрический-смысл" data-toc-modified-id="Геометрический-смысл-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Геометрический смысл</a></span><ul class="toc-item"><li><span><a href="#Спектральное-разложение" data-toc-modified-id="Спектральное-разложение-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Спектральное разложение</a></span></li><li><span><a href="#Сингулярное-разложение" data-toc-modified-id="Сингулярное-разложение-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Сингулярное разложение</a></span></li></ul></li><li><span><a href="#Малоранговые-аппроксимации-матриц" data-toc-modified-id="Малоранговые-аппроксимации-матриц-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Малоранговые аппроксимации матриц</a></span><ul class="toc-item"><li><span><a href="#Нормы-векторов" data-toc-modified-id="Нормы-векторов-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Нормы векторов</a></span></li><li><span><a href="#Теорема-Эккарта-—-Янга" data-toc-modified-id="Теорема-Эккарта-—-Янга-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>Теорема Эккарта — Янга</a></span></li></ul></li><li><span><a href="#Метод-главных-компонент" data-toc-modified-id="Метод-главных-компонент-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Метод главных компонент</a></span><ul class="toc-item"><li><span><a href="#Постановка-задачи" data-toc-modified-id="Постановка-задачи-6.1"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>Постановка задачи</a></span></li><li><span><a href="#Связь-с-сингулярным-разложением" data-toc-modified-id="Связь-с-сингулярным-разложением-6.2"><span class="toc-item-num">6.2&nbsp;&nbsp;</span>Связь с сингулярным разложением</a></span></li><li><span><a href="#Эффективная-размерность" data-toc-modified-id="Эффективная-размерность-6.3"><span class="toc-item-num">6.3&nbsp;&nbsp;</span>Эффективная размерность</a></span></li></ul></li><li><span><a href="#Примеры" data-toc-modified-id="Примеры-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Примеры</a></span><ul class="toc-item"><li><span><a href="#Выявление-скрытых-признаков" data-toc-modified-id="Выявление-скрытых-признаков-7.1"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>Выявление скрытых признаков</a></span></li><li><span><a href="#Dimension-reduction:-аппроксимации-изображений" data-toc-modified-id="Dimension-reduction:-аппроксимации-изображений-7.2"><span class="toc-item-num">7.2&nbsp;&nbsp;</span>Dimension reduction: аппроксимации изображений</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
 
 # + slideshow={"slide_type": "skip"}
 # Imports
@@ -40,7 +40,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 import matplotlib
-matplotlib.rcParams['font.size'] = 14
+matplotlib.rcParams['font.size'] = 20
 matplotlib.rcParams['lines.linewidth'] = 1.5
 matplotlib.rcParams['lines.markersize'] = 4
 cm = plt.cm.tab10  # Colormap
@@ -256,6 +256,7 @@ for i, axi in enumerate(ax.flatten()):
     axi.text(*(Vn[i].T[1]+[.05,.05]), "$\mathbf{v_2}$", fontsize=14)
     axi.text(1.5, -2, Sqn_str[i], color='b', fontsize=14)
 
+
 # + [markdown] slideshow={"slide_type": "skip"}
 # ---
 
@@ -268,29 +269,82 @@ for i, axi in enumerate(ax.flatten()):
 # Ответ: в смысле нормы.
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# **Определение.** Нормой матрицы $A$ называется вещественное число $\|A\|$, удовлетворяющее следующим условиям:
+# ### Нормы векторов
 #
-# 1. $\|A\| \ge 0$, причём $\|A\| = 0$ только при $A = 0$;
-# 1. для $\alpha \in \mathbb{R}$ $\|\alpha A\| = |\alpha| \|A\|$;
-# 1. $\|A + B\| \le \|A\| + \|B\|$;
-# 1. $\|A B\| \le \|A\| \cdot \|B\|$.
+# **Определение.** *Нормой вектора* $\mathbf{x}$ называется вещественное число $\|\mathbf{x}\|$, удовлетворяющее следующим условиям:
+#
+# 1. $\|\mathbf{x}\| \ge 0$, причём $\|\mathbf{x}\| = 0$ только при $\mathbf{x} = 0$;
+# 1. $\forall \alpha \in \mathbb{R}$: $\|\alpha \mathbf{x}\| = |\alpha| \|\mathbf{x}\|$;
+# 1. $\|\mathbf{x} + \mathbf{y}\| \le \|\mathbf{x}\| + \|\mathbf{y}\|$ (выпуклость).
+#
+# Линейное пространство, в котором задана норма, называется *нормированным*.
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # **Примеры:**
 #
-# 1. Спектральная (евклидова) норма
-# $\|A\|_2 = \max \frac{A \mathbf{x}}{\mathbf{x}} = \sigma_1$;
+# 1. Норма $L_1$ (*октаэдрическая*):
+# $\|\mathbf{x}\|_1 = \sum\limits_i |x_i|$;
 #
-# 1. Норма Фробениуса
-# $\|A\|_F = \sqrt{\sigma_1^2 + \ldots + \sigma_r^2}$;
+# 1. Норма $L_2$ (*евклидова*):
+# $\|\mathbf{x}\|_2 = \left( \sum\limits_i |x_i|^2 \right)^{1/2}$;
 #
-# 1. Ядерная норма
+# 1. Норма $L_p$ (норма *Гёльдера*):
+# $\|\mathbf{x}\|_p = \left( \sum\limits_i |x_i|^p \right)^{1/p}$, $p \ge 1$;
+#
+# 1. Норма $L_\infty$ (*кубическая*):
+# $\|\mathbf{x}\|_\infty = \max\limits_i |x_i|$.
+#
+# **Определение.** Пусть концы отрезка принадлежат некоторому множеству. Множество, называется *выпуклыми*, если ему принадлежит и весь отрезок.
+#
+# **Предложение.** Единичный шар любой нормы является выпуклым множеством.
+
+# + slideshow={"slide_type": "subslide"}
+def x_t(t, r, p):
+    return r * np.sign(np.cos(t)) * np.abs(np.cos(t))**(2/p)
+
+def y_t(t, r, p):
+    return r * np.sign(np.sin(t)) * np.abs(np.sin(t))**(2/p)
+
+
+# + slideshow={"slide_type": "subslide"}
+graph_support.hide_code_in_slideshow()
+
+t = np.linspace(0, 2*np.pi, 501)
+r = 1.
+
+seaborn.set_style("whitegrid")
+plt.figure(figsize=(8, 8))
+plt.title('Единичные сферы')
+for p in [0.5, 1, 2, 5, 100]:
+    plt.plot(x_t(t, r, p), y_t(t, r, p), label=f'$|x|^{{{p}}} + |y|^{{{p}}} = 1$')
+
+plt.xlabel(r"$x$")
+plt.ylabel(r"$y$", rotation='horizontal', horizontalalignment='right')
+plt.legend();
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# **Примеры:**
+#
+# 1. Евклидова норма векторов индуцирует *спектральную норму* матриц
+# $$ \|A\|_2 = \max \dfrac{\|A \mathbf{x}\|_2}{\|\mathbf{x}\|_2} = \sigma_1, $$
+# где $\sigma_1$ &mdash; максимальное сингулярное число.
+#
+# 1. *Норма Фробениуса*:
+# $$ \|A\|_F = \left( \sum\limits_{i,j} |a_{ij}|^2 \right)^{1/2}. $$
+# Можно показать, что
+# $\|A\|_F = \sqrt{\mathrm{tr} (A^\top A)} = \sqrt{\sigma_1^2 + \ldots + \sigma_r^2}$.
+#
+# 1. Ядерная норма:
 # $\|A\|_N = \sigma_1 + \ldots + \sigma_r$.
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# **Теорема (Эккарта &mdash; Янга).** Наилучшая (в смысле нормы Фробениуса) матрица ранга $k$, соответствующая матрице $A$ является матрица $A_k = U \Sigma_k V^\top$.
+# ### Теорема Эккарта &mdash; Янга ###
 #
-# **Примечание.** В 1955 году Мирский доказал, что подходит любая норма матрицы, если зависит только от сингулярных чисел.
+# **Теорема.**
+# Наилучшая (в смысле нормы Фробениуса) матрица ранга $k$, соответствующая матрице $A$ является матрица $A_k = U \Sigma_k V^\top$.
+#
+# >**Примечание.**
+# В 1955 году Мирский доказал, что подходит любая норма матрицы, если зависит только от сингулярных чисел.
 #
 # Итак, для любой нормы из приведённых выше,
 #
@@ -327,10 +381,13 @@ for i, axi in enumerate(ax.flatten()):
 # ### Связь с сингулярным разложением ###
 #
 # Если $k = n$, то $\Delta^2(G, V) = 0$.
-# В этом случае представление $F = G V^\top$ является точным и совпадает с сингулярным разложением: $F = G V^\top = V D V^\top$.
+# В этом случае представление $F = G V^\top$ является точным и совпадает с сингулярным разложением: $F = G V^\top = U \Sigma V^\top$.
 #
 # Если $k < n$, то представление $F \approx G V^\top$ является приближённым.
-# Сингулярное разложение матрицы $G V^\top$ получается из сингулярного разложения матрицы $F$ путём отбрасывания (обнуления) $n − k$ минимальных собственных значений.
+# Разложение матрицы $G V^\top$ получается из сингулярного разложения матрицы $F$ путём отбрасывания (обнуления) $n − k$ минимальных собственных значений.
+#
+# Диагональность матрицы $G^\top G = \Lambda$ означает, что новые признаки $g_1, \ldots, g_k$ не коррелируют на обучающих объектах.
+# Поэтому ортогональное отображение $V$ называют *декоррелирующим* или отображением *Карунена &mdash; Лоэва*.
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # ### Эффективная размерность ###
@@ -354,8 +411,9 @@ for i, axi in enumerate(ax.flatten()):
 # ## Примеры ##
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# ### Data mining: таблица оценок фильмов ###
+# ### Выявление скрытых признаков
 #
+# Рассмотрим таблицу оценок фильмов.
 # Фильмы (столбцы):
 #
 # 1. Бриллиантовая рука
@@ -363,7 +421,8 @@ for i, axi in enumerate(ax.flatten()):
 # 1. Джентльмены удачи
 # 1. Оно
 # 1. Психо
-#
+# -
+
 # Таблица оценок фильмов $F$:
 # $$
 #   F = 
@@ -381,14 +440,16 @@ for i, axi in enumerate(ax.flatten()):
 
 # + slideshow={"slide_type": "skip"}
 F = np.array([
-    [ 5, 5, 4, 1, 1 ],  #  Любит комедии
-    [ 4, 5, 5, 1, 2 ],  #  Любит комедии
-    [ 4, 4, 5, 2, 1 ],  #  Любит комедии
-    [ 1, 1, 1, 5, 5 ],  #  Любит остросюжетные
-    [ 2, 1, 2, 5, 4 ],  #  Любит остросюжетные
-    [ 5, 4, 5, 2, 1 ],  #  Любит комедии
-    [ 4, 4, 4, 1, 2 ],  #  Любит комедии
-    [ 5, 1, 1, 1, 1 ],  #  Фанат Бриллиантовой руки
+    [ 5, 5, 4, 2, 1 ],
+    [ 5, 3, 4, 3, 2 ],
+    [ 2, 1, 3, 5, 4 ],
+    [ 4, 5, 5, 1, 2 ],
+    [ 4, 4, 5, 2, 1 ],
+    [ 2, 3, 1, 4, 3 ],
+    [ 5, 4, 5, 3, 1 ],
+#     [ 3, 3, 3, 3, 3 ],
+#     [ 5, 1, 1, 1, 1 ],
+    
 ])
 
 # + slideshow={"slide_type": "subslide"}
@@ -419,11 +480,12 @@ np.disp(np.round(Vt, 2))
 # + slideshow={"slide_type": "subslide"}
 graph_support.hide_code_in_slideshow()
 
+k = 2
 seaborn.set_style("white")
 fig, axes = plt.subplots(1, 2, figsize=(12,4))
-im1 = axes[0].imshow(abs(U[:,:3]), vmin=0,vmax=1, cmap='magma_r', alpha=0.8)
+im1 = axes[0].imshow(abs(U[:,:k]), vmin=0,vmax=1, cmap='magma_r', alpha=0.8)
 axes[0].set_title("Категории зрителей");
-im2 = axes[1].imshow(abs(Vt[:3,:]),vmin=0,vmax=1, cmap='magma_r', alpha=0.8)
+im2 = axes[1].imshow(abs(Vt[:k,:]),vmin=0,vmax=1, cmap='magma_r', alpha=0.8)
 axes[1].set_title("Категории фильмов")
 
 fig.colorbar(im1, ax=axes.ravel().tolist(), shrink=0.90)
@@ -432,11 +494,11 @@ plt.show()
 # + slideshow={"slide_type": "subslide"}
 graph_support.hide_code_in_slideshow()
 
+k = 2
 seaborn.set_style("white")
-fig, axes = plt.subplots(1, 4, figsize=(15,4))
+fig, axes = plt.subplots(1, k+1, figsize=(15,4))
 plt.subplots_adjust(wspace=0.3, hspace=0.2)
 
-k = 3
 vlims = [-5, 5]
 
 im = axes[0].imshow(F, vmin=vlims[0],vmax=vlims[1], cmap='RdBu_r')
