@@ -154,9 +154,10 @@
     \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
     % Document parameters
     % Document title
-    \title{Лекция 8 \\
+    \title{Лекция 9 \\
     Обусловленность СЛАУ
     }
+    \date{3 ноября 2021\,г.}
     
     
     
@@ -475,11 +476,10 @@
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.4\linewidth}{0.4\paperheight}}{output_8_0.png}
+    \adjustimage{max size={0.5\linewidth}{0.5\paperheight}}{output_8_0.png}
     \end{center}
-    { \hspace*{\fill} \\}
     
-    Посмотрим, как появляются эти ошибки.
+Посмотрим, как появляются эти ошибки.
 
 Пусть вектор \(\mathbf{b}\) известен не точно, а с некоторой
 погрешностью. Посмотрим, какова будет погрешность решения системы ---
@@ -555,7 +555,6 @@
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
     \end{center}
-    { \hspace*{\fill} \\}
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{7}{\boxspacing}
@@ -724,7 +723,6 @@ mu(A) =  22.15
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
     \end{center}
-    { \hspace*{\fill} \\}
     
     Для двумерного случая мы видим, что если векторы правой части
 возмущённой системы лежат внутри окружности, то решения возмущённой
@@ -787,7 +785,6 @@ mu(A) =  22.15
     \begin{center}
     \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_29_0.png}
     \end{center}
-    { \hspace*{\fill} \\}
     
     \hypertarget{ux43fux43eux438ux441ux43a-ux43aux43eux44dux444ux444ux438ux446ux438ux435ux43dux442ux43eux432-ux440ux435ux433ux440ux435ux441ux441ux438ux438}{%
 \subsection{Поиск коэффициентов
@@ -796,7 +793,7 @@ mu(A) =  22.15
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{13}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} The number of fetures}
+\PY{c+c1}{\PYZsh{} The number of features}
 \PY{n}{Nf} \PY{o}{=} \PY{l+m+mi}{7}
 \PY{c+c1}{\PYZsh{} Stack X with ones to be fitted by vectorized methods such as OLS and gradient descent}
 \PY{n}{F} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones\PYZus{}like}\PY{p}{(}\PY{n}{x}\PY{p}{)}
@@ -832,7 +829,6 @@ mu(A) =  22.15
     \begin{center}
     \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_32_0.png}
     \end{center}
-    { \hspace*{\fill} \\}
     
     \hypertarget{ux441ux438ux43dux433ux443ux43bux44fux440ux43dux43eux435-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}{%
 \subsection{Сингулярное
@@ -1016,7 +1012,6 @@ mu(A) =  22.15
     \begin{center}
     \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_44_0.png}
     \end{center}
-    { \hspace*{\fill} \\}
     
     Мы видим, что больших коэффициентов регрессии больше нет, норма вектора
 коэффициентов уменьшилась почти в 100 раз.
@@ -1035,11 +1030,11 @@ mu(A) =  22.15
 \tightlist
 \item
   \emph{Беклемишев Д.В.} Дополнительные главы линейной алгебры. --- М.:
-  Наука, 1983. --- 336~с.
+  Наука, 1983. --- 336\,с.
 \item
   \emph{Воронцов К.В.}
   \href{http://www.machinelearning.ru/wiki/images/6/6d/Voron-ML-1.pdf}{Математические
-  методы обучения по прецедентам (теория обучения машин)}. --- 141~c.
+  методы обучения по прецедентам (теория обучения машин)}. --- 141\,c.
 \end{enumerate}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
@@ -1050,7 +1045,6 @@ mu(A) =  22.15
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numpy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{matplotlib: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seaborn: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{seaborn}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
-\PY{c+c1}{\PYZsh{} print(\PYZsq{}scipy: \PYZob{}\PYZcb{}\PYZsq{}.format(sp.\PYZus{}\PYZus{}version\PYZus{}\PYZus{}))}
 \end{Verbatim}
 \end{tcolorbox}
 

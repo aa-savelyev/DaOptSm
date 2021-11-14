@@ -14,7 +14,7 @@
 #     name: python3
 # ---
 
-# **Лекция 8**
+# **Лекция 9**
 #
 # # Обусловленность СЛАУ #
 
@@ -32,7 +32,6 @@ import matplotlib.pyplot as plt
 # +
 # Styles
 import warnings
-# warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.filterwarnings('ignore')
 
 import matplotlib
@@ -85,8 +84,8 @@ ax1.axhline(y=0, color='k')
 ax1.axvline(x=0, color='k')
 ax1.quiver(*origin, A[0,:], A[1,:], color=['g', cm(3)],
            width=0.013, angles='xy', scale_units='xy', scale=1)
-ax1.set_xlabel('x')
-ax1.set_ylabel('y')
+ax1.set_xlabel('$x_1$')
+ax1.set_ylabel('$x_2$', rotation=0, ha='right')
 ax1.set_xlim([-0.2, 1.4])
 ax1.set_ylim([-0.2, 1.4])
 ax1.set_aspect('equal')
@@ -109,7 +108,9 @@ plt.show()
 # Creating perturbed vectors B and solve system
 # Solution
 x = np.zeros((400, 1))
-b0 = np.array([2**-0.5, 2**-0.5]).reshape(-1, 1)
+alpha = np.radians(45)
+b0 = 1.1*np.atleast_2d([np.cos(alpha), np.sin(alpha)]).T
+print(b0)
 A_inv = LA.inv(A)
 x0 = A_inv @ b0
 
@@ -124,19 +125,41 @@ B = np.vstack((B1, B2))
 X = A_inv @ B
 
 # +
+fig, ax1 = plt.subplots(1, 1, figsize=(4, 4))
+plt.subplots_adjust(wspace=0.4)
+
+# Plotting y1
+ax1.axhline(y=0, color='k')
+ax1.axvline(x=0, color='k')
+ax1.quiver(*origin, A[0,:], A[1,:], color=['g', cm(3)],
+           width=0.013, angles='xy', scale_units='xy', scale=1)
+ax1.quiver(*origin, b0[0,:], b0[1,:], color=['k'],
+           width=0.013, angles='xy', scale_units='xy', scale=1)
+ax1.set_xlabel('$x_1$')
+ax1.set_ylabel('$x_2$', rotation=0, ha='right')
+ax1.set_xlim([-0.2, 1.4])
+ax1.set_ylim([-0.2, 1.4])
+ax1.set_aspect('equal')
+ax1.set_axisbelow(True)
+ax1.set_title("Столбцы матрицы A")
+ax1.text(*A[:,0], "$\mathbf{a_1}$")
+ax1.text(*A[:,1], "$\mathbf{a_2}$")
+
+
+# +
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12,6))
 
 plt.subplots_adjust(wspace=0.4)
-xlims = [-0.2, 1.6]
-ylims = [-0.9, 0.9]
+xlims = [-0.3, 1.7]
+ylims = [-1.0, 1.0]
 
 # Plotting X
 ax1.axhline(y=0, color='k')
 ax1.axvline(x=0, color='k')
-ax1.plot(X[0,:], X[1,:], 'o', ms=1.2, color='r')
-ax1.plot(x0[0], x0[1], 'o', color='k')
-ax1.set_xlabel('x')
-ax1.set_ylabel('y')
+ax1.plot(X[0,:], X[1,:], 'ro', ms=1.2, alpha=0.8)
+ax1.plot(x0[0], x0[1], 'kx', ms=10, mew=2)
+ax1.set_xlabel('$x_1$')
+ax1.set_ylabel('$x_2$', rotation=0, ha='right')
 ax1.set_xlim(xlims)
 ax1.set_ylim(ylims)
 ax1.set_aspect('equal')
@@ -146,10 +169,10 @@ ax1.set_title("До преобразования")
 # Plotting Y
 ax2.axhline(y=0, color='k')
 ax2.axvline(x=0, color='k')
-ax2.plot(B[0, :], B[1, :], 'o', ms=1.2, color='b')
-ax2.plot(b0[0], b0[1], 'o', color='k')
-ax2.set_xlabel('x')
-ax2.set_ylabel('y')
+ax2.plot(B[0, :], B[1, :], 'bo', ms=1.2, alpha=0.8)
+ax2.plot(b0[0], b0[1], 'rx', ms=10, mew=2)
+ax2.set_xlabel('$x_1$')
+ax2.set_ylabel('$x_2$', rotation=0, ha='right')
 ax2.set_xlim(xlims)
 ax2.set_ylim(ylims)
 ax2.set_aspect('equal')
@@ -166,7 +189,7 @@ db = B - b0
 k1 = np.array(list(map(LA.norm, db.T))) / LA.norm(b0)
 k2 = np.array(list(map(LA.norm, dx.T))) / LA.norm(x0)
 
-print('Максимальное относительное увеличение возмущения max(dx/x : db/b) = ', round(max(k2/k1), 2))
+print('Максимальное относительное увеличение возмущения max(dx/x : db/b) = ', round(max(k2/k1), 4))
 # -
 
 # Мы видим, что небольшое возмущение вектора правой части $\mathbf{b}$ привела к гораздо большим (почти в 15 раз) возмущениям вектора решений $\mathbf{x}$.
@@ -215,18 +238,14 @@ mu = sgm[0]/sgm[1]
 print('sigma = ', np.round(sgm, 3))
 print('mu(A) = ', round(mu, 2))
 
-# > **Самостоятельно.** В нашем примере число обусловленности $\mu(A)=22.15$. Но выше мы нашли, что относительная погрешность увеличилась в $14.88$ раз. Почему так произошло? При каком условии оценка, сделанная по числу обусловленности, будет достигаться? \
-# > Как, выбрав вектор $\mathbf{b}$, сделать для него более точную оценку возрастания относительной погрешности?
-
 # ### Геометрическая интерпретация ###
 #
 # Дадим геометрическую интерпретацию числа обусловленности.
 
 # +
 # Creating the vectors for a circle and storing them in x
-b0 = np.array([2**-0.5, 2**-0.5]).T
 r_b = 0.1 * LA.norm(b0)
-phi = np.linspace(0, 2*np.pi, 100)
+phi = np.linspace(0, 2*np.pi, 200)
 B1 = b0[0] + r_b*np.cos(phi)
 B2 = b0[1] + r_b*np.sin(phi)
 Bc = np.vstack((B1, B2))
@@ -240,31 +259,29 @@ Xc = A_inv @ Bc
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12,6))
 
 plt.subplots_adjust(wspace=0.4)
-xlims = [-0.2, 1.6]
-ylims = [-0.9, 0.9]
 
-# Plotting X
+# Plotting x
 ax1.axhline(y=0, color='k')
 ax1.axvline(x=0, color='k')
-ax1.plot(X[0,:], X[1,:], 'o', ms=1.2, c='r')
-ax1.plot(Xc[0,:], Xc[1,:], lw=1., c='k')
-ax1.plot(x0[0], x0[1], 'o', c='k')
-ax1.set_xlabel('x')
-ax1.set_ylabel('y')
+ax1.plot(X[0,:], X[1,:], 'ro', ms=1.2, alpha=.8)
+ax1.plot(Xc[0,:], Xc[1,:], lw=1., c='k', alpha=.8)
+ax1.plot(x0[0], x0[1], 'kx', ms=10, mew=2)
+ax1.set_xlabel('$x_1$')
+ax1.set_ylabel('$x_2$', rotation=0, ha='right')
 ax1.set_xlim(xlims)
 ax1.set_ylim(ylims)
 ax1.set_aspect('equal')
 ax1.set_axisbelow(True)
 ax1.set_title("До преобразования")
 
-# Plotting Y
+# Plotting b
 ax2.axhline(y=0, color='k')
 ax2.axvline(x=0, color='k')
-ax2.plot(B[0,:], B[1,:], 'o', ms=1.2, c='b')
-ax2.plot(Bc[0, :], Bc[1, :], lw=1., c='k')
-ax2.plot(b0[0], b0[1], 'o', c='k')
-ax2.set_xlabel('x')
-ax2.set_ylabel('y')
+ax2.plot(B[0,:], B[1,:], 'bo', ms=1.2, alpha=.8)
+ax2.plot(Bc[0, :], Bc[1, :], lw=1., c='k', alpha=.8)
+ax2.plot(b0[0], b0[1], 'rx', ms=10, mew=2)
+ax2.set_xlabel('$x_1$')
+ax2.set_ylabel('$x_2$', rotation=0, ha='right')
 ax2.set_xlim(xlims)
 ax2.set_ylim(ylims)
 ax2.set_aspect('equal')
@@ -278,6 +295,9 @@ plt.show()
 
 # Для двумерного случая мы видим, что если векторы правой части возмущённой системы лежат внутри окружности, то решения возмущённой системы лежат внутри эллипса, являющегося прообразом этой окружности.
 # Причём отношение полуосей этого эллипса равно *спектральному числу обусловленности*.
+
+# > **Самостоятельно.** В нашем примере число обусловленности $\mu(A)=22.15$. Но выше мы нашли, что относительная погрешность увеличилась в $14.88$ раз. Почему так произошло? При каком условии оценка, сделанная по числу обусловленности, будет достигаться? \
+# > Если известен вектор $\mathbf{b}$, как сделать более точную оценку возрастания относительной погрешности?
 
 # ---
 
@@ -323,7 +343,7 @@ plt.show()
 # ### Поиск коэффициентов регрессии ###
 
 # +
-# The number of fetures
+# The number of features
 Nf = 7
 # Stack X with ones to be fitted by OLS
 F = np.ones_like(x)
@@ -472,6 +492,5 @@ print('Python: {}.{}.{}'.format(*sys.version_info[:3]))
 print('numpy: {}'.format(np.__version__))
 print('matplotlib: {}'.format(matplotlib.__version__))
 print('seaborn: {}'.format(seaborn.__version__))
-# print('scipy: {}'.format(sp.__version__))
 
 
