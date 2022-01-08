@@ -299,9 +299,6 @@ x1, x2, p = generate_surface(
 
 # Plot bivariate distribution 1
 con = ax1.contourf(x1, x2, p, 100, cmap=cmap)
-# Plot 95% Interval
-# e = make_ellipse(bivariate_mean, bivariate_covariance)
-# ax1.add_artist(e)
 ax1.set_xlabel('$x_1$')
 ax1.set_ylabel('$x_2$', va='center')
 ax1.axis([-3., 3., -3., 3.])
@@ -319,9 +316,6 @@ x1, x2, p = generate_surface(
 
 # Plot bivariate distribution 2
 con = ax2.contourf(x1, x2, p, 100, cmap=cmap)
-# Plot 95% Interval
-# e = make_ellipse(bivariate_mean, bivariate_covariance)
-# ax2.add_artist(e)
 ax2.set_xlabel('$x_1$')
 ax2.set_ylabel('$x_2$', va='center')
 ax2.axis([-3., 3., -3., 3.])
