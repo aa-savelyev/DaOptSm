@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.10.3
+#       jupytext_version: 1.5.2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -91,6 +91,7 @@ x = np.zeros((400, 1))
 alpha = np.radians(45)
 b0 = 1.1*np.atleast_2d([np.cos(alpha), np.sin(alpha)]).T  # 1
 # b0 = -1.1*np.atleast_2d(U[:,0]).T  # 2
+# b0 = -1.1*np.atleast_2d(U[:,1]).T  # 3
 print(b0)
 A_inv = LA.inv(A)
 x0 = A_inv @ b0
@@ -177,8 +178,8 @@ mu = sgm[0]/sgm[1]
 print('sigma = ', np.round(sgm, 3))
 print('mu(A) = ', round(mu, 4))
 
-mu_2 = LA.norm(b0) / (sgm[1] * LA.norm(x0))
-print(mu_2)
+mu_2 = 1 / sgm[1] * LA.norm(b0) / LA.norm(x0)
+print(round(mu_2, 4))
 
 # ---
 

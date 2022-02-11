@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.10.3
+#       jupytext_version: 1.5.2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -21,13 +21,14 @@
 # + [markdown] toc=true
 # <h1>Содержание<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Малоранговые-аппроксимации-матриц" data-toc-modified-id="Малоранговые-аппроксимации-матриц-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Малоранговые аппроксимации матриц</a></span><ul class="toc-item"><li><span><a href="#Нормы-векторов" data-toc-modified-id="Нормы-векторов-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Нормы векторов</a></span></li><li><span><a href="#Нормы-матриц" data-toc-modified-id="Нормы-матриц-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Нормы матриц</a></span></li><li><span><a href="#Теорема-Эккарта-—-Янга" data-toc-modified-id="Теорема-Эккарта-—-Янга-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Теорема Эккарта — Янга</a></span></li></ul></li><li><span><a href="#Метод-главных-компонент" data-toc-modified-id="Метод-главных-компонент-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Метод главных компонент</a></span><ul class="toc-item"><li><span><a href="#Постановка-задачи" data-toc-modified-id="Постановка-задачи-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Постановка задачи</a></span></li><li><span><a href="#Связь-с-сингулярным-разложением" data-toc-modified-id="Связь-с-сингулярным-разложением-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Связь с сингулярным разложением</a></span></li><li><span><a href="#Эффективная-размерность" data-toc-modified-id="Эффективная-размерность-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Эффективная размерность</a></span></li></ul></li><li><span><a href="#Примеры" data-toc-modified-id="Примеры-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Примеры</a></span><ul class="toc-item"><li><span><a href="#Выявление-скрытых-признаков" data-toc-modified-id="Выявление-скрытых-признаков-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Выявление скрытых признаков</a></span></li><li><span><a href="#Аппроксимации-изображений" data-toc-modified-id="Аппроксимации-изображений-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Аппроксимации изображений</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
-# -
 
+# +
 # Imports
 import sys
 import numpy as np
 from numpy import linalg as LA
 import matplotlib.pyplot as plt
+
 # %config Completer.use_jedi = False
 
 # +
@@ -235,7 +236,21 @@ plt.legend();
 
 # ### Выявление скрытых признаков
 #
-# Рассмотрим таблицу оценок фильмов (столбцы &mdash; фильмы, строки &mdash; зрители).
+# Рассмотрим таблицу оценок фильмов (столбцы &mdash; фильмы, строки &mdash; зрители)
+#
+# $$
+#   F = 
+#   \begin{pmatrix}
+#     5 & 5 & 4 & 2 & 1 \\
+#     5 & 3 & 4 & 3 & 2 \\
+#     2 & 1 & 3 & 5 & 4 \\
+#     4 & 5 & 5 & 1 & 2 \\
+#     4 & 4 & 5 & 2 & 1 \\
+#     2 & 3 & 1 & 4 & 3 \\
+#     5 & 4 & 5 & 3 & 1 \\
+#     5 & 2 & 2 & 2 & 2 \\
+#   \end{pmatrix}.
+# $$
 
 A = np.array([
     [ 5, 5, 4, 2, 1 ],
