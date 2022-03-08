@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.5.2
+#       jupytext_version: 1.10.3
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -31,19 +31,21 @@ import matplotlib.pyplot as plt
 
 # +
 # Styles
-import warnings
-# warnings.simplefilter(action='ignore', category=FutureWarning)
-warnings.filterwarnings('ignore')
-
 import matplotlib
 matplotlib.rcParams['font.size'] = 14
 matplotlib.rcParams['lines.linewidth'] = 1.5
 matplotlib.rcParams['lines.markersize'] = 4
-cm = plt.cm.tab10  # Colormap
+cm = matplotlib.pyplot.cm.tab10  # Colormap
 figsize = (8, 5)
 
 import seaborn
 seaborn.set_style('whitegrid')
+
+# +
+import warnings
+warnings.filterwarnings('ignore')
+
+# # %config Completer.use_jedi = False
 # -
 
 # ---
