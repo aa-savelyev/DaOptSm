@@ -31,8 +31,6 @@
     \DeclareCaptionFormat{nocaption}{}
     \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
 
-    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
-    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
     \usepackage{float}
     \floatplacement{figure}{H} % forces figures to be placed at the correct location
     \usepackage{xcolor} % Allow colors to be defined
@@ -51,13 +49,21 @@
     \usepackage{fancyvrb} % verbatim replacement that allows latex
     \usepackage{grffile} % extends the file name processing of package graphics 
                          % to support a larger range
-    \makeatletter % fix for grffile with XeLaTeX
-    \def\Gread@@xetex#1{%
-      \IfFileExists{"\Gin@base".bb}%
-      {\Gread@eps{\Gin@base.bb}}%
-      {\Gread@@xetex@aux#1}%
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
     }
     \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
 
     % The hyperref package gives us a pdf with properly built
     % internal navigation ('pdf bookmarks' for the table of contents,
@@ -99,6 +105,9 @@
     \definecolor{ansi-white-intense}{HTML}{A1A6B2}
     \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
     \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
 
     % commands and environments needed by pandoc snippets
     % extracted from the output of `pandoc -s`
@@ -155,11 +164,10 @@
     % Document parameters
     % Document title
     \title{
-    {\Large Лекция 3} \\
-    Случайные величины и их распределения
-  }
-    
-    
+      {\Large Лекция 4} \\
+      Случайные величины и их распределения
+    }
+    \date{09 марта 2022\,г.}
     
     
     
@@ -175,73 +183,73 @@
     \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
 \def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
 
-\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
-\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
-\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
-\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
-\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
-\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
-\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
-\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
-\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
-\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
-\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
-\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
-\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
-\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
-\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
-\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
-\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
-\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
-\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
-\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
-\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
-\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
-\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
-\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
 
 \def\PYZbs{\char`\\}
 \def\PYZus{\char`\_}
@@ -353,7 +361,7 @@
     \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
     \makeatother
     \newcommand{\prompt}[4]{
-        \ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
     }
     
 
@@ -375,55 +383,30 @@
     
 
 \begin{document}
+    
+  \maketitle
+  \thispagestyle{empty}
+  \tableofcontents
+  \pagebreak
 
-\maketitle
-\tableofcontents
-\pagebreak
 
-
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
     \hypertarget{ux43fux43eux43dux44fux442ux438ux435-ux441ux43bux443ux447ux430ux439ux43dux43eux439-ux432ux435ux43bux438ux447ux438ux43dux44b}{%
 \section{Понятие случайной
 величины}\label{ux43fux43eux43dux44fux442ux438ux435-ux441ux43bux443ux447ux430ux439ux43dux43eux439-ux432ux435ux43bux438ux447ux438ux43dux44b}}
 
-Пусть и \((\Omega, \mathcal{F})\) и \((E, \mathcal{B})\) --- два
-измеримых пространства. Функция \(\xi = \xi(\omega)\), определённая на
-\((\Omega, \mathcal{F})\) со значениями в \(E\), называется
-\(\mathcal{F}/\mathcal{B}\)-\emph{измеримой}, если множество
-\(\{\omega: \xi(\omega) \in \mathcal{B}\} \in \mathcal{F}\) для всякого
-\(B \in \mathcal{B}\). В теории вероятностей такие функции называют
-\emph{случайными элементами} со значениями в \(E\). В том случае, когда
-\(E = \mathbb{R}\) --- действительная прямая, а \(\mathcal{B}\) ---
-\(\sigma\)-алгебра борелевских подмножеств \(\mathbb{R}\),
-\(\mathcal{F}/\mathcal{B}\)-измеримые функции \(\xi=\xi(\omega)\)
-называют (действительными) случайными величинами. В этом специальном
-случае \(\mathcal{F}/\mathcal{B}\)-измеримые функции для краткости
-называют просто \(\mathcal{F}\)-измеримыми.
-
-Ещё раз другими словами:\\
-\textbf{Определение.} Функция \(\xi: \Omega \rightarrow \mathbb{R}\)
-называется \emph{случайной величиной}, если для любого борелевского
-множества \(B \in \mathcal{B}(\mathbb{R})\) множество \(\xi^{-1}(B)\)
-является событием, т. е. принадлежит \(\sigma\)-алгебре \(\mathcal{F}\).
-
-И ещё раз другими словами:\\
 \textbf{Определение.} Функция \(\xi: \Omega \rightarrow \mathbb{R}\)
 называется \emph{случайной величиной}, если для любого
 \(x \in \mathbb{R}\) множество \(\{\omega : \xi(\omega) \le x\}\)
-принадлежит \(\sigma\)-алгебре \(\mathcal{F}\).
+является измеримым (или, что тоже самое, принадлежит \(\sigma\)-алгебре
+\(\mathcal{F}\)).
 
-\begin{quote}
-\textbf{Замечание.} Читатель, не желающий забивать себе голову
-абстракциями, связанными с \(\sigma\)-алгебрами событий и с
-измеримостью, может смело считать, что любое множество элементарных
-исходов есть событие, и, следовательно, случайная величина есть
-произвольная функция из \(\Omega\) в \(\mathbb{R}\).
-\end{quote}
+\textbf{Замечание.} Читатель, не желающий забивать себе голову абстракциями, связанными с \(\sigma\)-алгебрами событий и с~измеримостью, может смело считать, что любое множество элементарных исходов есть событие, и, следовательно, случайная величина есть произвольная функция из \(\Omega\) в \(\mathbb{R}\).
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-    \hypertarget{ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f-ux441ux43bux443ux447ux430ux439ux43dux44bux445-ux432ux435ux43bux438ux447ux438ux43d}{%
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f-ux441ux43bux443ux447ux430ux439ux43dux44bux445-ux432ux435ux43bux438ux447ux438ux43d}{%
 \section{Распределения случайных
 величин}\label{ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f-ux441ux43bux443ux447ux430ux439ux43dux44bux445-ux432ux435ux43bux438ux447ux438ux43d}}
 
@@ -439,15 +422,34 @@
 сингулярные и их смеси. Нас будут интересовать \emph{дискретные} и
 \emph{абсолютно непрерывные} случайные величины.
 
-\textbf{Определение.} Вероятностная мера \(P_\xi\) на
-\((\mathbb{R}, \mathcal{B}(\mathbb{R}))\) c
-\[ P_\xi(B) = \mathrm{P}\{\omega: \xi(\omega) \in B\}, \quad B \in \mathcal{B}(\mathbb{R}), \]
-называется \emph{распределением вероятностей} случайной величины \(\xi\)
-на \((\mathbb{R}, \mathcal{B}(\mathbb{R}))\).
+\textbf{Определение.} \emph{Распределением} случайной величины \(\xi\)
+называется вероятностная мера
+\(P_\xi(B) = \mathrm{P}\{\omega: \xi(\omega) \in B\}\) на множестве
+\(B\) (борелевских) подмножеств \(\mathbb{R}\).
 
-\textbf{Определение.} Функция
-\[ F_\xi(x) = \mathrm{P}\left\{ \omega: \xi(\omega) \le x \right\}, \quad x \in \mathbb{R} \]
-называется \emph{функцией распределения} случайной величины \(\xi\).
+Можно представлять себе распределение случайной величины \(\xi\) как
+соответствие между множествами \(B\) и вероятностями
+\(\mathrm{P}{\xi \in B}\).
+
+\textbf{Определение.} Функция \[
+  F_\xi(x) = \mathrm{P}\left\{ \omega: \xi(\omega) \le x \right\}, \quad x \in \mathbb{R}
+\] называется \emph{функцией распределения} случайной величины \(\xi\).
+
+    \textbf{Свойства функции распределения:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(F_\xi(x) \in [0,1]\);
+\item
+  \(F_\xi(x)\) монотонно не убывает;
+\item
+  \(F_\xi(x)\) непрерывна справа;
+\item
+  существуют пределы \(\lim\limits_{x\rightarrow +\infty}F_\xi(x)=1\),
+  \(\lim\limits_{x\rightarrow -\infty}F_\xi(x)=0\).
+\end{enumerate}
 
     \hypertarget{ux434ux438ux441ux43aux440ux435ux442ux43dux44bux435-ux441ux43bux443ux447ux430ux439ux43dux44bux435-ux432ux435ux43bux438ux447ux438ux43dux44b}{%
 \subsection{Дискретные случайные
@@ -456,14 +458,15 @@
 \textbf{Определение.} Случайная величина \(\xi\) называется
 \emph{дискретной} (имеет \emph{дискретное распределение}), если она
 принимает не более чем счётное число значений, т. е. если существует
-конечный или счётный набор чисел \(a_1, a_2, \ldots\) такой, что
-\[ \mathrm{P}\{\xi=a_i\} > 0 \quad \forall i. \] Если число значений
-\emph{конечно}, то такая случайная величина называется \emph{простой}.
+конечный или счётный набор чисел \(a_1, a_2, \ldots\) такой, что \[
+  \mathrm{P}\{\xi=a_i\} > 0 \quad \forall i.
+\] Если число значений \emph{конечно}, то такая случайная величина
+называется \emph{простой}.
 
 Для дискретной случайной величины \(\xi\) мера \(P_\xi\) сосредоточена
-не более чем в счётном числе точек и может быть представлена в виде
-\[ \mathrm{P}\{\xi \in B\} \equiv P_\xi(B) = \sum\limits_{k:x_k \in B}p(x_k), \]
-где \(p(x_k) = \mathrm{P}\{\xi=x_k\}\).
+не более чем в счётном числе точек и может быть представлена в виде \[
+  \mathrm{P}\{\xi \in B\} \equiv P_\xi(B) = \sum\limits_{k:x_k \in B} \mathrm{P}\{\xi=x_k\}.
+\]
 
     \hypertarget{ux430ux431ux441ux43eux43bux44eux442ux43dux43e-ux43dux435ux43fux440ux435ux440ux44bux432ux43dux44bux435-ux441ux43bux443ux447ux430ux439ux43dux44bux435-ux432ux435ux43bux438ux447ux438ux43dux44b}{%
 \subsection{Абсолютно непрерывные случайные
@@ -471,7 +474,8 @@
 
 \textbf{Определение.} Случайная величина \(\xi\) называется
 \emph{абсолютно непрерывной}, если существует неотрицательная функция
-\(f=f_\xi(x)\), называемая \emph{плотностью распределения}, такая, что
+\(f = f_\xi(x)\), называемая \emph{плотностью распределения}, такая, что
+
 \[ F_\xi(x) = \int\limits_{-\infty}^x f_\xi(t) dt, \quad \forall x \in \mathbb{R}. \]
 
 \textbf{Свойства:}
@@ -491,13 +495,6 @@
 существует вероятностное пространство и случайная величина \(\xi\) на
 нём, для которой \(f\) является плотностью распределения.
 
-\textbf{Борель!}\\
-Если \(\xi\) --- абсолютно непрерывная случайная величина с плотностью
-\(f_\xi(x)\), то для любого борелевского множества \(B\) имеет место
-равенство: \[ P_\xi(B) = \int\limits_B f_\xi(x)dx, \] где интеграл
-понимается как интеграл Лебега от функции \(f_\xi(x)\) по мере Лебега
-множества \(B\).
-
     \hypertarget{ux43cux43dux43eux433ux43eux43cux435ux440ux43dux44bux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}{%
 \subsection{Многомерные
 распределения}\label{ux43cux43dux43eux433ux43eux43cux435ux440ux43dux44bux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}}
@@ -505,10 +502,10 @@
 Пусть случайные величины \(\xi_1, \ldots, \xi_n\) заданы на одном
 вероятностном пространстве \((\Omega, \mathcal{F}, \mathrm{P})\).
 
-\textbf{Определение.} Функция
-\[ F_{\xi_1, \ldots, \xi_n}(x_1, \ldots, x_n) = \mathrm{P}(\xi_1<x_1, \ldots, \xi_n<x_n) \]
-называется \emph{функцией совместного распределения} случайных величин
-\(\xi_1, \ldots , \xi_n\).
+\textbf{Определение.} Функция \[
+  F_{\xi_1, \ldots, \xi_n}(x_1, \ldots, x_n) = \mathrm{P}(\xi_1 \le x_1, \ldots, \xi_n \le x_n)
+\] называется \emph{функцией совместного распределения} случайных
+величин \(\xi_1, \ldots , \xi_n\).
 
 Далее для простоты обозначений ограничимся вектором из двух величин
 \((\xi, \eta)\).
@@ -517,21 +514,93 @@
 имеют \emph{абсолютно непрерывное совместное распределение}, если
 существует неотрицательная функция \(f_{\xi, \eta}(x, y)\), называемая
 \emph{плотностью}, такая, что
-\[ F_{\xi, \eta}(x, y) = \int\limits_{-\infty}^{x} \int\limits_{-\infty}^{y} f_{\xi, \eta}(t_1, t_2) dt_1 dt_2. \]
+
+\[
+  F_{\xi, \eta}(x, y) = \int\limits_{-\infty}^{x} \int\limits_{-\infty}^{y} f_{\xi, \eta}(t_1, t_2) dt_1 dt_2
+\]
 
 \textbf{Теорема.} Если случайные величины \(\xi\) и \(\eta\) имеют
 абсолютно непрерывное совместное распределение с плотностью \(f(x, y)\),
 то \(\xi\) и \(\eta\) в отдельности также имеют абсолютно непрерывное
 распределение с плотностями:
-\[ f_{\xi}(x) = \int\limits_{-\infty}^{\infty} f_{\xi, \eta}(x, y)dy \quad \mathrm{и} \quad f_{\eta}(y) = \int\limits_{-\infty}^{\infty} f_{\xi, \eta}(x, y)dx. \]
+
+\[
+  f_{\xi}(x) = \int\limits_{-\infty}^{\infty} f_{\xi, \eta}(x, y)dy \quad \mathrm{и} \quad f_{\eta}(y) = \int\limits_{-\infty}^{\infty} f_{\xi, \eta}(x, y)dx.
+\]
+
 Соответствующие распределения называются \emph{частными} или
 \emph{маргинальными}.
 
-\begin{quote}
-Операция ``маргинализация''?
-\end{quote}
+    \hypertarget{ux444ux43eux440ux43cux443ux43bux430-ux441ux432ux451ux440ux442ux43aux438}{%
+\subsection{Формула
+свёртки}\label{ux444ux43eux440ux43cux443ux43bux430-ux441ux432ux451ux440ux442ux43aux438}}
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+Если случайные величины \(\xi_1\) и \(\xi_2\) независимы и имеют
+абсолютно непрерывные расперделения с плотностями \(f_{\xi_1}(x_1)\) и
+\(f_{\xi_2}(x_2)\), то плотность распределения суммы \(\xi_1 + \xi_2\)
+равна «свёртке» плотностей \(f_{\xi_1}\) и \(f_{\xi_2}\): \[
+  f_{\xi_1 +\xi_2}(t) = \int\limits_{-\infty}^{\infty} f_{\xi_1}(u) f_{\xi_2}(t-u) du
+  = \int\limits_{-\infty}^{\infty} f_{\xi_2}(u) f_{\xi_1}(t-u) du.
+\]
+
+    \emph{Доказательство.} Функция распределения суммы равна \[
+  F_{\xi_1 +\xi_2}(x) = \iint\limits_{D_x} f_{\xi_1}(x_1) f_{\xi_2}(x_2) dx_1 dx_2,
+\]
+
+где \(D_x = \{(x_1,x_2) | x_1+x_2<x\}\).
+
+Интегрирование по области \(D_x\) можно заменить последовательным
+вычислением двух интегралов: наружного --- по переменной \(x_1\),
+меняющейся в пределах от \(-\infty\) до \(+\infty\), и внутреннего ---
+по переменной \(x_2\), которая при каждом \(x_1\) должна быть меньше,
+чем \(x - x_1\): \[
+  F_{\xi_1 +\xi_2}(x) = \int\limits_{-\infty}^{\infty} \left( \int\limits_{-\infty}^{x-x_1} f_{\xi_1}(x_1) f_{\xi_2}(x_2) dx_2 \right) dx_1.
+\]
+
+Сделав замену переменной \(x_2 = t - x_1\) и поменяв затем порядок
+интегрирования, получим \[
+  F_{\xi_1 +\xi_2}(x) = \int\limits_{-\infty}^{\infty} \left( \int\limits_{-\infty}^{x} f_{\xi_1}(x_1) f_{\xi_2}(t-x_1) dt \right) dx_1
+  = \int\limits_{-\infty}^{x} \left( \int\limits_{-\infty}^{\infty} f_{\xi_1}(x_1) f_{\xi_2}(t-x_1) dx_1 \right) dt.
+\]
+
+Итак, мы представили функцию распределения \(F_{\xi_1 +\xi_2}(x)\) в
+виде \(\int\limits_{-\infty}^{x} f_{\xi_1+\xi_2}(t)dt\), где \[
+  f_{\xi_1+\xi_2}(t) = \int\limits_{-\infty}^{\infty} f_{\xi_1}(u) f_{\xi_2}(t-u) du.
+\]
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+    \hypertarget{ux43dux435ux437ux430ux432ux438ux441ux438ux43cux43eux441ux442ux44c-ux441ux43bux443ux447ux430ux439ux43dux44bux445-ux432ux435ux43bux438ux447ux438ux43d}{%
+\section{Независимость случайных
+величин}\label{ux43dux435ux437ux430ux432ux438ux441ux438ux43cux43eux441ux442ux44c-ux441ux43bux443ux447ux430ux439ux43dux44bux445-ux432ux435ux43bux438ux447ux438ux43d}}
+
+\textbf{Определение.} Случайные величины \(\xi_1, \dots, \xi_n\)
+называются \emph{независимыми} (в совокупности), если для любых
+\(x_1, \dots, x_n\) справедливо равенство
+\[ F_{\xi_1, \dots, \xi_n}(x_1, \dots, x_n) = F_{\xi_1}(x_1) \cdot \ldots \cdot F_{\xi_n}(x_n).\]
+
+    \hypertarget{ux434ux438ux441ux43aux440ux435ux442ux43dux44bux439-ux441ux43bux443ux447ux430ux439}{%
+\subsection{Дискретный
+случай}\label{ux434ux438ux441ux43aux440ux435ux442ux43dux44bux439-ux441ux43bux443ux447ux430ux439}}
+
+\textbf{Определение.} Случайные величины \(\xi_1, \dots, \xi_n\) с
+дискретными распределениями независимы (в совокупности), если для любых
+чисел \(a_1, \dots , a_n\) имеет место равенство
+\[ \mathrm{P}\{\xi_1=a_1, \dots, \xi_n=a_n\} = \mathrm{P}\{\xi_1=a_1\} \cdot \ldots \cdot \mathrm{P}\{\xi_n=a_n\}.\]
+
+    \hypertarget{ux430ux431ux441ux43eux43bux44eux442ux43dux43e-ux43dux435ux43fux440ux435ux440ux44bux432ux43dux44bux439-ux441ux43bux443ux447ux430ux439}{%
+\subsection{Абсолютно непрерывный
+случай}\label{ux430ux431ux441ux43eux43bux44eux442ux43dux43e-ux43dux435ux43fux440ux435ux440ux44bux432ux43dux44bux439-ux441ux43bux443ux447ux430ux439}}
+
+\textbf{Теорема.} Случайные величины \(\xi_1, \dots, \xi_n\) с абсолютно
+непрерывными распределениями независимы (в совокупности) тогда и только
+тогда, когда плотность их совместного распределения существует и равна
+произведению плотностей каждой величины, т. е.
+\(\forall x_1, \dots , x_n\):
+
+\[ f_{\xi_1, \dots, \xi_n}(x_1, \dots, x_n) = f_{\xi_1}(x_1) \cdot \ldots \cdot f_{\xi_n}(x_n). \]
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux447ux438ux441ux43bux43eux432ux44bux435-ux445ux430ux440ux430ux43aux442ux435ux440ux438ux441ux442ux438ux43aux438-ux441ux43bux443ux447ux430ux439ux43dux44bux445-ux432ux435ux43bux438ux447ux438ux43d}{%
 \section{Числовые характеристики случайных
@@ -658,11 +727,17 @@ Eсли \(\rho(\xi, \eta) = \pm 1\), то величины \(\xi\) и \(\eta\) �
 если \(\rho(\xi, \eta) > 0\); некоррелированы, если
 \(\rho(\xi, \eta) = 0\).
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+\begin{quote}
+\textbf{Замечание.} Коэффициент корреляции можно интерпретировать как косинус угла в
+некотором пространстве случайных величин, в котором скалярным
+произведением является ковариация.
+\end{quote}
 
-    \hypertarget{ux43eux43fux442ux438ux43cux430ux43bux44cux43dux430ux44f-ux43eux446ux435ux43dux43aux430-ux441ux43bux443ux447ux430ux439ux43dux44bux445-ux432ux435ux43bux438ux447ux438ux43d}{%
-\section{Оптимальная оценка случайных
-величин}\label{ux43eux43fux442ux438ux43cux430ux43bux44cux43dux430ux44f-ux43eux446ux435ux43dux43aux430-ux441ux43bux443ux447ux430ux439ux43dux44bux445-ux432ux435ux43bux438ux447ux438ux43d}}
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+    \hypertarget{ux43eux43fux442ux438ux43cux430ux43bux44cux43dux430ux44f-ux43bux438ux43dux435ux439ux43dux430ux44f-ux43eux446ux435ux43dux43aux430}{%
+\section{Оптимальная линейная
+оценка}\label{ux43eux43fux442ux438ux43cux430ux43bux44cux43dux430ux44f-ux43bux438ux43dux435ux439ux43dux430ux44f-ux43eux446ux435ux43dux43aux430}}
 
 Рассмотрим две случайные величины \(\xi\) и \(\eta\). Предположим, что
 наблюдению подлежит лишь случайная величина \(\xi\). Если величины
@@ -685,8 +760,8 @@ Eсли \(\rho(\xi, \eta) = \pm 1\), то величины \(\xi\) и \(\eta\) �
     \frac{\partial g(a, b)}{\partial b} &= −2 \mathrm{E} \left[ (\eta − (a+b\xi))\xi \right],
 \end{split}
 \] откуда, приравнивая производные к нулю, находим, что
-\emph{оптимальная} в среднеквадратическом смысле \emph{линейная} оценка
-есть \(\lambda^\ast (\xi) = a^\ast + b^\ast \xi\), где \[
+\textbf{оптимальная в среднеквадратическом смысле линейная} оценка есть
+\(\lambda^\ast (\xi) = a^\ast + b^\ast \xi\), где \[
     a^\ast = \mathrm{E}\eta − b^\ast\mathrm{E}\xi, \quad b^\ast = \frac{\mathrm{cov}(\xi, \eta)}{\mathrm{D}\xi}.
 \]
 
@@ -709,7 +784,7 @@ Eсли \(\rho(\xi, \eta) = \pm 1\), то величины \(\xi\) и \(\eta\) �
 образом, в случае отсутствия корреляции между \(\xi\) и \(\eta\) лучшей
 оценкой \(\eta\) по \(\xi\) является просто \(\mathrm{E}\eta\).
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux438ux441ux442ux43eux447ux43dux438ux43aux438}{%
 \section{Источники}\label{ux438ux441ux442ux43eux447ux43dux438ux43aux438}}
@@ -729,7 +804,6 @@ Eсли \(\rho(\xi, \eta) = \pm 1\), то величины \(\xi\) и \(\eta\) �
   \emph{Шпигельхалтер Д.} Искусство статистики. Как находить ответы в
   данных. --- М.: Манн, Иванов и Фербер, 2021. --- 448 с.
 \end{enumerate}
-
 
 
     % Add a bibliography block to the postdoc
