@@ -7,14 +7,14 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.10.3
+#       jupytext_version: 1.13.7
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
 
-# # Анализ данных, суррогатное моделирование и птимизция в прикладных задачах #
+# # Анализ данных, суррогатное моделирование и оптимизация в прикладных задачах
 
 # ---
 
@@ -33,9 +33,6 @@ import matplotlib.pyplot as plt
 
 # + slideshow={"slide_type": "skip"}
 # Styles
-import warnings
-warnings.filterwarnings('ignore')
-
 import matplotlib
 matplotlib.rcParams['font.size'] = 14
 matplotlib.rcParams['lines.linewidth'] = 1.5
@@ -47,12 +44,15 @@ import seaborn
 seaborn.set_style('whitegrid')
 # -
 
+import warnings
+warnings.filterwarnings('ignore')
+
 # ---
 
 # + [markdown] slideshow={"slide_type": "notes"}
-# ## Информация о курсе ##
+# ## Информация о курсе
 #
-# ### Аннотация ###
+# ### Аннотация
 #
 # Прогресс в сфере компьютерной техники и численных методов изменил задачи, с которыми сталкиваются современные учёные и инженеры, занимающиеся проектированием сложных технических систем.
 # Например, расчёт аэродинамики самолёта с требуемой для практики точностью в настоящее время может быть проведён менее чем за один час.
@@ -207,7 +207,7 @@ err = e_std * np.random.randn(n)  # Noise
 # Output
 y_train = y_true + err  # Dependent variable with noise
 
-# + slideshow={"slide_type": "subslide"} cell_style="center"
+# + cell_style="center" slideshow={"slide_type": "subslide"}
 # Show data
 fig, ax = plt.subplots(figsize=figsize)
 ax.plot(x_disp,  np.sin(3*np.pi*x_disp), 'k:', label='clean data')
@@ -220,7 +220,7 @@ plt.show()
 
 # ### Полиномиальная регрессия ###
 
-# + slideshow={"slide_type": "fragment"} cell_style="center"
+# + cell_style="center" slideshow={"slide_type": "fragment"}
 deg = 1
 p1 = np.polyfit(x_train, y_train, deg)
 
@@ -232,7 +232,7 @@ plt.ylim((-2.5, 2.5))
 plt.legend(loc='upper right')
 plt.show()
 
-# + slideshow={"slide_type": "subslide"} cell_style="center"
+# + cell_style="center" slideshow={"slide_type": "subslide"}
 deg = 4
 p2 = np.polyfit(x_train, y_train, deg)
 
@@ -244,7 +244,7 @@ plt.ylim((-2.5, 2.5))
 plt.legend(loc='upper right')
 plt.show()
 
-# + slideshow={"slide_type": "fragment"} cell_style="center"
+# + cell_style="center" slideshow={"slide_type": "fragment"}
 deg = n-1
 p3 = np.polyfit(x_train, y_train, deg)
 

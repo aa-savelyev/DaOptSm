@@ -7,9 +7,9 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.5.2
+#       jupytext_version: 1.13.7
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -24,16 +24,12 @@
 # -
 
 # Imports
-import sys
 import numpy as np
 from numpy import linalg as LA
 import matplotlib.pyplot as plt
 
 # +
 # Styles
-import warnings
-warnings.filterwarnings('ignore')
-
 import matplotlib
 matplotlib.rcParams['font.size'] = 14
 matplotlib.rcParams['lines.linewidth'] = 1.5
@@ -43,6 +39,9 @@ cm = plt.cm.tab10  # Colormap
 import seaborn
 seaborn.set_style('whitegrid')
 # -
+
+import warnings
+warnings.filterwarnings('ignore')
 
 # ---
 
@@ -263,6 +262,7 @@ for i, axi in enumerate(ax.flatten()):
 # 1. [Материалы](https://towardsdatascience.com/understanding-singular-value-decomposition-and-its-application-in-data-science-388a54be95d) автора [Reza Bagheri](https://reza-bagheri79.medium.com/).
 
 # Versions used
+import sys
 print('Python: {}.{}.{}'.format(*sys.version_info[:3]))
 print('numpy: {}'.format(np.__version__))
 print('matplotlib: {}'.format(matplotlib.__version__))

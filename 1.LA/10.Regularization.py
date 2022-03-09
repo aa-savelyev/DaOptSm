@@ -7,9 +7,9 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.5.2
+#       jupytext_version: 1.13.7
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -24,17 +24,12 @@
 # -
 
 # Imports
-import sys
 import numpy as np
 from numpy import linalg as LA
 import matplotlib.pyplot as plt
 
 # +
 # Styles
-import warnings
-# warnings.simplefilter(action='ignore', category=FutureWarning)
-warnings.filterwarnings('ignore')
-
 import matplotlib
 matplotlib.rcParams['font.size'] = 14
 matplotlib.rcParams['lines.linewidth'] = 1.5
@@ -44,6 +39,9 @@ cm = plt.cm.tab10  # Colormap
 import seaborn
 seaborn.set_style('whitegrid')
 # -
+
+import warnings
+warnings.filterwarnings('ignore')
 
 # ---
 
@@ -82,7 +80,6 @@ seaborn.set_style('whitegrid')
 #
 # ### Оптимизация с ограничением ###
 
-import scipy as sp
 from scipy.optimize import minimize
 from scipy.optimize import NonlinearConstraint
 
@@ -512,10 +509,11 @@ plt.show()
 # 1. *Strang G.* Linear algebra and learning from data. &mdash; Wellesley-Cambridge Press, 2019. &mdash; 432 p.
 
 # Versions used
+import sys, scipy
 print('Python: {}.{}.{}'.format(*sys.version_info[:3]))
 print('numpy: {}'.format(np.__version__))
 print('matplotlib: {}'.format(matplotlib.__version__))
 print('seaborn: {}'.format(seaborn.__version__))
-print('scipy: {}'.format(sp.__version__))
+print('scipy: {}'.format(scipy.__version__))
 
 
