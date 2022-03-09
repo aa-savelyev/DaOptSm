@@ -7,12 +7,17 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.5.2
+#       jupytext_version: 1.10.3
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
 #     name: python3
 # ---
+
+# + [markdown] toc=true
+# <h1>Содержание<span class="tocSkip"></span></h1>
+# <div class="toc"><ul class="toc-item"></ul></div>
+# -
 
 # # Оптимизация с помощью гауссовских процессов
 
@@ -328,6 +333,7 @@ for i in range(n_iter):
     if (-acq < 1e-16) or (abs(X_train[-2]-X_next)[0,0] < 1e-6):
         break
 # -
+
 
 
 
