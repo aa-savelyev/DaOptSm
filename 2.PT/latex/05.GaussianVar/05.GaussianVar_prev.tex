@@ -418,7 +418,7 @@
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{3}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} \PYZpc{}config Completer.use\PYZus{}jedi = False}
+\PY{o}{\PYZpc{}}\PY{k}{config} Completer.use\PYZus{}jedi = False
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -464,12 +464,6 @@
   подчиняющихся не слишком стеснительным условиям, хорошо
   аппроксимируется нормальным распределением.
 \end{enumerate}
-
-\textbf{Замечание.} Строго говоря, свойство 1 выполняется, если у
-\(\xi\) и \(\eta\) существует \emph{совместная нормальная плотность}
-(см. \emph{Чернова Н. И.} Математическая статистика. с. 124). Например,
-случайные величины \(\xi\) и \(\xi^2\) некоррелированы, но функционально
-зависимы.
 
     Докажем свойство 2 для случая, когда \(\xi\) и \(\eta\) имеют
 \emph{стандартное} нормальное распределение.\\
@@ -546,7 +540,7 @@
 \prompt{In}{incolor}{5}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Plot different Univariate Normals}
-\PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{l+m+mi}{1001}\PY{p}{)}
+\PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{l+m+mi}{1001}\PY{p}{)}
 \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}
          \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathcal}\PY{l+s+si}{\PYZob{}N\PYZcb{}}\PY{l+s+s2}{(0, 1)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
@@ -596,16 +590,17 @@
 \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{X2}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}X\PYZus{}2=}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathcal}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+s2}{N}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s2}{(}\PY{l+s+si}{\PYZob{}}\PY{n}{m2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZob{}}\PY{n}{s2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{l+s+si}{:}\PY{l+s+s2}{.2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{X1}\PY{o}{+}\PY{n}{X2}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}X\PYZus{}1+X\PYZus{}2\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 
-\PY{n}{m\PYZus{}sum}\PY{p}{,} \PY{n}{var\PYZus{}sum} \PY{o}{=} \PY{n}{m1}\PY{o}{+}\PY{n}{m2}\PY{p}{,} \PY{n}{s1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{n}{s2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
-\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{mean}\PY{o}{=}\PY{n}{m\PYZus{}sum}\PY{p}{,} \PY{n}{variance}\PY{o}{=}\PY{n}{var\PYZus{}sum}\PY{p}{)}\PY{p}{,}
-         \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathcal}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+s2}{N}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s2}{(}\PY{l+s+si}{\PYZob{}}\PY{n}{m\PYZus{}sum}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZob{}}\PY{n}{var\PYZus{}sum}\PY{l+s+si}{:}\PY{l+s+s2}{.3}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{ms}\PY{p}{,} \PY{n}{ss} \PY{o}{=} \PY{n}{m1}\PY{o}{+}\PY{n}{m2}\PY{p}{,} \PY{n}{s1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{n}{s2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{mean}\PY{o}{=}\PY{n}{ms}\PY{p}{,} \PY{n}{variance}\PY{o}{=}\PY{n}{ss}\PY{p}{)}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+         \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathcal}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+s2}{N}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s2}{(}\PY{l+s+si}{\PYZob{}}\PY{n}{ms}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZob{}}\PY{n}{ss}\PY{l+s+si}{:}\PY{l+s+s2}{.3}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 
 \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{density: \PYZdl{}p(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}
 \PY{c+c1}{\PYZsh{} plt.ylim([0, 1])}
 
-\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{handles}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}legend\PYZus{}handles\PYZus{}labels}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{+}\PY{p}{[}\PY{n}{handles}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{labels}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{+}\PY{p}{[}\PY{n}{labels}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
@@ -658,22 +653,22 @@
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \(\mathrm{cov}(\vec\xi) = \mathrm{E} \left[ (\vec\xi -\mathrm{E}\vec\xi) \cdot (\vec\xi -\mathrm{E}\vec\xi)^\top \right]\)
+  \(\mathrm{cov}(\vec\xi) = \mathrm{E} \left[(\vec\xi -\mathrm{E}\vec\xi) \cdot (\vec\xi -\mathrm{E}\vec\xi)^\top \right]\)
 \item
-  \(\mathrm{cov}(\vec\xi) = \mathrm{E} \vec\xi \vec\xi^\top - \mathrm{E} \vec\xi \cdot \mathrm{E} \vec\xi^\top\)
+  \(\mathrm{cov}(\vec\xi) = \mathrm{E} \vec\xi \vec\xi^\top - \mathrm{E} \vec\xi \cdot \mathrm{E} \vec\xi^\top \)
 \item
-  Положительная определённость: \(\mathrm{cov}(\vec\xi) > 0\)
+  Положительная полуопределённость: \(\mathrm{cov}(\vec\xi) \ge 0\)
 \item
   Аффинное преобразование:
   \(\mathrm{cov}(A\vec\xi + \vec{b}) = A \cdot \mathrm{cov}(\vec\xi) \cdot A^\top\)
 \end{enumerate}
 
     \textbf{Утверждение}. Ковариационная матрица случайного вектора является
-\emph{симметричной} и \emph{положительно определённой}.
+\emph{симметричной} и \emph{неотрицательно определённой}.
 
 \emph{Доказательство}. Обозначим ковариационную матрицу \(\mathbf{K}\).
-Положительная определёнонсть означает, что
-\(\forall \mathbf{a} \in \mathbb{R}^n: \mathbf{a}^\top \mathbf{K} \mathbf{a} > 0\).
+Положительная полуопределёнонсть означает, что
+\(\forall \mathbf{a} \in \mathbb{R}^n: \mathbf{a}^\top \mathbf{K} \mathbf{a} \ge 0\).
 
 Действительно,
 \[\begin{split}
@@ -750,31 +745,17 @@ f_n(\vec{x}|\vec{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^n |\Sigma|}} \exp{ \left(
 \]
 
 \begin{quote}
-Далее для простоты записи стрелка над вектором будет опускаться, т. е.
-вместо \(\vec{\xi}\) будем писать просто \(\xi\).
+\emph{Замечание.} Далее для простоты записи стрелка над вектором будет
+опускаться, т.\,е. вместо \(\vec{\xi}\) будем писать просто \(\xi\).
 \end{quote}
-
-    \textbf{Замечание.} Вектор, составленный из нормальных случайных
-величин, не обязательно имеет многомерное нормальное распределение. Так,
-для \(\xi \sim \mathcal{N}(0,1)\) вектор \((\xi, c\xi)\) имеет
-вырожденную матрицу ковариаций
-\(\begin{pmatrix}  1 & c \\  c & c^2 \end{pmatrix}\) и не имеет
-плотности в \(\mathbb{R}^2\).
 
     \hypertarget{ux434ux432ux443ux43cux435ux440ux43dux43eux435-ux43dux43eux440ux43cux430ux43bux44cux43dux43eux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux435}{%
 \subsection{Двумерное нормальное
 распределение}\label{ux434ux432ux443ux43cux435ux440ux43dux43eux435-ux43dux43eux440ux43cux430ux43bux44cux43dux43eux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux435}}
 
 В качестве примера рассмотрим двумерный случайный вектор. В этом случае
-ковариационная матрица имеет вид \[
-\Sigma = 
-\begin{pmatrix}
-    \sigma_1^2 & \rho \sigma_1 \sigma_2 \\
-    \rho \sigma_1 \sigma_2 & \sigma_2^2 
-\end{pmatrix}.
-\]
-
-    Двумерная нормальная плотность \(p(x_1, x_2)\) имеет вид \[
+плотность \(p(x_1, x_2)\) может быть приведена к виду
+\[
   f_{\xi,\eta}(x_1, x_2) = \frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}} \times \\
   \exp \left\{-\frac{1}{2(1-\rho^2)} \left[ \frac{(x_1-m_1)^2}{\sigma_1^2} - 2\rho\frac{(x_1-m_1)(x_2-m_2)}{\sigma_1\sigma_2} + \frac{(x_2-m_2)^2}{\sigma_2^2} \right]\right\},
 \]
@@ -802,12 +783,33 @@ f_n(\vec{x}|\vec{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^n |\Sigma|}} \exp{ \left(
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
-  Двумерное распределение независимых случайных величин
+  Двумерное распределение с ковариацией между \(x_1\) и \(x_2\) равной
+  \(0\) (независимые переменные): \[
+  \mathcal{N}\left(
+  \begin{bmatrix}
+   0 \\
+   0
+  \end{bmatrix}, 
+  \begin{bmatrix}
+   1 & 0 \\
+   0 & 1 
+  \end{bmatrix}\right)
+  \]
 \item
-  Двумерное распределение положительно коррелированных случайных величин
-  (возрастание \(x_1\) увеличивает вероятность возрастания \(x_2\))
+  Двумерное распределение параметров \(x_1\) и \(x_2\) положительной
+  ковариацией (скоррелированые переменные): \[
+  \mathcal{N}\left(
+  \begin{bmatrix}
+   0 \\
+   0.5
+  \end{bmatrix}, 
+  \begin{bmatrix}
+   1 & 0.8 \\
+   0.8 & 1
+  \end{bmatrix}\right)
+  \] Увеличение \(x_1\) увеличивает вероятность того, что \(x_2\) также
+  увеличится.
 \end{enumerate}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
@@ -845,64 +847,41 @@ f_n(\vec{x}|\vec{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^n |\Sigma|}} \exp{ \left(
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{10}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} subplot}
+\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{2}  \PY{c+c1}{\PYZsh{} number of dimensions}
+\PY{n}{cmap} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{magma\PYZus{}r}
+\PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+
 \PY{c+c1}{\PYZsh{} Generate independent Normals}
 \PY{n}{bivariate\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Mean}
 \PY{n}{bivariate\PYZus{}covariance} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}
     \PY{p}{[}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,} 
     \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{]}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Covariance}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{bivariate\PYZus{}covariance}\PY{p}{)}
-\PY{n}{surf\PYZus{}ind} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{bivariate\PYZus{}mean}\PY{p}{,} \PY{n}{bivariate\PYZus{}covariance}\PY{p}{,} \PY{n}{d}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-[[1. 0.]
- [0. 1.]]
-    \end{Verbatim}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{11}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} Generate correlated Normals}
-\PY{n}{bivariate\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Mean}
-\PY{n}{sigma\PYZus{}1}\PY{p}{,} \PY{n}{sigma\PYZus{}2}\PY{p}{,} \PY{n}{cor\PYZus{}coeff} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{0.8}
-\PY{n}{bivariate\PYZus{}covariance} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}
-    \PY{p}{[}\PY{n}{sigma\PYZus{}1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{cor\PYZus{}coeff}\PY{o}{*}\PY{n}{sigma\PYZus{}1}\PY{o}{*}\PY{n}{sigma\PYZus{}2}\PY{p}{]}\PY{p}{,} 
-    \PY{p}{[}\PY{n}{cor\PYZus{}coeff}\PY{o}{*}\PY{n}{sigma\PYZus{}1}\PY{o}{*}\PY{n}{sigma\PYZus{}2}\PY{p}{,} \PY{n}{sigma\PYZus{}2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Covariance}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{bivariate\PYZus{}covariance}\PY{p}{)}
-\PY{n}{surf\PYZus{}cor} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{bivariate\PYZus{}mean}\PY{p}{,} \PY{n}{bivariate\PYZus{}covariance}\PY{p}{,} \PY{n}{d}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-[[1.  0.8]
- [0.8 1. ]]
-    \end{Verbatim}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{12}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} subplot}
-\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{cmap} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{magma\PYZus{}r}
-\PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+\PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{bivariate\PYZus{}mean}\PY{p}{,} \PY{n}{bivariate\PYZus{}covariance}\PY{p}{,} \PY{n}{d}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Plot bivariate distribution 1}
-\PY{n}{con} \PY{o}{=} \PY{n}{ax1}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{o}{*}\PY{n}{surf\PYZus{}ind}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{)}
+\PY{n}{con} \PY{o}{=} \PY{n}{ax1}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{)}
 \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}1\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}2\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax1}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{]}\PY{p}{)}
 \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}aspect}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Независимые величины, \PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{rho=0\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Независимые величины}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Generate correlated Normals}
+\PY{n}{bivariate\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{]}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Mean}
+\PY{n}{bivariate\PYZus{}covariance} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}
+    \PY{p}{[}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{,} 
+    \PY{p}{[}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{]}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Covariance}
+\PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{bivariate\PYZus{}mean}\PY{p}{,} \PY{n}{bivariate\PYZus{}covariance}\PY{p}{,} \PY{n}{d}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Plot bivariate distribution 2}
-\PY{n}{con} \PY{o}{=} \PY{n}{ax2}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{o}{*}\PY{n}{surf\PYZus{}cor}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{)}
+\PY{n}{con} \PY{o}{=} \PY{n}{ax2}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{)}
 \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}1\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}2\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax2}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{]}\PY{p}{)}
 \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}aspect}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Коррелированные величины, \PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{rho=}\PY{l+s+si}{\PYZob{}}\PY{n}{cor\PYZus{}coeff}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Коррелированные величины}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Add colorbar and title}
 \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{right}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
@@ -915,7 +894,7 @@ f_n(\vec{x}|\vec{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^n |\Sigma|}} \exp{ \left(
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.95\linewidth}{0.95\paperheight}}{output_35_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_0.png}
     \end{center}
 %    { \hspace*{\fill} \\}
     
@@ -958,7 +937,7 @@ X \sim \mathcal{N}(\mu_{X}, \Sigma_{X}), \quad\quad Y \sim \mathcal{N}(\mu_{Y}, 
   \emph{любой нормальный вектор} в \(\mathbb{R}^m\) со сколь угодно
   зависимыми координатами может быть умножением на подходящую
   невырожденную матрицу превращён в вектор, состоящий из
-  \emph{независимых стандартных нормальных случайных величин};
+  \emph{независимых нормальных случайных величин};
 \item
   и наоборот, \emph{стандартный нормальный случайный вектор} можно
   линейным преобразованием превратить в вектор с \emph{заданным
@@ -972,17 +951,17 @@ X \sim \mathcal{N}(\mu_{X}, \Sigma_{X}), \quad\quad Y \sim \mathcal{N}(\mu_{Y}, 
 Предыдущая формула поможет нам сгенерировать гауссовский вектор с
 заданными вектором средних значений и ковариационной матрицей.\\
 Для этого сгенерируем вектор \(X\), подчиняющийся стандартному
-нормальному распределению \(X \sim \mathcal{N}(0, I)\) со средним
+нормальному распределению \(X \sim \mathcal{N}(0, I_d)\) со средним
 значением \(\mu_{X} = 0\) и единичной ковариационной матрицей
-\(\Sigma_{X} = I\). Генерация такого вектора не представляет труда, так
-как каждая переменная в \(X\) независима от всех других переменных, и мы
-можем просто генерировать каждую переменную отдельно, пользуясь
+\(\Sigma_{X} = I_d\). Генерация такого вектора не представляет труда,
+так как каждая переменная в \(X\) независима от всех других переменных,
+и мы можем просто генерировать каждую переменную отдельно, пользуясь
 одномерным распределением Гаусса.
 
 Для генерации \(Y \sim \mathcal{N}(\mu_{Y}, \Sigma_{Y})\) возьмём \(X\)
 и применим к нему аффинное преобразование \(Y = u + LX\). Из предыдущего
 раздела мы знаем, что ковариация \(Y\) будет
-\(\Sigma_{Y} = L\Sigma_{X}L^\top\). Поскольку \(\Sigma_{X}=I\), а
+\(\Sigma_{Y} = L\Sigma_{X}L^\top\). Поскольку \(\Sigma_{X}=I_d\), а
 \(\mu_{X} = 0\), то \(\Sigma_{Y} = L L^\top\) и \(\mu_{Y} = u\). В итоге
 получаем, что искомое преобразование \(Y = \mu_{Y} + L_{Y}X\), где
 матрица \(L_{Y}\) --- нижнетреугольная матрица, которую можно найти с
@@ -996,7 +975,7 @@ Y
 \mathcal{N}\left(
 \begin{bmatrix}
     0 \\ 
-    0 
+    1 
 \end{bmatrix},
 \begin{bmatrix}
     1 & 0.8 \\
@@ -1005,7 +984,7 @@ Y
 \]
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{13}{\boxspacing}
+\prompt{In}{incolor}{11}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Sample from:}
 \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{2} \PY{c+c1}{\PYZsh{} Number of dimensions}
@@ -1027,7 +1006,7 @@ Y
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{14}{\boxspacing}
+\prompt{In}{incolor}{12}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Plot the samples and the distribution}
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -1051,7 +1030,7 @@ Y
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.55\linewidth}{0.55\paperheight}}{output_43_0.png}
+    \adjustimage{max size={0.55\linewidth}{0.55\paperheight}}{output_39_0.png}
     \end{center}
 %    { \hspace*{\fill} \\}
     
@@ -1096,7 +1075,7 @@ Y
 \end{enumerate}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{15}{\boxspacing}
+\prompt{In}{incolor}{13}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Show data}
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -1121,12 +1100,12 @@ Y
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_47_0.png}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_43_0.png}
     \end{center}
 %    { \hspace*{\fill} \\}
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{16}{\boxspacing}
+\prompt{In}{incolor}{14}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k}{def} \PY{n+nf}{make\PYZus{}ellipse}\PY{p}{(}\PY{n}{mu}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{ci}\PY{o}{=}\PY{l+m+mf}{0.95}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{pm 2}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{sigma\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
     \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Make covariance isoline\PYZdq{}\PYZdq{}\PYZdq{}}
@@ -1140,7 +1119,7 @@ Y
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{17}{\boxspacing}
+\prompt{In}{incolor}{15}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Plot the samples and the distribution}
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -1170,14 +1149,14 @@ Y
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.55\linewidth}{0.55\paperheight}}{output_49_0.png}
+    \adjustimage{max size={0.55\linewidth}{0.55\paperheight}}{output_45_0.png}
     \end{center}
 %    { \hspace*{\fill} \\}
     
     \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-    \hypertarget{ux438ux441ux442ux43eux447ux43dux438ux43aux438}{%
-\section{Источники}\label{ux438ux441ux442ux43eux447ux43dux438ux43aux438}}
+    \hypertarget{ux43bux438ux442ux435ux440ux430ux442ux443ux440ux430}{%
+\section{Литература}\label{ux43bux438ux442ux435ux440ux430ux442ux443ux440ux430}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1185,16 +1164,13 @@ Y
 \item
   \emph{Ширяев А.Н.} Вероятность --- 1. --- М.: МЦНМО, 2007. --- 517 с.
 \item
-  \emph{Чернова Н.И.} Математическая статистика: Учебное пособие ---
-  Новосиб. гос. ун-т, 2007. --- 148 с.
-\item
   \emph{Roelants P.}
   \href{https://peterroelants.github.io/posts/multivariate-normal-primer/}{Multivariate
   normal distribution}.
 \end{enumerate}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{18}{\boxspacing}
+\prompt{In}{incolor}{16}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Versions used}
 \PY{k+kn}{import} \PY{n+nn}{sys}
