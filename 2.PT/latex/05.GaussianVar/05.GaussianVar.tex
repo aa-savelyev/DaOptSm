@@ -433,7 +433,9 @@
 
 Если \(\xi\) --- случайная величина с гауссовской (нормальной)
 плотностью (probability density function, pdf)
-\[ f_\xi(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp{ \left( -\frac{(x - \mu)^2}{2\sigma^2}\right)}, \quad \sigma>0, \quad -\infty < \mu < \infty, \]
+\[
+f_\xi(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp{ \left( -\frac{(x - \mu)^2}{2\sigma^2}\right)}, \quad \sigma>0, \quad -\infty < \mu < \infty,
+\]
 
 то смысл параметров \(\mu\) и \(\sigma\) оказывается очень простым:
 \[ \mu = \mathrm{E} \xi, \quad \sigma^2 = \mathrm{D} \xi . \]
@@ -709,7 +711,7 @@
 = \mathrm{E} \left[\vec\xi \cdot \vec\xi^\top \right]
 = \mathrm{E} \left[(L\vec\eta)(L\vec\eta)^\top \right]
 = L \cdot \mathrm{E} \left[\vec\eta \cdot \vec\eta^\top \right] \cdot L^\top
-= L I_n L^\top = LL^\top = \Sigma. \mathrm{\square}
+= L I_n L^\top = LL^\top = \Sigma. \; \mathrm{\square}
 \]
 
     \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}

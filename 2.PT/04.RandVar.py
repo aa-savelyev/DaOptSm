@@ -21,7 +21,7 @@
 
 # + [markdown] toc=true
 # <h1>Содержание<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Понятие-случайной-величины" data-toc-modified-id="Понятие-случайной-величины-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Понятие случайной величины</a></span></li><li><span><a href="#Распределения-случайных-величин" data-toc-modified-id="Распределения-случайных-величин-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Распределения случайных величин</a></span><ul class="toc-item"><li><span><a href="#Функция-распределения" data-toc-modified-id="Функция-распределения-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Функция распределения</a></span></li><li><span><a href="#Дискретные-случайные-величины" data-toc-modified-id="Дискретные-случайные-величины-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Дискретные случайные величины</a></span></li><li><span><a href="#Абсолютно-непрерывные-случайные-величины" data-toc-modified-id="Абсолютно-непрерывные-случайные-величины-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Абсолютно непрерывные случайные величины</a></span></li><li><span><a href="#Многомерные-распределения" data-toc-modified-id="Многомерные-распределения-2.4"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>Многомерные распределения</a></span></li><li><span><a href="#Формула-свёртки" data-toc-modified-id="Формула-свёртки-2.5"><span class="toc-item-num">2.5&nbsp;&nbsp;</span>Формула свёртки</a></span></li></ul></li><li><span><a href="#Независимость-случайных-величин" data-toc-modified-id="Независимость-случайных-величин-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Независимость случайных величин</a></span><ul class="toc-item"><li><span><a href="#Дискретный-случай" data-toc-modified-id="Дискретный-случай-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Дискретный случай</a></span></li><li><span><a href="#Абсолютно-непрерывный-случай" data-toc-modified-id="Абсолютно-непрерывный-случай-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Абсолютно непрерывный случай</a></span></li></ul></li><li><span><a href="#Числовые-характеристики-случайных-величин" data-toc-modified-id="Числовые-характеристики-случайных-величин-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Числовые характеристики случайных величин</a></span><ul class="toc-item"><li><span><a href="#Математическое-ожидание" data-toc-modified-id="Математическое-ожидание-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Математическое ожидание</a></span></li><li><span><a href="#Дисперсия" data-toc-modified-id="Дисперсия-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Дисперсия</a></span></li><li><span><a href="#Ковариация" data-toc-modified-id="Ковариация-4.3"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>Ковариация</a></span></li><li><span><a href="#Коэффициент-корреляции" data-toc-modified-id="Коэффициент-корреляции-4.4"><span class="toc-item-num">4.4&nbsp;&nbsp;</span>Коэффициент корреляции</a></span></li></ul></li><li><span><a href="#Оптимальная-линейная-оценка" data-toc-modified-id="Оптимальная-линейная-оценка-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Оптимальная линейная оценка</a></span></li><li><span><a href="#Источники" data-toc-modified-id="Источники-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Понятие-случайной-величины" data-toc-modified-id="Понятие-случайной-величины-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Понятие случайной величины</a></span></li><li><span><a href="#Распределения-случайных-величин" data-toc-modified-id="Распределения-случайных-величин-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Распределения случайных величин</a></span><ul class="toc-item"><li><span><a href="#Функция-распределения" data-toc-modified-id="Функция-распределения-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Функция распределения</a></span></li><li><span><a href="#Дискретные-случайные-величины" data-toc-modified-id="Дискретные-случайные-величины-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Дискретные случайные величины</a></span></li><li><span><a href="#Абсолютно-непрерывные-случайные-величины" data-toc-modified-id="Абсолютно-непрерывные-случайные-величины-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Абсолютно непрерывные случайные величины</a></span></li></ul></li><li><span><a href="#Многомерные-распределения" data-toc-modified-id="Многомерные-распределения-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Многомерные распределения</a></span><ul class="toc-item"><li><span><a href="#Определение" data-toc-modified-id="Определение-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Определение</a></span></li><li><span><a href="#Функции-от-двух-случайных-величин" data-toc-modified-id="Функции-от-двух-случайных-величин-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Функции от двух случайных величин</a></span></li><li><span><a href="#Независимость-случайных-величин" data-toc-modified-id="Независимость-случайных-величин-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Независимость случайных величин</a></span></li></ul></li><li><span><a href="#Числовые-характеристики-случайных-величин" data-toc-modified-id="Числовые-характеристики-случайных-величин-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Числовые характеристики случайных величин</a></span><ul class="toc-item"><li><span><a href="#Математическое-ожидание" data-toc-modified-id="Математическое-ожидание-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Математическое ожидание</a></span></li><li><span><a href="#Дисперсия" data-toc-modified-id="Дисперсия-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Дисперсия</a></span></li><li><span><a href="#Ковариация" data-toc-modified-id="Ковариация-4.3"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>Ковариация</a></span></li><li><span><a href="#Коэффициент-корреляции" data-toc-modified-id="Коэффициент-корреляции-4.4"><span class="toc-item-num">4.4&nbsp;&nbsp;</span>Коэффициент корреляции</a></span></li></ul></li><li><span><a href="#Оптимальная-линейная-оценка" data-toc-modified-id="Оптимальная-линейная-оценка-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Оптимальная линейная оценка</a></span></li><li><span><a href="#Источники" data-toc-modified-id="Источники-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
 # -
 
 # ---
@@ -147,9 +147,9 @@
 # F_\eta(x) = \mathrm{P}\{g(\xi_1,\xi_2) < x\} = \mathrm{P}\{(\xi_1,\xi_2) \in D_x\} = \iint\limits_{D_x} f_{\xi_1,\xi_2}(u,v)\,dudv.
 # $$
 
-# ### Формула свёртки
+# **Формула свёртки**
 #
-# Если случайные величины $\xi_1$ и $\xi_2$ независимы и имеют абсолютно непрерывные расперделения с плотностями $f_{\xi_1}(x_1)$ и $f_{\xi_2}(x_2)$, то плотность распределения суммы $\xi_1 + \xi_2$ равна &laquo;свёртке&raquo; плотностей $f_{\xi_1}$ и $f_{\xi_2}$:
+# Если случайные величины $\xi_1$ и $\xi_2$ независимы и имеют абсолютно непрерывные распределения с плотностями $f_{\xi_1}(x_1)$ и $f_{\xi_2}(x_2)$, то плотность распределения суммы $\xi_1 + \xi_2$ равна &laquo;свёртке&raquo; плотностей $f_{\xi_1}$ и $f_{\xi_2}$:
 # $$
 #   f_{\xi_1 +\xi_2}(t) = \int\limits_{-\infty}^{\infty} f_{\xi_1}(u) f_{\xi_2}(t-u) du
 #   = \int\limits_{-\infty}^{\infty} f_{\xi_2}(u) f_{\xi_1}(t-u) du.
@@ -178,23 +178,17 @@
 #   f_{\xi_1+\xi_2}(t) = \int\limits_{-\infty}^{\infty} f_{\xi_1}(u) f_{\xi_2}(t-u) du.
 # $$
 
-# + [markdown] slideshow={"slide_type": "skip"}
-# ---
-# -
-
-# ## Независимость случайных величин ##
+# ### Независимость случайных величин
 #
 # **Определение.** Случайные величины $\xi_1, \dots, \xi_n$ называются *независимыми* (в совокупности), если для любых $x_1, \dots, x_n$ справедливо равенство
 # $$ F_{\xi_1, \dots, \xi_n}(x_1, \dots, x_n) = F_{\xi_1}(x_1) \cdot \ldots \cdot F_{\xi_n}(x_n).$$
 
-# ### Дискретный случай ###
-#
-# **Определение.** Случайные величины $\xi_1, \dots, \xi_n$ с дискретными распределениями независимы (в совокупности), если для любых чисел $a_1, \dots , a_n$ имеет место равенство
+# **Дискретный случай** \
+# Случайные величины $\xi_1, \dots, \xi_n$ с дискретными распределениями независимы (в совокупности), если для любых чисел $a_1, \dots , a_n$ имеет место равенство
 # $$ \mathrm{P}\{\xi_1=a_1, \dots, \xi_n=a_n\} = \mathrm{P}\{\xi_1=a_1\} \cdot \ldots \cdot \mathrm{P}\{\xi_n=a_n\}.$$
 
-# ### Абсолютно непрерывный случай ###
-#
-# **Теорема.** Случайные величины $\xi_1, \dots, \xi_n$ с абсолютно непрерывными распределениями независимы (в совокупности) тогда и только тогда, когда плотность их совместного распределения существует и равна произведению плотностей каждой величины, т. е.
+# **Абсолютно непрерывный случай** \
+# Случайные величины $\xi_1, \dots, \xi_n$ с абсолютно непрерывными распределениями независимы (в совокупности) тогда и только тогда, когда плотность их совместного распределения существует и равна произведению плотностей каждой величины, т. е.
 # $\forall x_1, \dots , x_n$:
 #
 # $$ f_{\xi_1, \dots, \xi_n}(x_1, \dots, x_n) = f_{\xi_1}(x_1) \cdot \ldots \cdot f_{\xi_n}(x_n). $$
@@ -284,9 +278,12 @@
 # Рассмотрим две случайные величины $\xi$ и $\eta$. Предположим, что наблюдению подлежит лишь случайная величина $\xi$.
 # Если величины $\xi$ и $\eta$ коррелированы, то можно ожидать, что знание значений $\xi$ позволит вынести некоторые суждения и о значениях ненаблюдаемой величины $\eta$.
 #
-# Всякую функцию $f = f(\xi)$ от $\xi$ будем называть *оценкой* для $\eta$.
-# Будем говорить также, что *оценка* $f^\ast = f^\ast(\xi)$ *оптимальна в среднеквадратическом смысле*, если
-# $$ \mathrm{E}(\eta − f^\ast(\xi))^2 = \inf_f \mathrm{E}(\eta − f(\xi))^2. $$
+# Всякую функцию $\varphi(\xi)$ от $\xi$ будем называть *оценкой* для $\eta$.
+# Будем говорить также, что *оценка* $\varphi^\ast(\xi)$ *оптимальна в среднеквадратическом смысле*, если
+# $$
+#   \mathrm{E}\left[\eta − \varphi^\ast(\xi)\right]^2 = \min_\varphi \mathrm{E}\left[\eta − \varphi(\xi)\right]^2,
+# $$
+# где минимум берётся по всем функциям $\varphi=\varphi(x)$.
 #
 # Покажем, как найти оптимальную оценку в классе *линейных* оценок $\lambda(\xi) = a + b\xi$.
 # Для этого рассмотрим функцию $g(a, b) = \mathrm{E}(\eta − (a+b\xi))^2$.
