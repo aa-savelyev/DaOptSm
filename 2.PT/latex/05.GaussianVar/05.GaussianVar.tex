@@ -13,9 +13,21 @@
       \usepackage{polyglossia}
       \setmainlanguage[babelshorthands=true]{russian}    % Язык по-умолчанию русский с поддержкой приятных команд пакета babel
       \setotherlanguage{english}                         % Дополнительный язык = английский (в американской вариации по-умолчанию)
-      \newfontfamily\cyrillicfonttt[Scale=0.87,BoldFont={Fira Mono Medium}] {Fira Mono}  % Моноширинный шрифт для кириллицы
+      
+      \setmonofont[Scale=0.87,BoldFont={Fira Mono Medium}]%
+      {Fira Mono}%                                       % Моноширинный шрифт Fira
+      \newfontfamily\cyrillicfonttt[Scale=0.87,BoldFont={Fira Mono Medium},ItalicFont=[FiraMono-Oblique]]
+      {Fira Mono}                                        % Моноширинный шрифт для кириллицы
       \defaultfontfeatures{Ligatures=TeX}
+      \setmainfont{STIX Two Text}                        % Шрифт с засечками
       \newfontfamily\cyrillicfont{STIX Two Text}         % Шрифт с засечками для кириллицы
+      
+      %%% Математические пакеты %%%
+      \usepackage{amsthm,amsmath,amscd}   % Математические дополнения от AMS
+      \usepackage{amsfonts,amssymb}       % Математические дополнения от AMS
+      \usepackage{mathtools}              % Добавляет окружение multlined
+      \usepackage{unicode-math}           % Для шрифта STIX Two Math
+      \setmathfont{STIX Two Math}         % Математический шрифт
     \fi
     \renewcommand{\linethickness}{0.1ex}
 
@@ -387,7 +399,22 @@
   \maketitle
   \thispagestyle{empty}
   \tableofcontents
-  \pagebreak
+  
+  \let\thefootnote\relax\footnote{
+%    \footnote{
+    \textit{
+    День 16 марта в истории:
+    \begin{itemize}[topsep=2pt,itemsep=1pt]
+      \item в 870 г. в Болгарии утверждена православная церковь и иерархия;
+      \item в 1521 г. португальский мореплаватель Фернан Магеллан во время первого кругосветного путешествия достиг берегов Филиппин;
+      \item в 1831 г. в Париже выходит роман Виктора Гюго <<Собор Парижской Богоматери>>;
+      \item в 1926 г. американский конструктор Роберт Годдард провёл успешное испытание первой ракеты на жидком топливе;
+      \item в 2014 г. состоялся общекрымский референдум, по итогам которого Крым вошёл в состав России.
+    \end{itemize}
+    }
+  }
+%  \pagebreak
+  \newpage
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{1}{\boxspacing}
@@ -411,13 +438,13 @@
 \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k+kn}{import} \PY{n}{cm} \PY{c+c1}{\PYZsh{} Colormaps}
 
 \PY{k+kn}{import} \PY{n+nn}{seaborn}
-\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{3}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} \PYZpc{}config InlineBackend.figure\PYZus{}formats = [\PYZsq{}pdf\PYZsq{}]}
 \PY{c+c1}{\PYZsh{} \PYZpc{}config Completer.use\PYZus{}jedi = False}
 \end{Verbatim}
 \end{tcolorbox}
@@ -432,19 +459,20 @@
 \subsection{Определение}\label{ux43eux43fux440ux435ux434ux435ux43bux435ux43dux438ux435}}
 
 Если \(\xi\) --- случайная величина с гауссовской (нормальной)
-плотностью (probability density function, pdf)
-\[
-f_\xi(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp{ \left( -\frac{(x - \mu)^2}{2\sigma^2}\right)}, \quad \sigma>0, \quad -\infty < \mu < \infty,
+плотностью (probability density function, pdf) \[
+  f_\xi(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp{ \left( -\frac{(x - \mu)^2}{2\sigma^2}\right)}, \quad \sigma>0, \quad -\infty < \mu < \infty,
 \]
 
-то смысл параметров \(\mu\) и \(\sigma\) оказывается очень простым:
-\[ \mu = \mathrm{E} \xi, \quad \sigma^2 = \mathrm{D} \xi . \]
+то смысл параметров \(\mu\) и \(\sigma\) оказывается очень простым: \[
+  \mu = \mathrm{E} \xi, \quad \sigma^2 = \mathrm{D} \xi .
+\]
 
 Таким образом, рапределение вероятностей этой случайной величины
 \(\xi\), называемой \emph{гауссовской} или \emph{нормально
 распределённой}, полностью определяется её средним значением \(\mu\) и
-дисперсией \(\sigma^2\). В этой связи часто используется запись
-\[ \xi \sim \mathcal{N}\left( \mu, \sigma^2 \right). \]
+дисперсией \(\sigma^2\). В этой связи часто используется запись \[
+  \xi \sim \mathcal{N}\left( \mu, \sigma^2 \right).
+\]
 
     \hypertarget{ux441ux432ux43eux439ux441ux442ux432ux430}{%
 \subsection{Свойства}\label{ux441ux432ux43eux439ux441ux442ux432ux430}}
@@ -467,11 +495,14 @@ f_\xi(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp{ \left( -\frac{(x - \mu)^
   аппроксимируется нормальным распределением.
 \end{enumerate}
 
+\begin{quote}
 \textbf{Замечание.} Строго говоря, свойство 1 выполняется, если у
-\(\xi\) и \(\eta\) существует \emph{совместная нормальная плотность}
-(см. \emph{Чернова Н. И.} Математическая статистика. с. 124). Например,
-случайные величины \(\xi\) и \(\xi^2\) некоррелированы, но функционально
-зависимы.
+\(\xi\) и \(\eta\) существует \emph{совместная нормальная плотность}.
+Некоррелированные нормальные величины могут быть зависимы, и даже
+функционально зависимы, если их совместное распределение не обладает
+плотностью (см. Пример 45 на стр. 124 книги Н. И. Черновой
+«Математическая статистика»).
+\end{quote}
 
     Докажем свойство 2 для случая, когда \(\xi\) и \(\eta\) имеют
 \emph{стандартное} нормальное распределение.\\
@@ -489,8 +520,7 @@ f_\xi(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp{ \left( -\frac{(x - \mu)^
 \subsection{Моменты нормального
 распределения}\label{ux43cux43eux43cux435ux43dux442ux44b-ux43dux43eux440ux43cux430ux43bux44cux43dux43eux433ux43e-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}}
 
-Выведем общую формулу для центрального момента любого порядка:
-\[
+Выведем общую формулу для центрального момента любого порядка: \[
   M_n = \dfrac{1}{\sqrt{2\pi}\sigma} \int\limits_{-\infty}^{\infty}(x-\mu)^n e^{-\frac{(x-\mu)^2}{2\sigma^2}}dx.
 \]
 
@@ -499,16 +529,14 @@ f_\xi(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp{ \left( -\frac{(x - \mu)^
   M_n = \dfrac{(\sqrt{2}\sigma)^n}{\sqrt{\pi}} \int\limits_{-\infty}^{\infty}t^n e^{-t^2}dt.
 \]
 
-Интегрируем по частям:
-\[
+Интегрируем по частям: \[
   M_n = \dfrac{(\sqrt{2}\sigma)^n}{\sqrt{\pi}} \int\limits_{-\infty}^{\infty}t^{n-1}t e^{-t^2}dt
   = \dfrac{(\sqrt{2}\sigma)^n}{\sqrt{\pi}} \left( \left.-\dfrac{1}{2}t^{n-1}e^{-t^2} \right|_{-\infty}^{+\infty}
   + \dfrac{n-1}{2} \int\limits_{-\infty}^{\infty}t^{n-2} e^{-t^2}dt \right).
 \]
 
 Имея в виду, что первое слагаемое в скобках равно нулю, получим
-следующее рекуррентное соотношение:
-\[
+следующее рекуррентное соотношение: \[
   M_n = \dfrac{(\sqrt{2}\sigma)^n (n-1)}{2\sqrt{\pi}} \int\limits_{-\infty}^{\infty}t^{n-2} e^{-t^2}dt 
   = (n-1) \sigma^2 M_{n-2}.
 \]
@@ -548,6 +576,7 @@ f_\xi(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp{ \left( -\frac{(x - \mu)^
 \prompt{In}{incolor}{5}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Plot different Univariate Normals}
+\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{l+m+mi}{1001}\PY{p}{)}
 \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}
@@ -561,14 +590,14 @@ f_\xi(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp{ \left( -\frac{(x - \mu)^
 \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Одномерные нормальные распределения}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-\PY{c+c1}{\PYZsh{} fig.subplots\PYZus{}adjust(bottom=0.15)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_13_0.png}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_13_0.pdf}
     \end{center}
 %    { \hspace*{\fill} \\}
     
@@ -594,9 +623,9 @@ f_\xi(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp{ \left( -\frac{(x - \mu)^
 \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
 \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Одномерные нормальные распределения}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{X1}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}X\PYZus{}1=}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathcal}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+s2}{N}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s2}{(}\PY{l+s+si}{\PYZob{}}\PY{n}{m1}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZob{}}\PY{n}{s1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{l+s+si}{:}\PY{l+s+s2}{.2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{X2}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}X\PYZus{}2=}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathcal}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+s2}{N}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s2}{(}\PY{l+s+si}{\PYZob{}}\PY{n}{m2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZob{}}\PY{n}{s2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{l+s+si}{:}\PY{l+s+s2}{.2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{X1}\PY{o}{+}\PY{n}{X2}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}X\PYZus{}1+X\PYZus{}2\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{X1}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{,}\PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}X\PYZus{}1=}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathcal}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+s2}{N}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s2}{(}\PY{l+s+si}{\PYZob{}}\PY{n}{m1}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZob{}}\PY{n}{s1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{l+s+si}{:}\PY{l+s+s2}{.2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{X2}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{,}\PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}X\PYZus{}2=}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathcal}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+s2}{N}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s2}{(}\PY{l+s+si}{\PYZob{}}\PY{n}{m2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZob{}}\PY{n}{s2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{l+s+si}{:}\PY{l+s+s2}{.2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{X1}\PY{o}{+}\PY{n}{X2}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{,}\PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}X\PYZus{}1+X\PYZus{}2\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 
 \PY{n}{m\PYZus{}sum}\PY{p}{,} \PY{n}{var\PYZus{}sum} \PY{o}{=} \PY{n}{m1}\PY{o}{+}\PY{n}{m2}\PY{p}{,} \PY{n}{s1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{n}{s2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{mean}\PY{o}{=}\PY{n}{m\PYZus{}sum}\PY{p}{,} \PY{n}{variance}\PY{o}{=}\PY{n}{var\PYZus{}sum}\PY{p}{)}\PY{p}{,}
@@ -605,15 +634,15 @@ f_\xi(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp{ \left( -\frac{(x - \mu)^
 \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{density: \PYZdl{}p(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}
-\PY{c+c1}{\PYZsh{} plt.ylim([0, 1])}
 
+\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_16_0.png}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_16_0.pdf}
     \end{center}
 %    { \hspace*{\fill} \\}
     
@@ -677,11 +706,13 @@ f_\xi(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp{ \left( -\frac{(x - \mu)^
 Положительная определёнонсть означает, что
 \(\forall \mathbf{a} \in \mathbb{R}^n: \mathbf{a}^\top \mathbf{K} \mathbf{a} > 0\).
 
-Действительно,
-\[\begin{split}
-\mathbf{a}^\top \mathbf{K} \mathbf{a} = \sum\limits_{i,j=1}^n a_i K_{ij} a_j
-  &= \sum\limits_{i,j=1}^n a_i \mathrm{E}\left[ (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) \right] a_j = \sum\limits_{i,j=1}^n \mathrm{E}\left[ a_i (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) a_j \right] \\
-  &= \mathrm{E}\left[ \sum\limits_{i,j=1}^n a_i (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) a_j \right] = \mathrm{E}\left[ \sum\limits_{i=1}^n a_i (\xi_i - \mathrm{E}\xi_i) \right]^2. \mathrm{\square}
+Действительно, \[
+\begin{split}
+  \mathbf{a}^\top \mathbf{K} \mathbf{a} = \sum\limits_{i,j=1}^n a_i K_{ij} a_j
+  &= \sum\limits_{i,j=1}^n a_i \mathrm{E}\left[ (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) \right] a_j =
+  \sum\limits_{i,j=1}^n \mathrm{E}\left[ a_i (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) a_j \right] \\
+  &= \mathrm{E}\left[ \sum\limits_{i,j=1}^n a_i (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) a_j \right] =
+  \mathrm{E}\left[ \sum\limits_{i=1}^n a_i (\xi_i - \mathrm{E}\xi_i) \right]^2. \mathrm{\square}
 \end{split}
 \]
 
@@ -705,13 +736,12 @@ f_\xi(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp{ \left( -\frac{(x - \mu)^
 Пусть \(\vec\eta\) --- вектор нормально распределённых случайных величин
 \(\vec\eta \sim \mathcal{N}(0, 1)\). Пусть \(\Sigma = L L^\top\).
 Покажем, что вектор \(\vec\xi = L\vec\eta\) имеет ковариационную матрицу
-\(\Sigma\).
-\[
-\mathrm{cov}(\vec\xi)
-= \mathrm{E} \left[\vec\xi \cdot \vec\xi^\top \right]
-= \mathrm{E} \left[(L\vec\eta)(L\vec\eta)^\top \right]
-= L \cdot \mathrm{E} \left[\vec\eta \cdot \vec\eta^\top \right] \cdot L^\top
-= L I_n L^\top = LL^\top = \Sigma. \; \mathrm{\square}
+\(\Sigma\). \[
+  \mathrm{cov}(\vec\xi)
+  = \mathrm{E} \left[\vec\xi \cdot \vec\xi^\top \right]
+  = \mathrm{E} \left[(L\vec\eta)(L\vec\eta)^\top \right]
+  = L \cdot \mathrm{E} \left[\vec\eta \cdot \vec\eta^\top \right] \cdot L^\top
+  = L I_n L^\top = LL^\top = \Sigma. \mathrm{\square}
 \]
 
     \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -736,9 +766,8 @@ f_\xi(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp{ \left( -\frac{(x - \mu)^
 
 Многомерное нормальное распределение случайного вектора
 \(\overline{\xi}\) размерностью \(n\) имеет следующую функцию плотности
-совместной вероятности:
-\[
-f_n(\vec{x}|\vec{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^n |\Sigma|}} \exp{ \left( -\frac{1}{2}(\vec{x} - \vec{\mu})^\top \Sigma^{-1} (\vec{x} - \vec{\mu}) \right)}.
+совместной вероятности: \[
+  f_n(\vec{x}|\vec{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^n |\Sigma|}} \exp{ \left( -\frac{1}{2}(\vec{x} - \vec{\mu})^\top \Sigma^{-1} (\vec{x} - \vec{\mu}) \right)}.
 \]
 
 Здесь \(\vec{x}\) --- случайный вектор размерностью \(n\), \(\vec{\mu}\)
@@ -746,9 +775,8 @@ f_n(\vec{x}|\vec{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^n |\Sigma|}} \exp{ \left(
 матрица (симметричная, положительно определённая матрица с размерностью
 \(n \times n\), \(\Sigma_{ij} = \text{cov}(\xi_i, \xi_j)\)), а
 \(\lvert\Sigma\rvert\) --- её определитель. Многомерное нормальное
-распределение принято обозначать следующим образом:
-\[
-    \vec{\xi} \sim \mathcal{N}(\vec{\mu}, \Sigma)
+распределение принято обозначать следующим образом: \[
+  \vec{\xi} \sim \mathcal{N}(\vec{\mu}, \Sigma)
 \]
 
 \begin{quote}
@@ -792,8 +820,7 @@ f_n(\vec{x}|\vec{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^n |\Sigma|}} \exp{ \left(
 \textbf{Замечание.} Можно убедиться, что если пара (\(\xi\), \(\eta\))
 --- гауссовская, то из некоррелированности \(\xi\) и \(\eta\) следует их
 независимость.\\
-Действительно, если \(\rho=0\), то
-\[
+Действительно, если \(\rho=0\), то \[
   f_{\xi,\eta}(x_1, x_2) = \frac{1}{2\pi\sigma_1\sigma_2} \, \exp\left\{-\frac{(x_1-m_1)^2}{2\sigma_1^2}\right\} \, \exp\left\{-\frac{(x_2-m_2)^2}{2\sigma_2^2}\right\}
   = f_\xi(x_1) \cdot f_{\eta}(x_2).
 \]
@@ -853,15 +880,9 @@ f_n(\vec{x}|\vec{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^n |\Sigma|}} \exp{ \left(
 \PY{n}{bivariate\PYZus{}covariance} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}
     \PY{p}{[}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,} 
     \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{]}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Covariance}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{bivariate\PYZus{}covariance}\PY{p}{)}
 \PY{n}{surf\PYZus{}ind} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{bivariate\PYZus{}mean}\PY{p}{,} \PY{n}{bivariate\PYZus{}covariance}\PY{p}{,} \PY{n}{d}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-[[1. 0.]
- [0. 1.]]
-    \end{Verbatim}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{11}{\boxspacing}
@@ -872,15 +893,9 @@ f_n(\vec{x}|\vec{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^n |\Sigma|}} \exp{ \left(
 \PY{n}{bivariate\PYZus{}covariance} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}
     \PY{p}{[}\PY{n}{sigma\PYZus{}1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{cor\PYZus{}coeff}\PY{o}{*}\PY{n}{sigma\PYZus{}1}\PY{o}{*}\PY{n}{sigma\PYZus{}2}\PY{p}{]}\PY{p}{,} 
     \PY{p}{[}\PY{n}{cor\PYZus{}coeff}\PY{o}{*}\PY{n}{sigma\PYZus{}1}\PY{o}{*}\PY{n}{sigma\PYZus{}2}\PY{p}{,} \PY{n}{sigma\PYZus{}2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Covariance}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{bivariate\PYZus{}covariance}\PY{p}{)}
 \PY{n}{surf\PYZus{}cor} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{bivariate\PYZus{}mean}\PY{p}{,} \PY{n}{bivariate\PYZus{}covariance}\PY{p}{,} \PY{n}{d}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-[[1.  0.8]
- [0.8 1. ]]
-    \end{Verbatim}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{12}{\boxspacing}
@@ -917,7 +932,7 @@ f_n(\vec{x}|\vec{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^n |\Sigma|}} \exp{ \left(
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.95\linewidth}{0.95\paperheight}}{output_35_0.png}
+    \adjustimage{max size={0.95\linewidth}{0.95\paperheight}}{output_35_0.pdf}
     \end{center}
 %    { \hspace*{\fill} \\}
     
@@ -935,22 +950,26 @@ f_n(\vec{x}|\vec{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^n |\Sigma|}} \exp{ \left(
 аффинного преобразования. Так, если \(X\) --- нормально распределённый
 случайный вектор, а \(Y = u + LX\) --- аффинное преобразованием \(X\) с
 матрицей \(L\) и вектором \(u\), то \(Y\) также нормально распределён со
-средним значением \(\mu_{Y} = u + L\mu_{X}\) и ковариационной матрицей \(\Sigma_{Y} = L\Sigma_{X}L^\top\).
-\begin{align*}
-X \sim \mathcal{N}(\mu_{X}, \Sigma_{X}), \quad\quad Y \sim \mathcal{N}(\mu_{Y}, \Sigma_{Y}) \\
-\mathcal{N}(\mu_{Y}, \Sigma_{Y}) = \mathcal{N}(u + L\mu_{X}, L\Sigma_{X}L^\top) = u + L\mathcal{N}(\mu_{X}, \Sigma_{X})
-\end{align*}
+средним значением \(\mu_{Y} = u + L\mu_{X}\) и ковариационной матрицей
+\(\Sigma_{Y} = L\Sigma_{X}L^\top\). \[
+  X \sim \mathcal{N}(\mu_{X}, \Sigma_{X}) \quad\quad Y \sim \mathcal{N}(\mu_{Y}, \Sigma_{Y}) \\
+  \mathcal{N}(\mu_{Y}, \Sigma_{Y}) = \mathcal{N}(u + L\mu_{X}, L\Sigma_{X}L^\top) = u + L\mathcal{N}(\mu_{X}, \Sigma_{X})
+\]
 
-Это можно доказать следующим образом:
-\[\mu_{Y} = \mathrm{E}[Y] = \mathrm{E}[u + LX] = u + \mathrm{E}[LX] = u + L\mu_{X}\]
-\[\begin{split}
-\Sigma_{Y} & = \mathrm{E}[(Y-\mu_{Y})(Y-\mu_{Y})^\top]
-           = \mathrm{E}[(u+LX - u-L\mu_{X})(u+LX - u-L\mu_{X})^\top] \\
-           & = \mathrm{E}[(L(X-\mu_{X})) (L(X-\mu_{X}))^\top]
-           = \mathrm{E}[L(X-\mu_{X}) (X-\mu_{X})^\top L^\top] \\
-           & = L\mathrm{E}[(X-\mu_{X})(X-\mu_{X})^\top]L^\top
-           = L\Sigma_{X}L^\top.
-\end{split}\]
+Это можно доказать следующим образом: \[
+  \mu_{Y} = \mathrm{E}[Y] = \mathrm{E}[u + LX] = u + \mathrm{E}[LX] = u + L\mu_{X}
+\]
+
+\[
+\begin{split}
+  \Sigma_{Y} & = \mathrm{E}[(Y-\mu_{Y})(Y-\mu_{Y})^\top] \\
+             & = \mathrm{E}[(u+LX - u-L\mu_{X})(u+LX - u-L\mu_{X})^\top] \\
+             & = \mathrm{E}[(L(X-\mu_{X})) (L(X-\mu_{X}))^\top] \\
+             & = \mathrm{E}[L(X-\mu_{X}) (X-\mu_{X})^\top L^\top] \\
+             & = L\mathrm{E}[(X-\mu_{X})(X-\mu_{X})^\top]L^\top \\
+             & = L\Sigma_{X}L^\top
+\end{split}
+\]
 
     Итак, можно сформулировать следующий результат:
 
@@ -991,8 +1010,7 @@ X \sim \mathcal{N}(\mu_{X}, \Sigma_{X}), \quad\quad Y \sim \mathcal{N}(\mu_{Y}, 
 помощью разложения Холецкого матрицы \(\Sigma_{Y}\).
 
     В качестве иллюстрации сгенерируем выборку двумерных векторов для
-следующего распределения:
-\[
+следующего распределения: \[
 Y
 \sim
 \mathcal{N}\left(
@@ -1033,14 +1051,14 @@ Y
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Plot the samples and the distribution}
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+\PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mf}{5.5}\PY{p}{)}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Plot bivariate distribution}
 \PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{covariance}\PY{p}{,} \PY{n}{d}\PY{p}{)}
 \PY{n}{con} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{magma\PYZus{}r}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Plot samples}
-\PY{n}{s} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{точки}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{s} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
 \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}1\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}2\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{]}\PY{p}{)}
@@ -1048,12 +1066,13 @@ Y
 \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Выборка двумерных гауссовских векторов}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{cbar} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{con}\PY{p}{)}
 \PY{n}{cbar}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}p(x\PYZus{}1, x\PYZus{}2)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.55\linewidth}{0.55\paperheight}}{output_43_0.png}
+    \adjustimage{max size={0.55\linewidth}{0.55\paperheight}}{output_43_0.pdf}
     \end{center}
 %    { \hspace*{\fill} \\}
     
@@ -1061,9 +1080,9 @@ Y
 (область \(2\sigma\)). Для этого нам понадобится распределение
 \emph{длин} гауссовских векторов.
 
-    \hypertarget{ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux435-ux43fux438ux440ux441ux43eux43dux430-mathbfchi2}{%
-\subsection{\texorpdfstring{Распределение Пирсона
-\(\mathbf{\chi^2}\)}{Распределение Пирсона \textbackslash mathbf\{\textbackslash chi\^{}2\}}}\label{ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux435-ux43fux438ux440ux441ux43eux43dux430-mathbfchi2}}
+    \hypertarget{ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux435-ux43fux438ux440ux441ux43eux43dux430}{%
+\subsection{Распределение
+Пирсона}\label{ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux435-ux43fux438ux440ux441ux43eux43dux430}}
 
 \textbf{Определение.} Распределение суммы \(k\) квадратов независимых
 случайных величин со стандартным нормальным распределением называется
@@ -1118,23 +1137,25 @@ Y
 \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{)}
 \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}H\PYZus{}k\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_47_0.png}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_47_0.pdf}
     \end{center}
 %    { \hspace*{\fill} \\}
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{16}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{k}{def} \PY{n+nf}{make\PYZus{}ellipse}\PY{p}{(}\PY{n}{mu}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{ci}\PY{o}{=}\PY{l+m+mf}{0.95}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{pm 2}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{sigma\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
-    \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Make covariance isoline\PYZdq{}\PYZdq{}\PYZdq{}}
+\PY{k}{def} \PY{n+nf}{make\PYZus{}ellipse}\PY{p}{(}\PY{n}{mu}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{ci}\PY{o}{=}\PY{l+m+mf}{0.95}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+    \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Make covariance isoline\PYZsq{}\PYZsq{}\PYZsq{}}
     \PY{n}{e}\PY{p}{,} \PY{n}{v} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eig}\PY{p}{(}\PY{n}{cov}\PY{p}{)}
-    \PY{n}{angle} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sign}\PY{p}{(}\PY{n}{v}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{180}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{pi} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{arccos}\PY{p}{(}\PY{n}{v}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+    \PY{n}{angle} \PY{o}{=} \PY{l+m+mf}{180.}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{pi} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{arctan}\PY{p}{(}\PY{n}{v}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{/} \PY{n}{v}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
     \PY{n}{q} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{chi2}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{n}{ci}\PY{p}{)}
+    \PY{n}{label} \PY{o}{=} \PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}}\PY{l+m+mi}{100}\PY{o}{*}\PY{n}{ci}\PY{l+s+si}{:}\PY{l+s+s1}{.2g}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZpc{} ci}\PY{l+s+s1}{\PYZsq{}}
     \PY{n}{e} \PY{o}{=} \PY{n}{Ellipse}\PY{p}{(}\PY{n}{mu}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{q}\PY{o}{*}\PY{n}{e}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{q}\PY{o}{*}\PY{n}{e}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{angle}\PY{o}{=}\PY{n}{angle}\PY{p}{,}
                 \PY{n}{fill}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{label}\PY{p}{)}
     \PY{k}{return} \PY{n}{e}
@@ -1146,18 +1167,18 @@ Y
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Plot the samples and the distribution}
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+\PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mf}{5.5}\PY{p}{)}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Plot bivariate distribution}
 \PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{covariance}\PY{p}{,} \PY{n}{d}\PY{p}{)}
 \PY{n}{con} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{magma\PYZus{}r}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Plot 95\PYZpc{} Interval}
-\PY{n}{e} \PY{o}{=} \PY{n}{make\PYZus{}ellipse}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{covariance}\PY{p}{)}
+\PY{n}{e} \PY{o}{=} \PY{n}{make\PYZus{}ellipse}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{covariance}\PY{p}{,} \PY{n}{ci}\PY{o}{=}\PY{l+m+mf}{0.95}\PY{p}{)}
 \PY{n}{ax}\PY{o}{.}\PY{n}{add\PYZus{}artist}\PY{p}{(}\PY{n}{e}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Plot samples}
-\PY{n}{s} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{точки}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{s} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
 \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZus{}1\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZus{}2\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{]}\PY{p}{)}
@@ -1166,13 +1187,14 @@ Y
 \PY{n}{cbar} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{con}\PY{p}{)}
 \PY{n}{cbar}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}p(y\PYZus{}1, y\PYZus{}2)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 
-\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{o}{=}\PY{p}{[}\PY{n}{e}\PY{p}{,} \PY{p}{]}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{o}{=}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.55\linewidth}{0.55\paperheight}}{output_49_0.png}
+    \adjustimage{max size={0.55\linewidth}{0.55\paperheight}}{output_49_0.pdf}
     \end{center}
 %    { \hspace*{\fill} \\}
     

@@ -20,7 +20,7 @@
 
 # + [markdown] toc=true
 # <h1>Содержание<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Гауссовские-случайные-величины" data-toc-modified-id="Гауссовские-случайные-величины-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Гауссовские случайные величины</a></span><ul class="toc-item"><li><span><a href="#Определение" data-toc-modified-id="Определение-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Определение</a></span></li><li><span><a href="#Свойства" data-toc-modified-id="Свойства-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Свойства</a></span></li><li><span><a href="#Моменты-нормального-распределения" data-toc-modified-id="Моменты-нормального-распределения-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Моменты нормального распределения</a></span></li><li><span><a href="#Примеры" data-toc-modified-id="Примеры-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Примеры</a></span></li></ul></li><li><span><a href="#Случайный-вектор" data-toc-modified-id="Случайный-вектор-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Случайный вектор</a></span><ul class="toc-item"><li><span><a href="#Определение" data-toc-modified-id="Определение-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Определение</a></span></li><li><span><a href="#Ковариационная-матрица" data-toc-modified-id="Ковариационная-матрица-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Ковариационная матрица</a></span></li></ul></li><li><span><a href="#Многомерное-нормальное-распределение" data-toc-modified-id="Многомерное-нормальное-распределение-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Многомерное нормальное распределение</a></span><ul class="toc-item"><li><span><a href="#Определение" data-toc-modified-id="Определение-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Определение</a></span></li><li><span><a href="#Двумерное-нормальное-распределение" data-toc-modified-id="Двумерное-нормальное-распределение-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Двумерное нормальное распределение</a></span></li></ul></li><li><span><a href="#Генерация-выборки-гауссовских-векторов" data-toc-modified-id="Генерация-выборки-гауссовских-векторов-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Генерация выборки гауссовских векторов</a></span><ul class="toc-item"><li><span><a href="#Аффинное-преобразование-многомерного-нормального-распределения" data-toc-modified-id="Аффинное-преобразование-многомерного-нормального-распределения-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Аффинное преобразование многомерного нормального распределения</a></span></li><li><span><a href="#Генерация-выборки-гауссовских-векторов" data-toc-modified-id="Генерация-выборки-гауссовских-векторов-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Генерация выборки гауссовских векторов</a></span></li><li><span><a href="#Распределение-Пирсона-$\mathbf{\chi^2}$" data-toc-modified-id="Распределение-Пирсона-$\mathbf{\chi^2}$-4.3"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>Распределение Пирсона $\mathbf{\chi^2}$</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Гауссовские-случайные-величины" data-toc-modified-id="Гауссовские-случайные-величины-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Гауссовские случайные величины</a></span><ul class="toc-item"><li><span><a href="#Определение" data-toc-modified-id="Определение-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Определение</a></span></li><li><span><a href="#Свойства" data-toc-modified-id="Свойства-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Свойства</a></span></li><li><span><a href="#Моменты-нормального-распределения" data-toc-modified-id="Моменты-нормального-распределения-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Моменты нормального распределения</a></span></li><li><span><a href="#Примеры" data-toc-modified-id="Примеры-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Примеры</a></span></li></ul></li><li><span><a href="#Случайный-вектор" data-toc-modified-id="Случайный-вектор-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Случайный вектор</a></span><ul class="toc-item"><li><span><a href="#Определение" data-toc-modified-id="Определение-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Определение</a></span></li><li><span><a href="#Ковариационная-матрица" data-toc-modified-id="Ковариационная-матрица-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Ковариационная матрица</a></span></li></ul></li><li><span><a href="#Многомерное-нормальное-распределение" data-toc-modified-id="Многомерное-нормальное-распределение-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Многомерное нормальное распределение</a></span><ul class="toc-item"><li><span><a href="#Определение" data-toc-modified-id="Определение-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Определение</a></span></li><li><span><a href="#Двумерное-нормальное-распределение" data-toc-modified-id="Двумерное-нормальное-распределение-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Двумерное нормальное распределение</a></span></li></ul></li><li><span><a href="#Генерация-выборки-гауссовских-векторов" data-toc-modified-id="Генерация-выборки-гауссовских-векторов-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Генерация выборки гауссовских векторов</a></span><ul class="toc-item"><li><span><a href="#Аффинное-преобразование-многомерного-нормального-распределения" data-toc-modified-id="Аффинное-преобразование-многомерного-нормального-распределения-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Аффинное преобразование многомерного нормального распределения</a></span></li><li><span><a href="#Генерация-выборки-гауссовских-векторов" data-toc-modified-id="Генерация-выборки-гауссовских-векторов-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Генерация выборки гауссовских векторов</a></span></li><li><span><a href="#Распределение-Пирсона" data-toc-modified-id="Распределение-Пирсона-4.3"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>Распределение Пирсона</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
 
 # +
 # Imports
@@ -38,10 +38,10 @@ matplotlib.rcParams['font.size'] = 12
 from matplotlib import cm # Colormaps
 
 import seaborn
-seaborn.set_style('whitegrid')
 
 
 # +
+# # %config InlineBackend.figure_formats = ['pdf']
 # # %config Completer.use_jedi = False
 # -
 
@@ -129,6 +129,7 @@ def univariate_normal(x, mean, variance):
 
 
 # Plot different Univariate Normals
+seaborn.set_style('whitegrid')
 x = np.linspace(-3, 6, num=1001)
 fig = plt.figure(figsize=(8, 5))
 plt.plot(x, univariate_normal(x, 0, 1),
@@ -142,8 +143,8 @@ plt.ylabel('density: $p(x)$')
 plt.title('Одномерные нормальные распределения')
 plt.ylim([0, 1])
 plt.xlim([-3, 5])
-plt.legend(loc=1)
-# fig.subplots_adjust(bottom=0.15)
+plt.legend(loc='upper right')
+plt.tight_layout()
 plt.show()
 
 # **Пример 2** \
@@ -160,9 +161,9 @@ bins = 100
 fig = plt.figure(figsize=(8, 5))
 ax = plt.subplot(1,1,1)
 plt.title('Одномерные нормальные распределения')
-plt.hist(X1, bins=bins, density=True, label=f"$X_1=\mathcal{{N}}({m1}, {s1**2:.2})$")
-plt.hist(X2, bins=bins, density=True, label=f"$X_2=\mathcal{{N}}({m2}, {s2**2:.2})$")
-plt.hist(X1+X2, bins=bins, density=True, alpha=0.5, label="$X_1+X_2$")
+plt.hist(X1,bins=bins,density=True,label=f"$X_1=\mathcal{{N}}({m1}, {s1**2:.2})$")
+plt.hist(X2,bins=bins,density=True,label=f"$X_2=\mathcal{{N}}({m2}, {s2**2:.2})$")
+plt.hist(X1+X2,bins=bins,density=True,alpha=0.5,label="$X_1+X_2$")
 
 m_sum, var_sum = m1+m2, s1**2+s2**2
 plt.plot(x, univariate_normal(x, mean=m_sum, variance=var_sum),
@@ -171,8 +172,8 @@ plt.plot(x, univariate_normal(x, mean=m_sum, variance=var_sum),
 plt.xlabel('$x$')
 plt.ylabel('density: $p(x)$')
 plt.xlim([-3, 6])
-# plt.ylim([0, 1])
 
+plt.tight_layout()
 plt.legend()
 plt.show()
 
@@ -339,7 +340,6 @@ bivariate_mean = np.matrix([[0.], [0.]])  # Mean
 bivariate_covariance = np.matrix([
     [1., 0.], 
     [0., 1.]])  # Covariance
-print(bivariate_covariance)
 surf_ind = generate_surface(bivariate_mean, bivariate_covariance, d)
 
 # Generate correlated Normals
@@ -348,7 +348,6 @@ sigma_1, sigma_2, cor_coeff = 1., 1.0, 0.8
 bivariate_covariance = np.matrix([
     [sigma_1**2, cor_coeff*sigma_1*sigma_2], 
     [cor_coeff*sigma_1*sigma_2, sigma_2**2]])  # Covariance
-print(bivariate_covariance)
 surf_cor = generate_surface(bivariate_mean, bivariate_covariance, d)
 
 # +
@@ -459,14 +458,14 @@ Y = (mean + L.dot(X)).T
 # +
 # Plot the samples and the distribution
 seaborn.set_style('white')
-fig, ax = plt.subplots(figsize=(8, 6))
+fig, ax = plt.subplots(figsize=(8, 5.5))
 
 # Plot bivariate distribution
 x1, x2, p = generate_surface(mean, covariance, d)
 con = ax.contourf(x1, x2, p, 100, cmap=cm.magma_r)
 
 # Plot samples
-s = ax.plot(Y[:,0], Y[:,1], 'o', c=cm.tab10(0), ms=2, label='точки')
+s = ax.plot(Y[:,0], Y[:,1], 'o', c=cm.tab10(0), ms=2)
 ax.set_xlabel('$x_1$')
 ax.set_ylabel('$x_2$')
 ax.axis([-3., 3., -3., 3.])
@@ -474,13 +473,14 @@ ax.set_aspect('equal')
 ax.set_title('Выборка двумерных гауссовских векторов')
 cbar = plt.colorbar(con)
 cbar.ax.set_ylabel('$p(x_1, x_2)$')
+plt.tight_layout()
 plt.show()
 # -
 
 # Дополнительно нарисуем область, в которую попадает 95 % векторов (область $2\sigma$).
 # Для этого нам понадобится распределение *длин* гауссовских векторов.
 
-# ### Распределение Пирсона $\mathbf{\chi^2}$
+# ### Распределение Пирсона
 #
 # **Определение.** Распределение суммы $k$ квадратов независимых случайных величин со стандартным нормальным распределением называется распределением $\chi^2 = \xi_1^2 + \ldots + \xi_k^2$ (хи-квадрат) с $k$ степенями свободы и обозначается $H_k$.
 #
@@ -515,17 +515,18 @@ ax1.set_xlim(0, 8)
 ax1.set_ylim(0, 0.6)
 ax1.set_xlabel('$x$')
 ax1.set_ylabel('$H_k$',rotation=0,ha='right')
+plt.tight_layout()
 plt.show()
 
 
 # -
 
-def make_ellipse(mu, cov, ci=0.95, color='gray', label='$\pm 2\,\sigma$'):
+def make_ellipse(mu, cov, ci=0.95, color='gray'):
     '''Make covariance isoline'''
     e, v = np.linalg.eig(cov)
     angle = 180./np.pi * np.arctan(v[1, 0] / v[0, 0])
-    print(angle)
     q = stats.chi2(2).ppf(ci)
+    label = f'{100*ci:.2g}% ci'
     e = Ellipse(mu, 2*np.sqrt(q*e[0]), 2*np.sqrt(q*e[1]), angle=angle,
                 fill=False, color=color, label=label)
     return e
@@ -534,18 +535,18 @@ def make_ellipse(mu, cov, ci=0.95, color='gray', label='$\pm 2\,\sigma$'):
 # +
 # Plot the samples and the distribution
 seaborn.set_style('white')
-fig, ax = plt.subplots(figsize=(8, 6))
+fig, ax = plt.subplots(figsize=(8, 5.5))
 
 # Plot bivariate distribution
 x1, x2, p = generate_surface(mean, covariance, d)
 con = ax.contourf(x1, x2, p, 100, cmap=cm.magma_r)
 
 # Plot 95% Interval
-e = make_ellipse(mean, covariance)
+e = make_ellipse(mean, covariance, ci=0.95)
 ax.add_artist(e)
 
 # Plot samples
-s = ax.plot(Y[:,0], Y[:,1], 'o', c=cm.tab10(0), ms=2, label='точки')
+s = ax.plot(Y[:,0], Y[:,1], 'o', c=cm.tab10(0), ms=2)
 ax.set_xlabel('$y_1$')
 ax.set_ylabel('$y_2$')
 ax.axis([-3., 3., -3., 3.])
@@ -554,7 +555,8 @@ ax.set_title('Выборка двумерных гауссовских вект�
 cbar = plt.colorbar(con)
 cbar.ax.set_ylabel('$p(y_1, y_2)$')
 
-plt.legend(handles=[e, ], loc=2)
+plt.legend(handles=[e], loc=2)
+plt.tight_layout()
 plt.show()
 # -
 
