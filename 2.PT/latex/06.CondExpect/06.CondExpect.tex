@@ -1,0 +1,1171 @@
+\documentclass[11pt,a4paper]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{iftex}
+    \ifPDFTeX
+      \usepackage[T2A]{fontenc}
+      \usepackage{mathpazo}
+      \usepackage[russian,english]{babel}
+    \else
+      \usepackage{fontspec}
+      \usepackage{polyglossia}
+      \setmainlanguage[babelshorthands=true]{russian}    % Язык по-умолчанию русский с поддержкой приятных команд пакета babel
+      \setotherlanguage{english}                         % Дополнительный язык = английский (в американской вариации по-умолчанию)
+      
+      \setmonofont[Scale=0.87,BoldFont={Fira Mono Medium}]%
+      {Fira Mono}%                                       % Моноширинный шрифт Fira
+      \newfontfamily\cyrillicfonttt[Scale=0.87,BoldFont={Fira Mono Medium},ItalicFont=[FiraMono-Oblique]]
+      {Fira Mono}                                        % Моноширинный шрифт для кириллицы
+      \defaultfontfeatures{Ligatures=TeX}
+      \setmainfont{STIX Two Text}                        % Шрифт с засечками
+      \newfontfamily\cyrillicfont{STIX Two Text}         % Шрифт с засечками для кириллицы
+      
+      %%% Математические пакеты %%%
+      \usepackage{amsthm,amsmath,amscd}   % Математические дополнения от AMS
+      \usepackage{amsfonts,amssymb}       % Математические дополнения от AMS
+      \usepackage{mathtools}              % Добавляет окружение multlined
+      \usepackage{unicode-math}           % Для шрифта STIX Two Math
+      \setmathfont{STIX Two Math}         % Математический шрифт
+    \fi
+    \renewcommand{\linethickness}{0.1ex}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{
+      {\Large Лекция 6} \\
+      Условное математическое ожидание
+    }
+    \date{30 марта 2022\,г.}
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+    
+  \maketitle
+  \thispagestyle{empty}
+  \tableofcontents
+  
+  \let\thefootnote\relax\footnote{
+    \textit{День 30 марта в истории:
+      \begin{itemize}[topsep=2pt,itemsep=1pt]
+        \item в 1791 г. национальное собрание Франции ввело определение метра: одна сорокамиллионная часть длины парижского меридиана;
+        \item в 1814 г. союзные войска (главным образом русские корпуса) антинаполеоновской коалиции (России, Англии, Пруссии и др.) взяли штурмом Париж, тем самым положив конец Наполеоновским войнам;
+        \item в 1858 г. в США Хаймен Липмен запатентовал карандаш со стирающей резинкой на другом конце;
+        \item в 1867 г. в Вашингтоне подписан русско-американский договор, по которому США приобрели у России Аляску с Алеутскими островами за 7.2 млн долларов;
+        \item в 1992 г. фильм «Молчание ягнят» завоевал пять призов <<Оскар>>.
+      \end{itemize}
+    }
+  }
+  \newpage
+
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Imports}
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{gridspec} \PY{k}{as} \PY{n+nn}{gridspec}
+\PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{axes\PYZus{}grid1} \PY{k+kn}{import} \PY{n}{make\PYZus{}axes\PYZus{}locatable}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Styles, fonts}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}
+\PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{12}
+\PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k+kn}{import} \PY{n}{cm} \PY{c+c1}{\PYZsh{} Colormaps}
+
+\PY{k+kn}{import} \PY{n+nn}{seaborn}
+\PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k+kn}{import} \PY{n}{Image}
+\PY{n}{im\PYZus{}width} \PY{o}{=} \PY{l+m+mi}{1000}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{sys}
+\PY{n}{sys}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./modules}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k+kn}{from} \PY{n+nn}{gauss\PYZus{}distrib\PYZus{}util} \PY{k+kn}{import} \PY{n}{univariate\PYZus{}normal}
+\PY{k+kn}{from} \PY{n+nn}{gauss\PYZus{}distrib\PYZus{}util} \PY{k+kn}{import} \PY{n}{multivariate\PYZus{}normal}
+\PY{k+kn}{from} \PY{n+nn}{gauss\PYZus{}distrib\PYZus{}util} \PY{k+kn}{import} \PY{n}{generate\PYZus{}surface}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} \PYZpc{}config InlineBackend.figure\PYZus{}formats = [\PYZsq{}pdf\PYZsq{}]}
+\PY{c+c1}{\PYZsh{} \PYZpc{}config Completer.use\PYZus{}jedi = False}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+    \hypertarget{ux443ux441ux43bux43eux432ux43dux43eux435-ux43cux430ux442ux435ux43cux430ux442ux438ux447ux435ux441ux43aux43eux435-ux43eux436ux438ux434ux430ux43dux438ux435}{%
+\section{Условное математическое
+ожидание}\label{ux443ux441ux43bux43eux432ux43dux43eux435-ux43cux430ux442ux435ux43cux430ux442ux438ux447ux435ux441ux43aux43eux435-ux43eux436ux438ux434ux430ux43dux438ux435}}
+
+    \hypertarget{ux43dux435ux444ux43eux440ux43cux430ux43bux44cux43dux43eux435-ux43fux43eux43dux44fux442ux438ux435-ux438-ux433ux435ux43eux43cux435ux442ux440ux438ux447ux435ux441ux43aux430ux44f-ux430ux43dux430ux43bux43eux433ux438ux44f}{%
+\subsection{Неформальное понятие и геометрическая
+аналогия}\label{ux43dux435ux444ux43eux440ux43cux430ux43bux44cux43dux43eux435-ux43fux43eux43dux44fux442ux438ux435-ux438-ux433ux435ux43eux43cux435ux442ux440ux438ux447ux435ux441ux43aux430ux44f-ux430ux43dux430ux43bux43eux433ux438ux44f}}
+
+Для начала введём понятие \emph{условного математического ожидания}
+неформально.
+
+Пусть \(\xi\) и \(\eta\) --- две случайные величины на некотором
+вероятностном пространстве. Пусть \(L = L(\xi)\) --- множество, в
+котором собраны все случайные величины \(g(x)\), являющиеся функциями от
+\(\xi\). Среди элементов множества \(L\) мы хотим найти случайную
+величину \(\hat{\eta}\) «наиболее похожую» на \(\eta\). Такую случайную
+величину \(\hat{\eta}\) будем называть \emph{условным математическим
+ожиданием \(\eta\) относительно \(\xi\)} и обозначать
+\(\mathrm{E}(\eta|\xi)\).
+
+    «Похожесть» двух случайных величин \(\eta\) и \(\hat{\eta}\) формализуем
+с помощью процедуры ортогонального проектирования. Для этого введём
+скалярное произведение двух случайных величин
+\((\xi, \eta) = \mathrm{cov}(\xi, \eta)\).
+
+Тогда условное математическое ожидание \(\mathrm{E}(\eta|\xi)\)
+случайной величины \(\eta\) относительно \(\xi\) можно представлять себе
+как результат \emph{ортогонального проектирования} случайной величины
+\(\eta\) на пространство \(L(\xi)\).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{display}\PY{p}{(}\PY{n}{Image}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./pix/06.CondExpect/CondExpect.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.50}\PY{o}{*}\PY{n}{im\PYZus{}width}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_10_0.png}
+    \end{center}
+%    { \hspace*{\fill} \\}
+    
+    Результат проектирования --- такая случайная величина
+\(\mathrm{E}(\eta|\xi) = \hat{\eta}\) из \(L\), для которой выполнено
+основное свойство ортопроекции: её разность с \(\eta\) ортогональна всем
+элементам \(L\). Ортогональность означает, что для любой
+\(g(\xi) \in L\) скалярное произведение
+\((\eta - \hat{\eta},\, g(\xi))\) обращается в нуль, т.е. \[
+  \mathrm{cov}\left[(\eta - \hat{\eta}),\, g(\xi) \right] = 0 \quad \mathrm{или} \quad \mathrm{cov}\left[ \eta,\, g(\xi) \right] = \mathrm{cov}\left[ \hat{\eta},\, g(\xi) \right].
+\]
+
+    \hypertarget{ux43eux43fux440ux435ux434ux435ux43bux435ux43dux438ux435-ux438-ux441ux432ux43eux439ux441ux442ux432ux430}{%
+\subsection{Определение и
+свойства}\label{ux43eux43fux440ux435ux434ux435ux43bux435ux43dux438ux435-ux438-ux441ux432ux43eux439ux441ux442ux432ux430}}
+
+\textbf{Определение.} Пусть \(L = L(\xi)\) --- множество всех функций от
+случайной величины \(\xi\). \emph{Условным математическим ожиданием}
+\(\mathrm{E}(\eta|\xi)\) называется \emph{случайная величина}
+\(\hat{\eta} \in L\), удовлетворяющая тождеству ортопроекции: \[
+  \mathrm{cov}\left[ \eta,\, g(\xi) \right] = \mathrm{cov}\left[ \hat{\eta},\, g(\xi) \right] \quad \forall g(\xi) \in L.  
+\]
+
+    \textbf{Свойства:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  УМО --- это случайная величина
+\item
+  если \(\xi\) и \(\eta\) независимы, то
+  \(\mathrm{E}(\eta|\xi) = \mathrm{E}(\eta)\)
+\item
+  линейность:
+  \(\mathrm{E}(\eta_1 + \eta_2|\xi) = \mathrm{E}(\eta_1|\xi) + \mathrm{E}(\eta_2|\xi)\),
+  в частности, \(\mathrm{E}(a\eta + b|\xi) = a\mathrm{E}(\eta|\xi) + b\)
+\item
+  известные величины можно выносить из-под знака математического
+  ожидания:
+  \(\mathrm{E}(f(\xi) \cdot \eta|\xi) = f(\xi) \cdot \mathrm{E}(\eta|\xi)\),
+  в частности, \(\mathrm{E}(f(\xi)|\xi) = f(\xi)\)
+\item
+  формула полного мат. ожидания:
+  \(\mathrm{E}\left[ \mathrm{E}(\eta|\xi) \right] = \mathrm{E}(\eta)\)
+  (\emph{Adam's law})
+\item
+  !
+  \(\min\limits_{g(\xi) \in L} \mathrm{E}[\eta - g(\xi)]^2 = \mathrm{E}[\eta - \hat{\eta}]^2\)
+\end{enumerate}
+
+    \hypertarget{ux443ux441ux43bux43eux432ux43dux430ux44f-ux434ux438ux441ux43fux435ux440ux441ux438ux44f}{%
+\subsection{Условная
+дисперсия}\label{ux443ux441ux43bux43eux432ux43dux430ux44f-ux434ux438ux441ux43fux435ux440ux441ux438ux44f}}
+
+\textbf{Определение.} Условной дисперсией (скедастикой)
+\(\mathrm{D}(\eta|\xi)\) называется \emph{случайная величина},
+вычисляемая по формуле \[
+  \mathrm{D}(\eta|\xi) = \mathrm{E}\left[ (\eta - \mathrm{E}(\eta|\xi))^2 |\xi \right].
+\]
+
+    \textbf{Свойства:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(\mathrm{D}(\eta|\xi) = \mathrm{E}(\eta^2|\xi) - (\mathrm{E}(\eta|\xi))^2\)
+\item
+  \(\mathrm{D}(a\eta + b|\xi) = a^2 \mathrm{D}(\eta|\xi)\)
+\item
+  \(\mathrm{D}(f(\xi) \cdot \eta|\xi) = (f(\xi))^2 \cdot \mathrm{D}(\eta|\xi)\)
+\item
+  формула полной дисперсии:
+  \(\mathrm{D}(\eta) = \mathrm{E}\left[ \mathrm{D}(\eta|\xi) \right] + \mathrm{D}\left[ \mathrm{E}(\eta|\xi) \right]\)
+  (\emph{Eve's law})
+\end{enumerate}
+
+    \textbf{Пример.} Рассмотрим выборку данных, состоящую из нескольких
+частей. Например, рост людей в различных городах. Пусть нам известно
+математическое ожидание и дисперсия каждой части. Требуется найти
+математическое ожидание и дисперсию всей выборки.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{get\PYZus{}bins}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{3}\PY{o}{*}\PY{n+nb}{int}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{X}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{N} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{l+m+mf}{1e4}\PY{p}{)}
+\PY{n}{k1}\PY{p}{,} \PY{n}{k2} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}
+\PY{n}{m1}\PY{p}{,} \PY{n}{s1} \PY{o}{=} \PY{l+m+mf}{170.}\PY{p}{,} \PY{l+m+mf}{4.}
+\PY{n}{X1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{n}{m1}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{n}{s1}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{k1}\PY{o}{*}\PY{n}{N}\PY{p}{)}
+\PY{n}{m2}\PY{p}{,} \PY{n}{s2} \PY{o}{=} \PY{l+m+mf}{180.}\PY{p}{,} \PY{l+m+mf}{1.}
+\PY{n}{X2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{n}{m2}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{n}{s2}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{k2}\PY{o}{*}\PY{n}{N}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m1 = }\PY{l+s+si}{\PYZob{}}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X1}\PY{p}{)}\PY{l+s+si}{:}\PY{l+s+s1}{.2f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{, D1 = }\PY{l+s+si}{\PYZob{}}\PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{X1}\PY{p}{)}\PY{l+s+si}{:}\PY{l+s+s1}{.2f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m2 = }\PY{l+s+si}{\PYZob{}}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X2}\PY{p}{)}\PY{l+s+si}{:}\PY{l+s+s1}{.2f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{, D2 = }\PY{l+s+si}{\PYZob{}}\PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{X2}\PY{p}{)}\PY{l+s+si}{:}\PY{l+s+s1}{.2f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+m1 = 169.96, D1 = 16.23
+m2 = 180.00, D2 = 1.01
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{X1}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{get\PYZus{}bins}\PY{p}{(}\PY{n}{X1}\PY{p}{)}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}X\PYZus{}1=}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathcal}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+s2}{N}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s2}{(}\PY{l+s+si}{\PYZob{}}\PY{n}{m1}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZob{}}\PY{n}{s1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{X2}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{get\PYZus{}bins}\PY{p}{(}\PY{n}{X2}\PY{p}{)}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}X\PYZus{}2=}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathcal}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+s2}{N}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s2}{(}\PY{l+s+si}{\PYZob{}}\PY{n}{m2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZob{}}\PY{n}{s2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{155}\PY{p}{,} \PY{l+m+mi}{185}\PY{p}{]}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_19_0.pdf}
+    \end{center}
+%    { \hspace*{\fill} \\}
+    
+    Математическое ожидание полной выборки найдём по формуле Адама
+(взвешенная сумма мат. ожиданий), а дисперсию --- по формуле Евы (мат.
+ожидание дисперсий + дисперсия мат. ожиданий).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{w1}\PY{p}{,} \PY{n}{w2} \PY{o}{=} \PY{n}{k1}\PY{o}{/}\PY{p}{(}\PY{n}{k1}\PY{o}{+}\PY{n}{k2}\PY{p}{)}\PY{p}{,} \PY{n}{k2}\PY{o}{/}\PY{p}{(}\PY{n}{k1}\PY{o}{+}\PY{n}{k2}\PY{p}{)}
+\PY{n}{m3} \PY{o}{=} \PY{n}{w1}\PY{o}{*}\PY{n}{m1} \PY{o}{+} \PY{n}{w2}\PY{o}{*}\PY{n}{m2}
+\PY{n}{D3} \PY{o}{=} \PY{n}{w1}\PY{o}{*}\PY{n}{s1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{w2}\PY{o}{*}\PY{n}{s2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{w1}\PY{o}{*}\PY{p}{(}\PY{n}{m1}\PY{o}{\PYZhy{}}\PY{n}{m3}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{w2}\PY{o}{*}\PY{p}{(}\PY{n}{m2}\PY{o}{\PYZhy{}}\PY{n}{m3}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+\PY{n}{s3} \PY{o}{=} \PY{n}{D3}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m3\PYZus{}teor = }\PY{l+s+si}{\PYZob{}}\PY{n}{m3}\PY{l+s+si}{:}\PY{l+s+s1}{.2f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{, D3\PYZus{}teor = }\PY{l+s+si}{\PYZob{}}\PY{n}{D3}\PY{l+s+si}{:}\PY{l+s+s1}{.2f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+m3\_teor = 172.50, D3\_teor = 31.00
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{X3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{X1}\PY{p}{,}\PY{n}{X2}\PY{p}{]}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m3\PYZus{}act = }\PY{l+s+si}{\PYZob{}}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X3}\PY{p}{)}\PY{l+s+si}{:}\PY{l+s+s1}{.2f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{, D3\PYZus{}act = }\PY{l+s+si}{\PYZob{}}\PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{X3}\PY{p}{)}\PY{l+s+si}{:}\PY{l+s+s1}{.2f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+m3\_act = 172.47, D3\_act = 31.34
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{11}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{X3}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{get\PYZus{}bins}\PY{p}{(}\PY{n}{X3}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,}
+         \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}X\PYZus{}3, }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mu=}\PY{l+s+si}{\PYZob{}}\PY{n}{m3}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sigma=}\PY{l+s+si}{\PYZob{}}\PY{n}{s3}\PY{l+s+si}{:}\PY{l+s+s2}{.3}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{m3}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{m3}\PY{o}{\PYZhy{}}\PY{n}{s3}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{m3}\PY{o}{+}\PY{n}{s3}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{155}\PY{p}{,} \PY{l+m+mi}{185}\PY{p}{]}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_23_0.pdf}
+    \end{center}
+%    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux443ux441ux43bux43eux432ux43dux43eux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux435}{%
+\subsection{Условное
+распределение}\label{ux443ux441ux43bux43eux432ux43dux43eux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux435}}
+
+Пусть (\(\xi\), \(\eta\)) --- пара случайных величин с плотностью
+совместного распределения \(f_{\xi,\eta}(x, y)\). Пусть \(f_{\xi}(x)\) и
+\(f_{\eta}(y)\) --- плотности распределения вероятностей случайных
+величин \(\xi\) и \(\eta\).
+
+Тогда \emph{плотность условного распределения вероятностей} можно
+определить с помощью следующей формулы (обобщение формулы Байеса): \[
+  f_{\eta|\xi}(y|x) = \frac{f_{\xi,\eta}(x, y)}{f_{\xi}(x)} = \frac{f_{\xi,\eta}(x, y)}{\int\limits_{-\infty}^{\infty} f_{\xi,\eta}(x,y) dy}.
+\]
+
+А условное математическое ожидание можно вычислить по формуле
+\(\mathrm{E}(\eta|\xi) = h(\eta)\), где функция \(h\) имеет вид \[
+  h(x) = \mathrm{E}(\eta|\xi=x) = \int\limits_{-\infty}^{\infty} y f_{\eta|\xi}(y|x) dy.
+\]
+
+    Теория условных математических ожиданий позволяет дать обобщение теоремы
+Байеса, находящее применения в статистике. Обобщённая теорема Байеса,
+являющаяся одним из основных средств при «байесовском подходе» в
+математической статистике, даёт ответ на вопрос о том, как
+\emph{перераспределяется} наше знание о распределении случайной величины
+\(\eta\) в зависимости от результатов наблюдений над статистически с ней
+связанной случайной величиной \(\xi\).
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+    \hypertarget{ux43eux43fux442ux438ux43cux430ux43bux44cux43dux430ux44f-ux43eux446ux435ux43dux43aux430}{%
+\section{Оптимальная
+оценка}\label{ux43eux43fux442ux438ux43cux430ux43bux44cux43dux430ux44f-ux43eux446ux435ux43dux43aux430}}
+
+    \hypertarget{ux442ux435ux43eux440ux435ux43cux430-ux43eux431-ux43eux43fux442ux438ux43cux430ux43bux44cux43dux43eux439-ux43eux446ux435ux43dux43aux435}{%
+\subsection{Теорема об оптимальной
+оценке}\label{ux442ux435ux43eux440ux435ux43cux430-ux43eux431-ux43eux43fux442ux438ux43cux430ux43bux44cux43dux43eux439-ux43eux446ux435ux43dux43aux435}}
+
+Убедительной иллюстрацией полезности понятия условного математического
+ожидания является его применение к решению следующей задачи, относящейся
+к \emph{теории оценивания}.
+
+Пусть \((\xi, \eta)\) --- пара случайных величин, из которых \(\xi\)
+наблюдаема, а \(\eta\) наблюдению не подлежит. Спрашивается, как по
+значениям наблюдений над \(\xi\) «оценить» ненаблюдаемую компоненту
+\(\eta\)?
+
+Вспомним введённое ранее понятие оценки случайной величины. Случайную
+величину \(\varphi(\xi)\) будем называть \emph{оценкой} \(\eta\) по
+\(\xi\), а величину \(\mathrm{E}\left[\eta-\varphi(\xi)\right]^2\) ---
+\emph{среднеквадратической ошибкой} этой оценки. Оценку
+\(\varphi^\ast(\xi)\) назовём \emph{оптимальной} (в среднеквадратическом
+смысле), если \[
+  \Delta \equiv \mathrm{E}\left[\eta-\varphi^\ast(\xi)\right]^2 = \min_\varphi \mathrm{E}\left[\eta-\varphi(\xi)\right]^2,
+\] где минимум берётся по всем функциям \(\varphi=\varphi(x)\).
+
+\textbf{Теорема.} Пусть \(\mathrm{E}\eta^2 < \infty\). Тогда оптимальная
+оценка \(\varphi^\ast = \varphi^\ast(\xi)\) существует и в качестве
+\(\varphi^\ast(x)\) может быть взято условное математическое ожидание
+\[ \varphi^\ast(x) = \mathrm{E}(\eta|\xi = x). \]
+
+    \hypertarget{ux43aux440ux438ux432ux430ux44f-ux440ux435ux433ux440ux435ux441ux441ux438ux438}{%
+\subsection{Кривая
+регрессии}\label{ux43aux440ux438ux432ux430ux44f-ux440ux435ux433ux440ux435ux441ux441ux438ux438}}
+
+Рассмотрим структуру функции \(\varphi^\ast(x)\) в предположении, что
+\((\xi, \eta)\) --- гауссовская пара с плотностью, задаваемой формулой
+\[
+  f_{\xi,\eta}(x, y) = \frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}} \, \exp\left\{-\frac{1}{2(1-\rho^2)} \left[ \frac{(x-m_1)^2}{\sigma_1^2} - 2\rho\frac{(x-m_1)(y-m_2)}{\sigma_1\sigma_2} + \frac{(y-m_2)^2}{\sigma_2^2} \right]\right\}.
+\]
+
+Тогда плотность \(f_{\eta|\xi}(y|x)\) условного распределения
+вероятностей задаётся формулой \[
+  f_{\eta|\xi}(y|x) = \frac{1}{\sqrt{2\pi(1-\rho^2)\sigma_2^2}} \, \exp\left\{-\frac{(y-m(x))^2}{2\sigma_2^2 (1-\rho^2)} \right\},
+\] где \[
+  m(x) = m_2 + \frac{\sigma_2}{\sigma_1}\rho \cdot (x-m_1).
+\]
+
+    Тогда \[
+   \mathrm{E}(\eta|\xi=x) = \int\limits_{-\infty}^{\infty} y f_{\eta|\xi}(y|x) dy = m(x)
+\] и \[
+   \mathrm{D}(\eta|\xi=x) \equiv \mathrm{E} \left[ (\eta-\hat{\eta})^2|\xi=x \right]
+   = \int\limits_{-\infty}^{\infty} (y-m(x))^2 f_{\eta|\xi}(y|x) dy = \sigma_2^2 (1-\rho^2).
+\]
+
+Заметим, что условное мат. ожидание является линейной функцией от
+\(\xi\), а условная дисперсия от \(\xi\) не зависит.
+
+    \textbf{Теорема (о нормальной корреляции).} Пусть \((\xi, \eta)\) ---
+гауссовский вектор с \(\mathrm{D}\xi > 0\). Оптимальная оценка \(\eta\)
+по \(\xi\) есть \[
+    \mathrm{E}(\eta|\xi) = \mathrm{E}(\eta) + \frac{\mathrm{cov}(\xi, \eta)}{\mathrm{D}\xi}(\xi - \mathrm{E}\xi),
+\] а её ошибка \[
+    \Delta \equiv \mathrm{D}(\eta|\xi) = \mathrm{D}\eta - \frac{\mathrm{cov}^2(\xi, \eta)}{\mathrm{D}\xi}.
+\]
+
+\textbf{Замечание.} Кривая \(y(x) = \mathrm{E}(\eta|\xi=x)\) называется
+\emph{кривой регрессии \(\eta\) на \(\xi\)}. В гауссовском случае
+\(\mathrm{E}(\eta|\xi=x) = a+bx\) и, следовательно, регрессия \(\eta\)
+на \(\xi\) является \emph{линейной}. Поэтому формула для оптимальной
+оценки и её ошибки совпадает с соответствующими формулами для
+\emph{оптимальной линейной оценки}, рассматриваемыми несколько занятий
+назад.
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+    \hypertarget{ux447ux430ux441ux442ux43dux44bux435-ux438-ux443ux441ux43bux43eux432ux43dux44bux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}{%
+\section{Частное и условное
+распределения}\label{ux447ux430ux441ux442ux43dux44bux435-ux438-ux443ux441ux43bux43eux432ux43dux44bux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}}
+
+    Пусть дан нормальный случайный вектор \(\mathbf{z}\) с \(n\)
+компонентами. Пусть \(\mathbf{z} = (\mathbf{x}, \mathbf{y})\), где
+\(\mathbf{x}\) и \(\mathbf{y}\) --- два подвектора вектора
+\(\mathbf{z}\) с \(n_1\) и \(n_2\) компонентами, соответственно
+(\(n = n_1 + n_2\)). В этом случае говорят, что случайные векторы
+\(\mathbf{x}\) и \(\mathbf{y}\) имеют \emph{совместное нормальное
+распределение}, определяемое следующим образом:
+
+\[
+\begin{bmatrix}
+    \mathbf{x} \\
+    \mathbf{y} 
+\end{bmatrix}
+\sim
+\mathcal{N}\left(
+\begin{bmatrix}
+    \mu_{\mathbf{x}} \\
+    \mu_{\mathbf{y}}
+\end{bmatrix},
+\begin{bmatrix}
+    \Sigma_{11} & \Sigma_{12} \\
+    \Sigma_{21} & \Sigma_{22}
+\end{bmatrix}
+\right)
+= \mathcal{N}(\mu, \Sigma).
+\]
+
+Здесь \(\Sigma_{11}\) --- корреляционная матрица вектора \(\mathbf{x}\),
+\(\Sigma_{22}\) --- корреляционная матрица вектора \(\mathbf{y}\), а
+матрицы \(\Sigma_{12}\) и \(\Sigma_{21} = \Sigma_{12}^\top\) состоят из
+корреляций компонент вектора \(\mathbf{x}\) и \(\mathbf{y}\) (взаимные
+корреляционные матрицы). Вектор математического ожидания
+\(\mathrm{E}\mathbf{z} = \mathbf{\mu}\) также разбивается на два
+подвектора \(\mathrm{E}\mathbf{x} = \mathbf{\mu_x}\) и
+\(\mathrm{E}\mathbf{y} = \mathbf{\mu_y}\).
+
+    \hypertarget{ux447ux430ux441ux442ux43dux44bux435-ux43cux430ux440ux433ux438ux43dux430ux43bux44cux43dux44bux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}{%
+\subsection{Частное (маргинальное)
+распределение}\label{ux447ux430ux441ux442ux43dux44bux435-ux43cux430ux440ux433ux438ux43dux430ux43bux44cux43dux44bux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}}
+
+\begin{quote}
+Название «частное распределение» используется в переводах под редакцией
+Колмогорова, «маргинальное распределение» --- в более современной
+литературе путём заимствования из английского языка (англ. marginal
+distribution). Название в английском языке в свою очередь является
+переводом с немецкого (нем. Randverteilungen) из публикации Колмогорова:
+A. Kolmogoroff «Grundbegriffe der Wahrscheinlichkeitsrechnung»,
+Springer-Verlag, 1933.
+\href{https://ru.wikipedia.org/wiki/\%D0\%A7\%D0\%B0\%D1\%81\%D1\%82\%D0\%BD\%D0\%BE\%D0\%B5_\%D1\%80\%D0\%B0\%D1\%81\%D0\%BF\%D1\%80\%D0\%B5\%D0\%B4\%D0\%B5\%D0\%BB\%D0\%B5\%D0\%BD\%D0\%B8\%D0\%B5}{{[}1{]}}
+\end{quote}
+
+Частное распределение --- это вероятностное распределение подмножества
+случайных величин, рассматриваемых в качестве компоненты или множества
+компонент некоторого известного многомерного распределения. Оно
+представляет собой распределение вероятностей переменных в подмножестве
+вне зависимости от значений других переменных в исходном распределении.
+
+В случае двумерного нормального распределения частными распределениями
+являются одномерные распределения каждой компоненты \(\mathbf{x}\) и
+\(\mathbf{y}\) по отдельности. Они определяются так: \[
+\begin{aligned}
+    f_\xi(\mathbf{x}) & = \mathcal{N}(\mu_{\mathbf{x}}, \Sigma_{11}) \\
+    f_\eta(\mathbf{y}) & = \mathcal{N}(\mu_{\mathbf{y}}, \Sigma_{22}).
+\end{aligned}
+\]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{12}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{x\PYZus{}var} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{101}\PY{p}{)}
+\PY{n}{y\PYZus{}var} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{101}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{13}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{d} \PY{o}{=} \PY{l+m+mi}{2}  \PY{c+c1}{\PYZsh{} dimensions}
+\PY{n}{mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\PY{n}{cov} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}
+    \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{,} 
+    \PY{p}{[}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+\PY{p}{]}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Get the mean values from the vector}
+\PY{n}{mean\PYZus{}x} \PY{o}{=} \PY{n}{mean}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+\PY{n}{mean\PYZus{}y} \PY{o}{=} \PY{n}{mean}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+\PY{c+c1}{\PYZsh{} Get the blocks (single values in this case) from }
+\PY{c+c1}{\PYZsh{} the covariance matrix}
+\PY{n}{Sigma\PYZus{}11} \PY{o}{=} \PY{n}{cov}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+\PY{n}{Sigma\PYZus{}22} \PY{o}{=} \PY{n}{cov}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{Sigma\PYZus{}12} \PY{o}{=} \PY{n}{cov}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}  \PY{c+c1}{\PYZsh{} = Sigma\PYZus{}21 transpose}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{14}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Plot the marginal distributions}
+\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+\PY{n}{gs} \PY{o}{=} \PY{n}{gridspec}\PY{o}{.}\PY{n}{GridSpec}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{width\PYZus{}ratios}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{height\PYZus{}ratios}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} gs.update(wspace=0., hspace=0.)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Маргинальные распределения}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Plot surface on top left}
+\PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} Plot bivariate distribution}
+\PY{n}{con} \PY{o}{=} \PY{n}{ax1}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{magma\PYZus{}r}\PY{p}{)}
+\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax1}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}label\PYZus{}position}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax1}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{]}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Plot y}
+\PY{n}{ax2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{py} \PY{o}{=} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{y\PYZus{}var}\PY{p}{,} \PY{n}{mean\PYZus{}y}\PY{p}{,} \PY{n}{Sigma\PYZus{}22}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} Plot univariate distribution}
+\PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{py}\PY{p}{,} \PY{n}{y\PYZus{}var}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}p(y)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax2}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} ax2.set\PYZus{}xlabel(\PYZsq{}density\PYZsq{})}
+\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{)}
+\PY{n}{ax2}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Plot x}
+\PY{n}{ax3} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\PY{n}{px} \PY{o}{=} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{x\PYZus{}var}\PY{p}{,} \PY{n}{mean\PYZus{}x}\PY{p}{,} \PY{n}{Sigma\PYZus{}11}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} Plot univariate distribution}
+\PY{n}{ax3}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}var}\PY{p}{,} \PY{n}{px}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}p(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax3}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} ax3.set\PYZus{}ylabel(\PYZsq{}density\PYZsq{})}
+\PY{n}{ax3}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}label\PYZus{}position}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{)}
+\PY{n}{ax3}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Clear axis 4 and plot colarbar in its place}
+\PY{n}{ax4} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+\PY{n}{ax4}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+\PY{n}{divider} \PY{o}{=} \PY{n}{make\PYZus{}axes\PYZus{}locatable}\PY{p}{(}\PY{n}{ax4}\PY{p}{)}
+\PY{n}{cax} \PY{o}{=} \PY{n}{divider}\PY{o}{.}\PY{n}{append\PYZus{}axes}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pad}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}
+\PY{n}{cbar} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{con}\PY{p}{,} \PY{n}{cax}\PY{o}{=}\PY{n}{cax}\PY{p}{)}
+\PY{n}{cbar}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}p(x, xy)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{cbar}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{labelsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_38_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux443ux441ux43bux43eux432ux43dux44bux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}{%
+\subsection{Условное
+распределение}\label{ux443ux441ux43bux43eux432ux43dux44bux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}}
+
+Условное распределение случайной величины \(\mathbf{y}\) при условии
+\(\mathbf{x}\) можно получить с помощью формулы Байеса \[
+  f(\mathbf{y}|\mathbf{x}) = \frac{f(\mathbf{x}, \mathbf{y})}{f(\mathbf{x})} \propto 
+  \frac{\exp\left\{(\mathbf{x, y})^\top \Sigma^{-1} (\mathbf{x, y})\right\}}{\exp\left\{\mathbf{x}^\top \Sigma_{11}^{-1} \mathbf{x}\right\}} \label{eq:GP_bayes}\tag{1}.
+\]
+
+Оно также подчиняется нормальному закону:
+\[ f(\mathbf{y}|\mathbf{x}) = \mathcal{N}(\mu_{y|x}, \Sigma_{y|x}) \]
+
+с \emph{условным математическим ожиданием}
+\[ \mu_{y|x} = \mu_y + \Sigma_{21}\Sigma_{11}^{-1}(\mathbf{x}-\mu_x) \label{eq:GP_mean}\tag{2} \]
+
+и \emph{условной ковариационной матрицей}
+\[ \Sigma_{y|x} = \Sigma_{22} - \Sigma_{21} \Sigma_{11}^{-1} \Sigma_{12}. \label{eq:GP_cov}\tag{3} \]
+
+Выражение \(\eqref{eq:GP_mean}\) определяет функцию \emph{линейной
+регрессии} (зависимости условного математического ожидания вектора
+\(\mathbf{y}\) от заданного значения случайного вектора \(\mathbf{x}\)),
+где \(\Sigma_{21}\Sigma_{11}^{-1}\) --- матрица коэффициентов регрессии.
+
+Сдвиг математического ожидания можно рассматривать как невязку условной
+переменной \((\mathbf{x}-\mu_x)\), нормализованную с ковариационной
+матрицей условной переменной \(\Sigma_{11}\) и преобразованную в
+пространство переменной \(\mathbf{y}\). Последнее делается с помощью
+матрицы ковариаций между \(\mathbf{y}\) и \(\mathbf{x}\) ---
+\(\Sigma_{21}\).
+
+Построим условные распределения \(f(x|y= 1.5)\) и \(f(y|x=-1)\).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{15}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Calculate x|y}
+\PY{n}{y\PYZus{}condition}  \PY{o}{=} \PY{l+m+mf}{1.5}  \PY{c+c1}{\PYZsh{} To condition on y}
+\PY{n}{mean\PYZus{}xgiveny} \PY{o}{=} \PY{n}{mean\PYZus{}x} \PY{o}{+} \PY{p}{(}\PY{n}{Sigma\PYZus{}12} \PY{o}{/} \PY{n}{Sigma\PYZus{}22} \PY{o}{*} \PY{p}{(}\PY{n}{y\PYZus{}condition} \PY{o}{\PYZhy{}} \PY{n}{mean\PYZus{}y}\PY{p}{)}\PY{p}{)}
+\PY{n}{cov\PYZus{}xgiveny}  \PY{o}{=} \PY{n}{Sigma\PYZus{}11} \PY{o}{\PYZhy{}} \PY{n}{Sigma\PYZus{}12} \PY{o}{/} \PY{n}{Sigma\PYZus{}22} \PY{o}{*} \PY{n}{Sigma\PYZus{}12}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}x|y =  }\PY{l+s+si}{\PYZob{}}\PY{n}{mean\PYZus{}xgiveny}\PY{l+s+si}{:}\PY{l+s+s1}{0.2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{, cov\PYZus{}x|y = }\PY{l+s+si}{\PYZob{}}\PY{n}{cov\PYZus{}xgiveny}\PY{l+s+si}{:}\PY{l+s+s1}{0.4}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Calculate y|x}
+\PY{n}{x\PYZus{}condition}  \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.}  \PY{c+c1}{\PYZsh{} To condition on x}
+\PY{n}{mean\PYZus{}ygivenx} \PY{o}{=} \PY{n}{mean\PYZus{}y} \PY{o}{+} \PY{p}{(}\PY{n}{Sigma\PYZus{}12} \PY{o}{/} \PY{n}{Sigma\PYZus{}11} \PY{o}{*} \PY{p}{(}\PY{n}{x\PYZus{}condition} \PY{o}{\PYZhy{}} \PY{n}{mean\PYZus{}x}\PY{p}{)}\PY{p}{)}
+\PY{n}{cov\PYZus{}ygivenx}  \PY{o}{=} \PY{n}{Sigma\PYZus{}22} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{Sigma\PYZus{}12} \PY{o}{/} \PY{n}{Sigma\PYZus{}11} \PY{o}{*} \PY{n}{Sigma\PYZus{}12}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}y|x = }\PY{l+s+si}{\PYZob{}}\PY{n}{mean\PYZus{}ygivenx}\PY{l+s+si}{:}\PY{l+s+s1}{0.2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{, cov\PYZus{}y|x = }\PY{l+s+si}{\PYZob{}}\PY{n}{cov\PYZus{}ygivenx}\PY{l+s+si}{:}\PY{l+s+s1}{0.4}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+mean\_x|y =  1.2, cov\_x|y = 0.36
+mean\_y|x = -0.8, cov\_y|x = 0.36
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{16}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} regression lines}
+\PY{n}{x\PYZus{}regression} \PY{o}{=} \PY{n}{mean\PYZus{}x} \PY{o}{+} \PY{p}{(}\PY{n}{Sigma\PYZus{}12} \PY{o}{/} \PY{n}{Sigma\PYZus{}22} \PY{o}{*} \PY{p}{(}\PY{n}{y\PYZus{}var} \PY{o}{\PYZhy{}} \PY{n}{mean\PYZus{}y}\PY{p}{)}\PY{p}{)}
+\PY{n}{y\PYZus{}regression} \PY{o}{=} \PY{n}{mean\PYZus{}y} \PY{o}{+} \PY{p}{(}\PY{n}{Sigma\PYZus{}12} \PY{o}{/} \PY{n}{Sigma\PYZus{}11} \PY{o}{*} \PY{p}{(}\PY{n}{x\PYZus{}var} \PY{o}{\PYZhy{}} \PY{n}{mean\PYZus{}x}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{17}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Plot the conditional distributions}
+\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+\PY{n}{gs} \PY{o}{=} \PY{n}{gridspec}\PY{o}{.}\PY{n}{GridSpec}\PY{p}{(}
+    \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{width\PYZus{}ratios}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{height\PYZus{}ratios}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} gs.update(wspace=0., hspace=0.)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Условные распределения}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Plot surface on top left}
+\PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} Plot bivariate distribution}
+\PY{n}{con} \PY{o}{=} \PY{n}{ax1}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{magma\PYZus{}r}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} condition sections}
+\PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{y\PYZus{}condition}\PY{p}{,} \PY{n}{y\PYZus{}condition}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{x\PYZus{}condition}\PY{p}{,} \PY{n}{x\PYZus{}condition}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax1}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}label\PYZus{}position}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax1}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{]}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} regression plots}
+\PY{c+c1}{\PYZsh{} ax1.plot(x\PYZus{}var,y\PYZus{}regression,\PYZsq{}\PYZhy{}\PYZsq{},c=cm.tab10(0),label=r\PYZsq{}\PYZdl{}y(x)=\PYZbs{}mathrm\PYZob{}E(y|x)\PYZcb{}\PYZdl{}\PYZsq{})}
+\PY{c+c1}{\PYZsh{} ax1.plot(x\PYZus{}regression,y\PYZus{}var,\PYZsq{}\PYZhy{}\PYZsq{},c=cm.tab10(3),label=r\PYZsq{}\PYZdl{}x(y)=\PYZbs{}mathrm\PYZob{}E(x|y)\PYZcb{}\PYZdl{}\PYZsq{})}
+\PY{c+c1}{\PYZsh{} ax1.legend(loc=4, fontsize=10)}
+
+\PY{c+c1}{\PYZsh{} Plot y|x}
+\PY{n}{ax2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{pyx} \PY{o}{=} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{y\PYZus{}var}\PY{p}{,} \PY{n}{mean\PYZus{}ygivenx}\PY{p}{,} \PY{n}{cov\PYZus{}ygivenx}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} Plot univariate distribution}
+\PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{pyx}\PY{p}{,} \PY{n}{y\PYZus{}var}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}p(y|x=}\PY{l+s+si}{\PYZob{}}\PY{n}{x\PYZus{}condition}\PY{l+s+si}{:}\PY{l+s+s1}{.1f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax2}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} ax2.set\PYZus{}xlabel(\PYZsq{}density\PYZsq{})}
+\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{)}
+\PY{n}{ax2}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Plot x|y}
+\PY{n}{ax3} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\PY{n}{pxy} \PY{o}{=} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{x\PYZus{}var}\PY{p}{,} \PY{n}{mean\PYZus{}xgiveny}\PY{p}{,} \PY{n}{cov\PYZus{}xgiveny}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} Plot univariate distribution}
+\PY{n}{ax3}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}var}\PY{p}{,} \PY{n}{pxy}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}p(x|y=}\PY{l+s+si}{\PYZob{}}\PY{n}{y\PYZus{}condition}\PY{l+s+si}{:}\PY{l+s+s1}{.1f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax3}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} ax3.set\PYZus{}ylabel(\PYZsq{}density\PYZsq{})}
+\PY{n}{ax3}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}label\PYZus{}position}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{)}
+\PY{n}{ax3}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Clear axis 4 and plot colarbar in its place}
+\PY{n}{ax4} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+\PY{n}{ax4}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+\PY{n}{divider} \PY{o}{=} \PY{n}{make\PYZus{}axes\PYZus{}locatable}\PY{p}{(}\PY{n}{ax4}\PY{p}{)}
+\PY{n}{cax} \PY{o}{=} \PY{n}{divider}\PY{o}{.}\PY{n}{append\PYZus{}axes}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pad}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}
+\PY{n}{cbar} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{con}\PY{p}{,} \PY{n}{cax}\PY{o}{=}\PY{n}{cax}\PY{p}{)}
+\PY{n}{cbar}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}p(x, y)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{cbar}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{labelsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_42_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    На рисунке выше пунктирными линиями изображены сечения
+\(x_{condition} = -1.0\) и \(y_{condition} = 1.5\).
+Сплошные линии показывают линии регрессии \(y\) по \(x\) (синий цвет) и
+\(x\) по \(y\) (красный цвет).
+
+    Рисунок иллюстрирует в частности тот факт, что плотность условного
+распределения является сечением плотности совместного распределения,
+отнормированным на соответствующее значение частного распределения. \[
+  f_{\eta|\xi}(y|x=-1) = \frac{f_{\xi,\eta}(x=-1, y)}{f_{\xi}(x=-1)}.
+\]
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+    \hypertarget{ux434ux43eux43fux43eux43bux43dux438ux442ux435ux43bux44cux43dux43e}{%
+\section{Дополнительно}\label{ux434ux43eux43fux43eux43bux43dux438ux442ux435ux43bux44cux43dux43e}}
+
+Применяя формулу Байеса (\hyperref[mjx-eqn-eqgp_bayes]{1}), получите
+формулы для условного математического ожидания
+(\hyperref[mjx-eqn-eqgp_mean]{2}) и условной ковариационной матрицы
+(\hyperref[mjx-eqn-eqgp_cov]{3}). \emph{Подсказка}: используёте
+следующий результат для обращения блочной матрицы: \[
+\Sigma =
+\begin{bmatrix}
+    P & Q \\
+    R & S
+\end{bmatrix},
+\quad
+\Sigma^{-1} =
+\begin{bmatrix}
+    \tilde{P} & \tilde{Q} \\
+    \tilde{R} & \tilde{S}
+\end{bmatrix},
+\] где \[
+\begin{aligned}
+    \tilde{P} &\;= \left(P-QS^{-1}R\right)^{-1}     & =\;& P^{-1} + P^{-1}Q\tilde{S}RP^{-1} \\
+    \tilde{Q} &\;= -\tilde{P}QS^{-1}                & =\;& -P^{-1}Q\tilde{S} \\
+    \tilde{R} &\;= -S^{-1}R\tilde{P}                & =\;& -\tilde{S}RP^{-1}  \\
+    \tilde{S} &\;= S^{-1} + S^{-1}R\tilde{P}QS^{-1} & =\;& \left(S-RP^{-1}Q\right)^{-1}.
+\end{aligned}
+\]
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+    \hypertarget{ux438ux441ux442ux43eux447ux43dux438ux43aux438}{%
+\section{Источники}\label{ux438ux441ux442ux43eux447ux43dux438ux43aux438}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \emph{Чернова Н.И.} Математическая статистика: Учебное пособие ---
+  Новосиб. гос. ун-т, 2007. --- 148 с.
+\item
+  \emph{Ширяев А.Н.} Вероятность --- 1. --- М.: МЦНМО, 2007. --- 517 с.
+\item
+  \emph{Roelants P.}
+  \href{https://peterroelants.github.io/posts/multivariate-normal-primer/}{Multivariate
+  normal distribution}.
+\item
+  \emph{Rasmussen C.E., Williams C.K.I.}
+  \href{http://www.gaussianprocess.org/gpml/}{Gaussian Processes for
+  Machine Learning}. --- The MIT Press, 2006. --- 248 p.
+\end{enumerate}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{18}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Versions used}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Python: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{o}{*}\PY{n}{sys}\PY{o}{.}\PY{n}{version\PYZus{}info}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numpy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{matplotlib: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seaborn: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{seaborn}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Python: 3.7.11
+numpy: 1.20.3
+matplotlib: 3.5.1
+seaborn: 0.11.2
+    \end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
