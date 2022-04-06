@@ -39,7 +39,6 @@ from matplotlib import cm # Colormaps
 
 import seaborn
 
-
 # +
 # # %config InlineBackend.figure_formats = ['pdf']
 # # %config Completer.use_jedi = False
@@ -122,21 +121,15 @@ import seaborn
 # Графики плотностей трёх одномерных нормальных распределений:
 # $\mathcal{N}(0, 1)$, $\mathcal{N}(2, 3)$ и $\mathcal{N}(0, 0.2)$.
 
-def univariate_normal(x, mean, variance):
-    """pdf of the univariate normal distribution"""
-    return ((1. / np.sqrt(2 * np.pi * variance)) * 
-            np.exp(-(x - mean)**2 / (2 * variance)))
-
-
 # Plot different Univariate Normals
 seaborn.set_style('whitegrid')
 x = np.linspace(-3, 6, num=1001)
 fig = plt.figure(figsize=(8, 5))
-plt.plot(x, univariate_normal(x, 0, 1),
+plt.plot(x, stats.norm.pdf(x, 0, 1**0.5),
          label="$\mathcal{N}(0, 1)$")
-plt.plot(x, univariate_normal(x, 2, 3),
+plt.plot(x, stats.norm.pdf(x, 2, 3**0.5),
          label="$\mathcal{N}(2, 3)$")
-plt.plot(x, univariate_normal(x, 0, 0.2),
+plt.plot(x, stats.norm.pdf(x, 0, 0.2**0.5),
          label="$\mathcal{N}(0, 0.2)$")
 plt.xlabel('$x$')
 plt.ylabel('density: $p(x)$')
@@ -166,7 +159,7 @@ plt.hist(X2,bins=bins,density=True,label=f"$X_2=\mathcal{{N}}({m2}, {s2**2:.2})$
 plt.hist(X1+X2,bins=bins,density=True,alpha=0.5,label="$X_1+X_2$")
 
 m_sum, var_sum = m1+m2, s1**2+s2**2
-plt.plot(x, univariate_normal(x, mean=m_sum, variance=var_sum),
+plt.plot(x, stats.norm.pdf(x, m_sum, var_sum**0.5),
          c='k', label=f"$\mathcal{{N}}({m_sum}, {var_sum:.3})$")
 
 plt.xlabel('$x$')
@@ -310,45 +303,35 @@ plt.show()
 # 1. Двумерное распределение независимых случайных величин
 # 2. Двумерное распределение положительно коррелированных случайных величин (возрастание $x_1$ увеличивает вероятность возрастания $x_2$)
 
-def multivariate_normal(x, d, mean, covariance):
-    '''pdf of the multivariate normal distribution.'''
-    x_m = x - mean
-    return (1. / (np.sqrt((2 * np.pi)**d * np.linalg.det(covariance))) * 
-            np.exp(-0.5*(np.linalg.solve(covariance, x_m).T.dot(x_m))))
-
-
 # Plot bivariate distribution
-def generate_surface(mean, covariance, d):
-    '''Helper function to generate density surface.'''
-    nb_of_x = 100 # grid size
-    x1s = np.linspace(-5, 5, num=nb_of_x)
-    x2s = np.linspace(-5, 5, num=nb_of_x)
-    x1, x2 = np.meshgrid(x1s, x2s) # Generate grid
-    pdf = np.zeros((nb_of_x, nb_of_x))
+def generate_surface(mean, covariance, n_mesh=101):
+    '''Generate 2d density surface'''
+    x = y = np.linspace(-5, 5, num=n_mesh)
+    xx, yy = np.meshgrid(x, y) # Generate grid
+    pdf = np.zeros_like(xx)
     # Fill the cost matrix for each combination of weights
-    for i in range(nb_of_x):
-        for j in range(nb_of_x):
-            pdf[i,j] = multivariate_normal(
-                np.matrix([[x1[i,j]], [x2[i,j]]]), 
-                d, mean, covariance)
-    return x1, x2, pdf  # x1, x2, pdf(x1,x2)
+    pdf = stats.multivariate_normal.pdf(
+        np.dstack((xx, yy)), mean, covariance)
+    return xx, yy, pdf
 
 
 d = 2  # number of dimensions
 # Generate independent Normals
-bivariate_mean = np.matrix([[0.], [0.]])  # Mean
-bivariate_covariance = np.matrix([
+bivariate_mean =  np.array([0., 0.])  # Mean
+bivariate_covariance = np.array([
     [1., 0.], 
-    [0., 1.]])  # Covariance
-surf_ind = generate_surface(bivariate_mean, bivariate_covariance, d)
+    [0., 1.]]
+)  # Covariance
+surf_ind = generate_surface(bivariate_mean, bivariate_covariance)
 
 # Generate correlated Normals
-bivariate_mean = np.matrix([[0.], [0.0]])  # Mean
+bivariate_mean = np.array([0., 0.])  # Mean
 sigma_1, sigma_2, cor_coeff = 1., 1.0, 0.8
-bivariate_covariance = np.matrix([
+bivariate_covariance = np.array([
     [sigma_1**2, cor_coeff*sigma_1*sigma_2], 
-    [cor_coeff*sigma_1*sigma_2, sigma_2**2]])  # Covariance
-surf_cor = generate_surface(bivariate_mean, bivariate_covariance, d)
+    [cor_coeff*sigma_1*sigma_2, sigma_2**2]
+])  # Covariance
+surf_cor = generate_surface(bivariate_mean, bivariate_covariance)
 
 # +
 # subplot
@@ -440,7 +423,7 @@ plt.show()
 # +
 # Sample from:
 d = 2 # Number of dimensions
-mean = np.array([[0.], [0.]])
+mean = np.array([0., 0.])
 covariance = np.array([
     [1, 0.8], 
     [0.8, 1]
@@ -453,7 +436,7 @@ L = np.linalg.cholesky(covariance)
 n = 200  # Samples to draw
 X = np.random.normal(size=(d, n))
 # Apply the transformation
-Y = (mean + L.dot(X)).T
+Y = mean.reshape(-1, 1) + L.dot(X)
 
 # +
 # Plot the samples and the distribution
@@ -461,11 +444,11 @@ seaborn.set_style('white')
 fig, ax = plt.subplots(figsize=(8, 5.5))
 
 # Plot bivariate distribution
-x1, x2, p = generate_surface(mean, covariance, d)
+x1, x2, p = generate_surface(mean, covariance)
 con = ax.contourf(x1, x2, p, 100, cmap=cm.magma_r)
 
 # Plot samples
-s = ax.plot(Y[:,0], Y[:,1], 'o', c=cm.tab10(0), ms=2)
+s = ax.plot(*Y, 'o', c=cm.tab10(0), ms=2)
 ax.set_xlabel('$x_1$')
 ax.set_ylabel('$x_2$')
 ax.axis([-3., 3., -3., 3.])
@@ -538,7 +521,7 @@ seaborn.set_style('white')
 fig, ax = plt.subplots(figsize=(8, 5.5))
 
 # Plot bivariate distribution
-x1, x2, p = generate_surface(mean, covariance, d)
+x1, x2, p = generate_surface(mean, covariance)
 con = ax.contourf(x1, x2, p, 100, cmap=cm.magma_r)
 
 # Plot 95% Interval
@@ -546,7 +529,7 @@ e = make_ellipse(mean, covariance, ci=0.95)
 ax.add_artist(e)
 
 # Plot samples
-s = ax.plot(Y[:,0], Y[:,1], 'o', c=cm.tab10(0), ms=2)
+s = ax.plot(*Y, 'o', c=cm.tab10(0), ms=2)
 ax.set_xlabel('$y_1$')
 ax.set_ylabel('$y_2$')
 ax.axis([-3., 3., -3., 3.])

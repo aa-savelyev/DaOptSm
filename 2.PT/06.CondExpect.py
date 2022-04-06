@@ -25,6 +25,7 @@
 
 # Imports
 import numpy as np
+from scipy import stats
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from mpl_toolkits.axes_grid1 import make_axes_locatable
@@ -42,9 +43,7 @@ im_width = 1000
 
 import sys
 sys.path.append('./modules')
-from gauss_distrib_util import univariate_normal
-from gauss_distrib_util import multivariate_normal
-from gauss_distrib_util import generate_surface
+from graph_support import generate_gauss_surface
 
 # +
 # # %config InlineBackend.figure_formats = ['pdf']
@@ -301,15 +300,15 @@ y_var = np.linspace(-3, 3, 101)
 
 # +
 d = 2  # dimensions
-mean = np.reshape([0., 0.], (2, 1))
+mean = np.array([0., 0.])
 cov = np.array([
     [1, 0.8], 
     [0.8, 1]
 ])
 
 # Get the mean values from the vector
-mean_x = mean[0,0]
-mean_y = mean[1,0]
+mean_x = mean[0]
+mean_y = mean[1]
 # Get the blocks (single values in this case) from 
 # the covariance matrix
 Sigma_11 = cov[0, 0]
@@ -326,7 +325,7 @@ plt.suptitle('Маргинальные распределения')
 
 # Plot surface on top left
 ax1 = plt.subplot(gs[0])
-x, y, p = generate_surface(mean, cov, d)
+x, y, p = generate_gauss_surface(mean, cov)
 # Plot bivariate distribution
 con = ax1.contourf(x, y, p, 100, cmap=cm.magma_r)
 ax1.set_xlabel('$x$')
@@ -336,7 +335,7 @@ ax1.axis([-2.5, 2.5, -2.5, 2.5])
 
 # Plot y
 ax2 = plt.subplot(gs[1])
-py = univariate_normal(y_var, mean_y, Sigma_22)
+py = stats.norm.pdf(y_var, mean_y, Sigma_22**0.5)
 # Plot univariate distribution
 ax2.plot(py, y_var, '-', c=cm.tab10(0), label=f'$p(y)$')
 ax2.legend(loc=1)
@@ -346,7 +345,7 @@ ax2.grid(True)
 
 # Plot x
 ax3 = plt.subplot(gs[2])
-px = univariate_normal(x_var, mean_x, Sigma_11)
+px = stats.norm.pdf(x_var, mean_x, Sigma_11**0.5)
 # Plot univariate distribution
 ax3.plot(x_var, px, '-', c=cm.tab10(3), label=f'$p(x)$')
 ax3.legend(loc=2)
@@ -419,7 +418,7 @@ plt.suptitle('Условные распределения')
 
 # Plot surface on top left
 ax1 = plt.subplot(gs[0])
-x, y, p = generate_surface(mean, cov, d)
+x, y, p = generate_gauss_surface(mean, cov)
 # Plot bivariate distribution
 con = ax1.contourf(x, y, p, 100, cmap=cm.magma_r)
 # condition sections
@@ -437,7 +436,7 @@ ax1.axis([-2.5, 2.5, -2.5, 2.5])
 
 # Plot y|x
 ax2 = plt.subplot(gs[1])
-pyx = univariate_normal(y_var, mean_ygivenx, cov_ygivenx)
+pyx = stats.norm.pdf(y_var, mean_ygivenx, cov_ygivenx**0.5)
 # Plot univariate distribution
 ax2.plot(pyx, y_var, '-', c=cm.tab10(0), label=f'$p(y|x={x_condition:.1f})$')
 ax2.legend(loc=1, fontsize=10)
@@ -447,7 +446,7 @@ ax2.grid(True)
 
 # Plot x|y
 ax3 = plt.subplot(gs[2])
-pxy = univariate_normal(x_var, mean_xgiveny, cov_xgiveny)
+pxy = stats.norm.pdf(x_var, mean_xgiveny, cov_xgiveny**0.5)
 # Plot univariate distribution
 ax3.plot(x_var, pxy, '-', c=cm.tab10(3), label=f'$p(x|y={y_condition:.1f})$')
 ax3.legend(loc=2, fontsize=10)
