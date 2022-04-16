@@ -17,7 +17,7 @@ def generate_gauss_surface(mean, covariance, n_mesh=101):
     return xx, yy, pdf
 
 
-def plot_GP(X_test, mu, cov, X_train=[], Y_train=[], samples=[],
+def plot_GP(X_test, mu, cov, X_train=None, Y_train=None, samples=None,
             draw_ci=False):
     '''Plot gaussian process'''
     X_test = X_test.flatten()
@@ -28,10 +28,10 @@ def plot_GP(X_test, mu, cov, X_train=[], Y_train=[], samples=[],
         for std_i in np.linspace(2*std,0,11):
             plt.fill_between(X_test, mu-std_i, mu+std_i,
                              color='grey', alpha=0.02)
-    if len(samples):
+    if samples is not None:
         plt.plot(X_test, samples, '-', lw=.5)
     plt.plot(X_test, mu, 'k')
-    if len(X_train):
+    if X_train is not None:
         plt.plot(X_train, Y_train, 'kx', mew=1.0)
     plt.xlim([X_test.min(), X_test.max()])
     plt.ylim([(mu-3*std).min(), (mu+3*std).max()])
@@ -39,7 +39,7 @@ def plot_GP(X_test, mu, cov, X_train=[], Y_train=[], samples=[],
     plt.ylabel('$f(x)$', rotation=0)
 
 
-def GP_predictor(X_test, X_train, Y_train, kernel_fun, kernel_args, sigma_y=1e-8):
+def GP_predictor(X_test, X_train, Y_train, kernel_fun, kernel_args, sigma_n=1e-8):
     '''
     Computes the suffiсient statistics of the GP posterior predictive distribution 
     from m training data X_train and Y_train and n new inputs X_test.
@@ -50,14 +50,14 @@ def GP_predictor(X_test, X_train, Y_train, kernel_fun, kernel_args, sigma_y=1e-8
         Y_train: Training targets (m x 1)
         kernel_fun: Kernel length parameter
         kernel_args: Kernel vertical variation parameter
-        sigma_y: Noise parameter
+        sigma_n: Noise parameter
     
     Returns:
         Posterior mean vector (n x d) and covariance matrix (n x n)
     '''
     
     K_11 = kernel_fun(X_train, X_train, kernel_args) \
-         + sigma_y*np.eye(len(X_train))
+         + sigma_n*np.eye(len(X_train))
     K_12 = kernel_fun(X_train, X_test, kernel_args)
     K_solved = np.linalg.solve(K_11, K_12).T
     K_22 = kernel_fun(X_test,  X_test, kernel_args)

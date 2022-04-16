@@ -86,8 +86,8 @@ t_max, n_steps = 1., 500
 delta_t = t_max / n_steps
 n_processes = int(1e5)  # Simulate n_processes different motions
 mean = 0.   # Mean of each movement
-sigma_f = 1.  # Scale parameter of each movement
-std = sigma_f*np.sqrt(delta_t)  # Standard deviation of each movement
+sigma_k = 1.  # Scale parameter of each movement
+std = sigma_k*np.sqrt(delta_t)  # Standard deviation of each movement
 
 # Simulate the brownian motions in a 1D space by cumulatively making a new movement delta_d
 # Move randomly from current location to N(0, delta_t)
@@ -103,7 +103,7 @@ distances[1:] = np.cumsum(delta_d, axis=0)
 # +
 # Make the plots
 n_draw = 200
-std_t = sigma_f*t**0.5
+std_t = sigma_k*t**0.5
 plt.figure(figsize=(8, 5))
 plt.title(f'Процесс броуновского движения,\n\
     траектории {n_draw} реализаций процесса')
@@ -116,7 +116,7 @@ plt.plot(t,  2*std_t, 'k-', lw=1.)
 plt.xlabel('$t$')
 plt.ylabel('$d(t)$')
 plt.xlim([0, t_max])
-plt.ylim([-3*sigma_f*t_max**0.5, 3*sigma_f*t_max**0.5])
+plt.ylim([-3*sigma_k*t_max**0.5, 3*sigma_k*t_max**0.5])
 plt.tight_layout()
 plt.show()
 # -
@@ -129,7 +129,7 @@ plt.show()
 t_star = 0.49
 i_sec = np.flatnonzero(t == t_star)[0]
 d_star = distances[i_sec]
-sigma = sigma_f*t_star**0.5
+sigma = sigma_k*t_star**0.5
 
 xlim = [-3.5*sigma, 3.5*sigma]
 x = np.linspace(*xlim,101)
@@ -201,15 +201,15 @@ plt.show()
 
 # Рассмотрим квадратичное экспоненциальное (гауссовское) ядро:
 # $$
-#   k(x, x') = \sigma_f^2 \exp{ \left( -\frac{1}{2l^2} \lVert x - x' \rVert^2 \right) }.
+#   k(x, x') = \sigma_k^2 \exp{ \left( -\frac{\lVert x - x' \rVert^2}{{2\ell^2}} \right) }.
 # $$
 #
-# Параметр длины $l$ контролирует гладкость функции, а $\sigma$ &mdash; вертикальную вариацию.
+# Параметр длины $l$ контролирует гладкость функции, а амплитуды $\sigma_k$ &mdash; вертикальную вариацию.
 # В многомерном случае обычно используется один и тот же параметр длины $l$ для всех компонент вектора $x$ (изотропное ядро).
 # Могут быть определены и другие функции ядра, приводящие к различным свойствам гауссовского процесса.
 
 # Isotropic squared exponential kernel
-def gauss_kernel(X1, X2, l=1.0, sigma_f=1.0):
+def gauss_kernel(X1, X2, l=1.0, sigma_k=1.0):
     '''
     Isotropic squared exponential kernel.
     Computes a covariance matrix from points in X1 and X2.
@@ -217,14 +217,14 @@ def gauss_kernel(X1, X2, l=1.0, sigma_f=1.0):
     Args:
         X1: Array of m points (m x d)
         X2: Array of n points (n x d)
-        sigma_f: Kernel vertical variation parameter
+        sigma_k: Kernel vertical variation parameter
 
     Returns:
         Covariance matrix (m x n)
     '''
     
     sqdist = np.sum(X1**2,1).reshape(-1,1) + np.sum(X2**2,1) - 2*np.dot(X1,X2.T)
-    return sigma_f**2 * np.exp(-0.5 / l**2 * sqdist)
+    return sigma_k**2 * np.exp(-0.5 / l**2 * sqdist)
 
 
 # Пример ковариационной матрицы с гауссовским ядром приведён на рисунке слева внизу.
@@ -426,7 +426,7 @@ def plot_gp(mu, cov, X_test, X_train=[], Y_train=[],
 # +
 # Test data
 x_min, x_max = 0, 10
-n_test = 1001
+n_test = 101
 X_test = np.linspace(x_min, x_max, n_test).reshape(-1, 1)
 
 # Set mean and covariance
@@ -484,7 +484,7 @@ plt.show()
 # Тогда процесс броуновского движения можно реализовать, задав подходящую ковариационную функцию.
 # Несложно убедится, что в качестве такой функции подходит $k(x, x') = \min(x, x')$.
 
-def brownian_kernel(X1, X2, sigma_f=1.):
+def brownian_kernel(X1, X2, sigma_k=1.):
     '''
     Brownian motion kernel
     
@@ -497,7 +497,7 @@ def brownian_kernel(X1, X2, sigma_f=1.):
     '''
     
     cov = np.min(np.dstack(np.meshgrid(X1, X2)), axis=-1)
-    return sigma_f**2 * cov.T
+    return sigma_k**2 * cov.T
 
 
 # +
@@ -507,9 +507,9 @@ n_test = 500
 X_test = np.linspace(x_min, x_max, n_test+1).reshape(-1, 1)
 
 # Set mean and covariance
-sigma_f = 1.0
+sigma_k = 1.0
 M = np.zeros_like(X_test[1:]).reshape(-1, 1)
-K = brownian_kernel(X_test[1:], X_test[1:], sigma_f)
+K = brownian_kernel(X_test[1:], X_test[1:], sigma_k)
 
 # Generate samples from the prior
 n_p = int(1e5)
@@ -521,7 +521,7 @@ bp[1:] = M + np.dot(L, np.random.normal(size=(n_test,n_p)))
 # Make the plots
 n_draw = 200
 x = X_test.flatten()
-std_x = sigma_f*x**0.5
+std_x = sigma_k*x**0.5
 plt.figure(figsize=(8, 5))
 plt.title(f'Процесс броуновского движения,\n\
     траектории {n_draw} реализаций процесса')
@@ -535,7 +535,7 @@ plt.plot(x,  2*std_x, 'k-', lw=1.)
 plt.xlabel('$t$')
 plt.ylabel('$d(t)$')
 plt.xlim([0, x_max])
-plt.ylim([-3*sigma_f*x_max**0.5, 3*sigma_f*x_max**0.5])
+plt.ylim([-3*sigma_k*x_max**0.5, 3*sigma_k*x_max**0.5])
 plt.tight_layout()
 plt.show()
 # -
@@ -545,8 +545,8 @@ plt.show()
 # ## Источники
 #
 # 1. Лекции по случайным процессам / под ред. А.В. Гасникова. М.: МФТИ, 2019.
-# 1. Roelants P. [Understanding Gaussian processes](https://peterroelants.github.io/posts/gaussian-process-tutorial/).
-# 1. Krasser M. [Gaussian processes](http://krasserm.github.io/2018/03/19/gaussian-processes/).
+# 1. *Roelants P.* [Understanding Gaussian processes](https://peterroelants.github.io/posts/gaussian-process-tutorial/).
+# 1. *Krasser M.* [Gaussian processes](http://krasserm.github.io/2018/03/19/gaussian-processes/).
 
 # Versions used
 print('Python: {}.{}.{}'.format(*sys.version_info[:3]))
