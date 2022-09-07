@@ -7,19 +7,19 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.10.3
+#       jupytext_version: 1.13.7
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
 
 # + [markdown] slideshow={"slide_type": "slide"}
-# # Подбор параметров ядра #
+# # Подбор параметров ядра
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # На прошлом занятии мы научились делать регрессию, используя гауссовские процессы с заданной фиксированной ковариационной функцией.
-# Однако во многих практических приложениях указать ковариационной функции может оказаться затруднительно.
+# Однако во многих практических приложениях указать ковариационную функцию может быть затруднительно.
 # Обычно мы имеем достаточно расплывчатую информацию о свойствах, например, о значении свободных (гипер-) параметров, например, о длинах.
 # Таким образом, необходимо разработать методы, решающие проблему выбора модели и значений гиперпараметров.
 
@@ -31,7 +31,7 @@
 # Imports
 import sys
 sys.path.append('../modules')
-import graph_support
+import graph_utils
 
 import numpy as np
 import numpy.linalg as LA
@@ -56,6 +56,8 @@ matplotlib.rcParams['lines.markersize'] = 10
 import seaborn
 seaborn.set_style('whitegrid')
 figscale = 2
+
+from IPython.display import display, Markdown
 
 
 # + language="html"
@@ -176,7 +178,7 @@ params = [
 ]
 
 # + slideshow={"slide_type": "subslide"}
-graph_support.hide_code_in_slideshow()
+graph_utils.hide_code_in_slideshow()
 
 plt.figure(figsize=(figscale*12, figscale*5))
 for i, (l, sigma_f, sigma_y) in enumerate(params):
@@ -230,16 +232,14 @@ def nll_fn(X_train, Y_train, sigma_y):
     def nll(theta):
         K = kernel(X_train, X_train, l=theta[0], sigma_f=theta[1]) + \
             sigma_y**2 * np.eye(len(X_train))
-        return np.log(LA.det(K)) + Y_train.T @ LA.inv(K) @ Y_train
+        y = np.log(LA.det(K)) + Y_train.T @ LA.inv(K) @ Y_train
+        return y.flatten()
     
     return nll
 
 
-# + slideshow={"slide_type": "skip"}
-from IPython.display import display, Markdown
-
 # + slideshow={"slide_type": "subslide"}
-sigma_y = 0.02
+sigma_y = 0.1
 res = minimize(nll_fn(X_train, Y_train, sigma_y), [1, 1],
                bounds=((1e-5, None), (1e-5, None)),
                method='L-BFGS-B')
@@ -248,7 +248,7 @@ l_opt, sigma_f_opt = res.x
 display(Markdown(rf'$l = {l_opt:.3},\;\sigma_f = {sigma_f_opt:.3},\;\sigma_y = {sigma_y:.3}$'))
 
 # + slideshow={"slide_type": "subslide"}
-graph_support.hide_code_in_slideshow()
+graph_utils.hide_code_in_slideshow()
 
 # Compute the prosterior predictive statistics with optimized kernel parameters and plot the results
 mu_s, cov_s = posterior_predictive(
@@ -278,7 +278,8 @@ def nll_fn_2(X_train, Y_train):
     def nll_2(theta):
         K = kernel(X_train, X_train, l=theta[0], sigma_f=theta[1]) + \
             theta[2]**2 * np.eye(len(X_train))
-        return np.log(LA.det(K)) + Y_train.T @ LA.inv(K) @ Y_train
+        y = np.log(LA.det(K)) + Y_train.T @ LA.inv(K) @ Y_train
+        return y.flatten()
     
     return nll_2
 
@@ -292,7 +293,7 @@ l_opt, sigma_f_opt, sigma_y_opt = res.x
 display(Markdown(rf'$l = {l_opt:.2},\;\sigma_f = {sigma_f_opt:.2},\;\sigma_y = {sigma_y_opt:.2}$'))
 
 # + slideshow={"slide_type": "skip"}
-graph_support.hide_code_in_slideshow()
+graph_utils.hide_code_in_slideshow()
 
 # Compute the prosterior predictive statistics with optimized kernel parameters and plot the results
 mu_s, cov_s = posterior_predictive(
@@ -332,7 +333,7 @@ Y_2D_train = np.sin(0.5 * np.linalg.norm(X_2D_train, axis=1)) + \
              noise_2D_train * np.random.randn(len(X_2D_train))
 
 # + slideshow={"slide_type": "subslide"}
-graph_support.hide_code_in_slideshow()
+graph_utils.hide_code_in_slideshow()
 
 plt.figure(figsize=(figscale*14,figscale*7))
 
