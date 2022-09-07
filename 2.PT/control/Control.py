@@ -14,11 +14,11 @@
 #     name: python3
 # ---
 
-# # Вопросы к первому семестру
+# # Вопросы к весеннему семестру
 
 # + [markdown] toc=true
 # <h1>Содержание<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Статистики-распределений" data-toc-modified-id="Статистики-распределений-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Статистики распределений</a></span></li><li><span><a href="#Многомерное-нормальное-распределение" data-toc-modified-id="Многомерное-нормальное-распределение-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Многомерное нормальное распределение</a></span></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Статистики-распределений" data-toc-modified-id="Статистики-распределений-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Статистики распределений</a></span></li><li><span><a href="#Многомерное-нормальное-распределение" data-toc-modified-id="Многомерное-нормальное-распределение-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Многомерное нормальное распределение</a></span></li><li><span><a href="#Условное-математическое-ожидание" data-toc-modified-id="Условное-математическое-ожидание-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Условное математическое ожидание</a></span></li></ul></div>
 
 # +
 # Imports
@@ -59,7 +59,7 @@ X2 = np.random.normal(loc=0, scale=1, size=N)
 x = np.linspace(-3, 6, num=1001)
 Y = np.zeros_like(x)
 for i in range(0, n_max):
-  Y += 1./n_max * stats.norm.pdf(x, loc=a*i, scale=1)
+    Y += 1./n_max * stats.norm.pdf(x, loc=a*i, scale=1)
 
 # +
 bins = 150
