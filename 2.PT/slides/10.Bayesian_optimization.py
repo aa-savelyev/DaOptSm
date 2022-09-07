@@ -7,9 +7,9 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.10.3
+#       jupytext_version: 1.13.7
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -163,7 +163,7 @@ plot_gp(mu, cov, X, X_train=X_init, Y_train=Y_init)
 # Цель --- найти глобальный оптимум слева за возможно меньшее количество шагов.
 # Следующим шагом является реализация функции улучшения `expected_improvement`, определённой в уравнении (2). 
 
-def prediction_minimum(X, X_train, Y_train):
+def prediction_minimum(X, X_train, Y_train, xi=0.01):
     '''
     Computes the expectation at points X based on existing samples X_train
     and Y_train using a Gaussian process surrogate model.
@@ -303,7 +303,8 @@ n_iter = 10
 
 # acquisition_function = prediction_minimum
 def acquisition_function(X, X_train, Y_train):
-    return expected_improvement(X, X_train, Y_train, xi=0.)
+#     return prediction_minimum(X, X_train, Y_train)
+    return expected_improvement(X, X_train, Y_train)
 
 
 # +
