@@ -7,9 +7,9 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.10.3
+#       jupytext_version: 1.13.7
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -62,8 +62,8 @@
 # **Дополнительная литература**
 # 1. *Беклемишев Д.В.* Дополнительные главы линейной алгебры. &mdash; М.: Наука, 1983. &mdash; 336 с.
 # 1. *Оселедец И.В.* [Numerical Linear Algebra](https://nla.skoltech.ru/index.html). Skoltech term course
-# 1. Материалы по гауссовским процессам авторов [P. Roelants](https://peterroelants.github.io/) и [M. Krasser ](http://krasserm.github.io/)
 # 1. *C.E. Rasmussen & C.K.I. Williams* [Gaussian Processes for Machine Learning](http://www.gaussianprocess.org/gpml/). The MIT Press, 2006. 248 p.
+# 1. Материалы по гауссовским процессам авторов [P. Roelants](https://peterroelants.github.io/) и [M. Krasser ](http://krasserm.github.io/)
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # **Видеокурсы**
@@ -126,10 +126,10 @@ plt.ylabel('$y$')
 plt.legend(loc='upper right')
 plt.show()
 
-# + [markdown] slideshow={"slide_type": "slide"}
+# + [markdown] slideshow={"slide_type": "skip"}
 # ## Организационные вопросы ##
 #
-# 1. Время и место: среда, 16.55, 212 к. (?)
+# 1. Время и место: среда, 13.45, к. 2**
 # 1. Каналы связи
 #    - telegram группа DaOptSm
 #    - почта savelyev.aa@mipt.ru, aa-savelyev@yandex.ru
@@ -137,7 +137,15 @@ plt.show()
 #    - проект (5 баллов)
 #    - зачёт (5 баллов)
 
-# + [markdown] slideshow={"slide_type": "subslide"}
+# + [markdown] slideshow={"slide_type": "slide"}
+# ## Организационные вопросы ##
+#
+# 1. Время и место: среда, 13.45, к. 2**
+# 1. Каналы связи
+#    - telegram группа DaOptSm
+#    - почта savelyev.aa@mipt.ru, aa-savelyev@yandex.ru
+
+# + [markdown] slideshow={"slide_type": "skip"}
 # ### Проект ###
 #
 # 1. Заявка (15 ноября)
@@ -184,14 +192,14 @@ im_width = 1200
 
 # + cell_style="center" slideshow={"slide_type": "fragment"}
 graph_support.hide_code_in_slideshow()
-display(Image('../pix/1.Intro/res_sub030sup070.png', width=im_width))
+display(Image('../pix/01.Intro/res_sub030sup070.png', width=im_width))
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # #### Фронт Парето ####
 
 # + cell_style="center" slideshow={"slide_type": "fragment"}
 graph_support.hide_code_in_slideshow()
-display(Image('../pix/1.Intro/res_pareto_1-4.png', width=0.8*im_width))
+display(Image('../pix/01.Intro/res_pareto_1-4.png', width=0.8*im_width))
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # #### Результаты ####
@@ -201,10 +209,10 @@ display(Image('../pix/1.Intro/res_pareto_1-4.png', width=0.8*im_width))
 # + cell_style="center" slideshow={"slide_type": "fragment"}
 graph_support.hide_code_in_slideshow()
 print('Режим M=0.9')
-display(Image('../pix/1.Intro/i095.r1m090.Mach.png', width=im_width))
+display(Image('../pix/01.Intro/i095.r1m090.Mach.png', width=im_width))
 print(40*'-')
 print('Режим M=1.8')
-display(Image('../pix/1.Intro/i095.r2m180.Mach.png', width=im_width))
+display(Image('../pix/01.Intro/i095.r2m180.Mach.png', width=im_width))
 
 
 # + [markdown] slideshow={"slide_type": "-"}
@@ -284,7 +292,8 @@ plt.legend(loc='upper right')
 plt.show()
 
 # + slideshow={"slide_type": "subslide"} cell_style="center"
-p2 = np.polyfit(x_train, y_train, 4)
+deg = 4
+p2 = np.polyfit(x_train, y_train, deg)
 
 fig, ax = plt.subplots(figsize=figsize)
 ax.plot(x_train, y_train, 'o', c=cm(0), label='data: $(x,y)$')
@@ -295,7 +304,8 @@ plt.legend(loc='upper right')
 plt.show()
 
 # + slideshow={"slide_type": "subslide"} cell_style="center"
-p3 = np.polyfit(x_train, y_train, n-1)
+deg = n-1
+p3 = np.polyfit(x_train, y_train, deg)
 
 fig, ax = plt.subplots(figsize=figsize)
 ax.plot(x_train, y_train, 'o', c=cm(0), label='data: $(x,y)$')
