@@ -7,14 +7,14 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.5.2
+#       jupytext_version: 1.13.7
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
 
-# # Вопросы к первому семестру
+# # Вопросы по матричным методам
 
 # + [markdown] toc=true
 # <h1>Содержание<span class="tocSkip"></span></h1>
@@ -22,16 +22,12 @@
 # -
 
 # Imports
-import sys
 import numpy as np
 from numpy import linalg as LA
 import matplotlib.pyplot as plt
 
 # +
 # Styles
-import warnings
-warnings.filterwarnings('ignore')
-
 import matplotlib
 matplotlib.rcParams['font.size'] = 14
 matplotlib.rcParams['lines.linewidth'] = 1.5
@@ -40,6 +36,13 @@ cm = plt.cm.tab10  # Colormap
 
 import seaborn
 seaborn.set_style('whitegrid')
+
+# +
+# import warnings
+# warnings.filterwarnings('ignore')
+
+# # %config InlineBackend.figure_formats = ['pdf']
+# # %config Completer.use_jedi = False
 # -
 
 # ---
@@ -71,7 +74,7 @@ seaborn.set_style('whitegrid')
 # ## Число обусловленности
 #
 # 1. **Вопрос**: В рассматриваемом на лекции примере число обусловленности $\mu(A)=22.15$. Но выше мы нашли, что относительная погрешность увеличилась в $14.88$ раз. Почему так произошло? При каком условии оценка, сделанная по числу обусловленности, будет достигаться? \
-#    **Ответ**: Максимальная оценка будет достигаться, когда вектор $\mathbf{b}$ будет параллелен первому сингулярному вектору (первой главной компоненте). Минимальная &mdash; когда параллелен вектору второй главной компоненте (см. иллюстрации ниже).
+#    **Ответ**: Максимальная оценка будет достигаться, когда вектор $\mathbf{b}$ будет параллелен первому сингулярному вектору (первой главной компоненте). Минимальная &mdash; когда второму сингулярному вектору (см. иллюстрации ниже).
 #
 # 1. **Вопрос**: Если известен вектор $\mathbf{b}$, как сделать более точную оценку возрастания относительной погрешности? \
 #    **Ответ**: Оценка даётся по формуле
@@ -125,7 +128,7 @@ ax1.set_aspect('equal')
 ax1.set_axisbelow(True)
 ax1.set_title("Столбцы матрицы A")
 ax1.text(*A[:,0], "$\mathbf{a_1}$")
-ax1.text(*A[:,1], "$\mathbf{a_2}$")
+ax1.text(*A[:,1], "$\mathbf{a_2}$");
 
 # +
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12,6))
@@ -229,7 +232,6 @@ print(aL1)
 
 # +
 fig, ax = plt.subplots(1, 1, figsize=(7,7))
-
 
 # Plotting X
 ax.plot(x[:-1],b[:-1],'ko')           # Data
