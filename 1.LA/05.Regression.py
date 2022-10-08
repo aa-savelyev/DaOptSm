@@ -34,7 +34,7 @@ import matplotlib
 matplotlib.rcParams['font.size'] = 14
 matplotlib.rcParams['lines.linewidth'] = 1.5
 matplotlib.rcParams['lines.markersize'] = 4
-cm = matplotlib.pyplot.cm.tab10  # Colormap
+cm = plt.cm.tab10  # Colormap
 figsize = (8, 5)
 
 import seaborn
@@ -44,6 +44,7 @@ seaborn.set_style('whitegrid')
 import warnings
 warnings.filterwarnings('ignore')
 
+# # %config InlineBackend.figure_formats = ['pdf']
 # # %config Completer.use_jedi = False
 # -
 
@@ -110,7 +111,7 @@ plt.xlim((0, 1))
 plt.xlabel('$x$')
 plt.ylabel('$y$')
 plt.title('Noisy data samples from linear line')
-plt.legend()
+plt.legend(loc='upper left')
 plt.show()
 
 # ---
@@ -156,7 +157,7 @@ plt.show()
 # Тогда задача поиска параметров регрессии может быть сформулирована так: 
 # $$ \alpha^* = \underset{\alpha \in \mathbb{R}^n}{\text{argmin}} \, {\left\Vert F\alpha - y \right\Vert^2}. $$
 
-# ### Решение ###
+# ### Решение
 #
 # Запишем функционал качества в матричном виде:
 # $$ Q(\alpha) = (F\alpha - y)^\top (F\alpha - y) $$
@@ -235,11 +236,11 @@ plt.plot(X_train, Y_train, 'o', ms=4, label='data $(x,y)$')
 plt.plot([0, 1], [b, m+b], 'k-', label=f'$y = {b:.0f} + {m:.0f}x$')
 plt.plot(X_disp, f(X_disp), '-', c=cm(3),
          label=OLS_label)
-plt.legend()
 plt.title('Least squares regression fit')
 plt.xlabel('$x$')
 plt.ylabel('$y$')
 plt.xlim((0, 1))
+plt.legend(loc='upper left')
 plt.show()
 # -
 
@@ -296,7 +297,7 @@ np.disp(x_qr)
 
 # ---
 
-# ## Источники ##
+# ## Источники
 #
 # 1. *Воронцов К.В.* [Математические методы обучения по прецедентам (теория обучения машин)](http://www.machinelearning.ru/wiki/images/6/6d/Voron-ML-1.pdf). &mdash; 141 c.
 # 1. [Материалы](http://www.math.iit.edu/~fass/477577_Chapter_5.pdf) автора [G. Fasshauer](http://www.math.iit.edu/~fass/).

@@ -237,7 +237,7 @@
 # $$
 # Отсюда получаем псевдорешене $x = 3/2$.
 
-# **Пример 2.** Система из одного уравнений с двумя неизвестными:
+# **Пример 2.** Система из одного уравнения с двумя неизвестными:
 # $$ x + y = 2. $$
 #
 # Нормальной системой уравнений будет система
@@ -344,9 +344,9 @@
 # ---
 
 # + [markdown] slideshow={"slide_type": "slide"}
-# ## Источники ##
+# ## Источники
 #
-# 1. *Strang G.* Linear algebra and learning from data. &mdash; Wellesley-Cambridge Press, 2019. &mdash; 432 p.
+# 1. *Strang G.* Linear algebra and learning from data. &mdash; Wellesley-Cambridge Press, 2019. &mdash; 432 p. (Massachusetts Institute of Technology)
 # 1. *Беклемишев Д.В.* Дополнительные главы линейной алгебры. &mdash; М.: Наука, 1983. &mdash; 336 с.
 # -
 
