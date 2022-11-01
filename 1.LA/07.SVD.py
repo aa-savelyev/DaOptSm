@@ -16,11 +16,11 @@
 
 # **Лекция 7**
 #
-# # Сингулярное разложение матриц #
+# # Сингулярное разложение матриц
 
 # + [markdown] toc=true
 # <h1>Содержание<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Постановка-задачи" data-toc-modified-id="Постановка-задачи-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Постановка задачи</a></span></li><li><span><a href="#Преобразования-$\mathbf{A^\top-A}$-и-$\mathbf{A-A^\top}$" data-toc-modified-id="Преобразования-$\mathbf{A^\top-A}$-и-$\mathbf{A-A^\top}$-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Преобразования $\mathbf{A^\top A}$ и $\mathbf{A A^\top}$</a></span></li><li><span><a href="#Сингулярные-базисы,-сингулярное-разложение" data-toc-modified-id="Сингулярные-базисы,-сингулярное-разложение-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Сингулярные базисы, сингулярное разложение</a></span></li><li><span><a href="#Геометрический-смысл" data-toc-modified-id="Геометрический-смысл-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Геометрический смысл</a></span><ul class="toc-item"><li><span><a href="#Спектральное-разложение" data-toc-modified-id="Спектральное-разложение-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Спектральное разложение</a></span></li><li><span><a href="#Сингулярное-разложение" data-toc-modified-id="Сингулярное-разложение-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Сингулярное разложение</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Постановка-задачи" data-toc-modified-id="Постановка-задачи-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Постановка задачи</a></span></li><li><span><a href="#Преобразования-$\mathbf{A^\top-A}$-и-$\mathbf{A-A^\top}$" data-toc-modified-id="Преобразования-$\mathbf{A^\top-A}$-и-$\mathbf{A-A^\top}$-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Преобразования $\mathbf{A^\top A}$ и $\mathbf{A A^\top}$</a></span></li><li><span><a href="#Сингулярные-базисы,-сингулярное-разложение" data-toc-modified-id="Сингулярные-базисы,-сингулярное-разложение-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Сингулярные базисы, сингулярное разложение</a></span></li><li><span><a href="#Геометрический-смысл" data-toc-modified-id="Геометрический-смысл-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Геометрический смысл</a></span><ul class="toc-item"><li><span><a href="#Спектральное-разложение" data-toc-modified-id="Спектральное-разложение-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Спектральное разложение</a></span></li><li><span><a href="#Сингулярное-разложение" data-toc-modified-id="Сингулярное-разложение-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Сингулярное разложение</a></span></li><li><span><a href="#Связь-с-полярным-разложением" data-toc-modified-id="Связь-с-полярным-разложением-4.3"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>Связь с полярным разложением</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
 # -
 
 # Imports
@@ -38,14 +38,18 @@ cm = plt.cm.tab10  # Colormap
 
 import seaborn
 seaborn.set_style('whitegrid')
-# -
 
+# +
 import warnings
 warnings.filterwarnings('ignore')
 
+# # %config InlineBackend.figure_formats = ['pdf']
+# # %config Completer.use_jedi = False
+# -
+
 # ---
 
-# ## Постановка задачи ##
+# ## Постановка задачи
 #
 # В прошлый раз мы увидели: некоторые квадратные матрицы могут быть представлены в виде $A = S \Lambda S^{-1}$.
 # Наилучшие представители квадратных матриц &mdash; симметричные матрицы &mdash; представимы в виде $A = Q \Lambda Q^\top$ ($Q$ &mdash; ортогональная матрица). \
@@ -64,7 +68,7 @@ warnings.filterwarnings('ignore')
 
 # ---
 
-# ## Преобразования $\mathbf{A^\top A}$ и $\mathbf{A A^\top}$ ##
+# ## Преобразования $\mathbf{A^\top A}$ и $\mathbf{A A^\top}$
 #
 # Рассмотрим преобразования $A^\top A$ и $A A^\top$.
 # Сначала повторим то, что уже знаем о них:
@@ -73,7 +77,7 @@ warnings.filterwarnings('ignore')
 # 1. Ранги матриц $A$, $A^\top$, $A^\top A$ и $AA^\top$ равны.
 # 1. Матрицы $A^\top A$ и $A A^\top$ симметричные и неотрицательно определённые (все собственные значения $\lambda_i \ge 0$).
 #
-# **Предложение.** Если $\mathbf{x}$ &mdash; собственный вектор преобразования $A^\top A$, принадлежащий собственному значения $\lambda \ne 0$, то $A(\mathbf{x})$ &mdash; собственный вектор преобразования $A A^\top$, принадлежащий тому же собственному значению. При этом линейно независимым собственным векторам $\mathbf{x}_1, \ldots, \mathbf{x}_s$ преобразования $A^\top A$ соответствуют линейно независимые собственные векторы $A(\mathbf{x}_1), \ldots, A(\mathbf{x}_s)$ преобразования $A A^\top$.  
+# **Утверждение.** Если $\mathbf{x}$ &mdash; собственный вектор преобразования $A^\top A$, принадлежащий собственному значения $\lambda \ne 0$, то $A(\mathbf{x})$ &mdash; собственный вектор преобразования $A A^\top$, принадлежащий тому же собственному значению. При этом линейно независимым собственным векторам $\mathbf{x}_1, \ldots, \mathbf{x}_s$ преобразования $A^\top A$ соответствуют линейно независимые собственные векторы $A(\mathbf{x}_1), \ldots, A(\mathbf{x}_s)$ преобразования $A A^\top$.  
 # **Доказательство.** Пусть $A^\top A (\mathbf{x}) = \lambda \mathbf{x}$. Подействует отображением $A$ на обе части этого равенства: $(A A^\top) A(\mathbf{x}) = \lambda A(\mathbf{x})$. Вектор $A(\mathbf{x})$ собственный для $A A^\top$ и принадлежит значению $\lambda$. \
 # Вторую часть утверждения докажем от противного.
 # предположим, что векторы $A(\mathbf{x}_1), \ldots, A(\mathbf{x}_s)$ линейно зависимы и $\alpha_1 A(\mathbf{x}_1), \ldots, \alpha_s A(\mathbf{x}_s)$ &mdash; их нетривиальная линейная комбинация, равная нулю.
@@ -93,7 +97,7 @@ warnings.filterwarnings('ignore')
 
 # ---
 
-# ## Сингулярные базисы, сингулярное разложение ##
+# ## Сингулярные базисы, сингулярное разложение
 #
 # Итак, матрицы $A^\top A$ и $A A^\top$ можно представить в виде
 #
@@ -138,7 +142,7 @@ warnings.filterwarnings('ignore')
 
 # ---
 
-# ## Геометрический смысл ##
+# ## Геометрический смысл
 #
 # Посмотрим, что представляет собой сингулярное разложение с точки зрения геометрии.
 #
@@ -161,7 +165,9 @@ origin = [[0,0], [0,0]] # origin point
 Sq = np.array([[-1,1], [1,1], [1,-1], [-1,-1], [-1,1]]).T
 # -
 
-# ### Спектральное разложение ###
+# ### Спектральное разложение
+
+# $A = U \Lambda U^{-1}$
 
 lmbd, U = LA.eig(C)
 CU = C @ U
@@ -182,29 +188,40 @@ U2 = np.diag(lmbd) @ U1
 U3 = U @ U2
 Un = [U, U1, U2, U3]
 
+
+# -
+
+def make_decor(ax, xlims, ylims):
+    for axi in ax.flatten():
+        axi.axhline(y=0, color='k')
+        axi.axvline(x=0, color='k')
+        axi.set_xlabel('$x$')
+        axi.set_ylabel('$y$', rotation=0, ha='right')
+        axi.set_xlim(xlims)
+        axi.set_ylim(ylims)
+        axi.set_aspect('equal')
+        axi.set_axisbelow(True)
+
+
 # +
 fig, ax = plt.subplots(2, 2, figsize=(10,10))
 plt.subplots_adjust(wspace=0.4)
+xlims = [-4, 4]
+ylims = [-4, 4]
+make_decor(ax, xlims, ylims)
 
 for i, axi in enumerate(ax.flatten()):
     axi.plot(Sqn[i][0,:], Sqn[i][1,:], color='b')
     axi.quiver(*origin, Un[i][0,:], Un[i][1,:], color=['g'],
                width=0.012, angles='xy', scale_units='xy', scale=1)
-    axi.set_xlabel('x')
-    axi.set_ylabel('y')
-    axi.set_xlim([-4, 4])
-    axi.set_ylim([-4, 4])
-    axi.set_aspect('equal')
-    axi.grid(True)
-    # axi.set_title("Original vectors")
-    axi.axhline(y=0, color='k')
-    axi.axvline(x=0, color='k')
     axi.text(*(Un[i].T[0]+[.1,.1]), "$\mathbf{u_1}$")
     axi.text(*(Un[i].T[1]+[.1,.1]), "$\mathbf{u_2}$")
-    axi.text(1.4, -2, Sqn_str[i], color='b')
+    axi.text(1.5, -2, Sqn_str[i], color='b')
 # -
 
-# ### Сингулярное разложение ###
+# ### Сингулярное разложение
+
+# $A = U \Sigma V^\top$
 
 # +
 U, sgm, Vt = LA.svd(C)
@@ -221,8 +238,8 @@ Sq1 = Vt @ Sq
 Sq2 = np.diag(sgm) @ Sq1
 Sq3 = U @ Sq2
 Sqn = [Sq, Sq1, Sq2, Sq3]
-Sqn_str = ["$\mathbf{X}$", "$\mathbf{U^{-1} X}$",
-         " $\mathbf{\Lambda U^{-1} X}$", "$\mathbf{U\Lambda U^{-1} X}$"]
+Sqn_str = ["$\mathbf{X}$", "$\mathbf{V^T X}$",
+          "$\mathbf{\Sigma V^T X}$", "$\mathbf{U \Sigma V^T X}$"]
 
 V = Vt.T
 V1 = Vt @ V
@@ -233,6 +250,7 @@ Vn = [V, V1, V2, V3]
 # +
 fig, ax = plt.subplots(2, 2, figsize=(10,10))
 plt.subplots_adjust(wspace=0.4)
+make_decor(ax, xlims, ylims)
 
 for i, axi in enumerate(ax.flatten()):
     axi.plot(Sqn[i][0,:], Sqn[i][1,:], color='b')
@@ -240,18 +258,77 @@ for i, axi in enumerate(ax.flatten()):
                width=0.01, angles='xy', scale_units='xy', scale=1)
     axi.quiver(*origin, U[0,:], U[1,:], color=['r'],
                width=0.01, angles='xy', scale_units='xy', scale=1)
-    axi.set_xlabel('x')
-    axi.set_ylabel('y')
-    axi.set_xlim([-4, 4])
-    axi.set_ylim([-4, 4])
-    axi.set_aspect('equal')
-    axi.grid(True)
-    # axi.set_title("Original vectors")
-    axi.axhline(y=0, color='k')
-    axi.axvline(x=0, color='k')
     axi.text(*(Vn[i].T[0]+[.05,.05]), "$\mathbf{v_1}$")
     axi.text(*(Vn[i].T[1]+[.05,.05]), "$\mathbf{v_2}$")
     axi.text(1.5, -2, Sqn_str[i], color='b')
+# -
+
+# ### Связь с полярным разложением
+
+# $A = U \Sigma V^\top = U \Sigma U^\top U V^\top = S_1Q$
+
+S1 = U @ np.diag(sgm) @ U.T
+Q = U @ Vt
+
+# +
+X1 = Q @ Sq
+X2 = S1 @ X1
+Xn = [Sq, X1, X2]
+Xn_str = ["$\mathbf{X}$", "$\mathbf{QX}$", "$\mathbf{S_1QX}$"]
+
+V1 = Q @ V
+V2 = S1 @ V1
+Vn = [V, V1, V2]
+
+# +
+fig, ax = plt.subplots(1, 3, figsize=(15,10))
+plt.subplots_adjust(wspace=0.4)
+make_decor(ax, xlims, ylims)
+titles = ["До преобразования", "Вращение", "Растяжение"]
+
+for i, axi in enumerate(ax.flatten()):
+    axi.plot(Xn[i][0,:], Xn[i][1,:], color='b')
+    axi.quiver(*origin, Vn[i][0,:], Vn[i][1,:], color=['g'],
+               width=0.01, angles='xy', scale_units='xy', scale=1)
+    axi.quiver(*origin, U[0,:], U[1,:], color=['r'],
+               width=0.01, angles='xy', scale_units='xy', scale=1)
+    axi.set_title(titles[i])
+    axi.text(*(Vn[i].T[0]+[.1,.1]), "$\mathbf{v_1}$", fontsize=14)
+    axi.text(*(Vn[i].T[1]+[.1,.1]), "$\mathbf{v_2}$", fontsize=14)
+    axi.text(1.5, -2, Xn_str[i], color='b', fontsize=14)
+# -
+
+# $A = U \Sigma V^\top = U V^\top V \Sigma V^\top = QS_2$
+
+Q = U @ Vt
+S2 = V @ np.diag(sgm) @ Vt
+
+# +
+X1 = S2 @ Sq
+X2 = Q @ X1
+Xn = [Sq, X1, X2]
+Xn_str = ["$\mathbf{X}$", "$\mathbf{S_2X}$", "$\mathbf{QS_2X}$"]
+
+V1 = S2 @ V
+V2 = Q @ V1
+Vn = [V, V1, V2]
+
+# +
+fig, ax = plt.subplots(1, 3, figsize=(15,10))
+plt.subplots_adjust(wspace=0.4)
+make_decor(ax, xlims, ylims)
+titles = ["До преобразования", "Растяжение", "Вращение"]
+
+for i, axi in enumerate(ax.flatten()):
+    axi.plot(Xn[i][0,:], Xn[i][1,:], color='b')
+    axi.quiver(*origin, Vn[i][0,:], Vn[i][1,:], color=['g'],
+               width=0.01, angles='xy', scale_units='xy', scale=1)
+    axi.quiver(*origin, U[0,:], U[1,:], color=['r'],
+               width=0.01, angles='xy', scale_units='xy', scale=1)
+    axi.set_title(titles[i])
+    axi.text(*(Vn[i].T[0]+[.1,.1]), "$\mathbf{v_1}$", fontsize=14)
+    axi.text(*(Vn[i].T[1]+[.1,.1]), "$\mathbf{v_2}$", fontsize=14)
+    axi.text(1.5, -2, Xn_str[i], color='b', fontsize=14)
 # -
 
 # ---

@@ -16,7 +16,7 @@
 
 # **Лекция 6**
 #
-# # Собственные векторы и собственные значения #
+# # Собственные векторы и собственные значения
 
 # + [markdown] toc=true
 # <h1>Содержание<span class="tocSkip"></span></h1>
@@ -25,6 +25,7 @@
 
 # Imports
 import numpy as np
+import scipy
 from numpy import linalg as LA
 import matplotlib.pyplot as plt
 
@@ -38,14 +39,18 @@ cm = plt.cm.tab10  # Colormap
 
 import seaborn
 seaborn.set_style('whitegrid')
-# -
 
+# +
 import warnings
 warnings.filterwarnings('ignore')
 
+# # %config InlineBackend.figure_formats = ['pdf']
+# # %config Completer.use_jedi = False
+# -
+
 # ---
 
-# ## Матрицы линейных преобразований ##
+# ## Матрицы линейных преобразований
 #
 # Квадратную матрицу $A$ размером $n \times n$ мы интерпретируем как преобразование, действующее на вектор $\mathbf{x} \in \mathbb{R}^n$, преобразуя его в новый вектор $\mathbf{y} = A\mathbf{x}$, также лежащий в $\mathbb{R}^n$.
 #
@@ -76,8 +81,8 @@ theta = 30 * np.pi / 180 # degress in radian
 A = np.array([[np.cos(theta), -np.sin(theta)],
               [np.sin(theta), np.cos(theta)]])
 # Stretching matrix
-B = np.array([[3,0],
-              [0,1]])
+B = np.array([[1.5, 0],
+              [0,   1]])
 
 Ax = A @ x  # y1 is the rotated vector
 Bx = B @ x  # y2 is the stretched vector
@@ -88,41 +93,39 @@ y1 = np.concatenate([x.reshape(1,2), Ax.reshape(1,2)])
 y2 = np.concatenate([x.reshape(1,2), Bx.reshape(1,2)])
 origin = [[0,0], [0,0]] # origin point
 
+
+# -
+
+def make_decor(ax, xlims, ylims):
+    for axi in ax.flatten():
+        axi.axhline(y=0, color='k')
+        axi.axvline(x=0, color='k')
+        axi.set_xlabel('$x$')
+        axi.set_ylabel('$y$', rotation=0, ha='right')
+        axi.set_xlim(xlims)
+        axi.set_ylim(ylims)
+        axi.set_aspect('equal')
+        axi.set_axisbelow(True)
+
+
 # +
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 15))
+fig, ax = plt.subplots(1, 2, figsize=(10, 5))
 plt.subplots_adjust(wspace=0.4)
+make_decor(ax, [-0.5, 2.0], [-0.5, 1.0])
 
-# Plotting y1
-ax1.quiver(*origin, y1[:,0], y1[:,1], color=['g', cm(3)],
-           width=0.013, angles='xy', scale_units='xy', scale=1)
-ax1.set_xlabel('x', fontsize=14)
-ax1.set_ylabel('y', fontsize=14)
-ax1.set_xlim([-0.5, 1.5])
-ax1.set_ylim([-0.5, 1])
-ax1.set_aspect('equal')
-ax1.grid(True)
-ax1.set_axisbelow(True)
-ax1.set_title("Поворот")
-ax1.axhline(y=0, color='k')
-ax1.axvline(x=0, color='k')
-ax1.text(1, 0.1, "$\mathbf{x}$", fontsize=16)
-ax1.text(0.8, 0.6, "$\mathbf{Ax}$", fontsize=16)
+# Plotting A
+ax[0].quiver(*origin, y1[:,0], y1[:,1], color=['g', cm(3)],
+             width=0.013, angles='xy', scale_units='xy', scale=1)
+ax[0].set_title("Поворот")
+ax[0].text(*(y1[0]+[0,.05]), "$\mathbf{x}$", fontsize=16)
+ax[0].text(*y1[1], "$\mathbf{Ax}$", fontsize=16)
 
-# Plotting y2
-ax2.quiver(*origin, y2[:,0], y2[:,1], color=['g', cm(3)],
-           width=0.013, angles='xy', scale_units='xy', scale=1)
-ax2.set_xlabel('x', fontsize=14)
-ax2.set_ylabel('y', fontsize=14)
-ax2.set_xlim([-0.5, 3.5])
-ax2.set_ylim([-1.5, 1.5])
-ax2.set_aspect('equal')
-ax2.grid(True)
-ax2.set_axisbelow(True)
-ax2.set_title("Растяжение")
-ax2.axhline(y=0, color='k')
-ax2.axvline(x=0, color='k')
-ax2.text(1, 0.2, "$\mathbf{x}$", fontsize=16)
-ax2.text(3, 0.2, "$\mathbf{Bx}$", fontsize=16)
+# Plotting B
+ax[1].quiver(*origin, y2[:,0], y2[:,1], color=['g', cm(3)],
+             width=0.013, angles='xy', scale_units='xy', scale=1)
+ax[1].set_title("Растяжение")
+ax[1].text(*(y2[0]+[0,.05]), "$\mathbf{x}$", fontsize=16)
+ax[1].text(*(y2[1]+[0,.05]), "$\mathbf{Bx}$", fontsize=16)
 
 plt.show()
 # -
@@ -153,61 +156,45 @@ C = np.array([[3, 2],
 Y = C @ X  # Vectors in t are the transformed vectors of x
 
 # getting a sample vector from x
-xs_1 = X[:, 15]
-xs_2 = X[:, 0]
-ys_1 = C @ xs_1
-ys_2 = C @ xs_2
+xs1 = X[:, 12]
+xs2 = X[:, 0]
+ys1 = C @ xs1
+ys2 = C @ xs2
 
 # +
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10,15))
+fig, ax = plt.subplots(1, 2, figsize=(12, 8))
 
 plt.subplots_adjust(wspace=0.4)
+xlims = [-4, 4]
+ylims = [-4, 4]
+make_decor(ax, xlims, ylims)
 
 # Plotting X
-ax1.plot(X[0,:], X[1,:], color='b')
-ax1.quiver(*origin, xs_1[0], xs_1[1], color=['g'], width=0.012,
-           angles='xy', scale_units='xy', scale=1)
-ax1.quiver(*origin, xs_2[0], xs_2[1], color=['g'], width=0.012,
-           angles='xy', scale_units='xy', scale=1)
-ax1.set_xlabel('x')
-ax1.set_ylabel('y')
-ax1.set_xlim([-4,4])
-ax1.set_ylim([-4,4])
-ax1.set_aspect('equal')
-ax1.grid(True)
-ax1.set_axisbelow(True)
-ax1.set_title("До преобразования")
-ax1.axhline(y=0, color='k')
-ax1.axvline(x=0, color='k')
-ax1.text(0.6, 1.0, "$\mathbf{x_1}$")
-ax1.text(1.1, 0.2, "$\mathbf{x_2}$")
-ax1.text(0.3, -1.3, "$\mathbf{X}$", color='b')
+ax[0].plot(X[0,:], X[1,:], color='b')
+ax[0].quiver(*origin, xs1[0], xs1[1], color=['g'], width=0.012,
+             angles='xy', scale_units='xy', scale=1)
+ax[0].quiver(*origin, xs2[0], xs2[1], color=['g'], width=0.012,
+             angles='xy', scale_units='xy', scale=1)
+ax[0].set_title("До преобразования")
+ax[0].text(*xs1, "$\mathbf{x_1}$")
+ax[0].text(*(xs2+[.1,.1]), "$\mathbf{x_2}$")
+ax[0].text(*(1.3*X[:,-15]), "$\mathbf{X}$", color='b')
 
 # Plotting Y
-ax2.plot(Y[0, :], Y[1, :], color='b')
-ax2.quiver(*origin, ys_1[0], ys_1[1], color=cm(3),
-           width=0.012, angles='xy', scale_units='xy', scale=1)
-ax2.quiver(*origin, ys_2[0], ys_2[1], color=cm(3),
-           width=0.012, angles='xy', scale_units='xy', scale=1)
-ax2.quiver(*origin, xs_1[0], xs_1[1], color=['g'],
-           width=0.012, angles='xy', scale_units='xy', scale=1)
-ax2.quiver(*origin, xs_2[0], xs_2[1], color=['g'],
-           width=0.012, angles='xy', scale_units='xy', scale=1)
-ax2.set_xlabel('x')
-ax2.set_ylabel('y')
-ax2.set_xlim([-4,4])
-ax2.set_ylim([-4,4])
-ax2.set_aspect('equal')
-ax2.grid(True)
-ax2.set_axisbelow(True)
-ax2.set_title("После преобразования")
-ax2.axhline(y=0, color='k')
-ax2.axvline(x=0, color='k')
-ax2.text(3.3,  1.8, "$\mathbf{y_1}$")
-ax2.text(3.0, -0.5, "$\mathbf{y_2}$")
-ax2.text(1.0, -1.7, "$\mathbf{CX}$", color='b')
+ax[1].plot(Y[0, :], Y[1, :], color='b')
+ax[1].quiver(*origin, ys1[0], ys1[1], color=cm(3),
+             width=0.012, angles='xy', scale_units='xy', scale=1)
+ax[1].quiver(*origin, ys2[0], ys2[1], color=cm(3),
+             width=0.012, angles='xy', scale_units='xy', scale=1)
+ax[1].quiver(*origin, xs1[0], xs1[1], color=['g'],
+             width=0.012, angles='xy', scale_units='xy', scale=1)
+ax[1].quiver(*origin, xs2[0], xs2[1], color=['g'],
+             width=0.012, angles='xy', scale_units='xy', scale=1)
+ax[1].set_title("После преобразования")
+ax[1].text(*ys1, "$\mathbf{y_1}$")
+ax[1].text(*(ys2+[.2,.2]), "$\mathbf{y_2}$")
+ax[1].text(*(1.3*Y[:,-10]), "$\mathbf{CX}$", color='b')
 
-# plt.savefig('1.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 
@@ -223,7 +210,7 @@ plt.show()
 
 # ---
 
-# ## Собственные векторы и собственные значения ##
+# ## Собственные векторы и собственные значения
 #
 # При исследовании структуры линейного оператора с матрицей $A$ большую роль играют векторы $\mathbf{x}$, для которых
 # $$ A\mathbf{x} = \lambda\mathbf{x}. $$
@@ -255,15 +242,15 @@ plt.show()
 
 # ---
 
-# ## Диагонализируемость ##
+# ## Диагонализируемость
 #
-# ### Подобные матрицы ###
+# ### Подобные матрицы
 #
 # **Определение.** Матрицы $A$ и $B$ называются подобными, если существует невырожденная матрица $U$ такая, что $B = U^{-1}AU$. Матрица $U$ в этом случае называется матрицей перехода к другому базису.
 #
-# **Предложение 1.** Подобные матрицы имеют одни и те же собственные числа.
+# **Утверждение.** Подобные матрицы имеют одни и те же собственные числа.
 
-# ### Диагонализируемые матрицы ###
+# ### Диагонализируемые матрицы
 #
 # Пусть матрица $A$ размера $n \times n$ имеет $n$ линейно независимых собственных векторов.
 # Если взять эти векторы в качестве столбцов матрицы $U$, то $U^{-1}AU$ будет диагональной матрицей $\Lambda$, у которой на диагонали стоят собственные значения матрица $A$. 
@@ -280,7 +267,7 @@ plt.show()
 # 1. Равенство $AU = U\Lambda$ выполняется тогда и только тогда, когда столбцы матрицы $U$ являются собственными векторами.
 # 1. Не все матрицы диагонализируемы.
 
-# ### Недиагонализируемые матрицы ###
+# ### Недиагонализируемые матрицы
 #
 # В общем случае матрица поворота не является диагонализируемой над вещественными числами, но все матрицы поворота диагонализируемы над полем комплексных чисел.
 #
@@ -334,7 +321,7 @@ plt.show()
 
 # ---
 
-# ## Иллюстрации на Питоне ##
+# ## Иллюстрации на Питоне
 #
 # Воспользуемся модулем `numpy.linalg` и найдём собственные числа и собственные векторы матрицы $C$.
 # Далее немного порисуем.
@@ -346,6 +333,10 @@ def diagonalize(A):
     print('lambda = ', np.round(lmbd, 4))
     print('U = ')
     np.disp(U)
+
+    Lmbd = U @ A @ LA.inv(U)
+    print('Lmbd = ')
+    np.disp(Lmbd)
 
 
 # +
@@ -385,51 +376,36 @@ diagonalize(A2)
 
 lmbd, U = LA.eig(C)
 CU = C @ U
-print('lambda = ', np.round(lmbd, 4))
-# print('U = ')
-# np.disp(np.round(U, 4))
+print('lambda =', np.round(lmbd, 4))
+print('U = ')
+np.disp(np.round(U, 4))
 
 # +
 Y = C @ X  # Vectors in y are the transformed vectors of x
 
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10,15))
+fig, ax = plt.subplots(1, 2, figsize=(12, 8))
 plt.subplots_adjust(wspace=0.4)
+make_decor(ax, xlims, ylims)
 
-# Plotting x
-ax1.plot(X[0,:], X[1,:], color='b')
-ax1.quiver(*origin, U[0,:], U[1,:], color=['g'],
-           width=0.012, angles='xy', scale_units='xy', scale=1)
-ax1.set_xlabel('x', fontsize=14)
-ax1.set_ylabel('y', fontsize=14)
-ax1.set_xlim([-4,4])
-ax1.set_ylim([-4,4])
-ax1.set_aspect('equal')
-ax1.grid(True)
-ax1.set_title("До преобразования")
-ax1.axhline(y=0, color='k')
-ax1.axvline(x=0, color='k')
-ax1.text(1, 0.3, "$\mathbf{u_1}$", fontsize=14)
-ax1.text(-1.6, 0.5, "$\mathbf{u_2}$", fontsize=14)
-ax1.text(0.3, -1.3, "$\mathbf{X}$", color='b', fontsize=14)
+# Plotting X
+ax[0].plot(X[0,:], X[1,:], color='b')
+ax[0].quiver(*origin, U[0,:], U[1,:], color=['g'],
+             width=0.012, angles='xy', scale_units='xy', scale=1)
+ax[0].set_title("До преобразования")
+ax[0].text(*(U[:,0]+[0,.1]), "$\mathbf{u_1}$", fontsize=14)
+ax[0].text(*(1.3*U[:,1]), "$\mathbf{u_2}$", fontsize=14)
+ax[0].text(*(1.3*X[:,-15]), "$\mathbf{X}$", color='b')
 
-# Plotting t
-ax2.plot(Y[0, :], Y[1, :], color='b')
-ax2.quiver(*origin, CU[0,:], CU[1,:], color=cm(3),
-           width=0.012, angles='xy', scale_units='xy', scale=1)
-ax2.quiver(*origin, U[0,:], U[1,:], color=['g'],
-           width=0.012, angles='xy', scale_units='xy', scale=1)
-ax2.set_xlabel('x', fontsize=14)
-ax2.set_ylabel('y', fontsize=14)
-ax2.set_xlim([-4,4])
-ax2.set_ylim([-4,4])
-ax2.set_aspect('equal')
-ax2.grid(True)
-ax2.set_title("После преобразования")
-ax2.axhline(y=0, color='k')
-ax2.axvline(x=0, color='k')
-ax2.text(2.2, 0.3, "$\lambda_1 \mathbf{u_1}$", fontsize=14)
-ax2.text(-2.6, 1.2, "$\lambda_2 \mathbf{u_2}$", fontsize=14)
-ax2.text(1.0, -1.7, "$\mathbf{CX}$", color='b', fontsize=14)
+# Plotting Y
+ax[1].plot(Y[0, :], Y[1, :], color='b')
+ax[1].quiver(*origin, CU[0,:], CU[1,:], color=cm(3),
+             width=0.012, angles='xy', scale_units='xy', scale=1)
+ax[1].quiver(*origin, U[0,:], U[1,:], color=['g'],
+             width=0.012, angles='xy', scale_units='xy', scale=1)
+ax[1].set_title("После преобразования")
+ax[1].text(*(CU[:,0]+[0,.1]), "$\lambda_1 \mathbf{u_1}$", fontsize=14)
+ax[1].text(*(1.3*CU[:,1]), "$\lambda_2 \mathbf{u_2}$", fontsize=14)
+ax[1].text(*(1.3*Y[:,-10]), "$\mathbf{CX}$", color='b')
 
 plt.show()
 # -
@@ -449,8 +425,9 @@ U3 = U @ U2
 Un = [U, U1, U2, U3]
 
 # +
-fig, ax = plt.subplots(2, 2, figsize=(10,10))
+fig, ax = plt.subplots(2, 2, figsize=(12, 12))
 plt.subplots_adjust(wspace=0.4)
+make_decor(ax, xlims, ylims)
 
 for i, axi in enumerate(ax.flatten()):
     axi.plot(Xn[i][0,:], Xn[i][1,:], color='b')
@@ -462,14 +439,15 @@ for i, axi in enumerate(ax.flatten()):
     axi.set_ylim([-4, 4])
     axi.set_aspect('equal')
     axi.grid(True)
-    # axi.set_title("Original vectors")
     axi.axhline(y=0, color='k')
     axi.axvline(x=0, color='k')
     axi.text(*(Un[i].T[0]+[.1,.1]), "$\mathbf{u_1}$", fontsize=14)
     axi.text(*(Un[i].T[1]+[.1,.1]), "$\mathbf{u_2}$", fontsize=14)
-    axi.text(1, -2, Xn_str[i], color='b', fontsize=14)
+    axi.text(*(1.3*Xn[i][:,-12]), Xn_str[i], color='b', fontsize=14)
+    
+plt.show()
 # -
-# ## Симметричные матрицы ##
+# ## Симметричные матрицы
 #
 # Рассмотрим симметричную матрицу $S = S^\top$.
 #
@@ -480,7 +458,7 @@ for i, axi in enumerate(ax.flatten()):
 #
 # Симметричную матрицу можно привести к диагональному виду:
 # $$ S = Q \Lambda Q^\top, $$
-# где $Q$ &mdash; диагональная матрица.
+# где $Q$ &mdash; ортогональная матрица.
 #
 # Следовательно, любая симметричная матрица может быть представлена в виде
 #
@@ -493,6 +471,10 @@ for i, axi in enumerate(ax.flatten()):
 # Действие оператора с матрицей $S$ сводится к растяжению этих проекций в $\lambda_i$ раз:
 #
 # $$ S\mathbf{v} = \sum\limits_{i=1}^n \lambda_i \mathbf{q}_i \mathbf{q}_i^\top \mathbf{v}. $$
+
+from IPython.display import Image
+im_width = 800
+display(Image('./pix/Eigen/Eigen_symm.jpeg', width=im_width))
 
 # Рассмотрим симметричную матрицу:
 # $$
@@ -519,58 +501,74 @@ print('lambda = ', np.round(lmbd, 4))
 
 # +
 Y = S @ X   # Vectors in t are the transformed vectors of x
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10,15))
+fig, ax = plt.subplots(1, 2, figsize=(12, 8))
 
 plt.subplots_adjust(wspace=0.4)
+make_decor(ax, xlims, ylims)
 
 # Plotting X
-ax1.plot(X[0,:], X[1,:], color='b')
-ax1.quiver(*origin, Q[0,:], Q[1,:], color=['g'],
-           width=0.012, angles='xy', scale_units='xy', scale=1)
-ax1.set_xlabel('x', fontsize=14)
-ax1.set_ylabel('y', fontsize=14)
-ax1.set_xlim([-4,4])
-ax1.set_ylim([-4,4])
-ax1.set_aspect('equal')
-ax1.grid(True)
-ax1.set_title("До преобразования")
-ax1.axhline(y=0, color='k')
-ax1.axvline(x=0, color='k')
-ax1.text(1, 0.3, "$\mathbf{q_1}$", fontsize=14)
-ax1.text(-1.2, 1.0, "$\mathbf{q_2}$", fontsize=14)
-ax1.text(0.3, -1.3, "$\mathbf{X}$", color='b', fontsize=14)
+ax[0].plot(X[0,:], X[1,:], color='b')
+ax[0].quiver(*origin, Q[0,:], Q[1,:], color=['g'],
+             width=0.012, angles='xy', scale_units='xy', scale=1)
+ax[0].set_title("До преобразования")
+ax[0].text(*Q[:,0], "$\mathbf{q_1}$", fontsize=14)
+ax[0].text(*(1.3*Q[:,1]), "$\mathbf{q_2}$", fontsize=14)
+ax[0].text(*(1.3*X[:,-15]), "$\mathbf{X}$", color='b', fontsize=14)
 
 # Plotting Y
-ax2.plot(Y[0, :], Y[1, :], color='b')
-ax2.quiver(*origin, SQ[0,:], SQ[1,:], color=cm(3),
-           width=0.012, angles='xy', scale_units='xy', scale=1)
-ax2.quiver(*origin, Q[0,:], Q[1,:], color=cm(2),
-           width=0.012, angles='xy', scale_units='xy', scale=1)
-ax2.set_xlabel('x', fontsize=14)
-ax2.set_ylabel('y', fontsize=14)
-ax2.set_xlim([-4,4])
-ax2.set_ylim([-4,4])
-ax2.set_aspect('equal')
-ax2.grid(True)
-ax2.set_title("После преобразования")
-ax2.axhline(y=0, color='k')
-ax2.axvline(x=0, color='k')
-ax2.text(2.7, 2.3, "$\lambda_1 \mathbf{q_1}$", fontsize=14)
-ax2.text(-2.0, 1.4, "$\lambda_2 \mathbf{q_2}$", fontsize=14)
-ax2.text(0.9, -1.5, "$\mathbf{SX}$", color='b', fontsize=14)
+ax[1].plot(Y[0, :], Y[1, :], color='b')
+ax[1].quiver(*origin, SQ[0,:], SQ[1,:], color=cm(3),
+             width=0.012, angles='xy', scale_units='xy', scale=1)
+ax[1].quiver(*origin, Q[0,:], Q[1,:], color=cm(2),
+             width=0.012, angles='xy', scale_units='xy', scale=1)
+ax[1].set_title("После преобразования")
+ax[1].text(*SQ[:,0], "$\lambda_1 \mathbf{q_1}$", fontsize=14)
+ax[1].text(*(1.3*SQ[:,1]), "$\lambda_2 \mathbf{q_2}$", fontsize=14)
+ax[1].text(*(1.3*Y[:,-15]), "$\mathbf{SX}$", color='b', fontsize=14)
 
 plt.show()
 # -
+# Матрица $Q \Lambda Q^{\top}$ пошагово: поворот, растяжение, обратный поворот.
+
+# +
+X1 = Q.T @ X
+X2 = np.diag(lmbd) @ X1
+X3 = Q @ X2
+Xn = [X, X1, X2, X3]
+Xn_str = ["$\mathbf{X}$", "$\mathbf{Q^{\\top}X}$",
+          "$\mathbf{\Lambda Q^{-1}X}$", "$\mathbf{Q\Lambda Q^{\\top}X}$"]
+
+Q1 = Q.T @ Q
+Q2 = np.diag(lmbd) @ Q1
+Q3 = Q @ Q2
+Qn = [Q, Q1, Q2, Q3]
+
+# +
+fig, ax = plt.subplots(2, 2, figsize=(12, 12))
+plt.subplots_adjust(wspace=0.4)
+make_decor(ax, xlims, ylims)
+
+for i, axi in enumerate(ax.flatten()):
+    axi.plot(Xn[i][0,:], Xn[i][1,:], color='b')
+    axi.quiver(*origin, Qn[i][0,:], Qn[i][1,:], color=['g'],
+               width=0.012, angles='xy', scale_units='xy', scale=1)
+    axi.text(*(Qn[i].T[0]+[.1,.1]), "$\mathbf{q_1}$", fontsize=14)
+    axi.text(*(Qn[i].T[1]+[.1,.1]), "$\mathbf{q_2}$", fontsize=14)
+    axi.text(*(1.3*Xn[i][:,-12]), Xn_str[i], color='b', fontsize=14)
+
+plt.show()
+# -
+
 # ---
 
-# ## Полярное разложение ##
+# ## Полярное разложение
 #
 # Каждое комплексное число $z = x + iy$ можно представить в виде $z = r e^{i\theta}$.
 # Вектор $e^{i\theta}$, лежащий на единичной окружности, умножается на число $r \ge 0$ (&laquo;растягивается&raquo; в $r$ раз).
 #
 # Между комплексными числами и матрицами можно провести аналогию: $r$ и $e^{i\theta}$ &mdash; это симметричная матрица $S$ и ортогональная $Q$.
 #
-# **Предложение.** Любая квадратная матрица может быть представлена в виде
+# **Утверждение.** Любая квадратная матрица может быть представлена в виде
 #
 # $$ A = QS, $$
 #
@@ -580,8 +578,9 @@ plt.show()
 #
 # Таким образом, любое линейное преобразование $A$ можно представить в виде комбинации *вращения* и *растяжения к взаимно перпендикулярным осям*.
 
-from scipy.linalg import polar
-Q, S = polar(C)
+Q, S = scipy.linalg.polar(C)
+np.disp(Q)
+np.disp(S)
 
 # +
 X1 = S @ X
@@ -596,31 +595,26 @@ U2 = Q @ U1
 Un = [U, U1, U2]
 
 # +
-fig, ax = plt.subplots(1, 3, figsize=(15,10))
+fig, ax = plt.subplots(1, 3, figsize=(15, 5))
 plt.subplots_adjust(wspace=0.4)
+make_decor(ax, xlims, ylims)
 titles = ["До преобразования", "Растяжение", "Вращение"]
 
 for i, axi in enumerate(ax.flatten()):
     axi.plot(Xn[i][0,:], Xn[i][1,:], color='b')
     axi.quiver(*origin, Un[i][0,:], Un[i][1,:], color=['g'],
                width=0.012, angles='xy', scale_units='xy', scale=1)
-    axi.set_xlabel('x', fontsize=14)
-    axi.set_ylabel('y', fontsize=14)
-    axi.set_xlim([-4, 4])
-    axi.set_ylim([-4, 4])
-    axi.set_aspect('equal')
-    axi.grid(True)
     axi.set_title(titles[i])
-    axi.axhline(y=0, color='k')
-    axi.axvline(x=0, color='k')
     axi.text(*(Un[i].T[0]+[.1,.1]), "$\mathbf{q_1}$", fontsize=14)
     axi.text(*(Un[i].T[1]+[.1,.1]), "$\mathbf{q_2}$", fontsize=14)
-    axi.text(1, -2, Xn_str[i], color='b', fontsize=14)
+    axi.text(*(1.3*Xn[i][:,-12]), Xn_str[i], color='b', fontsize=14)
+
+plt.show()
 # -
 
 # ---
 
-# ## Алгоритмы поиска собственных чисел  ##
+# ## Алгоритмы поиска собственных чисел
 #
 # Проблема собственных значений намного сложнее, чем рассматриваемая нами ранее задача решения системы линейных уравнений.
 # Все имеющиеся методы её решения могут быть разделены на две большие группы: прямые методы, основанные на решении характеристического уравнения, и итерационные методы.
@@ -631,7 +625,9 @@ for i, axi in enumerate(ax.flatten()):
 # К итерационным методам относятся метод вращений, степенной метод и $QR$-алгоритм.
 # Остановимся на последнем.
 
-# ### $\mathbf{QR}$-алгоритм ###
+# ### $\mathbf{QR}$-алгоритм
+#
+# > $QR$-алгоритм был разработан в конце 1950-х годов независимо В.Н. Кублановской и Дж. Френсисом.
 #
 # В основе этого алгоритма лежит следующий процесс.
 #
@@ -643,7 +639,7 @@ for i, axi in enumerate(ax.flatten()):
 # При этом $A_k = Q_k^{-1} A_{k-1} Q_k$.
 # Поэтому все характеристические числа матриц $A_k$ совпадают.
 #
-# Можно доказать, что те элементы $A_k$, которые лежат ниже диагональных клеток, стремятся к нулю, а элементы этих клеток и вышележащие элементы ограничены.
+# Можно доказать, что элементы матрицы $A_k$, лежащие ниже главной диагонали, стремятся к нулю, а диагональные и вышележащие элементы ограничены.
 
 # +
 np.random.seed(12345)
@@ -666,7 +662,7 @@ for i in range(10):
 
 # ---
 
-# ## Источники ##
+# ## Источники
 #
 # 1. *Гантмахер Ф.Р.* Теория матриц. &mdash; М.: Наука, 1967. &mdash; 576 с.
 # 1. *Стренг Г.* Линейная алгебра и её применения. &mdash; М.: Мир, 1980. &mdash; 454 с.
@@ -678,8 +674,8 @@ for i in range(10):
 import sys
 print('Python: {}.{}.{}'.format(*sys.version_info[:3]))
 print('numpy: {}'.format(np.__version__))
+print('scipy: {}'.format(scipy.__version__))
 print('matplotlib: {}'.format(matplotlib.__version__))
 print('seaborn: {}'.format(seaborn.__version__))
-# print('scipy: {}'.format(sp.__version__))
 
 
