@@ -27,6 +27,7 @@
 import numpy as np
 from numpy import linalg as LA
 import matplotlib.pyplot as plt
+import scipy
 
 # +
 # Styles
@@ -45,7 +46,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # # %config InlineBackend.figure_formats = ['pdf']
-# # %config Completer.use_jedi = False
+# %config Completer.use_jedi = False
 # -
 
 # ---
@@ -219,7 +220,7 @@ for i in range(1, Nf):
 F = F.T
 
 # Find optimal hyperparameters
-Alpha = LA.inv(F.T @ F) @ F.T @ Y_train
+Alpha = LA.solve(F.T @ F, F.T @ Y_train)
 display(Alpha)
 
 # Function representing fitted line
@@ -234,8 +235,7 @@ if (Nf==2) else 'OLS'
 plt.figure(figsize=figsize)
 plt.plot(X_train, Y_train, 'o', ms=4, label='data $(x,y)$')
 plt.plot([0, 1], [b, m+b], 'k-', label=f'$y = {b:.0f} + {m:.0f}x$')
-plt.plot(X_disp, f(X_disp), '-', c=cm(3),
-         label=OLS_label)
+plt.plot(X_disp, f(X_disp), '-', c=cm(3), label=OLS_label)
 plt.title('Least squares regression fit')
 plt.xlabel('$x$')
 plt.ylabel('$y$')
@@ -265,6 +265,7 @@ L = LA.cholesky(FtF)
 # 2. Solve the lower triangular system Lt*w = Ft*y for w
 L_inv = LA.inv(L)
 w = L_inv @ Fty
+# w = scipy.linalg.solve_triangular(L, Fty)
 
 # 3. Solve the upper triangular system L*x = w for x
 x_chol = L_inv.T @ w
@@ -288,7 +289,7 @@ np.disp(x_chol)
 q, R = LA.qr(F)
 
 # 2. Solve the upper triangular system R*x = Qt*y for x
-x_qr = LA.inv(R) @ q.T @ Y_train
+x_qr = LA.solve(R, q.T @ Y_train)
 np.disp(x_qr)
 # -
 
@@ -306,6 +307,7 @@ np.disp(x_qr)
 import sys
 print('Python: {}.{}.{}'.format(*sys.version_info[:3]))
 print('numpy: {}'.format(np.__version__))
+print('scipy: {}'.format(scipy.__version__))
 print('matplotlib: {}'.format(matplotlib.__version__))
 print('seaborn: {}'.format(seaborn.__version__))
 

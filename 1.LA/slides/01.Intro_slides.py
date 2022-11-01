@@ -84,10 +84,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import interpolate
 
-import sys
-sys.path.append('../modules')
-import graph_support
-
 # + slideshow={"slide_type": "skip"}
 # Styles
 import warnings 
@@ -182,6 +178,10 @@ plt.show()
 # #### Процесс сходимости однокритериальной задачи ####
 
 # + slideshow={"slide_type": "skip"}
+import sys
+sys.path.append('../modules')
+import graph_support
+
 from IPython.display import Image
 im_width = 1200
 

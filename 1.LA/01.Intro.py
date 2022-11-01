@@ -200,14 +200,14 @@ seaborn.set_style('whitegrid')
 # Define the data
 n = 20
 x_lim = [0, 1]  # Limits
-x_disp = np.linspace(*x_lim, 1001)  # X array for display
+x_disp = np.linspace(*x_lim, 1001) # X array for display
 # Underlying relation
-x_train = np.linspace(*x_lim, n)  # Independent variable x
-y_true = np.sin(3*np.pi*x_train)  # Dependent variable y
+x_train = np.linspace(*x_lim, n)   # Independent variable x
+y_true = np.sin(3*np.pi*x_train)   # Dependent variable y
 # Noise
 np.random.seed(42)
 e_std = 0.4  # Standard deviation of the noise
-err = e_std * np.random.randn(n)  # Noise
+err = e_std * np.random.randn(n)   # Noise
 # Output
 y_train = y_true + err  # Dependent variable with noise
 
