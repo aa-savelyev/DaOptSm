@@ -43,7 +43,8 @@ seaborn.set_style('whitegrid')
 import warnings
 warnings.filterwarnings('ignore')
 
-# %config Completer.use_jedi = False
+# # %config InlineBackend.figure_formats = ['pdf']
+# # %config Completer.use_jedi = False
 # -
 
 # ---
@@ -116,12 +117,13 @@ r = 1.
 seaborn.set_style("whitegrid")
 plt.figure(figsize=(8, 8))
 plt.title('Единичные сферы')
-for p in [0.5, 1, 2, 5, 100]:
-    plt.plot(x_t(t, r, p), y_t(t, r, p), label=f'$|x|^{{{p}}} + |y|^{{{p}}} = 1$')
+labels = ['$L_{1/2}$','$L_1$','$L_2$','$L_5$','$L_\infty$']
+for i, p in enumerate([1./2, 1, 2, 5, 100]):
+    plt.plot(x_t(t, r, p), y_t(t, r, p), label=labels[i])
 
 plt.xlabel(r"$x$")
 plt.ylabel(r"$y$", rotation='horizontal', horizontalalignment='right')
-plt.legend();
+plt.legend(loc=10);
 # -
 
 # ### Нормы матриц ###
@@ -144,7 +146,7 @@ plt.legend();
 # Матричная норма $\|A\|$ называется *подчинённой* векторной нормой $\|\mathbf{x}\|$, если
 # $$ \|A\| \equiv \sup\limits_{\mathbf{x} \ne 0} \dfrac{\|A \mathbf{x}\|}{\|\mathbf{x}\|} = \sup\limits_{\|\mathbf{x}\| = 1} \|A \mathbf{x}\|. $$
 #
-# В этом случае случае говорят также, что векторная норма *индуцирует* матричную норму.
+# В этом случае говорят также, что векторная норма *индуцирует* матричную норму.
 #
 # **Предложение.**
 # Если норма $\|A\|$ подчинена какой-то векторной норме $\|\mathbf{x}\|$, то она с ней согласована.
@@ -165,17 +167,19 @@ plt.legend();
 # 1. Ядерная норма:
 # $\|A\|_N = \sigma_1 + \ldots + \sigma_r$.
 
-# ### Теорема Эккарта &mdash; Янга ###
+# ### Теорема Эккарта &mdash; Янга
 #
 # **Теорема.**
-# Наилучшая (в смысле нормы Фробениуса) матрица ранга $k$, соответствующая матрице $A$ является матрица $A_k = U \Sigma_k V^\top$.
+# Матрица $A_k = U \Sigma_k V^\top$ является наилучшим в смысле нормы Фробениуса приближением матрицы $A$ среди всех матриц ранга $k$.
 #
 # >**Примечание.**
-# В 1955 году Мирский доказал, что подходит любая норма матрицы, если зависит только от сингулярных чисел.
+# В 1955 году Мирский доказал, что подходит любая норма матрицы, если она зависит только от сингулярных чисел.
 #
-# Итак, для любой нормы из приведённых выше,
+# Итак, для любой нормы из приведённых выше
 #
-# $$ \|A - B\| \ge \|A - A_k\|. $$
+# $$
+#   \|A - B\| \ge \|A - A_k\|, \quad \forall B: \mathrm{rank}(B) = k.
+# $$
 
 # ---
 
@@ -281,7 +285,7 @@ fig.colorbar(im, shrink=0.90)
 plt.show()
 # -
 
-# С помощью сингулярного разложения попробуем найти внутренние (скрытые) взаимосвязи в таблице данных. \
+# С помощью сингулярного разложения попробуем найти внутренние (скрытые) взаимосвязи в таблице данных.
 # Столбцы матрицы $U$ можно трактовать, как категории зрителей, а строки матрицы $V^\top$ &mdash; как категории фильмов. \
 # Для примера рассмотрим первые три главных компоненты.
 
@@ -342,7 +346,7 @@ plt.show()
 # Посмотрим на главные компоненты картин или фотографий.
 
 # Reading the image
-img = plt.imread("pix/7.SVD/Mona Lisa.png")
+img = plt.imread("pix/PCA/Mona Lisa.png")
 print(np.shape(img))
 
 # +
@@ -352,13 +356,32 @@ plt.subplots_adjust(wspace=0.3, hspace=0.2)
 
 ax.imshow(img, cmap='gray')
 ax.set_axis_off()
-ax.set_title("Original image")
+ax.set_title(f"Original image ({img.shape[0]} x {img.shape[1]})")
+
+plt.show()
+
+# +
+seaborn.set_style("white")
+fig, axes = plt.subplots(1, 2, figsize=(10,10))
+plt.subplots_adjust(wspace=0.3, hspace=0.2)
+
+Cor_1 = img@img.T
+Cor_2 = img.T@img
+
+axes[0].imshow(Cor_1, cmap='gray')
+axes[0].set_axis_off()
+axes[0].set_title(f'$AA^\\top$ ({Cor_1.shape[0]} x {Cor_1.shape[1]})')
+
+axes[1].imshow(Cor_2, cmap='gray')
+axes[1].set_axis_off()
+axes[1].set_title(f'$A^\\top A$ ({Cor_2.shape[0]} x {Cor_2.shape[1]})')
 
 plt.show()
 
 # +
 # SVD 
 U, s, Vt = LA.svd(img)
+Sigma = np.diag(s)
 print(np.shape(s))
 
 S_s = sum(s)
@@ -401,27 +424,43 @@ plt.show()
 
 # +
 seaborn.set_style("white")
-fig, axes = plt.subplots(2, 3, figsize=(14,10))
-plt.subplots_adjust(wspace=0.2, hspace=0.2)
+fig, axes = plt.subplots(2, 3, figsize=(12,12))
+plt.subplots_adjust(wspace=0.1, hspace=0.1)
 
 axes[0, 0].imshow(img, cmap='gray')
 axes[0, 0].set_axis_off()
 axes[0, 0].set_title("original image")
-k = 5
-for i in range(k):
+for i in range(5):
     img_i = s[i] * U[:,i].reshape(-1,1) @ Vt[i,:].reshape(1,-1)
-    axes[(i+1) // 3, (i+1) % 3].imshow(img_i, cmap='gray')
-    axes[(i+1) // 3, (i+1) % 3].set_axis_off()
-    axes[(i+1) // 3, (i+1) % 3].set_title(
+    axes[(i+1)//3, (i+1)%3].imshow(img_i, cmap='gray')
+    axes[(i+1)//3, (i+1)%3].set_axis_off()
+    axes[(i+1)//3, (i+1)%3].set_title(
         f"$\sigma_{i+1} \mathbf{{u}}_{i+1} \mathbf{{v}}_{i+1}^\\top$")
     
 plt.show()
 # +
+seaborn.set_style("white")
+fig, axes = plt.subplots(2, 3, figsize=(12,12))
+plt.subplots_adjust(wspace=0.1, hspace=0.1)
+
+axes[0, 0].imshow(img, cmap='gray')
+axes[0, 0].set_axis_off()
+axes[0, 0].set_title("original image")
+for i in range(1, 6):
+    img_i = U[:, :i] @ Sigma[:i, :i] @ Vt[:i, :]
+    axes[i//3, i%3].imshow(img_i, cmap='gray')
+    axes[i//3, i%3].set_axis_off()
+    axes[i//3, i%3].set_title(f"$\Sigma_{i}$")
+    
+plt.show()
+
+# +
+n = 5
 Sigma = np.zeros((img.shape[0], img.shape[1]))
 Sigma[:min(img.shape[0], img.shape[1]), :min(img.shape[0], img.shape[1])] = np.diag(s)
 
 # Reconstruction of the matrix using the first k singular values
-img_k = U[:, :k] @ Sigma[:k, :k] @ Vt[:k, :]
+img_n = U[:, :n] @ Sigma[:n, :n] @ Vt[:n, :]
 
 # +
 seaborn.set_style("white")
@@ -432,8 +471,8 @@ ax1.imshow(img, cmap='gray')
 ax1.set_title("Original image")
 ax1.set_axis_off()
 
-ax2.imshow(img_k, cmap='gray')
-ax2.set_title(f"{k} principal components")
+ax2.imshow(img_n, cmap='gray')
+ax2.set_title(f"{n} principal components")
 ax2.set_axis_off()
 plt.show()
 # -

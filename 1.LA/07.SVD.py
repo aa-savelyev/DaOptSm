@@ -265,8 +265,6 @@ for i, axi in enumerate(ax.flatten()):
 
 # ### Связь с полярным разложением
 
-# $A = U \Sigma V^\top = U \Sigma U^\top U V^\top = S_1Q$
-
 S1 = U @ np.diag(sgm) @ U.T
 Q = U @ Vt
 
@@ -298,7 +296,7 @@ for i, axi in enumerate(ax.flatten()):
     axi.text(1.5, -2, Xn_str[i], color='b', fontsize=14)
 # -
 
-# $A = U \Sigma V^\top = U V^\top V \Sigma V^\top = QS_2$
+# $A = U \Sigma V^\top = (U \Sigma U^\top) (U V^\top) = S_1Q$
 
 Q = U @ Vt
 S2 = V @ np.diag(sgm) @ Vt
@@ -330,6 +328,8 @@ for i, axi in enumerate(ax.flatten()):
     axi.text(*(Vn[i].T[1]+[.1,.1]), "$\mathbf{v_2}$", fontsize=14)
     axi.text(1.5, -2, Xn_str[i], color='b', fontsize=14)
 # -
+
+# $A = U \Sigma V^\top = (U V^\top) (V \Sigma V^\top) = QS_2$
 
 # ---
 

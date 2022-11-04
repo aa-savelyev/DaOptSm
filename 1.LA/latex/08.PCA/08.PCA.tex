@@ -13,9 +13,25 @@
       \usepackage{polyglossia}
       \setmainlanguage[babelshorthands=true]{russian}    % Язык по-умолчанию русский с поддержкой приятных команд пакета babel
       \setotherlanguage{english}                         % Дополнительный язык = английский (в американской вариации по-умолчанию)
-      \newfontfamily\cyrillicfonttt[Scale=0.87,BoldFont={Fira Mono Medium}] {Fira Mono}  % Моноширинный шрифт для кириллицы
+
       \defaultfontfeatures{Ligatures=TeX}
-      \newfontfamily\cyrillicfont{STIX Two Text}         % Шрифт с засечками для кириллицы
+      \setmainfont[BoldFont={STIX Two Text SemiBold}]%
+      {STIX Two Text}                                    % Шрифт с засечками
+      \newfontfamily\cyrillicfont[BoldFont={STIX Two Text SemiBold}]%
+      {STIX Two Text}                                    % Шрифт с засечками для кириллицы
+      \setsansfont{Fira Sans}                            % Шрифт без засечек
+      \newfontfamily\cyrillicfontsf{Fira Sans}           % Шрифт без засечек для кириллицы
+      \setmonofont[Scale=0.87,BoldFont={Fira Mono Medium},ItalicFont=[FiraMono-Oblique]]%
+      {Fira Mono}%                                       % Моноширинный шрифт
+      \newfontfamily\cyrillicfonttt[Scale=0.87,BoldFont={Fira Mono Medium},ItalicFont=[FiraMono-Oblique]]%
+      {Fira Mono}                                        % Моноширинный шрифт для кириллицы
+
+      %%% Математические пакеты %%%
+      \usepackage{amsthm,amsmath,amscd}   % Математические дополнения от AMS
+      \usepackage{amsfonts,amssymb}       % Математические дополнения от AMS
+      \usepackage{mathtools}              % Добавляет окружение multlined
+      \usepackage{unicode-math}           % Для шрифта STIX Two Math
+      \setmathfont{STIX Two Math}         % Математический шрифт
     \fi
     \renewcommand{\linethickness}{0.1ex}
 
@@ -47,7 +63,7 @@
     \usepackage{eurosym} % defines \euro
     \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
     \usepackage{fancyvrb} % verbatim replacement that allows latex
-    \usepackage{grffile} % extends the file name processing of package graphics 
+    \usepackage{grffile} % extends the file name processing of package graphics
                          % to support a larger range
     \makeatletter % fix for old versions of grffile with XeLaTeX
     \@ifpackagelater{grffile}{2019/11/01}
@@ -78,9 +94,9 @@
     \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
                                 % normalem makes italics be italics, not underlines
     \usepackage{mathrsfs}
-    
 
-    
+
+
     % Colors for the hyperref package
     \definecolor{urlcolor}{rgb}{0,.145,.698}
     \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
@@ -130,7 +146,7 @@
     \newcommand{\RegionMarkerTok}[1]{{#1}}
     \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
     \newcommand{\NormalTok}[1]{{#1}}
-    
+
     % Additional commands for more recent versions of Pandoc
     \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
     \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
@@ -149,8 +165,8 @@
     \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
     \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
     \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
-    
-    
+
+
     % Define a nice break command that doesn't care if a line doesn't already
     % exist.
     \def\br{\hspace*{\fill} \\* }
@@ -167,7 +183,7 @@
       {\Large Лекция 8} \\
       Главные компоненты
     }
-    \date{27 октября 2021\,г.}
+    \date{26 октября 2022\,г.}
     
     
     
@@ -273,53 +289,53 @@
 \makeatother
 
 
-    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    % For linebreaks inside Verbatim environment from package fancyvrb.
     \makeatletter
-        \newbox\Wrappedcontinuationbox 
-        \newbox\Wrappedvisiblespacebox 
-        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
-        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
-        \newcommand*\Wrappedcontinuationindent {3ex } 
-        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
-        % Take advantage of the already applied Pygments mark-up to insert 
-        % potential linebreaks for TeX processing. 
-        %        {, <, #, %, $, ' and ": go to next line. 
-        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
-        % Use of \textquotesingle for straight quote. 
-        \newcommand*\Wrappedbreaksatspecials {% 
-            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
-            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
-            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
-            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
-            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
-            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
-            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
-            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
-            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
-            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
-            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
-            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
-            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
-            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
-        } 
-        % Some characters . , ; ? ! / are not pygmentized. 
-        % This macro makes them "active" and they will insert potential linebreaks 
-        \newcommand*\Wrappedbreaksatpunct {% 
-            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
-            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
-            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
-            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
-            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
-            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
-            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+        \newbox\Wrappedcontinuationbox
+        \newbox\Wrappedvisiblespacebox
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}}
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}}
+        \newcommand*\Wrappedcontinuationindent {3ex }
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox}
+        % Take advantage of the already applied Pygments mark-up to insert
+        % potential linebreaks for TeX processing.
+        %        {, <, #, %, $, ' and ": go to next line.
+        %        _, }, ^, &, >, - and ~: stay at end of broken line.
+        % Use of \textquotesingle for straight quote.
+        \newcommand*\Wrappedbreaksatspecials {%
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}%
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}%
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}%
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}%
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}%
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}%
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}%
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}%
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}%
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}%
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}%
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}%
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}%
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}%
+        }
+        % Some characters . , ; ? ! / are not pygmentized.
+        % This macro makes them "active" and they will insert potential linebreaks
+        \newcommand*\Wrappedbreaksatpunct {%
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}%
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}%
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}%
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}%
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}%
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}%
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}%
             \catcode`\.\active
-            \catcode`\,\active 
+            \catcode`\,\active
             \catcode`\;\active
             \catcode`\:\active
             \catcode`\?\active
             \catcode`\!\active
-            \catcode`\/\active 
-            \lccode`\~`\~ 	
+            \catcode`\/\active
+            \lccode`\~`\~
         }
     \makeatother
 
@@ -342,10 +358,10 @@
             \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
             {\kern\fontdimen2\font}%
         }%
-        
+
         % Allow breaks at special characters using \PYG... macros.
         \Wrappedbreaksatspecials
-        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active
         \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
     }
     \makeatother
@@ -355,7 +371,7 @@
     \definecolor{outcolor}{HTML}{D84315}
     \definecolor{cellborder}{HTML}{CFCFCF}
     \definecolor{cellbackground}{HTML}{F7F7F7}
-    
+
     % prompt
     \makeatletter
     \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
@@ -363,11 +379,11 @@
     \newcommand{\prompt}[4]{
         {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
     }
-    
 
-    
+
+
     % Prevent overflowing lines due to hard-to-break entities
-    \sloppy 
+    \sloppy
     % Setup hyperref package
     \hypersetup{
       breaklinks=true,  % so long urls are correctly broken across lines
@@ -377,29 +393,39 @@
       citecolor=citecolor,
       }
     % Slightly bigger margins than the latex defaults
-    
+
     \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
-    
-    
+
+
 
 \begin{document}
-    
+
 \maketitle
 \thispagestyle{empty}
 \tableofcontents
-\pagebreak
 
+\let\thefootnote\relax\footnote{
+  \textit{День 26 октября в истории:
+    \begin{itemize}[topsep=2pt,itemsep=1pt]
+      \item 1597 г. ---  Имдинская война: Адмирал Ли Сунсин всего с 13 кораблями разгромил японский флот из 300 судов в битве при Мёнъян.
+      \item 1864 г. --- во Франции и Англии Н. А. Телешову выдан патент на проект пассажирского самолёта с паровым двигателем и воздушным винтом.
+      \item 1962 г. --- Правительства Великобритании и Франции подписали соглашение о совместном создании сверхзвукового пассажирского самолёта <<Конкорд>>.
+      \item 1962 г. --- Н. С. Хрущёв и Дж. Кеннеди договорились о возврате советских кораблей, везущих на Кубу ракеты.
+      \item 1999 г. --- по предложению английского премьер-министра Тони Блэра, лорды, заседающие в верхней палате парламента по праву рождения, проголосовали за отмену этого права, уничтожив тем самым одну из основ британского парламентаризма --- право лордов на наследование кресла, существовавшее почти 800 лет.
+      \item 2002 г. --- теракт на Дубровке: штурм театрального центра спецназом для освобождения заложников. Погибло не менее 130 человек, включая 10 детей.
+    \end{itemize}
+  }
+}
+\newpage
 
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{1}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Imports}
-\PY{k+kn}{import} \PY{n+nn}{sys}
 \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
 \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k+kn}{import} \PY{n}{linalg} \PY{k}{as} \PY{n}{LA}
 \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
-\PY{o}{\PYZpc{}}\PY{k}{config} Completer.use\PYZus{}jedi = False
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -407,9 +433,6 @@
 \prompt{In}{incolor}{2}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Styles}
-\PY{k+kn}{import} \PY{n+nn}{warnings}
-\PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-
 \PY{k+kn}{import} \PY{n+nn}{matplotlib}
 \PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{14}
 \PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.linewidth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.5}
@@ -418,6 +441,17 @@
 
 \PY{k+kn}{import} \PY{n+nn}{seaborn}
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{warnings}
+\PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} \PYZpc{}config InlineBackend.figure\PYZus{}formats = [\PYZsq{}pdf\PYZsq{}]}
+\PY{c+c1}{\PYZsh{} \PYZpc{}config Completer.use\PYZus{}jedi = False}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -527,7 +561,7 @@
 \end{enumerate}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{3}{\boxspacing}
+\prompt{In}{incolor}{4}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k}{def} \PY{n+nf}{x\PYZus{}t}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{:}
     \PY{k}{return} \PY{n}{r} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sign}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{p}\PY{p}{)}
@@ -538,7 +572,7 @@
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{4}{\boxspacing}
+\prompt{In}{incolor}{5}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{l+m+mi}{501}\PY{p}{)}
 \PY{n}{r} \PY{o}{=} \PY{l+m+mf}{1.}
@@ -546,19 +580,20 @@
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{whitegrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Единичные сферы}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{]}\PY{p}{:}
-    \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}t}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}t}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}|x|\PYZca{}}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+si}{\PYZob{}}\PY{n}{p}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s1}{ + |y|\PYZca{}}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+si}{\PYZob{}}\PY{n}{p}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s1}{ = 1\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}L\PYZus{}}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{1/2\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}L\PYZus{}1\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}L\PYZus{}2\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}L\PYZus{}5\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}L\PYZus{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{infty\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{p} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{1.}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+    \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}t}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}t}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{labels}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
 
 \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{;}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.7\linewidth}{0.7\paperheight}}{output_11_0.png}
+    \adjustimage{max size={0.6\linewidth}{0.6\paperheight}}{Norms.pdf}
     \end{center}
-    { \hspace*{\fill} \\}
+%    { \hspace*{\fill} \\}
     
     \hypertarget{ux43dux43eux440ux43cux44b-ux43cux430ux442ux440ux438ux446}{%
 \subsection{Нормы
@@ -576,7 +611,7 @@
 \emph{подчинённой} векторной нормой \(\|\mathbf{x}\|\), если
 \[ \|A\| \equiv \sup\limits_{\mathbf{x} \ne 0} \dfrac{\|A \mathbf{x}\|}{\|\mathbf{x}\|} = \sup\limits_{\|\mathbf{x}\| = 1} \|A \mathbf{x}\|. \]
 
-В этом случае случае говорят также, что векторная норма
+В этом случае говорят также, что векторная норма
 \emph{индуцирует} матричную норму.
 
 \textbf{Предложение.} Если норма \(\|A\|\) подчинена какой-то векторной
@@ -605,18 +640,18 @@
 \subsection{Теорема Эккарта ---
 Янга}\label{ux442ux435ux43eux440ux435ux43cux430-ux44dux43aux43aux430ux440ux442ux430-ux44fux43dux433ux430}}
 
-\textbf{Теорема.} Наилучшая (в смысле нормы Фробениуса) матрица ранга
-\(k\), соответствующая матрице \(A\) является матрица
-\(A_k = U \Sigma_k V^\top\).
+\textbf{Теорема.} Матрица $A_k = U \Sigma_k V^\top$ является наилучшим в смысле нормы Фробениуса приближением матрицы $A$ среди всех матриц ранга $k$.
 
 \begin{quote}
 \textbf{Примечание.} В 1955 году Мирский доказал, что подходит любая
-норма матрицы, если зависит только от сингулярных чисел.
+норма матрицы, если она зависит только от сингулярных чисел.
 \end{quote}
 
-Итак, для любой нормы из приведённых выше,
+Итак, для любой нормы из приведённых выше
 
-\[ \|A - B\| \ge \|A - A_k\|. \]
+\[
+  \|A - B\| \ge \|A - A_k\|, \quad \forall B: \mathrm{rank}(B) = k.
+\]
 
     \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -703,10 +738,24 @@ PCA относится к методам обучения без учителя.
 признаков}\label{ux432ux44bux44fux432ux43bux435ux43dux438ux435-ux441ux43aux440ux44bux442ux44bux445-ux43fux440ux438ux437ux43dux430ux43aux43eux432}}
 
 Рассмотрим таблицу оценок фильмов (столбцы --- фильмы, строки ---
-зрители).
+зрители)
+
+\[
+  F = 
+  \begin{pmatrix}
+    5 & 5 & 4 & 2 & 1 \\
+    5 & 3 & 4 & 3 & 2 \\
+    2 & 1 & 3 & 5 & 4 \\
+    4 & 5 & 5 & 1 & 2 \\
+    4 & 4 & 5 & 2 & 1 \\
+    2 & 3 & 1 & 4 & 3 \\
+    5 & 4 & 5 & 3 & 1 \\
+    5 & 2 & 2 & 2 & 2 \\
+  \end{pmatrix}.
+\]
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{5}{\boxspacing}
+\prompt{In}{incolor}{6}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}
     \PY{p}{[} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1} \PY{p}{]}\PY{p}{,}
@@ -722,7 +771,7 @@ PCA относится к методам обучения без учителя.
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{6}{\boxspacing}
+\prompt{In}{incolor}{7}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
@@ -745,18 +794,18 @@ PCA относится к методам обучения без учителя.
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.33\linewidth}{0.33\paperheight}}{output_24_0.png}
+    \adjustimage{max size={0.4\linewidth}{0.4\paperheight}}{Rating_table.pdf}
     \end{center}
-    { \hspace*{\fill} \\}
+%    { \hspace*{\fill} \\}
     
     С помощью сингулярного разложения попробуем найти внутренние (скрытые)
-взаимосвязи в таблице данных.\\
+взаимосвязи в таблице данных.
 Столбцы матрицы \(U\) можно трактовать, как категории зрителей, а строки
 матрицы \(V^\top\) --- как категории фильмов.\\
 Для примера рассмотрим первые три главных компоненты.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{7}{\boxspacing}
+\prompt{In}{incolor}{8}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} SVD }
 \PY{n}{U}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{Vt} \PY{o}{=} \PY{n}{LA}\PY{o}{.}\PY{n}{svd}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{full\PYZus{}matrices}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
@@ -771,7 +820,7 @@ s = [20.67  5.92  2.74  2.38  1.54]
     \end{Verbatim}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{8}{\boxspacing}
+\prompt{In}{incolor}{9}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{3}
 \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
@@ -795,9 +844,9 @@ s = [20.67  5.92  2.74  2.38  1.54]
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.8\linewidth}{0.8\paperheight}}{output_27_0.png}
+    \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{Categories.pdf}
     \end{center}
-    { \hspace*{\fill} \\}
+%    { \hspace*{\fill} \\}
     
     Видно, что к первой категории фильмов можно отнести фильмы 1-3, ко
 второй --- 4-5, к третьей --- фильм № 1.\\
@@ -806,7 +855,7 @@ s = [20.67  5.92  2.74  2.38  1.54]
 входит только зритель № 8.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{9}{\boxspacing}
+\prompt{In}{incolor}{10}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
@@ -830,9 +879,9 @@ s = [20.67  5.92  2.74  2.38  1.54]
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Movies_PCA.pdf}
     \end{center}
-    { \hspace*{\fill} \\}
+%    { \hspace*{\fill} \\}
     
     \hypertarget{ux430ux43fux43fux440ux43eux43aux441ux438ux43cux430ux446ux438ux438-ux438ux437ux43eux431ux440ux430ux436ux435ux43dux438ux439}{%
 \subsection{Аппроксимации
@@ -841,10 +890,10 @@ s = [20.67  5.92  2.74  2.38  1.54]
 Посмотрим на главные компоненты картин или фотографий.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{10}{\boxspacing}
+\prompt{In}{incolor}{11}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Reading the image}
-\PY{n}{img} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pix/7.SVD/Mona Lisa.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{img} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pix/PCA/Mona Lisa.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n}{img}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
@@ -854,7 +903,7 @@ s = [20.67  5.92  2.74  2.38  1.54]
     \end{Verbatim}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{11}{\boxspacing}
+\prompt{In}{incolor}{12}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
@@ -862,22 +911,50 @@ s = [20.67  5.92  2.74  2.38  1.54]
 
 \PY{n}{ax}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}axis\PYZus{}off}\PY{p}{(}\PY{p}{)}
-\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Original image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Original image (}\PY{l+s+si}{\PYZob{}}\PY{n}{img}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ x }\PY{l+s+si}{\PYZob{}}\PY{n}{img}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 
 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.4\linewidth}{0.4\paperheight}}{output_32_0.png}
+    \adjustimage{max size={0.5\linewidth}{0.5\paperheight}}{Gioconda.pdf}
     \end{center}
-    { \hspace*{\fill} \\}
+%    { \hspace*{\fill} \\}
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{12}{\boxspacing}
+\prompt{In}{incolor}{13}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+
+\PY{n}{Cor\PYZus{}1} \PY{o}{=} \PY{n}{img}\PY{n+nd}{@img}\PY{o}{.}\PY{n}{T}
+\PY{n}{Cor\PYZus{}2} \PY{o}{=} \PY{n}{img}\PY{o}{.}\PY{n}{T}\PY{n+nd}{@img}
+
+\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{Cor\PYZus{}1}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}axis\PYZus{}off}\PY{p}{(}\PY{p}{)}
+\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}AA\PYZca{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{top\PYZdl{} (}\PY{l+s+si}{\PYZob{}}\PY{n}{Cor\PYZus{}1}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{ x }\PY{l+s+si}{\PYZob{}}\PY{n}{Cor\PYZus{}1}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{Cor\PYZus{}2}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}axis\PYZus{}off}\PY{p}{(}\PY{p}{)}
+\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}A\PYZca{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{top A\PYZdl{} (}\PY{l+s+si}{\PYZob{}}\PY{n}{Cor\PYZus{}2}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{ x }\PY{l+s+si}{\PYZob{}}\PY{n}{Cor\PYZus{}2}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.8\linewidth}{0.8\paperheight}}{AAA&ATA.pdf}
+    \end{center}
+%    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{14}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} SVD }
 \PY{n}{U}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{Vt} \PY{o}{=} \PY{n}{LA}\PY{o}{.}\PY{n}{svd}\PY{p}{(}\PY{n}{img}\PY{p}{)}
+\PY{n}{Sigma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{s}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{)}
 
 \PY{n}{S\PYZus{}s} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{s}\PY{p}{)}
@@ -890,7 +967,7 @@ s = [20.67  5.92  2.74  2.38  1.54]
     \end{Verbatim}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{13}{\boxspacing}
+\prompt{In}{incolor}{15}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{whitegrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
@@ -916,12 +993,12 @@ s = [20.67  5.92  2.74  2.38  1.54]
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{SV_spectrum.pdf}
     \end{center}
-    { \hspace*{\fill} \\}
+%    { \hspace*{\fill} \\}
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{14}{\boxspacing}
+\prompt{In}{incolor}{16}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{whitegrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
@@ -938,26 +1015,25 @@ s = [20.67  5.92  2.74  2.38  1.54]
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{U&VT.pdf}
     \end{center}
-    { \hspace*{\fill} \\}
+%    { \hspace*{\fill} \\}
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{15}{\boxspacing}
+\prompt{In}{incolor}{17}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
 
 \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}axis\PYZus{}off}\PY{p}{(}\PY{p}{)}
 \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{original image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{k} \PY{o}{=} \PY{l+m+mi}{5}
-\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{:}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
     \PY{n}{img\PYZus{}i} \PY{o}{=} \PY{n}{s}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{U}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{@} \PY{n}{Vt}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
-    \PY{n}{axes}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{3}\PY{p}{,} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}i}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-    \PY{n}{axes}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{3}\PY{p}{,} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}axis\PYZus{}off}\PY{p}{(}\PY{p}{)}
-    \PY{n}{axes}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{3}\PY{p}{,} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}
+    \PY{n}{axes}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{,} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZpc{}}\PY{k}{3}].imshow(img\PYZus{}i, cmap=\PYZsq{}gray\PYZsq{})
+    \PY{n}{axes}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{,} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZpc{}}\PY{k}{3}].set\PYZus{}axis\PYZus{}off()
+    \PY{n}{axes}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{,} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZpc{}}\PY{k}{3}].set\PYZus{}title(
         \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sigma\PYZus{}}\PY{l+s+si}{\PYZob{}}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+s2}{u}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s2}{\PYZus{}}\PY{l+s+si}{\PYZob{}}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+s2}{v}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s2}{\PYZus{}}\PY{l+s+si}{\PYZob{}}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZca{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{top\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
     
 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
@@ -965,23 +1041,49 @@ s = [20.67  5.92  2.74  2.38  1.54]
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Gioconda_PCA.pdf}
     \end{center}
-    { \hspace*{\fill} \\}
+%    { \hspace*{\fill} \\}
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{16}{\boxspacing}
+\prompt{In}{incolor}{18}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+
+\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}axis\PYZus{}off}\PY{p}{(}\PY{p}{)}
+\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{original image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+    \PY{n}{img\PYZus{}i} \PY{o}{=} \PY{n}{U}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{n}{i}\PY{p}{]} \PY{o}{@} \PY{n}{Sigma}\PY{p}{[}\PY{p}{:}\PY{n}{i}\PY{p}{,} \PY{p}{:}\PY{n}{i}\PY{p}{]} \PY{o}{@} \PY{n}{Vt}\PY{p}{[}\PY{p}{:}\PY{n}{i}\PY{p}{,} \PY{p}{:}\PY{p}{]}
+    \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{3}].imshow(img\PYZus{}i, cmap=\PYZsq{}gray\PYZsq{})
+    \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{3}].set\PYZus{}axis\PYZus{}off()
+    \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{3}].set\PYZus{}title(f\PYZdq{}\PYZdl{}\PYZbs{}Sigma\PYZus{}\PYZob{}i\PYZcb{}\PYZdl{}\PYZdq{})
+    
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Gioconda_Ak.pdf}
+    \end{center}
+%    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{19}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{n} \PY{o}{=} \PY{l+m+mi}{5}
 \PY{n}{Sigma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{img}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{img}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
 \PY{n}{Sigma}\PY{p}{[}\PY{p}{:}\PY{n+nb}{min}\PY{p}{(}\PY{n}{img}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{img}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{p}{:}\PY{n+nb}{min}\PY{p}{(}\PY{n}{img}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{img}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{s}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Reconstruction of the matrix using the first k singular values}
-\PY{n}{img\PYZus{}k} \PY{o}{=} \PY{n}{U}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{n}{k}\PY{p}{]} \PY{o}{@} \PY{n}{Sigma}\PY{p}{[}\PY{p}{:}\PY{n}{k}\PY{p}{,} \PY{p}{:}\PY{n}{k}\PY{p}{]} \PY{o}{@} \PY{n}{Vt}\PY{p}{[}\PY{p}{:}\PY{n}{k}\PY{p}{,} \PY{p}{:}\PY{p}{]}
+\PY{n}{img\PYZus{}n} \PY{o}{=} \PY{n}{U}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{n}{n}\PY{p}{]} \PY{o}{@} \PY{n}{Sigma}\PY{p}{[}\PY{p}{:}\PY{n}{n}\PY{p}{,} \PY{p}{:}\PY{n}{n}\PY{p}{]} \PY{o}{@} \PY{n}{Vt}\PY{p}{[}\PY{p}{:}\PY{n}{n}\PY{p}{,} \PY{p}{:}\PY{p}{]}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{17}{\boxspacing}
+\prompt{In}{incolor}{20}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
@@ -991,17 +1093,17 @@ s = [20.67  5.92  2.74  2.38  1.54]
 \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Original image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}axis\PYZus{}off}\PY{p}{(}\PY{p}{)}
 
-\PY{n}{ax2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}k}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}}\PY{n}{k}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ principal components}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{ax2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}n}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}}\PY{n}{n}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ principal components}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}axis\PYZus{}off}\PY{p}{(}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Gioconda_comparison.pdf}
     \end{center}
-    { \hspace*{\fill} \\}
+%    { \hspace*{\fill} \\}
     
     \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1027,9 +1129,10 @@ s = [20.67  5.92  2.74  2.38  1.54]
 \end{enumerate}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{18}{\boxspacing}
+\prompt{In}{incolor}{21}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Versions used}
+\PY{k+kn}{import} \PY{n+nn}{sys}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Python: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{o}{*}\PY{n}{sys}\PY{o}{.}\PY{n}{version\PYZus{}info}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numpy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{matplotlib: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
@@ -1039,8 +1142,8 @@ s = [20.67  5.92  2.74  2.38  1.54]
 
     \begin{Verbatim}[commandchars=\\\{\}]
 Python: 3.7.11
-numpy: 1.21.2
-matplotlib: 3.4.2
+numpy: 1.20.3
+matplotlib: 3.5.1
 seaborn: 0.11.2
     \end{Verbatim}
 

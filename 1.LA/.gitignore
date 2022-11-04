@@ -2,4 +2,5 @@
 *.pyc
 /mat
 /pix/*/_mat
-/pix/portraits
+/pix/Portraits
+/pix/Game
