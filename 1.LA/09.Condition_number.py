@@ -38,10 +38,14 @@ cm = plt.cm.tab10  # Colormap
 
 import seaborn
 seaborn.set_style('whitegrid')
-# -
 
+# +
 import warnings
 warnings.filterwarnings('ignore')
+
+# # %config InlineBackend.figure_formats = ['pdf']
+# # %config Completer.use_jedi = False
+# -
 
 # ---
 
@@ -59,59 +63,72 @@ warnings.filterwarnings('ignore')
 # $$
 #   A = 
 #   \begin{pmatrix}
-#     1.0 & 1.0 \\
-#     1.0 & 1.2
+#     1.0 & 0.9 \\
+#     1.0 & 1.1
 #   \end{pmatrix}.
 # $$
 #
 # Её столбцы, практически, коллинеарны.
-# Из общих соображений понятно, что выбирать эти столбцы в качестве базисных &mdash; плохая идея.
-# Разложение любого вектора по таким столбцам может привести к ошибкам.
 
 # +
-A = np.array([[1.0, 1.0],
-              [1.0, 1.2]])
+A = np.array([[1.0, 0.9],
+              [1.0, 1.1]])
 
 origin = [[0,0], [0,0]] # origin point
 
-# +
-fig, ax1 = plt.subplots(1, 1, figsize=(4, 4))
-plt.subplots_adjust(wspace=0.4)
 
-# Plotting y1
-ax1.axhline(y=0, color='k')
-ax1.axvline(x=0, color='k')
-ax1.quiver(*origin, A[0,:], A[1,:], color=['g', cm(3)],
-           width=0.013, angles='xy', scale_units='xy', scale=1)
-ax1.set_xlabel('$x_1$')
-ax1.set_ylabel('$x_2$', rotation=0, ha='right')
-ax1.set_xlim([-0.2, 1.4])
-ax1.set_ylim([-0.2, 1.4])
-ax1.set_aspect('equal')
-ax1.set_axisbelow(True)
-ax1.set_title("Столбцы матрицы A")
-ax1.text(*A[:,0], "$\mathbf{a_1}$")
-ax1.text(*A[:,1], "$\mathbf{a_2}$")
+# -
+
+def make_decor(ax, xlims=None, ylims=None):
+    for axi in ax:
+        axi.axhline(y=0, color='k')
+        axi.axvline(x=0, color='k')
+        axi.set_xlabel('$x_1$')
+        axi.set_ylabel('$x_2$', rotation=0, ha='right')
+        if(xlims):
+            axi.set_xlim(xlims)
+            axi.set_ylim(ylims)
+        axi.set_aspect('equal')
+        axi.set_axisbelow(True)
+
+
+# +
+fig, ax = plt.subplots(1, 1, figsize=(4, 4))
+plt.subplots_adjust(wspace=0.4)
+make_decor([ax], [-0.2, 1.4], [-0.2, 1.4])
+
+# Plotting A
+ax.quiver(*origin, A[0,:], A[1,:], color=['g', cm(3)],
+          width=0.013, angles='xy', scale_units='xy', scale=1)
+ax.set_title("Столбцы матрицы A")
+ax.text(*A[:,0], "$\mathbf{a_1}$")
+ax.text(*A[:,1], "$\mathbf{a_2}$")
 
 plt.show()
 # -
 
-# Посмотрим, как появляются эти ошибки.
+# Из общих соображений понятно, что выбирать эти столбцы в качестве базисных &mdash; плохая идея.
+# Посмотрим, какие проблемы могут появиться.
 #
 # Пусть вектор $\mathbf{b}$ известен не точно, а с некоторой погрешностью.
 # Посмотрим, какова будет погрешность решения системы &mdash; вектора $\mathbf{x}$.
 
 # > Здесь и далее на рисунках вектор правых частей изображается на *правом* рисунке (&laquo;После преобразования&raquo;), а вектор решения &mdash; на *левом* (&laquo;До преобразования&raquo;).
 
+U, sgm, Vt = LA.svd(A)
+mu = sgm[0]/sgm[1]
+
 # +
 # Creating perturbed vectors B and solve system
 # Solution
 x = np.zeros((400, 1))
 alpha = np.radians(45)
-b0 = 1.1*np.atleast_2d([np.cos(alpha), np.sin(alpha)]).T
-print(b0)
+b0 = np.atleast_2d([np.cos(alpha), np.sin(alpha)]).T  # 1
+# b0 = -np.atleast_2d(U[:,0]).T  # 2
+# b0 = np.atleast_2d(U[:,1]).T  # 3
 A_inv = LA.inv(A)
 x0 = A_inv @ b0
+print(x0)
 
 # Noise
 n = 100
@@ -124,59 +141,41 @@ B = np.vstack((B1, B2))
 X = A_inv @ B
 
 # +
-fig, ax1 = plt.subplots(1, 1, figsize=(4, 4))
+fig, ax = plt.subplots(1, 1, figsize=(4, 4))
 plt.subplots_adjust(wspace=0.4)
+make_decor([ax], [-0.2, 1.4], [-0.2, 1.4])
 
-# Plotting y1
-ax1.axhline(y=0, color='k')
-ax1.axvline(x=0, color='k')
-ax1.quiver(*origin, A[0,:], A[1,:], color=['g', cm(3)],
-           width=0.013, angles='xy', scale_units='xy', scale=1)
-ax1.quiver(*origin, b0[0,:], b0[1,:], color=['k'],
-           width=0.013, angles='xy', scale_units='xy', scale=1)
-ax1.set_xlabel('$x_1$')
-ax1.set_ylabel('$x_2$', rotation=0, ha='right')
-ax1.set_xlim([-0.2, 1.4])
-ax1.set_ylim([-0.2, 1.4])
-ax1.set_aspect('equal')
-ax1.set_axisbelow(True)
-ax1.set_title("Столбцы матрицы A")
-ax1.text(*A[:,0], "$\mathbf{a_1}$")
-ax1.text(*A[:,1], "$\mathbf{a_2}$")
+# Plotting A
+ax.quiver(*origin, A[0,:], A[1,:], color=['g', cm(3)],
+          width=0.013, angles='xy', scale_units='xy', scale=1)
+ax.quiver(*origin, b0[0,:], b0[1,:], color=['k'],
+          width=0.013, angles='xy', scale_units='xy', scale=1)
+ax.set_title("Столбцы матрицы A")
+ax.text(*A[:,0], "$\mathbf{a_1}$")
+ax.text(*A[:,1], "$\mathbf{a_2}$")
+ax.text(*b0, "$\mathbf{b}$")
+
+plt.show()
 
 
 # +
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12,6))
+fig, ax = plt.subplots(1, 2, figsize=(12, 6))
 
 plt.subplots_adjust(wspace=0.4)
 xlims = [-0.3, 1.7]
 ylims = [-1.0, 1.0]
+make_decor(ax, xlims, ylims)
+# make_decor(ax)
 
 # Plotting X
-ax1.axhline(y=0, color='k')
-ax1.axvline(x=0, color='k')
-ax1.plot(X[0,:], X[1,:], 'ro', ms=1.2, alpha=0.8)
-ax1.plot(x0[0], x0[1], 'kx', ms=10, mew=2)
-ax1.set_xlabel('$x_1$')
-ax1.set_ylabel('$x_2$', rotation=0, ha='right')
-ax1.set_xlim(xlims)
-ax1.set_ylim(ylims)
-ax1.set_aspect('equal')
-ax1.set_axisbelow(True)
-ax1.set_title("До преобразования")
+ax[0].plot(X[0,:], X[1,:], 'ro', ms=1.2, alpha=0.8)
+ax[0].plot(x0[0], x0[1], 'kx', ms=10, mew=2)
+ax[0].set_title("До преобразования")
 
-# Plotting Y
-ax2.axhline(y=0, color='k')
-ax2.axvline(x=0, color='k')
-ax2.plot(B[0, :], B[1, :], 'bo', ms=1.2, alpha=0.8)
-ax2.plot(b0[0], b0[1], 'rx', ms=10, mew=2)
-ax2.set_xlabel('$x_1$')
-ax2.set_ylabel('$x_2$', rotation=0, ha='right')
-ax2.set_xlim(xlims)
-ax2.set_ylim(ylims)
-ax2.set_aspect('equal')
-ax2.set_axisbelow(True)
-ax2.set_title("После преобразования")
+# Plotting B
+ax[1].plot(B[0, :], B[1, :], 'bo', ms=1.2, alpha=0.8)
+ax[1].plot(b0[0], b0[1], 'rx', ms=10, mew=2)
+ax[1].set_title("После преобразования")
 
 plt.show()
 
@@ -188,10 +187,10 @@ db = B - b0
 k1 = np.array(list(map(LA.norm, db.T))) / LA.norm(b0)
 k2 = np.array(list(map(LA.norm, dx.T))) / LA.norm(x0)
 
-print('Максимальное относительное увеличение возмущения max(dx/x : db/b) = ', round(max(k2/k1), 4))
+print(f'Максимальное относительное увеличение возмущения max(dx/x : db/b) = {max(k2/k1):.5g}')
 # -
 
-# Мы видим, что небольшое возмущение вектора правой части $\mathbf{b}$ привела к гораздо большим (почти в 15 раз) возмущениям вектора решений $\mathbf{x}$.
+# Мы видим, что небольшое возмущение вектора правой части $\mathbf{b}$ привела к гораздо большим (примерно в 14 раз) возмущениям вектора решений $\mathbf{x}$.
 # В таком случае говорят, что система уравнений является *плохо обусловленной*.
 # Разберёмся подробнее, что это значит.
 
@@ -202,40 +201,59 @@ print('Максимальное относительное увеличение 
 
 # ## Обусловленность ##
 
-# ### Число обусловленности ###
-#
+# ### Число обусловленности
+
 # Рассмотрим возмущённую систему
-# $$ A \tilde{\mathbf{x}} = \mathbf{b} + \delta\mathbf{b}. $$
+# $$
+#   A \tilde{\mathbf{x}} = \mathbf{b} + \delta\mathbf{b}.
+# $$
 #
 # Введём вектор возмущения решения $\delta \mathbf{x} = \tilde{\mathbf{x}} - \mathbf{x}$.
 #
 # Выразим $\mathbf{x}$ и $\delta\mathbf{x}$ через обратную матрицу $A^{-1}$:
-# $$ \delta \mathbf{x} = A^{-1}(\mathbf{b} + \delta\mathbf{b}) - A^{-1}\mathbf{b} = A^{-1}\delta\mathbf{b}. $$
+# $$
+#   \delta \mathbf{x} = A^{-1}(\mathbf{b} + \delta\mathbf{b}) - A^{-1}\mathbf{b} = A^{-1}\delta\mathbf{b}.
+# $$
 #
 # Перейдём к оценке нормы возмущения:
-# $$ \|\delta \mathbf{x}\| = \|A^{-1} \delta \mathbf{b}\| \le \|A^{-1}\| \cdot \|\delta \mathbf{b}\|. $$
-#
-# Учитывая, что $\|\mathbf{b}\| \le \|A\| \cdot \|\mathbf{x}\|$, усилим неравенство, умножим правую часть на $\|A\| \cdot \dfrac{\|\mathbf{x}\|}{\|\mathbf{b}\|}$:
-# $$ \|\delta \mathbf{x}\| \le \|A^{-1}\| \|A\| \|\mathbf{x}\| \frac{\|\delta \mathbf{b}\|}{\|\mathbf{b}\|}. $$
-#
-# Наконец, разделим на $\|\mathbf{x}\|$:
-# $$ \frac{\|\delta \mathbf{x}\|}{\|\mathbf{x}\|} \le \|A^{-1}\| \|A\| \frac{\|\delta \mathbf{b}\|}{\|\mathbf{b}\|}. $$
-#
+# $$
+#   \frac{\|\delta \mathbf{x}\|}{\|\mathbf{x}\|} = \frac{\|A^{-1} \delta \mathbf{b}\|}{\|\mathbf{x}\|} \le \frac{\|A^{-1}\| \cdot \|\mathbf{b}\|}{\|\mathbf{x}\|} \cdot \frac{\|\delta \mathbf{b}\|}{\|\mathbf{b}\|}.
+# $$
+
 # Мы получили связь между относительной погрешностью решения и относительной погрешностью правой части системы уравнений.
+#
+# Величина
+# $$
+#   \nu(A, b) = \dfrac{\|A^{-1}\| \cdot \|\mathbf{b}\|}{\|\mathbf{x}\|} = \dfrac{\|A^{-1}\| \cdot \|\mathbf{b}\|}{\|A^{-1} \mathbf{b}\|}
+# $$
+# называется *числом обусловленности системы при заданной правой части* и показывает, во сколько раз может возрасти относительная погрешность решения по сравнению с относительной погрешностью правой части.
+
+# Учитывая, что $\|\mathbf{b}\| \le \|A\| \cdot \|\mathbf{x}\|$, усилим неравенство, заменив $\|\mathbf{b}\|$ на $\|A\| \|\mathbf{x}\|$:
+# $$
+#   \frac{\|\delta \mathbf{x}\|}{\|\mathbf{x}\|}
+#   \le \frac{\|A^{-1}\| \cdot \|\mathbf{b}\|}{\|\mathbf{x}\|} \cdot \frac{\|\delta \mathbf{b}\|}{\|\mathbf{b}\|}
+#   \le \frac{\|A^{-1}\| \cdot \|A\| \|\mathbf{x}\|}{\|\mathbf{x}\|} \cdot \frac{\|\delta \mathbf{b}\|}{\|\mathbf{b}\|}
+#   = \|A^{-1}\| \|A\| \frac{\|\delta \mathbf{b}\|}{\|\mathbf{b}\|}.
+# $$
+#
+# Мы получили универсальную, не зависящую от правой части оценку сверху числа обусловленности системы. Данная оценка достигается, когда $\|A\mathbf{x}\| = \|A\| \|\mathbf{x}\|$.
 
 # **Определение.**
-# Величина $\mu(A) = \|A^{-1}\| \|A\|$ называется *числом обусловленности* матрицы $A$ в рассматриваемой норме. Она показывает, во сколько раз может возрасти относительная погрешность решения по сравнению с относительной погрешностью правой части.
+# Величина $\mu(A) = \|A^{-1}\| \|A\|$ называется *числом обусловленности матрицы* $A$ в рассматриваемой норме. Она показывает, во сколько раз может возрасти относительная погрешность решения по сравнению с относительной погрешностью правой части.
 #
 # Число обусловленности определяется не только матрицей, но и выбором нормы.
-# Рассмотрим один из наиболее употребительных вариантов &mdash; *спектральное число обусловленоности*.
+# Рассмотрим один из наиболее употребительных вариантов &mdash; *спектральное число обусловленности*.
 # Согласно формуле для спектральной нормы матрицы
-# $$ \mu(A) = \dfrac{\sigma_1}{\sigma_n}, $$
-# где $\sigma_1$ и $\sigma_n$ &mdash; максимальное и минимальное сингулярные числа матрицы $A$.
+# $$
+#   \mu_e(A) = \dfrac{\sigma_{\max}}{\sigma_{\min}}.
+# $$
+#
+# Геометрически $\mu_e(A)$ показывает, насколько неравномерно преобразование $A$ растягивает пространство по своим главным направлениям.
 
 U, sgm, Vt = LA.svd(A)
-mu = sgm[0]/sgm[1]
+mu = sgm[1]/sgm[0]
 print('sigma = ', np.round(sgm, 3))
-print('mu(A) = ', round(mu, 2))
+print('mu(A) = ', round(mu, 5))
 
 # ### Геометрическая интерпретация ###
 #
@@ -255,37 +273,22 @@ x0 = A_inv @ b0
 Xc = A_inv @ Bc
 
 # +
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12,6))
+fig, ax = plt.subplots(1, 2, figsize=(12, 6))
 
 plt.subplots_adjust(wspace=0.4)
+make_decor(ax, xlims, ylims)
 
-# Plotting x
-ax1.axhline(y=0, color='k')
-ax1.axvline(x=0, color='k')
-ax1.plot(X[0,:], X[1,:], 'ro', ms=1.2, alpha=.8)
-ax1.plot(Xc[0,:], Xc[1,:], lw=1., c='k', alpha=.8)
-ax1.plot(x0[0], x0[1], 'kx', ms=10, mew=2)
-ax1.set_xlabel('$x_1$')
-ax1.set_ylabel('$x_2$', rotation=0, ha='right')
-ax1.set_xlim(xlims)
-ax1.set_ylim(ylims)
-ax1.set_aspect('equal')
-ax1.set_axisbelow(True)
-ax1.set_title("До преобразования")
+# Plotting X
+ax[0].plot(X[0,:], X[1,:], 'ro', ms=1.2, alpha=.8)
+ax[0].plot(Xc[0,:], Xc[1,:], lw=1., c='k', alpha=.8)
+ax[0].plot(x0[0], x0[1], 'kx', ms=10, mew=2)
+ax[0].set_title("До преобразования")
 
-# Plotting b
-ax2.axhline(y=0, color='k')
-ax2.axvline(x=0, color='k')
-ax2.plot(B[0,:], B[1,:], 'bo', ms=1.2, alpha=.8)
-ax2.plot(Bc[0, :], Bc[1, :], lw=1., c='k', alpha=.8)
-ax2.plot(b0[0], b0[1], 'rx', ms=10, mew=2)
-ax2.set_xlabel('$x_1$')
-ax2.set_ylabel('$x_2$', rotation=0, ha='right')
-ax2.set_xlim(xlims)
-ax2.set_ylim(ylims)
-ax2.set_aspect('equal')
-ax2.set_axisbelow(True)
-ax2.set_title("После преобразования")
+# Plotting B
+ax[1].plot(B[0,:], B[1,:], 'bo', ms=1.2, alpha=.8)
+ax[1].plot(Bc[0, :], Bc[1, :], lw=1., c='k', alpha=.8)
+ax[1].plot(b0[0], b0[1], 'rx', ms=10, mew=2)
+ax[1].set_title("После преобразования")
 
 plt.show()
 
@@ -295,8 +298,9 @@ plt.show()
 # Для двумерного случая мы видим, что если векторы правой части возмущённой системы лежат внутри окружности, то решения возмущённой системы лежат внутри эллипса, являющегося прообразом этой окружности.
 # Причём отношение полуосей этого эллипса равно *спектральному числу обусловленности*.
 
-# > **Самостоятельно.** В нашем примере число обусловленности $\mu(A)=22.15$. Но выше мы нашли, что относительная погрешность увеличилась в $14.88$ раз. Почему так произошло? При каком условии оценка, сделанная по числу обусловленности, будет достигаться? \
-# > Если известен вектор $\mathbf{b}$, как сделать более точную оценку возрастания относительной погрешности?
+# > **Самостоятельно**
+# > 1. В нашем примере число обусловленности $\mu(A) \approx 20$. Но выше мы нашли, что относительная погрешность увеличилась только в $14$ раз. Почему так произошло? При каком условии оценка, сделанная по числу обусловленности, будет достигаться? \
+# > 2. Если известен вектор $\mathbf{b}$, как сделать более точную оценку возрастания относительной погрешности?
 
 # ---
 
@@ -328,7 +332,8 @@ x = np.random.uniform(x_lim[0], x_lim[1], Ns)  # Independent variable x
 y = fun(a, x) + err  # Dependent variable
 
 # Show data
-X = np.linspace(x_lim[0], x_lim[1], 100)
+Nx = int(1e3) # Number of points
+X = np.linspace(x_lim[0], x_lim[1], Nx)
 plt.figure(figsize=(8, 5))
 plt.title('Noisy data samples from linear line')
 plt.plot(x, y, 'o', ms=4, label='data: (x, y)')
@@ -345,7 +350,7 @@ plt.show()
 # The number of features
 Nf = 7
 # Stack X with ones to be fitted by OLS
-F = np.ones_like(x)
+F = np.atleast_2d(np.ones_like(x))
 for i in range(1, Nf):
     F = np.vstack((F, x**i))
 F = F.T
@@ -403,7 +408,7 @@ plt.show()
 # Геометрически это означает, что объекты выборки сосредоточены вблизи линейного подпространства меньшей размерности $m < n$.
 # Признаком мультиколлинеарности является наличие у матрицы $K$ собственных значений, близких к нулю.
 #
-# Итак, матрица \(K\) плохо обусловлена (матрица считается плохо обусловленной, если $\mu(K) \gtrsim 10^2 \div 10^4$).
+# Итак, матрица $K$ плохо обусловлена (матрица считается плохо обусловленной, если $\mu(K) \gtrsim 10^2 \div 10^4$).
 # Обращение такой матрицы численно неустойчиво.
 # При умножении обратной матрицы на вектор относительная погрешность усиливается в $\mu(K)$ раз.
 #
@@ -418,11 +423,13 @@ plt.show()
 # Убедимся в этом для нашего примера.
 
 # +
-print('Вектор коэффициентов: ', Alpha)
-print('Его норма: ', LA.norm(Alpha))
+print('Вектор коэффициентов:', np.round(Alpha, 1))
+print('Его норма:', round(LA.norm(Alpha), 1))
 
-print('\nВектор МНК-аппроксимации: ', F @ Alpha)
-print('Его норма: ', LA.norm(F @ Alpha))
+print('\nВектор МНК-аппроксимации:', np.round(F @ Alpha, 1))
+print('Его норма:', round(LA.norm(F @ Alpha), 1))
+
+print('\nЦелевой вектор:', np.round(y, 1))
 # -
 
 # Мы рассмотрим три метода решения проблемы мультиколлинеарности:
@@ -439,10 +446,32 @@ print('Его норма: ', LA.norm(F @ Alpha))
 # +
 U, sgm, Vt = np.linalg.svd(F, full_matrices=False)
 V = Vt.T
-print('Сингулярные числа: ', sgm)
+print('Сингулярные числа: ' + ', '.join([f'{item:.2g}' for item in sgm]))
 
 mu = (sgm[0]/sgm[-1])
-print('Число обусловленности mu = ', mu)
+print(f'Число обусловленности mu = {mu:.3g}')
+# -
+
+S_s = sum(sgm)
+eds = list(map(lambda i: sum(sgm[i:]) / S_s, range(len(sgm))))
+
+# +
+# seaborn.set_style("whitegrid")
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
+plt.subplots_adjust(wspace=0.3, hspace=0.2)
+
+ax1.plot(sgm, 'o-')
+ax1.set_title('singular values')
+ax1.set_yscale('log')
+ax1.set_xlabel('k')
+ax1.set_ylabel('$\sigma$', rotation=0, ha='right')
+
+ax2.plot(eds, 'o-')
+ax2.set_title('error')
+ax2.set_xlabel('k')
+ax2.set_ylabel('E(k)', rotation=0, ha='right')
+
+plt.show()
 # -
 
 # Из всего спектра оставим $k$ главных компонент.
@@ -451,16 +480,16 @@ print('Число обусловленности mu = ', mu)
 # Получим новый вектор коэффициентов, его норма значительно уменьшилась.
 
 # +
-k = 3
+k = 2
 # Fit parameters with SVD
-Alpha_svd = sum([1/sgm[i] * V[:,i] * (U.T[i] @ y) for i in range(k)])
+Alpha_PCA = sum([1/sgm[i] * V[:,i] * (U.T[i] @ y) for i in range(k)])
 
 # Function representing fitted line
-f_svd = lambda x: sum([Alpha_svd[i]*x**i for i in range(Nf)])
+f_PCA = lambda x: sum([Alpha_PCA[i]*x**i for i in range(Nf)])
 # -
 
-print('Вектор коэффициентов: ', Alpha_svd)
-print('Норма вектора коэффициентов: ', LA.norm(Alpha_svd))
+print('Вектор коэффициентов:', np.round(Alpha_PCA, 2))
+print(f'Норма вектора коэффициентов: {LA.norm(Alpha_PCA):.3g}')
 
 # Show OLS fitted line
 plt.figure(figsize=(8, 5))
@@ -468,14 +497,14 @@ plt.title('OLS vs PCA')
 plt.plot(x, y, 'o', ms=4, label='data: (x, y)')
 plt.plot(X, fun(a, X), 'k--', label=label)
 plt.plot(X, f(X), '-', label='OLS')
-plt.plot(X, f_svd(X), '-', label=f'PC k={k}')
-plt.legend()
+plt.plot(X, f_PCA(X), '-', label=f'PCA, k={k}')
+plt.legend(loc=4)
 plt.xlabel('$x$')
 plt.ylabel('$y$')
 plt.ylim(-2, 6)
 plt.show()
 
-# Мы видим, что больших коэффициентов регрессии больше нет, норма вектора коэффициентов уменьшилась почти в 100 раз.
+# Мы видим, что больших коэффициентов регрессии больше нет, норма вектора коэффициентов уменьшилась на несколько порядков раз.
 # При этом отметим, что порядок регрессионного полинома не уменьшился, уменьшились коэффициенты при старших членах.
 # Это означает, что применяя метод главных компонент, мы не избавляемся от менее значимых признаков, а просто уменьшаем их коэффициент в уравнении регрессии.
 
