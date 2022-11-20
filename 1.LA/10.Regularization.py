@@ -38,10 +38,14 @@ cm = plt.cm.tab10  # Colormap
 
 import seaborn
 seaborn.set_style('whitegrid')
-# -
 
+# +
 import warnings
 warnings.filterwarnings('ignore')
+
+# # %config InlineBackend.figure_formats = ['pdf']
+# # %config Completer.use_jedi = False
+# -
 
 # ---
 
@@ -52,13 +56,13 @@ warnings.filterwarnings('ignore')
 
 # Для решения задач условной и безусловной оптимизации пакет `scipy.optimize` предлагает набор алгоритмов, включающий в том числе следующие:
 #
-# - Алгоритм безусловной оптимизации Бройдена &mdash; Флетчера &mdash; Гольдфарба &mdash; Шанно ([BFGS](https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%91%D1%80%D0%BE%D0%B9%D0%B4%D0%B5%D0%BD%D0%B0_%E2%80%94_%D0%A4%D0%BB%D0%B5%D1%82%D1%87%D0%B5%D1%80%D0%B0_%E2%80%94_%D0%93%D0%BE%D0%BB%D1%8C%D0%B4%D1%84%D0%B0%D1%80%D0%B1%D0%B0_%E2%80%94_%D0%A8%D0%B0%D0%BD%D0%BD%D0%BE)), использующий градиент целевой функции
-# - Последовательное квадратичное программирования ([SLSQP](https://ru.wikipedia.org/wiki/%D0%9F%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5_%D0%BA%D0%B2%D0%B0%D0%B4%D1%80%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)) &mdash; обобщение метода Ньютона
+# - Алгоритм безусловной оптимизации Бройдена &mdash; Флетчера &mdash; Гольдфарба &mdash; Шанно ([BFGS](https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%91%D1%80%D0%BE%D0%B9%D0%B4%D0%B5%D0%BD%D0%B0_%E2%80%94_%D0%A4%D0%BB%D0%B5%D1%82%D1%87%D0%B5%D1%80%D0%B0_%E2%80%94_%D0%93%D0%BE%D0%BB%D1%8C%D0%B4%D1%84%D0%B0%D1%80%D0%B1%D0%B0_%E2%80%94_%D0%A8%D0%B0%D0%BD%D0%BD%D0%BE)), использующий градиент целевой функции;
+# - Последовательное квадратичное программирования ([SLSQP](https://ru.wikipedia.org/wiki/%D0%9F%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5_%D0%BA%D0%B2%D0%B0%D0%B4%D1%80%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)) &mdash; обобщение метода Ньютона;
 # - Симплекс-метод [Нелдера &mdash; Мида](https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D0%9D%D0%B5%D0%BB%D0%B4%D0%B5%D1%80%D0%B0_%E2%80%94_%D0%9C%D0%B8%D0%B4%D0%B0),
-# суть метода заключается в последовательном перемещении и деформировании симплекса вокруг точки экстремума
-# - Алгоритм COBYLA ([Constrained Optimization By Linear Approximation](https://cossan.co.uk/wiki/index.php/COBYLA)) &mdash; ограниченная оптимизация с помощью линейной аппроксимации
+# суть метода заключается в последовательном перемещении и деформировании симплекса вокруг точки экстремума;
+# - Алгоритм COBYLA ([Constrained Optimization By Linear Approximation](https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/)) &mdash; ограниченная оптимизация с помощью линейной аппроксимации.
 #
-# Подробнее об оптимизации с помощью `scipy.optimize` можно прочитать, например, [тут](https://habr.com/ru/post/439288/), [тут](https://habr.com/ru/company/ods/blog/448054/) и, конечно, [тут](https://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html).
+# Подробнее об оптимизации с помощью `scipy.optimize` можно прочитать  в [документации](https://docs.scipy.org/doc/scipy/tutorial/optimize.html) или, например, на Хабре ([часть 1](https://habr.com/ru/post/439288/), [часть 2](https://habr.com/ru/company/ods/blog/448054/)).
 
 # В качестве тренировки мы будем решать следующую задачу: \
 # Какая точка на линии $ax + by + c = 0$ находится ближе всего к началу координат? \
@@ -75,10 +79,13 @@ warnings.filterwarnings('ignore')
 # Таким образом, мы имеем дело с условной однокритериальной двухпараметрической оптимизационной задачей.
 # Её решение будет зависеть от значения слова &laquo;ближе&raquo;, т.е. от выбора нормы.
 # Воспользуемся октаэдрической ($L_1$) и евклидовой ($L_2$) нормами, чтобы увидеть, какая между ними разница.
-
-# Рассмотрим два способа решения: с ограничением и с помощью штрафной функции.
 #
-# ### Оптимизация с ограничением ###
+# Рассмотрим два способа решения: с ограничением и с помощью штрафной функции.
+
+# ### Оптимизация с ограничением
+
+# В первой задаче рассмотрим формулировку с ограничением, а расстояние будем определять по норме $L_1$.
+# Решать задачу будем с помощью метода SLSQP.
 
 from scipy.optimize import minimize
 from scipy.optimize import NonlinearConstraint
@@ -134,6 +141,8 @@ plt.ylabel(r"$y$", rotation='horizontal', ha='right');
 # -
 
 # ### Метод штрафных функций ###
+
+# Вторая задача: учёт ограничения через штрафную функцию, целевая функция по норме $L_2$, алгоритм Нелдера &mdash; Мида.
 
 # +
 # optimization with L2 norm and penalty 
@@ -293,6 +302,8 @@ print('Вектор коэффициентов: ', np.round(Alpha, 3))
 
 # ## Гребневая регрессия
 #
+# **Регуляризация Тихонова**
+#
 # > Регуляризация в машинном обучении &mdash; метод добавления некоторых дополнительных ограничений к условию с целью решить некорректно поставленную задачу или предотвратить переобучение.
 #
 # Одним из симптомов проблемы мультиколлинеарности является большой разброс значений $\alpha^*$.
@@ -334,16 +345,15 @@ print('Вектор коэффициентов: ', np.round(Alpha, 3))
 # = \sum_{j=1}^n \frac{\sigma_j^2}{(\sigma_j^2 + \delta^2)^2} (u_j^\top y)^2 < \sum_{j=1}^n \frac{1}{\sigma_j} (u_j^\top y)^2
 # = \Vert \alpha^{\ast} \Vert^2. \label{eq:alpha-tau-es-norm}\tag{4} $$
 
-# ### Выбор константы регуляризации ###
+# ### Выбор константы регуляризации
 #
-# Из формулы ([2](#mjx-eqn-eq:alpha-tau-res)) видно, что при $\delta^2 \to 0$ регуляризованное решение стремится к МНК-решению: $\alpha_\delta^\ast \to \alpha^\ast$.
-# При $\delta^2 \to \infty$ чрезмерная регуляризации приводит к вырожденному решению: $\alpha^\ast_\delta \to 0$.
+# Из формулы ([2](#mjx-eqn-eq:alpha-tau-res)) видно, что при недостаточной регуляризации ($\delta^2 \to 0$) решение стремится к МНК-решению: $\alpha_\delta^\ast \to \alpha^\ast$.
+# Чрезмерная регуляризация ($\delta^2 \to \infty$) приводит к вырожденному решению: $\alpha^\ast_\delta \to 0$.
 # Оба крайних случая нежелательны, поэтому оптимальным является некоторое промежуточное значение $\delta^2_\ast$.
 # Для его нахождения можно применять, например, скользящий контроль.
 
-# Известна практическая рекомендация брать $\delta^2$ в отрезке [0.1, 0.4], если столбцы матрицы $F$ заранее
-# стандартизованы (центрированы и нормированы).
-# Ещё одна эвристика &mdash; выбрать $\delta^2$ так, чтобы число обусловленности приняло заданное не слишком большое значение: $M_0 = \mu(F^\top F + \delta^2 I_n) = \frac{\sigma^2_\mathrm{max} + \delta^2}{\sigma^2_\mathrm{min} + \delta^2}$, откуда следует рекомендация $\delta^2_\ast \approx \sigma^2_\mathrm{max}/M_0$.
+# Ещё один подход &mdash; выбрать $\delta^2$ так, чтобы число обусловленности приняло заданное не слишком большое значение: $M_0 = \mu(F^\top F + \delta^2 I_n) = \frac{\sigma^2_\mathrm{max} + \delta^2}{\sigma^2_\mathrm{min} + \delta^2}$.
+# Откуда следует оценка $\delta^2_\ast \approx \sigma^2_\mathrm{max}/M_0$.
 
 # SVD
 U, sgm, Vt = np.linalg.svd(F, full_matrices=False)
@@ -363,7 +373,7 @@ ridge = lambda x: sum([Alpha_r[i]*x**i for i in range(Nf)])
 
 # Show OLS fitted line
 plt.figure(figsize=(8, 5))
-plt.title('OLS vs ridge regression')
+plt.title('OLS vs Ridge regression')
 plt.plot(x, y, 'o', ms=4, label='data: (x, y)')
 plt.plot(X, fun(a, X), 'k--', label=label)
 plt.plot(X, f(X), '-', label='OLS')
@@ -432,7 +442,7 @@ lasso = lambda x: sum([Alpha_l[i]*x**i for i in range(Nf)])
 
 # Show OLS fitted line
 plt.figure(figsize=(8, 5))
-plt.title('OLS, ridge and LASSO regression fits')
+plt.title('OLS, Ridge and Lasso regression fits')
 plt.plot(x, y, 'o', ms=4, label='data: (x, y)')
 plt.plot(X, fun(a, X), 'k--', label=label)
 plt.plot(X, f(X), '-', label='f(x)')

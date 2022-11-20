@@ -13,9 +13,25 @@
       \usepackage{polyglossia}
       \setmainlanguage[babelshorthands=true]{russian}    % Язык по-умолчанию русский с поддержкой приятных команд пакета babel
       \setotherlanguage{english}                         % Дополнительный язык = английский (в американской вариации по-умолчанию)
-      \newfontfamily\cyrillicfonttt[Scale=0.87,BoldFont={Fira Mono Medium}] {Fira Mono}  % Моноширинный шрифт для кириллицы
+
       \defaultfontfeatures{Ligatures=TeX}
-      \newfontfamily\cyrillicfont{STIX Two Text}         % Шрифт с засечками для кириллицы
+      \setmainfont[BoldFont={STIX Two Text SemiBold}]%
+      {STIX Two Text}                                    % Шрифт с засечками
+      \newfontfamily\cyrillicfont[BoldFont={STIX Two Text SemiBold}]%
+      {STIX Two Text}                                    % Шрифт с засечками для кириллицы
+      \setsansfont{Fira Sans}                            % Шрифт без засечек
+      \newfontfamily\cyrillicfontsf{Fira Sans}           % Шрифт без засечек для кириллицы
+      \setmonofont[Scale=0.87,BoldFont={Fira Mono Medium},ItalicFont=[FiraMono-Oblique]]%
+      {Fira Mono}%                                       % Моноширинный шрифт
+      \newfontfamily\cyrillicfonttt[Scale=0.87,BoldFont={Fira Mono Medium},ItalicFont=[FiraMono-Oblique]]%
+      {Fira Mono}                                        % Моноширинный шрифт для кириллицы
+
+      %%% Математические пакеты %%%
+      \usepackage{amsthm,amsmath,amscd}   % Математические дополнения от AMS
+      \usepackage{amsfonts,amssymb}       % Математические дополнения от AMS
+      \usepackage{mathtools}              % Добавляет окружение multlined
+      \usepackage{unicode-math}           % Для шрифта STIX Two Math
+      \setmathfont{STIX Two Math}         % Математический шрифт
     \fi
     \renewcommand{\linethickness}{0.1ex}
 
@@ -31,8 +47,6 @@
     \DeclareCaptionFormat{nocaption}{}
     \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
 
-    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
-    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
     \usepackage{float}
     \floatplacement{figure}{H} % forces figures to be placed at the correct location
     \usepackage{xcolor} % Allow colors to be defined
@@ -49,15 +63,23 @@
     \usepackage{eurosym} % defines \euro
     \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
     \usepackage{fancyvrb} % verbatim replacement that allows latex
-    \usepackage{grffile} % extends the file name processing of package graphics 
+    \usepackage{grffile} % extends the file name processing of package graphics
                          % to support a larger range
-    \makeatletter % fix for grffile with XeLaTeX
-    \def\Gread@@xetex#1{%
-      \IfFileExists{"\Gin@base".bb}%
-      {\Gread@eps{\Gin@base.bb}}%
-      {\Gread@@xetex@aux#1}%
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
     }
     \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
 
     % The hyperref package gives us a pdf with properly built
     % internal navigation ('pdf bookmarks' for the table of contents,
@@ -72,9 +94,9 @@
     \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
                                 % normalem makes italics be italics, not underlines
     \usepackage{mathrsfs}
-    
 
-    
+
+
     % Colors for the hyperref package
     \definecolor{urlcolor}{rgb}{0,.145,.698}
     \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
@@ -100,6 +122,9 @@
     \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
     \definecolor{ansi-default-inverse-bg}{HTML}{000000}
 
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
     % commands and environments needed by pandoc snippets
     % extracted from the output of `pandoc -s`
     \providecommand{\tightlist}{%
@@ -121,7 +146,7 @@
     \newcommand{\RegionMarkerTok}[1]{{#1}}
     \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
     \newcommand{\NormalTok}[1]{{#1}}
-    
+
     % Additional commands for more recent versions of Pandoc
     \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
     \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
@@ -140,8 +165,8 @@
     \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
     \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
     \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
-    
-    
+
+
     % Define a nice break command that doesn't care if a line doesn't already
     % exist.
     \def\br{\hspace*{\fill} \\* }
@@ -158,7 +183,7 @@
       {\Large Лекция 10} \\
       Регуляризация: гребневая регрессия и метод LASSO
     }
-    \date{10 ноября 2021\,г.}
+    \date{16 ноября 2022\,г.}
     
     
     
@@ -174,73 +199,73 @@
     \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
 \def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
 
-\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
-\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
-\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
-\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
-\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
-\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
-\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
-\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
-\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
-\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
-\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
-\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
-\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
-\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
-\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
-\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
-\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
-\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
-\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
-\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
-\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
-\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
-\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
-\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
 
 \def\PYZbs{\char`\\}
 \def\PYZus{\char`\_}
@@ -264,53 +289,53 @@
 \makeatother
 
 
-    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    % For linebreaks inside Verbatim environment from package fancyvrb.
     \makeatletter
-        \newbox\Wrappedcontinuationbox 
-        \newbox\Wrappedvisiblespacebox 
-        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
-        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
-        \newcommand*\Wrappedcontinuationindent {3ex } 
-        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
-        % Take advantage of the already applied Pygments mark-up to insert 
-        % potential linebreaks for TeX processing. 
-        %        {, <, #, %, $, ' and ": go to next line. 
-        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
-        % Use of \textquotesingle for straight quote. 
-        \newcommand*\Wrappedbreaksatspecials {% 
-            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
-            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
-            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
-            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
-            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
-            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
-            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
-            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
-            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
-            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
-            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
-            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
-            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
-            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
-        } 
-        % Some characters . , ; ? ! / are not pygmentized. 
-        % This macro makes them "active" and they will insert potential linebreaks 
-        \newcommand*\Wrappedbreaksatpunct {% 
-            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
-            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
-            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
-            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
-            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
-            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
-            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+        \newbox\Wrappedcontinuationbox
+        \newbox\Wrappedvisiblespacebox
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}}
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}}
+        \newcommand*\Wrappedcontinuationindent {3ex }
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox}
+        % Take advantage of the already applied Pygments mark-up to insert
+        % potential linebreaks for TeX processing.
+        %        {, <, #, %, $, ' and ": go to next line.
+        %        _, }, ^, &, >, - and ~: stay at end of broken line.
+        % Use of \textquotesingle for straight quote.
+        \newcommand*\Wrappedbreaksatspecials {%
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}%
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}%
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}%
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}%
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}%
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}%
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}%
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}%
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}%
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}%
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}%
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}%
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}%
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}%
+        }
+        % Some characters . , ; ? ! / are not pygmentized.
+        % This macro makes them "active" and they will insert potential linebreaks
+        \newcommand*\Wrappedbreaksatpunct {%
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}%
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}%
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}%
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}%
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}%
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}%
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}%
             \catcode`\.\active
-            \catcode`\,\active 
+            \catcode`\,\active
             \catcode`\;\active
             \catcode`\:\active
             \catcode`\?\active
             \catcode`\!\active
-            \catcode`\/\active 
-            \lccode`\~`\~ 	
+            \catcode`\/\active
+            \lccode`\~`\~
         }
     \makeatother
 
@@ -333,10 +358,10 @@
             \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
             {\kern\fontdimen2\font}%
         }%
-        
+
         % Allow breaks at special characters using \PYG... macros.
         \Wrappedbreaksatspecials
-        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active
         \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
     }
     \makeatother
@@ -346,19 +371,19 @@
     \definecolor{outcolor}{HTML}{D84315}
     \definecolor{cellborder}{HTML}{CFCFCF}
     \definecolor{cellbackground}{HTML}{F7F7F7}
-    
+
     % prompt
     \makeatletter
     \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
     \makeatother
     \newcommand{\prompt}[4]{
-        \ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
     }
-    
 
-    
+
+
     % Prevent overflowing lines due to hard-to-break entities
-    \sloppy 
+    \sloppy
     % Setup hyperref package
     \hypersetup{
       breaklinks=true,  % so long urls are correctly broken across lines
@@ -368,24 +393,32 @@
       citecolor=citecolor,
       }
     % Slightly bigger margins than the latex defaults
-    
+
     \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
-    
-    
+
+
 
 \begin{document}
-    
+
 \maketitle
 \thispagestyle{empty}
 \tableofcontents
-\pagebreak
+
+\let\thefootnote\relax\footnote{
+  \textit{День 16 ноября в истории:
+    \begin{itemize}[topsep=2pt,itemsep=1pt]
+      \item 1933 г. --- установление дипломатических отношений СССР с США.
+      \item 1965 г. --- в СССР запущена автоматическая межпланетная станция <<Венера-3>>, беспилотный космический корабль, который первым достиг поверхности Венеры (врезался в неё). Он стал первым земным аппаратом, достигшим поверхности другой планеты.
+    \end{itemize}
+  }
+}
+\newpage
 
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{1}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Imports}
-\PY{k+kn}{import} \PY{n+nn}{sys}
 \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
 \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k+kn}{import} \PY{n}{linalg} \PY{k}{as} \PY{n}{LA}
 \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
@@ -396,10 +429,6 @@
 \prompt{In}{incolor}{2}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Styles}
-\PY{k+kn}{import} \PY{n+nn}{warnings}
-\PY{c+c1}{\PYZsh{} warnings.simplefilter(action=\PYZsq{}ignore\PYZsq{}, category=FutureWarning)}
-\PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-
 \PY{k+kn}{import} \PY{n+nn}{matplotlib}
 \PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{14}
 \PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.linewidth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.5}
@@ -411,49 +440,53 @@
 \end{Verbatim}
 \end{tcolorbox}
 
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{warnings}
+\PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{o}{\PYZpc{}}\PY{k}{config} InlineBackend.figure\PYZus{}formats = [\PYZsq{}pdf\PYZsq{}]
+\PY{c+c1}{\PYZsh{} \PYZpc{}config Completer.use\PYZus{}jedi = False}
+\end{Verbatim}
+\end{tcolorbox}
+
     \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
     \hypertarget{ux43eux43fux442ux438ux43cux438ux437ux430ux446ux438ux44f-ux441-ux43fux43eux43cux43eux449ux44cux44e-scipy.optimize}{%
 \section{\texorpdfstring{Оптимизация с помощью
 \texttt{scipy.optimize}}{Оптимизация с помощью scipy.optimize}}\label{ux43eux43fux442ux438ux43cux438ux437ux430ux446ux438ux44f-ux441-ux43fux43eux43cux43eux449ux44cux44e-scipy.optimize}}
 
-    На этом занятии нам потребуется решать оптимизационные задачи. Мы будем
-делать это с~помощью пакета \texttt{scipy.optimize}, предоставляющего
-несколько часто используемых алгоритмов оптимизации, поэтому вначале
-немного познакомимся с ним.
+На этом занятии нам потребуется решать оптимизационные задачи.
+Мы будем делать это с~помощью пакета \texttt{scipy.optimize}, предоставляющего несколько часто используемых алгоритмов оптимизации, поэтому вначале немного познакомимся с ним.
 
-    Для решения задач условной и безусловной оптимизации пакет
-\texttt{scipy.optimize} предлагает набор алгоритмов, включающий в том
-числе следующие:
+Для решения задач условной и безусловной оптимизации пакет \texttt{scipy.optimize} предлагает набор алгоритмов, включающий в том числе следующие:
 
 \begin{itemize}
 \tightlist
 \item
   Алгоритм безусловной оптимизации Бройдена --- Флетчера --- Гольдфарба
   --- Шанно
-  (\href{https://ru.wikipedia.org/wiki/\%D0\%90\%D0\%BB\%D0\%B3\%D0\%BE\%D1\%80\%D0\%B8\%D1\%82\%D0\%BC_\%D0\%91\%D1\%80\%D0\%BE\%D0\%B9\%D0\%B4\%D0\%B5\%D0\%BD\%D0\%B0_\%E2\%80\%94_\%D0\%A4\%D0\%BB\%D0\%B5\%D1\%82\%D1\%87\%D0\%B5\%D1\%80\%D0\%B0_\%E2\%80\%94_\%D0\%93\%D0\%BE\%D0\%BB\%D1\%8C\%D0\%B4\%D1\%84\%D0\%B0\%D1\%80\%D0\%B1\%D0\%B0_\%E2\%80\%94_\%D0\%A8\%D0\%B0\%D0\%BD\%D0\%BD\%D0\%BE}{BFGS}),
-  использующий градиент целевой функции
+  (\href{https://ru.wikipedia.org/wiki/\%D0\%90\%D0\%BB\%D0\%B3\%D0\%BE\%D1\%80\%D0\%B8\%D1\%82\%D0\%BC_\%D0\%91\%D1\%80\%D0\%BE\%D0\%B9\%D0\%B4\%D0\%B5\%D0\%BD\%D0\%B0_\%E2\%80\%94_\%D0\%A4\%D0\%BB\%D0\%B5\%D1\%82\%D1\%87\%D0\%B5\%D1\%80\%D0\%B0_\%E2\%80\%94_\%D0\%93\%D0\%BE\%D0\%BB\%D1\%8C\%D0\%B4\%D1\%84\%D0\%B0\%D1\%80\%D0\%B1\%D0\%B0_\%E2\%80\%94_\%D0\%A8\%D0\%B0\%D0\%BD\%D0\%BD\%D0\%BE}{BFGS}), использующий градиент целевой функции;
 \item
   Последовательное квадратичное программирования
   (\href{https://ru.wikipedia.org/wiki/\%D0\%9F\%D0\%BE\%D1\%81\%D0\%BB\%D0\%B5\%D0\%B4\%D0\%BE\%D0\%B2\%D0\%B0\%D1\%82\%D0\%B5\%D0\%BB\%D1\%8C\%D0\%BD\%D0\%BE\%D0\%B5_\%D0\%BA\%D0\%B2\%D0\%B0\%D0\%B4\%D1\%80\%D0\%B0\%D1\%82\%D0\%B8\%D1\%87\%D0\%BD\%D0\%BE\%D0\%B5_\%D0\%BF\%D1\%80\%D0\%BE\%D0\%B3\%D1\%80\%D0\%B0\%D0\%BC\%D0\%BC\%D0\%B8\%D1\%80\%D0\%BE\%D0\%B2\%D0\%B0\%D0\%BD\%D0\%B8\%D0\%B5}{SLSQP})
-  --- обобщение метода Ньютона
+  --- обобщение метода Ньютона;
 \item
   Симплекс-метод
   \href{https://ru.wikipedia.org/wiki/\%D0\%9C\%D0\%B5\%D1\%82\%D0\%BE\%D0\%B4_\%D0\%9D\%D0\%B5\%D0\%BB\%D0\%B4\%D0\%B5\%D1\%80\%D0\%B0_\%E2\%80\%94_\%D0\%9C\%D0\%B8\%D0\%B4\%D0\%B0}{Нелдера
-  --- Мида}, суть метода заключается в последовательном перемещении и
-  деформировании симплекса вокруг точки экстремума
+  --- Мида}, суть метода заключается в последовательном перемещении и деформировании симплекса вокруг точки экстремума;
 \item
   Алгоритм COBYLA
-  (\href{https://cossan.co.uk/wiki/index.php/COBYLA}{Constrained
-  Optimization By Linear Approximation}) --- ограниченная оптимизация с
-  помощью линейной аппроксимации
+  (\href{https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/}{Constrained
+  Optimization By Linear Approximation}) --- ограниченная оптимизация с помощью линейной аппроксимации.
 \end{itemize}
 
 Подробнее об оптимизации с помощью \texttt{scipy.optimize} можно
-прочитать, например,
-\href{https://habr.com/ru/post/439288/}{тут},
-\href{https://habr.com/ru/company/ods/blog/448054/}{тут} и, конечно,
-\href{https://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html}{тут}.
+прочитать в
+\href{https://docs.scipy.org/doc/scipy/tutorial/optimize.html}{документации}
+или, например, на Хабре (\href{https://habr.com/ru/post/439288/}{часть
+1}, \href{https://habr.com/ru/company/ods/blog/448054/}{часть 2}).
 
     В качестве тренировки мы будем решать следующую задачу:\\
 Какая точка на линии \(ax + by + c = 0\) находится ближе всего к началу
@@ -461,15 +494,16 @@
 Или, если пользоваться формальной записью: \[
 \left\{
 \begin{aligned}
-    & \min \|\mathbf{x}\| \\
-    & x_1 + 2x_2 - 4 = 0 \\
+    & \min \| \mathbf{x} \| \\
+    & x_1 + 2x_2 - 4 = 0
 \end{aligned}
 \right..
 \]
 
 Таким образом, мы имеем дело с условной однокритериальной
 двухпараметрической оптимизационной задачей. Её решение будет зависеть
-от значения слова «ближе», т.\,е. от выбора нормы. Воспользуемся
+от значения слова <<ближе>>, т.\,е. от выбора нормы.
+Воспользуемся
 октаэдрической (\(L_1\)) и евклидовой (\(L_2\)) нормами, чтобы увидеть,
 какая между ними разница.
 
@@ -480,17 +514,20 @@
 \subsection{Оптимизация с
 ограничением}\label{ux43eux43fux442ux438ux43cux438ux437ux430ux446ux438ux44f-ux441-ux43eux433ux440ux430ux43dux438ux447ux435ux43dux438ux435ux43c}}
 
+    В первой задаче рассмотрим формулировку с ограничением, а расстояние
+будем определять по норме \(L_1\). Решать задачу будем с помощью метода
+SLSQP.
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{3}{\boxspacing}
+\prompt{In}{incolor}{4}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{k+kn}{import} \PY{n+nn}{scipy} \PY{k}{as} \PY{n+nn}{sp}
 \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{optimize} \PY{k+kn}{import} \PY{n}{minimize}
 \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{optimize} \PY{k+kn}{import} \PY{n}{NonlinearConstraint}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{4}{\boxspacing}
+\prompt{In}{incolor}{5}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} functions for norm plots}
 \PY{k}{def} \PY{n+nf}{x\PYZus{}t}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{:}
@@ -502,7 +539,7 @@
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{5}{\boxspacing}
+\prompt{In}{incolor}{6}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} optimization with L1 norm and constraint}
 \PY{k}{def} \PY{n+nf}{Q\PYZus{}obj\PYZus{}1}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{:}
@@ -516,7 +553,7 @@
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{6}{\boxspacing}
+\prompt{In}{incolor}{7}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} make optimization}
 \PY{n}{x\PYZus{}0} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
@@ -527,16 +564,16 @@
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-Optimization terminated successfully.    (Exit mode 0)
+Optimization terminated successfully    (Exit mode 0)
             Current function value: 2.000001282913686
             Iterations: 10
-            Function evaluations: 62
+            Function evaluations: 52
             Gradient evaluations: 10
 [-8.55275791e-07  2.00000043e+00]
     \end{Verbatim}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{7}{\boxspacing}
+\prompt{In}{incolor}{8}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} plot results}
 \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{l+m+mi}{101}\PY{p}{)}
@@ -553,20 +590,23 @@ Optimization terminated successfully.    (Exit mode 0)
 \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.5\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \adjustimage{max size={0.5\linewidth}{0.5\paperheight}}{Opt_L1.pdf}
     \end{center}
     
     \hypertarget{ux43cux435ux442ux43eux434-ux448ux442ux440ux430ux444ux43dux44bux445-ux444ux443ux43dux43aux446ux438ux439}{%
 \subsection{Метод штрафных
 функций}\label{ux43cux435ux442ux43eux434-ux448ux442ux440ux430ux444ux43dux44bux445-ux444ux443ux43dux43aux446ux438ux439}}
 
+    Вторая задача: учёт ограничения через штрафную функцию, целевая функция
+по норме \(L_2\), алгоритм Нелдера --- Мида.
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{8}{\boxspacing}
+\prompt{In}{incolor}{9}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} optimization with L2 norm and penalty }
 
@@ -578,7 +618,7 @@ Optimization terminated successfully.    (Exit mode 0)
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{9}{\boxspacing}
+\prompt{In}{incolor}{10}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} make optimization}
 \PY{n}{x\PYZus{}0} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
@@ -596,7 +636,7 @@ Optimization terminated successfully.
     \end{Verbatim}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{10}{\boxspacing}
+\prompt{In}{incolor}{11}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} plot results}
 \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{l+m+mi}{101}\PY{p}{)}
@@ -613,15 +653,15 @@ Optimization terminated successfully.
 \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.5\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \adjustimage{max size={0.5\linewidth}{0.5\paperheight}}{Opt_L2.pdf}
     \end{center}
     
-    Итак, мы решили две оптимизационные задачи.
+Итак, мы решили две оптимизационные задачи.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -636,9 +676,11 @@ Optimization terminated successfully.
 \end{enumerate}
 
 Первое решение иллюстрирует важное свойство оптимизации с использованием
-нормы \(L_1\): оптимальное решение имеет нулевые компоненты или, как говорят, является \emph{разреженным}.
+нормы \(L_1\): оптимальное решение имеет нулевые компоненты или, как
+говорят, является \emph{разреженным}.
 У разреженного решения, как правило, мало ненулевых компонент, но эти компоненты имеют наибольшее влияние на результат.
-Разреженное решение позволяет производить отбор признаков, оставляя только самые важные с точки зрения рассматриваемой целевой функции.
+Разреженное решение позволяет производить отбор признаков, оставляя только самые важные с точки зрения рассматриваемой 
+целевой функции.
 
 Решение с использованием нормы \(L_2\) отбор признаков не производит.
 Напротив, оно часто имеет много близких к нулю компонент, мало влияющих на целевую функцию.
@@ -656,7 +698,7 @@ Optimization terminated successfully.
 данных}\label{ux433ux435ux43dux435ux440ux430ux446ux438ux44f-ux434ux430ux43dux43dux44bux445}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{11}{\boxspacing}
+\prompt{In}{incolor}{12}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k}{def} \PY{n+nf}{pol}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
     \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{[}\PY{n}{a}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
@@ -664,7 +706,7 @@ Optimization terminated successfully.
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{12}{\boxspacing}
+\prompt{In}{incolor}{13}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Define the data}
 \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{123}\PY{p}{)}
@@ -698,7 +740,7 @@ Optimization terminated successfully.
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \adjustimage{max size={0.7\linewidth}{0.7\paperheight}}{Noisy_data.pdf}
     \end{center}
     
     \hypertarget{ux43fux43eux438ux441ux43a-ux43aux43eux44dux444ux444ux438ux446ux438ux435ux43dux442ux43eux432-ux440ux435ux433ux440ux435ux441ux441ux438ux438}{%
@@ -733,7 +775,7 @@ Optimization terminated successfully.
 \[ \alpha^* = (F^{\top} F)^{-1} F^{\top} y = F^{+} y. \label{eq:alpha-res}\tag{1}\]
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{13}{\boxspacing}
+\prompt{In}{incolor}{14}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} The number of fetures}
 \PY{n}{Nf} \PY{o}{=} \PY{l+m+mi}{7}
@@ -752,7 +794,7 @@ Optimization terminated successfully.
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{14}{\boxspacing}
+\prompt{In}{incolor}{15}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Show OLS fitted line}
 \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
@@ -769,11 +811,11 @@ Optimization terminated successfully.
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{OLS.pdf}
     \end{center}
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{15}{\boxspacing}
+\prompt{In}{incolor}{16}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Вектор коэффициентов: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{Alpha}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
@@ -800,10 +842,17 @@ Optimization terminated successfully.
 \section{Гребневая
 регрессия}\label{ux433ux440ux435ux431ux43dux435ux432ux430ux44f-ux440ux435ux433ux440ux435ux441ux441ux438ux44f}}
 
-Одним из симптомов проблемы мультиколлинеарности является большой
-разброс значений \(\alpha^*\). Попробуем решить проблему
-«симптоматически». Для этого добавим к функционалу \(Q\) регуляризатор,
-штрафующий большие значения нормы вектора весов \(\Vert \alpha \Vert\):
+\textbf{Регуляризация Тихонова}
+
+\begin{quote}
+Регуляризация в машинном обучении --- метод добавления некоторых
+дополнительных ограничений к условию с целью решить некорректно
+поставленную задачу или предотвратить переобучение.
+\end{quote}
+
+Одним из симптомов проблемы мультиколлинеарности является большой разброс значений \(\alpha^*\).
+Попробуем решить проблему <<симптоматически>>.
+Для этого добавим к функционалу \(Q\) регуляризатор, штрафующий большие значения нормы вектора весов \(\Vert \alpha \Vert\):
 
 \[ Q_\delta(\alpha) = \Vert F\alpha - y \Vert^2 + \delta^2 \Vert \alpha \Vert^2, \]
 
@@ -818,22 +867,19 @@ Optimization terminated successfully.
 
 \[ \alpha_\delta^\ast = (F^\top F + \delta^2 I_n)^{-1} F^\top y. \]
 
-Таким образом, перед обращением матрицы к ней добавляется «гребень» ---
-диагональная матрица \(\delta^2 I_n\).
+    Таким образом, перед обращением матрицы к ней добавляется «гребень» --- диагональная матрица \(\delta^2 I_n\).
 Отсюда и название метода --- гребневая регрессия (ridge regression).
-При этом все её собственные значения увеличиваются на \(\delta^2\) , а собственные векторы не
-изменяются.
-В~результате матрица становится хорошо обусловленной,
-оставаясь в то же время «похожей» на исходную.
+При этом все её собственные значения увеличиваются на \(\delta^2\) , а собственные векторы не изменяются.
+В~результате матрица становится хорошо обусловленной, оставаясь в то же время «похожей» на исходную.
 
 Выразим регуляризованное МНК-решение через сингулярное разложение:
 \[ F^\top F + \delta^2 I = V\Sigma^\top U^\top \cdot U \Sigma V^\top + \delta^2 VIV^\top = V (\Sigma^\top \Sigma + \delta^2 I) V^\top, \]
 
 \[
-\begin{aligned}
-\alpha_\delta^* &= (F^\top F + \delta^2 I_n)^{-1} F^\top y = V (\Sigma^\top \Sigma + \delta^2 I)^{-1} V^\top \cdot V \Sigma^\top U^\top y = \\
-&= V \left[ (\Sigma^\top \Sigma + \delta^2 I)^{-1} \Sigma^\top \right] U^\top y = \sum_{j=1}^n \frac{\sigma_j}{\sigma_j^2 + \delta^2} v_j (u_j^\top y).
-\end{aligned} \label{eq:alpha-tau-res}\tag{2}
+  \begin{aligned}
+  \alpha_\delta^* &= (F^\top F + \delta^2 I_n)^{-1} F^\top y = V (\Sigma^\top \Sigma + \delta^2 I)^{-1} V^\top \cdot V \Sigma^\top U^\top y = \\
+  &= V \left[ (\Sigma^\top \Sigma + \delta^2 I)^{-1} \Sigma^\top \right] U^\top y = \sum_{j=1}^n \frac{\sigma_j}{\sigma_j^2 + \delta^2} v_j (u_j^\top y).
+  \end{aligned} \label{eq:alpha-tau-res}\tag{2}
 \]
 
     Теперь найдём регуляризованную МНК-аппроксимацию целевого вектора \(y\):
@@ -841,13 +887,9 @@ Optimization terminated successfully.
 \[ F\alpha_\delta^\ast = U \Sigma V^\top \alpha_\delta^* = U \mathrm{diag}\left( \frac{\sigma_j^2}{\sigma_j^2 + \delta^2} \right) U^\top y
 = \sum_{j=1}^n \frac{\sigma_j^2}{\sigma_j^2 + \delta^2} u_j (u_j^\top y).  \label{eq:F-alpha-tau-res}\tag{3} \]
 
-Как и прежде, МНК-аппроксимация представляется в виде разложения
-целевого вектора \(y\) по базису собственных векторов матрицы
-\(FF^\top\). Только теперь норма проекций на собственные векторы
-уменьшается, умножаясь на
-\(\frac{\sigma_j^2}{\sigma_j^2 + \delta^2} \in (0, 1)\). В сравнении с
-\eqref{eq:alpha-res} уменьшается и~норма вектора
-коэффициентов:
+Как и прежде, МНК-аппроксимация представляется в виде разложения целевого вектора \(y\) по базису собственных векторов матрицы \(FF^\top\).
+Только теперь норма проекций на собственные векторы уменьшается, умножаясь на \(\frac{\sigma_j^2}{\sigma_j^2 + \delta^2} \in (0, 1)\).
+В сравнении с \eqref{eq:alpha-res} уменьшается и~норма вектора коэффициентов:
 
 \[ \Vert \alpha_\delta^{\ast} \Vert^2 = \Vert V(\Sigma^2 + \delta I_n)^{-1} \Sigma U^\top y \Vert^2
 = \sum_{j=1}^n \frac{\sigma_j^2}{(\sigma_j^2 + \delta^2)^2} (u_j^\top y)^2 < \sum_{j=1}^n \frac{1}{\sigma_j} (u_j^\top y)^2
@@ -857,23 +899,15 @@ Optimization terminated successfully.
 \subsection{Выбор константы
 регуляризации}\label{ux432ux44bux431ux43eux440-ux43aux43eux43dux441ux442ux430ux43dux442ux44b-ux440ux435ux433ux443ux43bux44fux440ux438ux437ux430ux446ux438ux438}}
 
-Из формулы \eqref{eq:alpha-tau-res} видно, что при
-\(\delta^2 \to 0\) регуляризованное решение стремится к МНК-решению:
-\(\alpha_\delta^\ast \to \alpha^\ast\). При \(\delta^2 \to \infty\)
-чрезмерная регуляризации приводит к вырожденному решению:
-\(\alpha^\ast_\delta \to 0\). Оба крайних случая нежелательны, поэтому
-оптимальным является некоторое промежуточное значение \(\delta^2_\ast\).
+Из формулы~\eqref{eq:alpha-tau-res} видно, что при недостаточной регуляризации (\(\delta^2 \to 0\)) решение стремится к МНК-решению: \(\alpha_\delta^\ast \to \alpha^\ast\). Чрезмерная регуляризация (\(\delta^2 \to \infty\)) приводит к вырожденному решению: \(\alpha^\ast_\delta \to 0\).
+Оба крайних случая нежелательны, поэтому оптимальным является некоторое промежуточное значение \(\delta^2_\ast\).
 Для его нахождения можно применять, например, скользящий контроль.
 
-    Известна практическая рекомендация брать \(\delta^2\) в отрезке {[}0.1,
-0.4{]}, если столбцы матрицы \(F\) заранее стандартизованы (центрированы
-и нормированы). Ещё одна эвристика --- выбрать \(\delta^2\) так, чтобы
-число обусловленности приняло заданное не слишком большое значение:
-\(M_0 = \mu(F^\top F + \delta^2 I_n) = \frac{\sigma^2_\mathrm{max} + \delta^2}{\sigma^2_\mathrm{min} + \delta^2}\),
-откуда следует рекомендация \(\delta^2_\ast \approx \sigma^2_\mathrm{max}/M_0\).
+Ещё один подход --- выбрать \(\delta^2\) так, чтобы число обусловленности приняло заданное не~слишком большое значение: \(M_0 = \mu(F^\top F + \delta^2 I_n) = \frac{\sigma^2_\mathrm{max} + \delta^2}{\sigma^2_\mathrm{min} + \delta^2}\).
+Откуда следует оценка \(\delta^2_\ast \approx \sigma^2_\mathrm{max}/M_0\).
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{16}{\boxspacing}
+\prompt{In}{incolor}{17}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} SVD}
 \PY{n}{U}\PY{p}{,} \PY{n}{sgm}\PY{p}{,} \PY{n}{Vt} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{svd}\PY{p}{(}\PY{n}{F}\PY{p}{,} \PY{n}{full\PYZus{}matrices}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
@@ -881,7 +915,7 @@ Optimization terminated successfully.
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{17}{\boxspacing}
+\prompt{In}{incolor}{18}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Fit parameters with ridge regression}
 \PY{n}{M\PYZus{}0} \PY{o}{=} \PY{l+m+mf}{1e2}   \PY{c+c1}{\PYZsh{} desired condition number}
@@ -903,7 +937,7 @@ Alpha\_r = [1.681 2.187 0.468 0.339 0.05  0.125 0.03 ]
     \end{Verbatim}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{18}{\boxspacing}
+\prompt{In}{incolor}{19}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Show OLS fitted line}
 \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
@@ -921,7 +955,7 @@ Alpha\_r = [1.681 2.187 0.468 0.339 0.05  0.125 0.03 ]
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{Ridge.pdf}
     \end{center}
     
     \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
@@ -947,17 +981,15 @@ Alpha\_r = [1.681 2.187 0.468 0.339 0.05  0.125 0.03 ]
 \label{eq:lasso}\tag{5}
 \] где \(\chi\) --- параметр регуляризации.
 
-При больших значениях \(\chi\) ограничение \eqref{eq:lasso} становится
-строгим неравенством, и решение совпадает с МНК-решением. Чем меньше
-\(\chi\), тем больше коэффициентов \(\alpha_j\) обнуляются. Происходит
-отбор (селекция) признаков, поэтому параметр \(\chi\) называют ещё
-\emph{селективностью}. Образно говоря, параметр \(\chi\) зажимает вектор
-коэффициентов, лишая его избыточных степеней свободы. Отсюда и название
-метода --- \emph{лассо} (LASSO, least absolute shrinkage and selection
+При больших значениях \(\chi\) ограничение \eqref{eq:lasso} становится строгим неравенством, и решение совпадает с МНК-решением.
+Чем меньше \(\chi\), тем больше коэффициентов \(\alpha_j\) обнуляются.
+Происходит отбор (селекция) признаков, поэтому параметр \(\chi\) называют ещё \emph{селективностью}.
+Образно говоря, параметр \(\chi\) зажимает вектор коэффициентов, лишая его избыточных степеней свободы.
+Отсюда и название метода --- \emph{лассо} (LASSO, least absolute shrinkage and selection
 operator).
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{19}{\boxspacing}
+\prompt{In}{incolor}{20}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k}{def} \PY{n+nf}{Q\PYZus{}obj}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{:}
     \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Q \PYZhy{} objective function\PYZsq{}\PYZsq{}\PYZsq{}}
@@ -982,7 +1014,7 @@ operator).
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{20}{\boxspacing}
+\prompt{In}{incolor}{21}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} solve LASSO optimization task}
 \PY{n}{chi} \PY{o}{=} \PY{l+m+mi}{4}    \PY{c+c1}{\PYZsh{} the max constraint for the decision vector}
@@ -993,7 +1025,7 @@ operator).
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{21}{\boxspacing}
+\prompt{In}{incolor}{22}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Show OLS fitted line}
 \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
@@ -1012,11 +1044,11 @@ operator).
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_44_0.png}
+    \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{LASSO.pdf}
     \end{center}
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{22}{\boxspacing}
+\prompt{In}{incolor}{23}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OLS:   a = }\PY{l+s+si}{\PYZob{}}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{Alpha}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{norm(a) = }\PY{l+s+si}{\PYZob{}}\PY{n}{constr}\PY{p}{(}\PY{n}{Alpha}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{, Q = }\PY{l+s+si}{\PYZob{}}\PY{n}{Q\PYZus{}obj}\PY{p}{(}\PY{n}{Alpha}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ridge: a = }\PY{l+s+si}{\PYZob{}}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{Alpha\PYZus{}r}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{norm(a) = }\PY{l+s+si}{\PYZob{}}\PY{n}{constr}\PY{p}{(}\PY{n}{Alpha\PYZus{}r}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{, Q = }\PY{l+s+si}{\PYZob{}}\PY{n}{Q\PYZus{}obj}\PY{p}{(}\PY{n}{Alpha\PYZus{}r}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -1056,7 +1088,7 @@ norm(a) = 4.000000982817314, Q = 2.9828090972762267
 (проверить самостоятельно).
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{23}{\boxspacing}
+\prompt{In}{incolor}{24}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{eps} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}1}
 \PY{n}{Eps} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{eps}\PY{p}{,} \PY{l+m+mf}{1e2}\PY{o}{*}\PY{n}{eps}\PY{p}{,} \PY{n}{eps}\PY{p}{)}
@@ -1067,7 +1099,7 @@ norm(a) = 4.000000982817314, Q = 2.9828090972762267
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{24}{\boxspacing}
+\prompt{In}{incolor}{25}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Show OLS fitted line}
 \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
@@ -1083,11 +1115,11 @@ norm(a) = 4.000000982817314, Q = 2.9828090972762267
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_49_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Var_ridge.pdf}
     \end{center}
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{25}{\boxspacing}
+\prompt{In}{incolor}{26}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{Chi} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{10.}\PY{p}{,} \PY{l+m+mi}{21}\PY{p}{)}
 \PY{n}{BB} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{Chi}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{sgm}\PY{p}{)}\PY{p}{)}\PY{p}{)}
@@ -1099,7 +1131,7 @@ norm(a) = 4.000000982817314, Q = 2.9828090972762267
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{26}{\boxspacing}
+\prompt{In}{incolor}{27}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Show OLS fitted line}
 \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
@@ -1116,7 +1148,7 @@ norm(a) = 4.000000982817314, Q = 2.9828090972762267
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.75\linewidth}{0.9\paperheight}}{output_51_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Var_lasso.pdf}
     \end{center}
     
     \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
@@ -1128,10 +1160,12 @@ norm(a) = 4.000000982817314, Q = 2.9828090972762267
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Лабинцев А. \href{https://habr.com/ru/post/439288/}{Scipy, оптимизация.}
+  \emph{Лабинцев А.} \href{https://habr.com/ru/post/439288/}{Scipy,
+  оптимизация.}
 \item
   \emph{Воронцов К.В.}
-  \href{http://www.machinelearning.ru/wiki/images/6/6d/Voron-ML-1.pdf}{Математические методы обучения по прецедентам (теория обучения машин)}. --- 141\,c.
+  \href{http://www.machinelearning.ru/wiki/images/6/6d/Voron-ML-1.pdf}{Математические
+  методы обучения по прецедентам (теория обучения машин)}. --- 141 c.
 \item
   \emph{Strang G.} Linear algebra and learning from data. ---
   Wellesley-Cambridge Press, 2019. --- 432\,p.
@@ -1141,20 +1175,21 @@ norm(a) = 4.000000982817314, Q = 2.9828090972762267
 \prompt{In}{incolor}{28}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Versions used}
+\PY{k+kn}{import} \PY{n+nn}{sys}\PY{o}{,} \PY{n+nn}{scipy}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Python: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{o}{*}\PY{n}{sys}\PY{o}{.}\PY{n}{version\PYZus{}info}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numpy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{matplotlib: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seaborn: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{seaborn}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scipy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scipy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{scipy}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-Python: 3.7.7
-numpy: 1.18.1
-matplotlib: 3.2.1
-seaborn: 0.10.1
-scipy: 1.4.1
+Python: 3.7.11
+numpy: 1.20.3
+matplotlib: 3.5.1
+seaborn: 0.11.2
+scipy: 1.7.3
     \end{Verbatim}
 
 
