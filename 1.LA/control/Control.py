@@ -50,23 +50,27 @@ seaborn.set_style('whitegrid')
 # ## Сингулярное разложение
 #
 # 1. **Вопрос**: Как соотносятся собственные и сингулярные числа матрицы? \
-#    **Ответ**: В общем случае никак. \
-#    Но если $S$ &mdash; симметричная положительно определённая матрица, то $S = Q\Lambda Q^\top = U\Sigma V^\top$. \
+#    *Ответ*: В общем случае никак. \
+#    Но если $S$ &mdash; симметричная матрица, то $S = Q\Lambda Q^\top = U\Sigma V^\top$. \
 #    Если $S$ имеет отрицательные собственные числа ($S x = \lambda x$), то $\sigma = -\lambda$, а $u = -x$ или $v = -x$ (одно из двух). \
+#    Сингулярные числа симметричной матрицы равны модулю её собственных чисел: $\sigma_i = |\lambda_i|$.
 #    (Strang, p. 61)
+#
+# 1. **Вопрос**: Чему равны сингулярные числа ортогональной матрицы? \
+#    *Ответ*: Все сингулярные числа ортогональной матрицы равны 1 (вспомним геометрический смысл).
 #
 # 1. **Вопрос**: Рассмотрим матрицу $2 \times 2$. \
 #    В общем случае *4 разным элементам* (a, b, c, d) ставится в соответствие *4 геометрических параметра*: угол поворота ($\alpha$), два коэффициента растяжения ($\sigma_1, \sigma_2$), угол обратного поворота ($\beta$). \
 #    Но если матрица симметричная, то параметра уже 3 (a, b, b, d). Как в таком случае вычислить четвёрку ($\alpha$, $\sigma_1, \sigma_2$, $\beta$)? \
-#    **Ответ**: $\beta = -\alpha$. \
+#    *Ответ*: $\beta = -\alpha$. \
 #    (Strang, p. 62)
 #    
 # 1. **Вопрос**: Какова связь между сингулярным и полярным разложением? \
-#    **Ответ**: $A = U \Sigma V^\top = (U V^\top)(V \Sigma V^\top) = Q S$ или $A = U \Sigma V^\top = (U \Sigma U^\top)(U V^\top) = K Q$. \
+#    *Ответ*: $A = U \Sigma V^\top = (U V^\top)(V \Sigma V^\top) = Q S$ или $A = U \Sigma V^\top = (U \Sigma U^\top)(U V^\top) = K Q$. \
 #    (Strang, p. 67)
 #    
 # 1. **Вопрос**: Какова связь между сингулярными числами и собственными числами матрицы $S$ в полярном разложении? \
-#    **Ответ**: Собственные числа $S$ &mdash; это сингулярные числа исходной матрицы $A$. \
+#    *Ответ*: Собственные числа $S$ &mdash; это сингулярные числа исходной матрицы $A$. \
 #    (Strang, p. 67)
 
 # ---
@@ -207,31 +211,38 @@ print('nu = ', round(nu, 4))
 from scipy.optimize import minimize
 
 
-## L1 optimization to reject outlier
-def L1_norm(a):
-    return np.linalg.norm(a*x-b,ord=1)
+# L1 optimization to reject outlier
+def L1_norm(a, *args):
+    x, b = args
+    return np.linalg.norm(a*x-b, ord=1)
 
+
+# +
+x = np.sort(4*(np.random.rand(25,1)-0.5),axis=0) # Random data from [-2,2]
+b = 0.5*x + 0.1*np.random.randn(len(x),1)  # Line y = 0.5x with noise
+
+b_out = b.copy()
+b_out[-1] = -5 # Introduce outlier
 
 # +
 aL1, aL2 = [0, 0], [0, 0]
 
-x = np.sort(4*(np.random.rand(25,1)-0.5),axis=0) # Random data from [-2,2]
-b = 0.5*x + 0.1*np.random.randn(len(x),1)  # Line y = 0.5x with noise
 res = np.linalg.lstsq(x,b,rcond=None)[0] # Least-squares slope (no outliers)
 aL2[0] = res.item(0)
 
+res = np.linalg.lstsq(x,b_out,rcond=None)[0] # New slope
+aL2[1] = res.item(0)
+# -
+
+print(aL2)
+
+# +
 a0 = aL2[0]   # initialize to L2 solution
-res = minimize(L1_norm, a0)
+res = minimize(L1_norm, a0, args=(x, b))
 # print(res)
 aL1[0] = res.x[0]  # aL1 is robust
 
-# +
-b[-1] = -5  # Introduce outlier
-res = np.linalg.lstsq(x,b,rcond=None)[0] # New slope
-aL2[1] = res.item(0)
-
-a0 = aL2[1]   # initialize to L2 solution
-res = minimize(L1_norm, a0)
+res = minimize(L1_norm, a0, args=(x, b_out))
 # print(res)
 aL1[1] = res.x[0]  # aL1 is robust
 # -
@@ -243,19 +254,65 @@ print(aL1)
 fig, ax = plt.subplots(1, 1, figsize=(7,7))
 
 # Plotting X
-ax.plot(x[:-1],b[:-1],'ko')           # Data
-ax.plot(x[-1],b[-1],'o',c=cm(3),ms=7) # Outlier
+ax.plot(x[:-1],b[:-1],'ko')               # Data
+ax.plot(x[-1],b_out[-1],'o',c=cm(3),ms=7) # Outlier
 
 xgrid = np.arange(-2,2,0.01)
-ax.plot(xgrid,aL2[0]*xgrid,'k-')         # L2 fit (no outlier)
-ax.plot(xgrid,aL2[1]*xgrid,'--',c=cm(3)) # L2 fit (outlier)
-ax.plot(xgrid,aL1[1]*xgrid,'--',c=cm(0)) # L1 fit (outlier)
+# ax.plot(xgrid,aL2[0]*xgrid,'k-')        # L2 fit (no outlier)
+ax.plot(xgrid,aL2[1]*xgrid,'-',c=cm(0)) # L2 fit (outlier)
+ax.plot(xgrid,aL1[1]*xgrid,'-',c=cm(2)) # L1 fit (outlier)
 
 ax.set_xlabel('$x_1$')
 ax.set_ylabel('$x_2$', rotation=0, ha='right')
-# ax.set_ylim([-2, 2])
+ax.set_ylim([-1.5, 1.5])
+plt.show()
+
+
+# -
+# ### Норма Ln
+
+# Ln optimization to reject outlier
+def Ln_norm(a, *args):
+    x, b, n = args
+    res = (a*x-b).flatten()
+    return np.linalg.norm(res, ord=n)
+
+
+# +
+n = 3
+aLn = [0, 0]
+a0 = aL2[0]   # initialize to L2 solution
+
+res = minimize(Ln_norm, a0, args=(x, b_out, n))
+# print(res)
+aLn[1] = res.x[0]
+# -
+
+print(aL2)
+print(aL1)
+print(aLn)
+
+
+# +
+fig, ax = plt.subplots(1, 1, figsize=(7,7))
+
+# Plotting X
+ax.plot(x[:-1],b[:-1],'ko')               # Data
+ax.plot(x[-1],b_out[-1],'o',c=cm(3),ms=7) # Outlier
+
+xgrid = np.arange(-2,2,0.01)
+# ax.plot(xgrid,aL2[0]*xgrid,'k-')         # L2 fit (no outlier)
+ax.plot(xgrid,aL2[1]*xgrid, '-',c=cm(0)) # L2 fit (outlier)
+ax.plot(xgrid,aL1[1]*xgrid, '-',c=cm(2)) # L1 fit (outlier)
+ax.plot(xgrid,aLn[1]*xgrid,'--',c=cm(3)) # Ln fit (outlier)
+
+ax.set_xlabel('$x_1$')
+ax.set_ylabel('$x_2$', rotation=0, ha='right')
+ax.set_ylim([-1.5, 1.5])
 plt.show()
 # -
+
+
 
 
 

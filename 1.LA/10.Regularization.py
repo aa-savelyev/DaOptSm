@@ -31,9 +31,8 @@ import matplotlib.pyplot as plt
 # +
 # Styles
 import matplotlib
-matplotlib.rcParams['font.size'] = 14
-matplotlib.rcParams['lines.linewidth'] = 1.5
-matplotlib.rcParams['lines.markersize'] = 4
+matplotlib.rc('font', size=14)
+matplotlib.rc('lines', lw=1.5, markersize=4)
 cm = plt.cm.tab10  # Colormap
 
 import seaborn
