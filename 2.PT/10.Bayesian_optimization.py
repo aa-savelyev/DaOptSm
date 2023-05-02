@@ -29,7 +29,7 @@ from scipy.stats import norm
 from scipy.optimize import minimize
 
 import sys
-sys.path.append('./modules')
+sys.path.append('./scripts')
 import GP_kernels
 from GP_utils import plot_GP, GP_predictor
 
@@ -43,6 +43,9 @@ from matplotlib import cm # Colormaps
 
 import seaborn
 seaborn.set_style('whitegrid')
+
+from IPython.display import Image
+im_width = 1000
 
 
 # +
@@ -134,7 +137,7 @@ def next_point(acquisition, X_train, Y_train, bounds):
 # Параметр $k$ влияет на баланс между эксплуатацией и эксплорацией: при $k \rightarrow 0$, $\mathrm{LB}(x) \rightarrow f_\mathrm{min} - \mu(x)$ (чистая эксплуатация), при $k \rightarrow \infty$, $\mathrm{LB}(x) \rightarrow -k \sigma(x)$ (чистая эксплорация).
 #
 
-def lower_bound(X, X_train, Y_train, k=0.):
+def lower_bound(X, X_train, Y_train, k=2.):
     '''
     Predicted Minimum = mu - k*std
     Computes the predicted minimum at points X based on existing samples
@@ -155,7 +158,7 @@ def lower_bound(X, X_train, Y_train, k=0.):
     std = np.sqrt(np.diag(cov))
     y_min = np.min(Y_train)
     res = y_min - (mu - k*std)
-
+    res[res<0] = 0
     return res
 
 
@@ -172,6 +175,9 @@ def lower_bound(X, X_train, Y_train, k=0.):
 # где $f_\mathrm{min}$ &mdash; значение текущего минимума, а $y(x)$ &mdash; предсказываемое суррогатной моделью значение в точке $x$.
 # Отметим, что $y(x)$ является сечением гауссовского процесса в точке $x$ и, следовательно, гауссовской случайной величиной с плотностью распределения $p(y) \sim \mathcal{N}\left( \mu(x), \sigma^2(x) \right)$.
 
+display(Image('./pix/10.Bayesian_optimization/PI.png', width=0.65*im_width))
+
+
 # Если в качестве суррогатной модели используется регрессия на гауссовых процессах, вероятность улучшения можно посчитать аналитически:
 # $$
 #   PI(x) = \mathrm{P}[I(x)>0] = \int \limits_{-\infty}^{f_\mathrm{min}} p(y) dy =
@@ -180,16 +186,17 @@ def lower_bound(X, X_train, Y_train, k=0.):
 # $$
 # Здесь $\Phi(z)$ &mdash; функция стандартного нормального распределения, а $\phi(z)$ &mdash; его плотность.
 
-def probability_of_improvement(X, X_train, Y_train, delta_f=0.1):
+def probability_of_improvement(X, X_train, Y_train, xi=0.01):
     ''''''
     mu, cov = GP_predictor(X, X_train, Y_train,
                            kernel_fun, kernel_args, sigma_n)
     mu = mu.flatten()
     std = np.sqrt(np.diag(cov))
     y_min = np.min(Y_train)
+    std_max = np.max(std)
 
     with np.errstate(divide='warn'):
-        imp = y_min - mu - delta_f
+        imp = y_min - mu - xi*std_max
         z = imp / std
     res = norm.cdf(z)
 
@@ -201,19 +208,19 @@ def probability_of_improvement(X, X_train, Y_train, delta_f=0.1):
 # Следующий шаг &mdash; использовать не вероятность улучшения, а его ожидаемую величину.
 # Для этого вычислим (тоже аналитически) *математическое ожидание* улучшения.
 # $$
-# \begin{align*}
+# \begin{split}
 #   \mathrm{E}[I]
 #   &= \int \limits_{-\infty}^{\infty} I p(y) dy
 #   = \int \limits_{-\infty}^{f_\mathrm{min}} (f_\mathrm{min} - y)\,p(y) dy
 #   = \int \limits_{-\infty}^{\frac{f_\mathrm{min}-\mu}{\sigma}} \left( f_\mathrm{min} - (\mu+\sigma z) \right) \phi(z) dz \\
 #   &= \left( f_\mathrm{min} - \mu(x) \right) \, \Phi\left(\frac{f_\mathrm{min} - \mu(x)}{\sigma(x)}\right) + \sigma(x) \, \phi\left(\frac{f_\mathrm{min} - \mu(x)}{\sigma(x)}\right).
-# \end{align*}
+# \end{split}
 # $$
 #
 # Получившаяся функция продвижения $EI(x)$, называемая *ожидаемым улучшением*, удачно сочетает эксплуатацию и эксплорацию и поэтому используется чаще других.
 # Первое слагаемое, с точностью до множителя совпадающее с вероятностью улучшения $PI(x)$, отвечает за эксплуатацию, второе &mdash; за эксплорацию.
 
-def expected_improvement(X, X_train, Y_train, delta_f=0.1):
+def expected_improvement(X, X_train, Y_train, xi=0.01):
     '''
     Expected Improvement
     Computes the expected improvement at points X based on existing samples
@@ -232,10 +239,11 @@ def expected_improvement(X, X_train, Y_train, delta_f=0.1):
                            kernel_fun, kernel_args, sigma_n)
     mu = mu.flatten()
     std = np.sqrt(np.diag(cov))
-    mu_sample_opt = np.min(Y_train)
+    y_min = np.min(Y_train)
+    std_max = np.max(std)
 
     with np.errstate(divide='warn'):
-        imp = mu_sample_opt - mu - delta_f
+        imp = y_min - mu - xi*std_max
         z = imp / std
     res = imp * norm.cdf(z) + std * norm.pdf(z)
 
@@ -302,7 +310,7 @@ plt.show()
 # **Метод Нелдера — Мида (симплекс)**
 
 # Nelder-Mead
-# x0 = 0.5
+x0 = 0.5
 res = minimize(f_obj, x0, bounds=[(0, 1)], tol=1e-2,
                method='Nelder-Mead', options={'disp':True})
 print(f'x = {res.x}\n')
@@ -322,8 +330,8 @@ plt.show()
 x_range = x_lims[1] - x_lims[0]
 X_init = [x_lims[0], 0.5*sum(x_lims), x_lims[1]]
 X_init = np.array(X_init).reshape(-1, 1)
-# X_init = np.array([0, 1., 0.75]).reshape(-1, 1)
 Y_init = f_obj(X_init)
+N_init = len(X_init)
 
 # Plot objective function
 plt.figure(figsize=(8, 5))
@@ -374,7 +382,6 @@ def plot_approximation(X, Y, X_train, Y_train, X_next=None, show_legend=False):
 
 def plot_acquisition(X, Y, X_next, show_legend=False):
     ''''''
-    Y[Y<0] = 0
     plt.plot(X, Y, '-', c=cm.tab10(3), label='Acquisition function')
     plt.axvline(X_next, ls=':', c='k', label='Next point')
     if show_legend: plt.legend(loc=1)    
@@ -392,20 +399,20 @@ def plot_acquisition(X, Y, X_next, show_legend=False):
 acqusition_id = 'EI' # 'LB', 'PI', 'EI'
 
 # Hyperparameters
-kernel_args = {'l':.2, 'sigma_k':2.}
+kernel_args = {'l':0.2, 'sigma_k':2.0}
 sigma_n = 1e-3
 
 # Number of iterations
-N_budget = 20
+N_budget = 21 - N_init
 
 # acquisition function
 def acq_function(X, X_train, Y_train):
     if   acqusition_id == 'LB':
-        return lower_bound(X, X_train, Y_train, k=5.)
+        return lower_bound(X, X_train, Y_train, k=2.)
     elif acqusition_id == 'PI':
-        return probability_of_improvement(X, X_train, Y_train, delta_f=.5)
+        return probability_of_improvement(X, X_train, Y_train, xi=0.1)
     elif acqusition_id == 'EI':
-        return expected_improvement(X, X_train, Y_train, delta_f=.5)
+        return expected_improvement(X, X_train, Y_train, xi=0.1)
 
 
 # -
@@ -415,7 +422,7 @@ X_train = X_init
 Y_train = f_obj(X_init)
 
 # +
-plt.figure(figsize=(16, N_budget * 5))
+plt.figure(figsize=(16, N_budget*5))
 plt.subplots_adjust(hspace=0.4)
 
 for i in range(N_budget):   
@@ -426,19 +433,20 @@ for i in range(N_budget):
     Y_next = f_obj(X_next)
     
     # Plot samples, surrogate function, noise-free objective and next sampling location
-    ax = plt.subplot(N_budget, 2, 2 * i + 1)
+    ax = plt.subplot(N_budget, 2, 2*i + 1)
     plot_approximation(X_test, Y_true, X_train, Y_train, X_next, show_legend=(i==0))
-    plt.title(f'Iteration {i+3}, X_next = {X_next[0][0]:.3f}')
+    plt.title(f'Iteration {i+N_init}, X_next = {X_next[0][0]:.3f}')
 
-    plt.subplot(N_budget, 2, 2 * i + 2)
+    plt.subplot(N_budget, 2, 2*i + 2)
     Y_acq = acq_function(X_test, X_train, Y_train)
     plot_acquisition(X_test, Y_acq, X_next, show_legend=(i==0))
+    plt.title(f'AF_max = {-acq:.3g}')
     
     # Add a new sample to train samples
     X_train = np.vstack((X_train, X_next))
     Y_train = np.vstack((Y_train, Y_next))
     
-    print(i+3, *X_next, acq)
+    print(i+N_init, *X_next, -acq)
     if (-acq < 1e-100) or (abs(X_train[-2]-X_next)[0,0] < 1e-3*x_range):
         break
 
@@ -464,7 +472,7 @@ def f_obj_noisy(X, sigma_in):
 
 
 # Objective function values at X_test
-sigma_in = 3.
+sigma_in = 0.5
 Y_noisy = f_obj_noisy(X_test, sigma_in)
 
 # Plot optimization objective
@@ -502,29 +510,29 @@ def plot_approximation(X, Y, X_train, Y_train, X_next=None, show_legend=False):
 
 # +
 # Choose acquisition function
-acqusition_id = 'EI' # 'PM', 'PI', 'EI'
+acqusition_id = 'EI' # 'LB', 'PI', 'EI'
 
 # Hyperparameters
-kernel_args = {'l':.2, 'sigma_k':2.}
+kernel_args = {'l':0.2, 'sigma_k':2.0}
 sigma_n = 1e-1
 
 # Number of iterations
-N_budget = 20
+N_budget = 21 - N_init
 
 # acquisition function
 def acq_function(X, X_train, Y_train):
-    if   acqusition_id == 'PM':
-        return predicted_minimum(X, X_train, Y_train, k=5.)
+    if   acqusition_id == 'LB':
+        return lower_bound(X, X_train, Y_train, k=5.)
     elif acqusition_id == 'PI':
-        return probability_of_improvement(X, X_train, Y_train, delta_f=.5)
+        return probability_of_improvement(X, X_train, Y_train, xi=0.1)
     elif acqusition_id == 'EI':
-        return expected_improvement(X, X_train, Y_train, delta_f=.5)
+        return expected_improvement(X, X_train, Y_train, xi=0.5)
 
 
 # -
 
 # Initialize samples
-np.random.seed(142)
+np.random.seed(42)
 X_train = X_init
 Y_train = f_obj_noisy(X_init, sigma_in)
 
@@ -538,38 +546,34 @@ for i in range(N_budget):
     
     # Obtain next sample from the objective function
     Y_next = f_obj_noisy(X_next, sigma_in)
-    Y_next_true = f_obj(X_next)
     
     # Plot samples, surrogate function, noise-free objective and next sampling location
-    if not (i % 2):
-        ax = plt.subplot(N_budget, 2, i + 1)
-        plot_approximation(X_test, Y_noisy, X_train, Y_train, X_next, show_legend=(i==0))
-        plt.title(f'Iteration {i+3}, X_next = {X_next[0][0]:.3f}')
+    ax = plt.subplot(N_budget, 2, 2*i + 1)
+    plot_approximation(X_test, Y_noisy, X_train, Y_train, X_next, show_legend=(i==0))
+    plt.title(f'Iteration {i+N_init}, X_next = {X_next[0][0]:.3f}')
 
-        plt.subplot(N_budget, 2, i + 2)
-        Y_acq = acq_function(X_test, X_train, Y_train)
-        plot_acquisition(X_test, Y_acq, X_next, show_legend=(i==0))
+    plt.subplot(N_budget, 2, 2*i + 2)
+    Y_acq = acq_function(X_test, X_train, Y_train)
+    plot_acquisition(X_test, Y_acq, X_next, show_legend=(i==0))
+    plt.title(f'AF_max = {-acq:.3g}')
     
     # Add a new sample to train samples
     X_train = np.vstack((X_train, X_next))
     Y_train = np.vstack((Y_train, Y_next))
     
-    print(i+3, *X_next, acq)
-    if (-acq < 1e-200) or (abs(X_train[-2]-X_next)[0,0] < 1e-3*x_range):
+    print(i+N_init, *X_next, acq)
+    if (-acq < 1e-200) or (abs(X_train[-2]-X_train[-1])[0] < 1e-3*x_range):
         break
 # -
 # ---
 
 # ## Источники
 #
-# 1. *Krasser M.* [Gaussian processes](http://krasserm.github.io/2018/03/19/gaussian-processes/).
 # 1. *Forrester A. I. J., Sobester A., Keane A. J.* Engineering design via surrogate modelling. &mdash;  John Wiley & Sons Ltd., 2008. &mdash; 210 p. (University of Southampton, UK)
+# 1. *Krasser M.* [Gaussian processes](http://krasserm.github.io/2018/03/19/gaussian-processes/).
 
 # Versions used
 print('Python: {}.{}.{}'.format(*sys.version_info[:3]))
 print('numpy: {}'.format(np.__version__))
 print('matplotlib: {}'.format(matplotlib.__version__))
 print('seaborn: {}'.format(seaborn.__version__))
-
-
-
