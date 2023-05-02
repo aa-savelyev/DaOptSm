@@ -7,9 +7,9 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.5.2
+#       jupytext_version: 1.13.7
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -24,8 +24,8 @@
 # + slideshow={"slide_type": "skip"}
 # Imports
 import sys
-sys.path.append('../modules')
-import graph_support
+sys.path.append('../scripts')
+import graph_utils
 import numpy as np
 import scipy.stats as stats
 np.random.seed(42)
@@ -93,12 +93,12 @@ def univariate_normal(x, mean, variance):
 #
 # Ниже приведены примеры трёх одномерных нормальных распределений:
 #
-# 1. $\mathcal{N}(0, 1)$,
-# 1. $\mathcal{N}(2, 3)$,
-# 1. $\mathcal{N}(0, 0.2)$.
+# 1. $\mathcal{N}(-1, 1)$,
+# 1. $\mathcal{N}(2, 0.5)$,
+# 1. $\mathcal{N}(1, 1.5)$.
 
 # + slideshow={"slide_type": "subslide"}
-graph_support.hide_code_in_slideshow()
+graph_utils.hide_code_in_slideshow()
 # Plot different Univariate Normals
 x = np.linspace(-3, 5, num=150)
 fig = plt.figure(figsize=(16, 10))
@@ -128,7 +128,7 @@ m2, s2 = 2., 0.5**0.5
 X2 = np.random.normal(loc=m2, scale=s2, size=N)
 
 # + slideshow={"slide_type": "subslide"}
-graph_support.hide_code_in_slideshow()
+graph_utils.hide_code_in_slideshow()
 
 bins = 150
 fig = plt.figure(figsize=(16, 10))
@@ -316,7 +316,7 @@ def generate_surface(mean, covariance, d):
 
 
 # + slideshow={"slide_type": "subslide"}
-graph_support.hide_code_in_slideshow()
+graph_utils.hide_code_in_slideshow()
 # subplot
 fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(16,8))
 d = 2  # number of dimensions
@@ -446,7 +446,7 @@ X = np.random.normal(size=(d, n))
 Y = (mean + L.dot(X)).T
 
 # + slideshow={"slide_type": "subslide"}
-graph_support.hide_code_in_slideshow()
+graph_utils.hide_code_in_slideshow()
 # Plot the samples and the distribution
 fig, ax = plt.subplots(figsize=(12, 9))
 # Plot bivariate distribution
@@ -533,7 +533,7 @@ Sigma_12 = cov[0, 1]  # = Sigma_21 transpose in this case
 # $$
 
 # + slideshow={"slide_type": "subslide"}
-graph_support.hide_code_in_slideshow()
+graph_utils.hide_code_in_slideshow()
 # Plot the conditional distributions
 fig = plt.figure(figsize=(14, 14))
 gs = gridspec.GridSpec(2, 2, width_ratios=[2, 1], height_ratios=[2, 1])
@@ -622,7 +622,7 @@ cov_ygivenx = Sigma_22 - (Sigma_12 * (1/Sigma_11) * Sigma_12)
 print(f'mean_y|x={mean_ygivenx:0.2}, cov_y|x={cov_ygivenx:0.4}')
 
 # + slideshow={"slide_type": "subslide"}
-graph_support.hide_code_in_slideshow()
+graph_utils.hide_code_in_slideshow()
 # Plot the conditional distributions
 fig = plt.figure(figsize=(14, 14))
 gs = gridspec.GridSpec(

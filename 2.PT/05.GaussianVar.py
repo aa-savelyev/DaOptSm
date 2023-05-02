@@ -78,11 +78,14 @@ import seaborn
 # Докажем свойство 2 для случая, когда $\xi$ и $\eta$ имеют *стандартное* нормальное распределение. \
 # Применим формулу свёртки:
 # $$
-#   f_{\xi+\eta}(t) = \dfrac{1}{2\pi} \int\limits_{-\infty}^{\infty} e^{-{u^2}/{2}} e^{-{(t-u)^2}/{2}} du
-#   = \dfrac{1}{2\pi} \int\limits_{-\infty}^{\infty} e^{-\left( u^2 - ut + t^2/4 + t^2/4 \right)} du
-#   = \dfrac{1}{2\pi} e^{-t^2/4} \int\limits_{-\infty}^{\infty} e^{-\left( u - t/2 \right)^2} du \\
+# \begin{split}
+#   f_{\xi+\eta}(t)
+#   &= \dfrac{1}{2\pi} \int\limits_{-\infty}^{\infty} e^{-{u^2}/{2}} e^{-{(t-u)^2}/{2}} du
+#   = \dfrac{1}{2\pi} \int\limits_{-\infty}^{\infty} e^{-\left( u^2 - ut + t^2/4 + t^2/4 \right)} du \\
+#   &= \dfrac{1}{2\pi} e^{-t^2/4} \int\limits_{-\infty}^{\infty} e^{-\left( u - t/2 \right)^2} du
 #   = \dfrac{1}{2\pi} e^{-t^2/4} \int\limits_{-\infty}^{\infty} e^{-v^2}dv
 #   = \dfrac{1}{2\sqrt{\pi}} e^{-t^2/4}.
+# \end{split}
 # $$
 
 # ### Моменты нормального распределения
@@ -134,8 +137,8 @@ plt.plot(x, stats.norm.pdf(x, 0, 0.2**0.5),
 plt.xlabel('$x$')
 plt.ylabel('density: $p(x)$')
 plt.title('Одномерные нормальные распределения')
-plt.ylim([0, 1])
 plt.xlim([-3, 5])
+plt.ylim([0, 1])
 plt.legend(loc='upper right')
 plt.tight_layout()
 plt.show()
@@ -165,9 +168,8 @@ plt.plot(x, stats.norm.pdf(x, m_sum, var_sum**0.5),
 plt.xlabel('$x$')
 plt.ylabel('density: $p(x)$')
 plt.xlim([-3, 6])
-
-plt.tight_layout()
 plt.legend()
+plt.tight_layout()
 plt.show()
 
 
@@ -204,16 +206,17 @@ plt.show()
 #
 # *Доказательство*.
 # Обозначим ковариационную матрицу $\mathbf{K}$.
-# Положительная определёнонсть означает, что $\forall \mathbf{a} \in \mathbb{R}^n: \mathbf{a}^\top \mathbf{K} \mathbf{a} > 0$.
+# Положительная определённость означает, что $\forall \mathbf{a} \in \mathbb{R}^n: \mathbf{a}^\top \mathbf{K} \mathbf{a} > 0$.
 #
 # Действительно,
 # $$
 # \begin{split}
-#   \mathbf{a}^\top \mathbf{K} \mathbf{a} = \sum\limits_{i,j=1}^n a_i K_{ij} a_j
-#   &= \sum\limits_{i,j=1}^n a_i \mathrm{E}\left[ (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) \right] a_j =
-#   \sum\limits_{i,j=1}^n \mathrm{E}\left[ a_i (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) a_j \right] \\
-#   &= \mathrm{E}\left[ \sum\limits_{i,j=1}^n a_i (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) a_j \right] =
-#   \mathrm{E}\left[ \sum\limits_{i=1}^n a_i (\xi_i - \mathrm{E}\xi_i) \right]^2. \mathrm{\square}
+#   \mathbf{a}^\top \mathbf{K} \mathbf{a}
+#   = \sum\limits_{i,j=1}^n a_i K_{ij} a_j
+#  &= \sum\limits_{i,j=1}^n a_i \mathrm{E}\left[ (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) \right] a_j
+#   = \sum\limits_{i,j=1}^n \mathrm{E}\left[ a_i (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) a_j \right] \\
+#  &= \mathrm{E}\left[ \sum\limits_{i,j=1}^n a_i (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) a_j \right]
+#   = \mathrm{E}\left[ \sum\limits_{i=1}^n a_i (\xi_i - \mathrm{E}\xi_i) \right]^2. \mathrm{\square}
 # \end{split}
 # $$
 
@@ -326,7 +329,7 @@ surf_ind = generate_surface(bivariate_mean, bivariate_covariance)
 
 # Generate correlated Normals
 bivariate_mean = np.array([0., 0.])  # Mean
-sigma_1, sigma_2, cor_coeff = 1., 1.0, 0.8
+sigma_1, sigma_2, cor_coeff = 1., 1., 0.8
 bivariate_covariance = np.array([
     [sigma_1**2, cor_coeff*sigma_1*sigma_2], 
     [cor_coeff*sigma_1*sigma_2, sigma_2**2]
@@ -353,7 +356,7 @@ ax2.set_xlabel('$x_1$')
 ax2.set_ylabel('$x_2$', va='center')
 ax2.axis([-3., 3., -3., 3.])
 ax2.set_aspect('equal')
-ax2.set_title(f'Коррелированные величины, $\\rho={cor_coeff}$')
+ax2.set_title(f'Скоррелированные величины, $\\rho={cor_coeff}$')
 
 # Add colorbar and title
 fig.subplots_adjust(right=0.8)
@@ -370,17 +373,18 @@ plt.show()
 
 # ### Аффинное преобразование многомерного нормального распределения
 #  
-# Многомерное нормальное распределение можно преобразовать с помощью аффинного преобразования. Так, если $X$ &mdash; нормально распределённый случайный вектор, а $Y = u + LX$ &mdash; аффинное преобразованием $X$ с матрицей $L$ и вектором $u$, то $Y$ также нормально распределён со средним значением $\mu_{Y} = u + L\mu_{X}$ и ковариационной матрицей $\Sigma_{Y} = L\Sigma_{X}L^\top$.
+# Многомерное нормальное распределение можно преобразовать с помощью аффинного преобразования. Так, если $X$ &mdash; нормально распределённый случайный вектор, а $Y = u + LX$ &mdash; аффинное преобразованием $X$ с матрицей $L$ и вектором $u$, то $Y$ также нормально распределён со средним значением $\mu_{Y} = u + L\mu_{X}$ и ковариационной матрицей $\Sigma_{Y} = L\Sigma_{X}L^\top$:
 # $$
-#   X \sim \mathcal{N}(\mu_{X}, \Sigma_{X}) \quad\quad Y \sim \mathcal{N}(\mu_{Y}, \Sigma_{Y}) \\
-#   \mathcal{N}(\mu_{Y}, \Sigma_{Y}) = \mathcal{N}(u + L\mu_{X}, L\Sigma_{X}L^\top) = u + L\mathcal{N}(\mu_{X}, \Sigma_{X})
+# \begin{split}
+#   &X \sim \mathcal{N}(\mu_{X}, \Sigma_{X}),\\
+#   &Y \sim \mathcal{N}(\mu_{Y}, \Sigma_{Y}) = \mathcal{N}(u + L\mu_{X}, L\Sigma_{X}L^\top).
+# \end{split}
 # $$
 #
 # Это можно доказать следующим образом:
 # $$
-#   \mu_{Y} = \mathrm{E}[Y] = \mathrm{E}[u + LX] = u + \mathrm{E}[LX] = u + L\mu_{X}
+#   \mu_{Y} = \mathrm{E}[Y] = \mathrm{E}[u + LX] = u + \mathrm{E}[LX] = u + L\mu_{X},
 # $$
-#
 # $$
 # \begin{split}
 #   \Sigma_{Y} & = \mathrm{E}[(Y-\mu_{Y})(Y-\mu_{Y})^\top] \\
@@ -388,7 +392,7 @@ plt.show()
 #              & = \mathrm{E}[(L(X-\mu_{X})) (L(X-\mu_{X}))^\top] \\
 #              & = \mathrm{E}[L(X-\mu_{X}) (X-\mu_{X})^\top L^\top] \\
 #              & = L\mathrm{E}[(X-\mu_{X})(X-\mu_{X})^\top]L^\top \\
-#              & = L\Sigma_{X}L^\top
+#              & = L\Sigma_{X}L^\top.
 # \end{split}
 # $$
 
@@ -460,7 +464,7 @@ plt.tight_layout()
 plt.show()
 # -
 
-# Дополнительно нарисуем область, в которую попадает 95 % векторов (область $2\sigma$).
+# Дополнительно нарисуем область, в которую попадает 95 % векторов (в одномерном случае это была бы область $2\sigma$).
 # Для этого нам понадобится распределение *длин* гауссовских векторов.
 
 # ### Распределение Пирсона
@@ -509,7 +513,7 @@ def make_ellipse(mu, cov, ci=0.95, color='gray'):
     e, v = np.linalg.eig(cov)
     angle = 180./np.pi * np.arctan(v[1, 0] / v[0, 0])
     q = stats.chi2(2).ppf(ci)
-    label = f'{100*ci:.2g}% ci'
+    label = f'{ci:.1%} ci'
     e = Ellipse(mu, 2*np.sqrt(q*e[0]), 2*np.sqrt(q*e[1]), angle=angle,
                 fill=False, color=color, label=label)
     return e
@@ -557,5 +561,3 @@ print('Python: {}.{}.{}'.format(*sys.version_info[:3]))
 print('numpy: {}'.format(np.__version__))
 print('matplotlib: {}'.format(matplotlib.__version__))
 print('seaborn: {}'.format(seaborn.__version__))
-
-

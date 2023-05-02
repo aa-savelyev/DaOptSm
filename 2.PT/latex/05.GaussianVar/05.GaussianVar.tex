@@ -13,15 +13,19 @@
       \usepackage{polyglossia}
       \setmainlanguage[babelshorthands=true]{russian}    % Язык по-умолчанию русский с поддержкой приятных команд пакета babel
       \setotherlanguage{english}                         % Дополнительный язык = английский (в американской вариации по-умолчанию)
-      
-      \setmonofont[Scale=0.87,BoldFont={Fira Mono Medium}]%
-      {Fira Mono}%                                       % Моноширинный шрифт Fira
-      \newfontfamily\cyrillicfonttt[Scale=0.87,BoldFont={Fira Mono Medium},ItalicFont=[FiraMono-Oblique]]
-      {Fira Mono}                                        % Моноширинный шрифт для кириллицы
+
       \defaultfontfeatures{Ligatures=TeX}
-      \setmainfont{STIX Two Text}                        % Шрифт с засечками
-      \newfontfamily\cyrillicfont{STIX Two Text}         % Шрифт с засечками для кириллицы
-      
+      \setmainfont[BoldFont={STIX Two Text SemiBold}]%
+      {STIX Two Text}                                    % Шрифт с засечками
+      \newfontfamily\cyrillicfont[BoldFont={STIX Two Text SemiBold}]%
+      {STIX Two Text}                                    % Шрифт с засечками для кириллицы
+      \setsansfont{Fira Sans}                            % Шрифт без засечек
+      \newfontfamily\cyrillicfontsf{Fira Sans}           % Шрифт без засечек для кириллицы
+      \setmonofont[Scale=0.87,BoldFont={Fira Mono Medium},ItalicFont=[FiraMono-Oblique]]%
+      {Fira Mono}%                                       % Моноширинный шрифт
+      \newfontfamily\cyrillicfonttt[Scale=0.87,BoldFont={Fira Mono Medium},ItalicFont=[FiraMono-Oblique]]%
+      {Fira Mono}                                        % Моноширинный шрифт для кириллицы
+
       %%% Математические пакеты %%%
       \usepackage{amsthm,amsmath,amscd}   % Математические дополнения от AMS
       \usepackage{amsfonts,amssymb}       % Математические дополнения от AMS
@@ -29,7 +33,6 @@
       \usepackage{unicode-math}           % Для шрифта STIX Two Math
       \setmathfont{STIX Two Math}         % Математический шрифт
     \fi
-    \renewcommand{\linethickness}{0.1ex}
 
     % Basic figure setup, for now with no caption control since it's done
     % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
@@ -179,7 +182,8 @@
       {\Large Лекция 5} \\
       Распределение Гаусса
     }
-    \date{16 марта 2022\,г.}
+    % \date{16 марта 2022\,г.}
+    \date{}
     
     
     
@@ -399,21 +403,19 @@
   \maketitle
   \thispagestyle{empty}
   \tableofcontents
-  
-  \let\thefootnote\relax\footnote{
-%    \footnote{
-    \textit{
-    День 16 марта в истории:
-    \begin{itemize}[topsep=2pt,itemsep=1pt]
-      \item в 870 г. в Болгарии утверждена православная церковь и иерархия;
-      \item в 1521 г. португальский мореплаватель Фернан Магеллан во время первого кругосветного путешествия достиг берегов Филиппин;
-      \item в 1831 г. в Париже выходит роман Виктора Гюго <<Собор Парижской Богоматери>>;
-      \item в 1926 г. американский конструктор Роберт Годдард провёл успешное испытание первой ракеты на жидком топливе;
-      \item в 2014 г. состоялся общекрымский референдум, по итогам которого Крым вошёл в состав России.
-    \end{itemize}
-    }
-  }
-%  \pagebreak
+
+%  \let\thefootnote\relax\footnote{
+%    \textit{
+%    День 16 марта в истории:
+%    \begin{itemize}[topsep=2pt,itemsep=1pt]
+%      \item в 870 г. в Болгарии утверждена православная церковь и иерархия;
+%      \item в 1521 г. португальский мореплаватель Фернан Магеллан во время первого кругосветного путешествия достиг берегов Филиппин;
+%      \item в 1831 г. в Париже выходит роман Виктора Гюго <<Собор Парижской Богоматери>>;
+%      \item в 1926 г. американский конструктор Роберт Годдард провёл успешное испытание первой ракеты на жидком топливе;
+%      \item в 2014 г. состоялся общекрымский референдум, по итогам которого Крым вошёл в состав России.
+%    \end{itemize}
+%    }
+%  }
   \newpage
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
@@ -506,15 +508,16 @@
 
     Докажем свойство 2 для случая, когда \(\xi\) и \(\eta\) имеют
 \emph{стандартное} нормальное распределение.\\
-Применим формулу свёртки:
-\begin{align*}
+Применим формулу свёртки: \[
+\begin{split}
   f_{\xi+\eta}(t)
   &= \dfrac{1}{2\pi} \int\limits_{-\infty}^{\infty} e^{-{u^2}/{2}} e^{-{(t-u)^2}/{2}} du
   = \dfrac{1}{2\pi} \int\limits_{-\infty}^{\infty} e^{-\left( u^2 - ut + t^2/4 + t^2/4 \right)} du \\
   &= \dfrac{1}{2\pi} e^{-t^2/4} \int\limits_{-\infty}^{\infty} e^{-\left( u - t/2 \right)^2} du
   = \dfrac{1}{2\pi} e^{-t^2/4} \int\limits_{-\infty}^{\infty} e^{-v^2}dv
   = \dfrac{1}{2\sqrt{\pi}} e^{-t^2/4}.
-\end{align*}
+\end{split}
+\]
 
     \hypertarget{ux43cux43eux43cux435ux43dux442ux44b-ux43dux43eux440ux43cux430ux43bux44cux43dux43eux433ux43e-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}{%
 \subsection{Моменты нормального
@@ -558,38 +561,26 @@
 
 \textbf{Пример 1}\\
 Графики плотностей трёх одномерных нормальных распределений:
-\(\mathcal{N}(0, 1)\),
-\(\mathcal{N}(2, 3)\),
-\(\mathcal{N}(0, 0.2)\).
+\(\mathcal{N}(0, 1)\), \(\mathcal{N}(2, 3)\) и \(\mathcal{N}(0, 0.2)\).
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{4}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{k}{def} \PY{n+nf}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{mean}\PY{p}{,} \PY{n}{variance}\PY{p}{)}\PY{p}{:}
-    \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}pdf of the univariate normal distribution\PYZdq{}\PYZdq{}\PYZdq{}}
-    \PY{k}{return} \PY{p}{(}\PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{pi} \PY{o}{*} \PY{n}{variance}\PY{p}{)}\PY{p}{)} \PY{o}{*} 
-            \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{mean}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{variance}\PY{p}{)}\PY{p}{)}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{5}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Plot different Univariate Normals}
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{l+m+mi}{1001}\PY{p}{)}
 \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{,}
          \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathcal}\PY{l+s+si}{\PYZob{}N\PYZcb{}}\PY{l+s+s2}{(0, 1)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{,}
          \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathcal}\PY{l+s+si}{\PYZob{}N\PYZcb{}}\PY{l+s+s2}{(2, 3)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{)}\PY{p}{,}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{,}
          \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathcal}\PY{l+s+si}{\PYZob{}N\PYZcb{}}\PY{l+s+s2}{(0, 0.2)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{density: \PYZdl{}p(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Одномерные нормальные распределения}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
@@ -597,16 +588,16 @@
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_13_0.pdf}
+    \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{Gauss_1D_lines.pdf}
     \end{center}
-%    { \hspace*{\fill} \\}
+    % { \hspace*{\fill} \\}
     
     \textbf{Пример 2}\\
 Графики плотностей \(\mathcal{N}(-1, 1)\), \(\mathcal{N}(2, 0.64)\) и их
 суммы.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{6}{\boxspacing}
+\prompt{In}{incolor}{5}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{N} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{l+m+mf}{1e5}\PY{p}{)}
 \PY{n}{m1}\PY{p}{,} \PY{n}{s1} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{1.}
@@ -617,7 +608,7 @@
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{7}{\boxspacing}
+\prompt{In}{incolor}{6}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{100}
 \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
@@ -628,23 +619,22 @@
 \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{X1}\PY{o}{+}\PY{n}{X2}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{,}\PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}X\PYZus{}1+X\PYZus{}2\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 
 \PY{n}{m\PYZus{}sum}\PY{p}{,} \PY{n}{var\PYZus{}sum} \PY{o}{=} \PY{n}{m1}\PY{o}{+}\PY{n}{m2}\PY{p}{,} \PY{n}{s1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{n}{s2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
-\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{mean}\PY{o}{=}\PY{n}{m\PYZus{}sum}\PY{p}{,} \PY{n}{variance}\PY{o}{=}\PY{n}{var\PYZus{}sum}\PY{p}{)}\PY{p}{,}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{m\PYZus{}sum}\PY{p}{,} \PY{n}{var\PYZus{}sum}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{,}
          \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathcal}\PY{l+s+se}{\PYZob{}\PYZob{}}\PY{l+s+s2}{N}\PY{l+s+se}{\PYZcb{}\PYZcb{}}\PY{l+s+s2}{(}\PY{l+s+si}{\PYZob{}}\PY{n}{m\PYZus{}sum}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZob{}}\PY{n}{var\PYZus{}sum}\PY{l+s+si}{:}\PY{l+s+s2}{.3}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 
 \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{density: \PYZdl{}p(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}
-
-\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_16_0.pdf}
+    \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{Gauss_1D_sum.pdf}
     \end{center}
-%    { \hspace*{\fill} \\}
+    % { \hspace*{\fill} \\}
     
     \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -703,16 +693,17 @@
 \emph{симметричной} и \emph{положительно определённой}.
 
 \emph{Доказательство}. Обозначим ковариационную матрицу \(\mathbf{K}\).
-Положительная определёнонсть означает, что
+Положительная определённость означает, что
 \(\forall \mathbf{a} \in \mathbb{R}^n: \mathbf{a}^\top \mathbf{K} \mathbf{a} > 0\).
 
 Действительно, \[
 \begin{split}
-  \mathbf{a}^\top \mathbf{K} \mathbf{a} = \sum\limits_{i,j=1}^n a_i K_{ij} a_j
-  &= \sum\limits_{i,j=1}^n a_i \mathrm{E}\left[ (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) \right] a_j =
-  \sum\limits_{i,j=1}^n \mathrm{E}\left[ a_i (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) a_j \right] \\
-  &= \mathrm{E}\left[ \sum\limits_{i,j=1}^n a_i (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) a_j \right] =
-  \mathrm{E}\left[ \sum\limits_{i=1}^n a_i (\xi_i - \mathrm{E}\xi_i) \right]^2. \mathrm{\square}
+  \mathbf{a}^\top \mathbf{K} \mathbf{a}
+  = \sum\limits_{i,j=1}^n a_i K_{ij} a_j
+ &= \sum\limits_{i,j=1}^n a_i \mathrm{E}\left[ (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) \right] a_j
+  = \sum\limits_{i,j=1}^n \mathrm{E}\left[ a_i (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) a_j \right] \\
+ &= \mathrm{E}\left[ \sum\limits_{i,j=1}^n a_i (\xi_i - \mathrm{E}\xi_i) (\xi_j - \mathrm{E}\xi_j) a_j \right]
+  = \mathrm{E}\left[ \sum\limits_{i=1}^n a_i (\xi_i - \mathrm{E}\xi_i) \right]^2. \mathrm{\square}
 \end{split}
 \]
 
@@ -840,65 +831,51 @@
 \end{enumerate}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Plot bivariate distribution}
+\PY{k}{def} \PY{n+nf}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{covariance}\PY{p}{,} \PY{n}{n\PYZus{}mesh}\PY{o}{=}\PY{l+m+mi}{101}\PY{p}{)}\PY{p}{:}
+    \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Generate 2d density surface\PYZsq{}\PYZsq{}\PYZsq{}}
+    \PY{n}{x} \PY{o}{=} \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{n\PYZus{}mesh}\PY{p}{)}
+    \PY{n}{xx}\PY{p}{,} \PY{n}{yy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{c+c1}{\PYZsh{} Generate grid}
+    \PY{n}{pdf} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{xx}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{} Fill the cost matrix for each combination of weights}
+    \PY{n}{pdf} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{multivariate\PYZus{}normal}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}
+        \PY{n}{np}\PY{o}{.}\PY{n}{dstack}\PY{p}{(}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{mean}\PY{p}{,} \PY{n}{covariance}\PY{p}{)}
+    \PY{k}{return} \PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{n}{pdf}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{8}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{k}{def} \PY{n+nf}{multivariate\PYZus{}normal}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{d}\PY{p}{,} \PY{n}{mean}\PY{p}{,} \PY{n}{covariance}\PY{p}{)}\PY{p}{:}
-    \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}pdf of the multivariate normal distribution.\PYZsq{}\PYZsq{}\PYZsq{}}
-    \PY{n}{x\PYZus{}m} \PY{o}{=} \PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{mean}
-    \PY{k}{return} \PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{/} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{n}{d} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{det}\PY{p}{(}\PY{n}{covariance}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{*} 
-            \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{covariance}\PY{p}{,} \PY{n}{x\PYZus{}m}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{x\PYZus{}m}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\PY{n}{d} \PY{o}{=} \PY{l+m+mi}{2}  \PY{c+c1}{\PYZsh{} number of dimensions}
+\PY{c+c1}{\PYZsh{} Generate independent Normals}
+\PY{n}{bivariate\PYZus{}mean} \PY{o}{=}  \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Mean}
+\PY{n}{bivariate\PYZus{}covariance} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}
+    \PY{p}{[}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,} 
+    \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{]}\PY{p}{]}
+\PY{p}{)}  \PY{c+c1}{\PYZsh{} Covariance}
+\PY{n}{surf\PYZus{}ind} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{bivariate\PYZus{}mean}\PY{p}{,} \PY{n}{bivariate\PYZus{}covariance}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{9}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} Plot bivariate distribution}
-\PY{k}{def} \PY{n+nf}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{covariance}\PY{p}{,} \PY{n}{d}\PY{p}{)}\PY{p}{:}
-    \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Helper function to generate density surface.\PYZsq{}\PYZsq{}\PYZsq{}}
-    \PY{n}{nb\PYZus{}of\PYZus{}x} \PY{o}{=} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{} grid size}
-    \PY{n}{x1s} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{nb\PYZus{}of\PYZus{}x}\PY{p}{)}
-    \PY{n}{x2s} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{nb\PYZus{}of\PYZus{}x}\PY{p}{)}
-    \PY{n}{x1}\PY{p}{,} \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{x1s}\PY{p}{,} \PY{n}{x2s}\PY{p}{)} \PY{c+c1}{\PYZsh{} Generate grid}
-    \PY{n}{pdf} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{nb\PYZus{}of\PYZus{}x}\PY{p}{,} \PY{n}{nb\PYZus{}of\PYZus{}x}\PY{p}{)}\PY{p}{)}
-    \PY{c+c1}{\PYZsh{} Fill the cost matrix for each combination of weights}
-    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nb\PYZus{}of\PYZus{}x}\PY{p}{)}\PY{p}{:}
-        \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nb\PYZus{}of\PYZus{}x}\PY{p}{)}\PY{p}{:}
-            \PY{n}{pdf}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{multivariate\PYZus{}normal}\PY{p}{(}
-                \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{x1}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{x2}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} 
-                \PY{n}{d}\PY{p}{,} \PY{n}{mean}\PY{p}{,} \PY{n}{covariance}\PY{p}{)}
-    \PY{k}{return} \PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{pdf}  \PY{c+c1}{\PYZsh{} x1, x2, pdf(x1,x2)}
+\PY{c+c1}{\PYZsh{} Generate correlated Normals}
+\PY{n}{bivariate\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Mean}
+\PY{n}{sigma\PYZus{}1}\PY{p}{,} \PY{n}{sigma\PYZus{}2}\PY{p}{,} \PY{n}{cor\PYZus{}coeff} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{0.8}
+\PY{n}{bivariate\PYZus{}covariance} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}
+    \PY{p}{[}\PY{n}{sigma\PYZus{}1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{cor\PYZus{}coeff}\PY{o}{*}\PY{n}{sigma\PYZus{}1}\PY{o}{*}\PY{n}{sigma\PYZus{}2}\PY{p}{]}\PY{p}{,} 
+    \PY{p}{[}\PY{n}{cor\PYZus{}coeff}\PY{o}{*}\PY{n}{sigma\PYZus{}1}\PY{o}{*}\PY{n}{sigma\PYZus{}2}\PY{p}{,} \PY{n}{sigma\PYZus{}2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{]}
+\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Covariance}
+\PY{n}{surf\PYZus{}cor} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{bivariate\PYZus{}mean}\PY{p}{,} \PY{n}{bivariate\PYZus{}covariance}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{10}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{d} \PY{o}{=} \PY{l+m+mi}{2}  \PY{c+c1}{\PYZsh{} number of dimensions}
-\PY{c+c1}{\PYZsh{} Generate independent Normals}
-\PY{n}{bivariate\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Mean}
-\PY{n}{bivariate\PYZus{}covariance} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}
-    \PY{p}{[}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,} 
-    \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{]}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Covariance}
-\PY{n}{surf\PYZus{}ind} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{bivariate\PYZus{}mean}\PY{p}{,} \PY{n}{bivariate\PYZus{}covariance}\PY{p}{,} \PY{n}{d}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{11}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} Generate correlated Normals}
-\PY{n}{bivariate\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Mean}
-\PY{n}{sigma\PYZus{}1}\PY{p}{,} \PY{n}{sigma\PYZus{}2}\PY{p}{,} \PY{n}{cor\PYZus{}coeff} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{0.8}
-\PY{n}{bivariate\PYZus{}covariance} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}
-    \PY{p}{[}\PY{n}{sigma\PYZus{}1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{cor\PYZus{}coeff}\PY{o}{*}\PY{n}{sigma\PYZus{}1}\PY{o}{*}\PY{n}{sigma\PYZus{}2}\PY{p}{]}\PY{p}{,} 
-    \PY{p}{[}\PY{n}{cor\PYZus{}coeff}\PY{o}{*}\PY{n}{sigma\PYZus{}1}\PY{o}{*}\PY{n}{sigma\PYZus{}2}\PY{p}{,} \PY{n}{sigma\PYZus{}2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Covariance}
-\PY{n}{surf\PYZus{}cor} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{bivariate\PYZus{}mean}\PY{p}{,} \PY{n}{bivariate\PYZus{}covariance}\PY{p}{,} \PY{n}{d}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{12}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} subplot}
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -919,7 +896,7 @@
 \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}2\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax2}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{]}\PY{p}{)}
 \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}aspect}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Коррелированные величины, \PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{rho=}\PY{l+s+si}{\PYZob{}}\PY{n}{cor\PYZus{}coeff}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Скоррелированные величины, \PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{rho=}\PY{l+s+si}{\PYZob{}}\PY{n}{cor\PYZus{}coeff}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Add colorbar and title}
 \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{right}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
@@ -932,9 +909,9 @@
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.95\linewidth}{0.95\paperheight}}{output_35_0.pdf}
+    \adjustimage{max size={0.95\linewidth}{0.95\paperheight}}{Gauss_2D.pdf}
     \end{center}
-%    { \hspace*{\fill} \\}
+    % { \hspace*{\fill} \\}
     
     \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -951,15 +928,17 @@
 случайный вектор, а \(Y = u + LX\) --- аффинное преобразованием \(X\) с
 матрицей \(L\) и вектором \(u\), то \(Y\) также нормально распределён со
 средним значением \(\mu_{Y} = u + L\mu_{X}\) и ковариационной матрицей
-\(\Sigma_{Y} = L\Sigma_{X}L^\top\). \[
-  X \sim \mathcal{N}(\mu_{X}, \Sigma_{X}) \quad\quad Y \sim \mathcal{N}(\mu_{Y}, \Sigma_{Y}) \\
-  \mathcal{N}(\mu_{Y}, \Sigma_{Y}) = \mathcal{N}(u + L\mu_{X}, L\Sigma_{X}L^\top) = u + L\mathcal{N}(\mu_{X}, \Sigma_{X})
+\(\Sigma_{Y} = L\Sigma_{X}L^\top\):
+\[
+\begin{split}
+&X \sim \mathcal{N}(\mu_{X}, \Sigma_{X}),\\
+&Y \sim \mathcal{N}(\mu_{Y}, \Sigma_{Y}) = \mathcal{N}(u + L\mu_{X}, L\Sigma_{X}L^\top).
+\end{split}
 \]
 
 Это можно доказать следующим образом: \[
-  \mu_{Y} = \mathrm{E}[Y] = \mathrm{E}[u + LX] = u + \mathrm{E}[LX] = u + L\mu_{X}
+  \mu_{Y} = \mathrm{E}[Y] = \mathrm{E}[u + LX] = u + \mathrm{E}[LX] = u + L\mu_{X},
 \]
-
 \[
 \begin{split}
   \Sigma_{Y} & = \mathrm{E}[(Y-\mu_{Y})(Y-\mu_{Y})^\top] \\
@@ -967,7 +946,7 @@
              & = \mathrm{E}[(L(X-\mu_{X})) (L(X-\mu_{X}))^\top] \\
              & = \mathrm{E}[L(X-\mu_{X}) (X-\mu_{X})^\top L^\top] \\
              & = L\mathrm{E}[(X-\mu_{X})(X-\mu_{X})^\top]L^\top \\
-             & = L\Sigma_{X}L^\top
+             & = L\Sigma_{X}L^\top.
 \end{split}
 \]
 
@@ -1015,8 +994,8 @@ Y
 \sim
 \mathcal{N}\left(
 \begin{bmatrix}
-    0 \\ 
-    0 
+    0 \\
+    0
 \end{bmatrix},
 \begin{bmatrix}
     1 & 0.8 \\
@@ -1025,11 +1004,11 @@ Y
 \]
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{13}{\boxspacing}
+\prompt{In}{incolor}{11}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Sample from:}
 \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{2} \PY{c+c1}{\PYZsh{} Number of dimensions}
-\PY{n}{mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\PY{n}{mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{)}
 \PY{n}{covariance} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}
     \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{,} 
     \PY{p}{[}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
@@ -1042,23 +1021,23 @@ Y
 \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{200}  \PY{c+c1}{\PYZsh{} Samples to draw}
 \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{)}
 \PY{c+c1}{\PYZsh{} Apply the transformation}
-\PY{n}{Y} \PY{o}{=} \PY{p}{(}\PY{n}{mean} \PY{o}{+} \PY{n}{L}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+\PY{n}{Y} \PY{o}{=} \PY{n}{mean}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{+} \PY{n}{L}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{14}{\boxspacing}
+\prompt{In}{incolor}{12}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Plot the samples and the distribution}
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mf}{5.5}\PY{p}{)}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Plot bivariate distribution}
-\PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{covariance}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+\PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{covariance}\PY{p}{)}
 \PY{n}{con} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{magma\PYZus{}r}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Plot samples}
-\PY{n}{s} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{s} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{o}{*}\PY{n}{Y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
 \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}1\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}2\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{]}\PY{p}{)}
@@ -1072,13 +1051,13 @@ Y
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.55\linewidth}{0.55\paperheight}}{output_43_0.pdf}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{Gauss_2D_samples.pdf}
     \end{center}
-%    { \hspace*{\fill} \\}
+    % { \hspace*{\fill} \\}
     
-    Дополнительно нарисуем область, в которую попадает 95 \% векторов
-(область \(2\sigma\)). Для этого нам понадобится распределение
-\emph{длин} гауссовских векторов.
+    Дополнительно нарисуем область, в которую попадает 95 \% векторов (в
+одномерном случае это была бы область \(2\sigma\)). Для этого нам
+понадобится распределение \emph{длин} гауссовских векторов.
 
     \hypertarget{ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux435-ux43fux438ux440ux441ux43eux43dux430}{%
 \subsection{Распределение
@@ -1117,7 +1096,7 @@ Y
 \end{enumerate}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{15}{\boxspacing}
+\prompt{In}{incolor}{13}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Show data}
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -1143,19 +1122,18 @@ Y
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_47_0.pdf}
+    \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{Pearson_distribution.pdf}
     \end{center}
-%    { \hspace*{\fill} \\}
-    
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{16}{\boxspacing}
+\prompt{In}{incolor}{14}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k}{def} \PY{n+nf}{make\PYZus{}ellipse}\PY{p}{(}\PY{n}{mu}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{ci}\PY{o}{=}\PY{l+m+mf}{0.95}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
     \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Make covariance isoline\PYZsq{}\PYZsq{}\PYZsq{}}
     \PY{n}{e}\PY{p}{,} \PY{n}{v} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eig}\PY{p}{(}\PY{n}{cov}\PY{p}{)}
     \PY{n}{angle} \PY{o}{=} \PY{l+m+mf}{180.}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{pi} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{arctan}\PY{p}{(}\PY{n}{v}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{/} \PY{n}{v}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
     \PY{n}{q} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{chi2}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{n}{ci}\PY{p}{)}
-    \PY{n}{label} \PY{o}{=} \PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}}\PY{l+m+mi}{100}\PY{o}{*}\PY{n}{ci}\PY{l+s+si}{:}\PY{l+s+s1}{.2g}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZpc{} ci}\PY{l+s+s1}{\PYZsq{}}
+    \PY{n}{label} \PY{o}{=} \PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}}\PY{n}{ci}\PY{l+s+si}{:}\PY{l+s+s1}{.1\PYZpc{}}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{ ci}\PY{l+s+s1}{\PYZsq{}}
     \PY{n}{e} \PY{o}{=} \PY{n}{Ellipse}\PY{p}{(}\PY{n}{mu}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{q}\PY{o}{*}\PY{n}{e}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{q}\PY{o}{*}\PY{n}{e}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{angle}\PY{o}{=}\PY{n}{angle}\PY{p}{,}
                 \PY{n}{fill}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{label}\PY{p}{)}
     \PY{k}{return} \PY{n}{e}
@@ -1163,14 +1141,14 @@ Y
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{17}{\boxspacing}
+\prompt{In}{incolor}{15}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Plot the samples and the distribution}
 \PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mf}{5.5}\PY{p}{)}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Plot bivariate distribution}
-\PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{covariance}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+\PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{covariance}\PY{p}{)}
 \PY{n}{con} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{magma\PYZus{}r}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Plot 95\PYZpc{} Interval}
@@ -1178,7 +1156,7 @@ Y
 \PY{n}{ax}\PY{o}{.}\PY{n}{add\PYZus{}artist}\PY{p}{(}\PY{n}{e}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Plot samples}
-\PY{n}{s} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{s} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{o}{*}\PY{n}{Y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
 \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZus{}1\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZus{}2\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{]}\PY{p}{)}
@@ -1194,9 +1172,9 @@ Y
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.55\linewidth}{0.55\paperheight}}{output_49_0.pdf}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{Gauss_2D_95ci.pdf}
     \end{center}
-%    { \hspace*{\fill} \\}
+    % { \hspace*{\fill} \\}
     
     \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1218,7 +1196,7 @@ Y
 \end{enumerate}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{18}{\boxspacing}
+\prompt{In}{incolor}{16}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Versions used}
 \PY{k+kn}{import} \PY{n+nn}{sys}
@@ -1230,15 +1208,15 @@ Y
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-Python: 3.7.11
+Python: 3.7.16
 numpy: 1.20.3
 matplotlib: 3.5.1
-seaborn: 0.11.2
+seaborn: 0.12.2
     \end{Verbatim}
 
 
     % Add a bibliography block to the postdoc
-    
-    
-    
+
+
+
 \end{document}
