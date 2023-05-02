@@ -21,7 +21,7 @@
 
 # + [markdown] toc=true
 # <h1>Содержание<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Предмет-теории-вероятностей" data-toc-modified-id="Предмет-теории-вероятностей-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Предмет теории вероятностей</a></span></li><li><span><a href="#Вероятностная-модель" data-toc-modified-id="Вероятностная-модель-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Вероятностная модель</a></span><ul class="toc-item"><li><span><a href="#Пространство-элементарных-исходов" data-toc-modified-id="Пространство-элементарных-исходов-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Пространство элементарных исходов</a></span></li><li><span><a href="#Алгебра-и-$\mathbf{\sigma}$-алгебра-событий" data-toc-modified-id="Алгебра-и-$\mathbf{\sigma}$-алгебра-событий-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Алгебра и $\mathbf{\sigma}$-алгебра событий</a></span></li><li><span><a href="#Вероятностная-мера" data-toc-modified-id="Вероятностная-мера-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Вероятностная мера</a></span></li><li><span><a href="#Вероятностное-пространство" data-toc-modified-id="Вероятностное-пространство-2.4"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>Вероятностное пространство</a></span></li><li><span><a href="#Замечания" data-toc-modified-id="Замечания-2.5"><span class="toc-item-num">2.5&nbsp;&nbsp;</span>Замечания</a></span><ul class="toc-item"><li><span><a href="#Построение-вероятностного-пространства" data-toc-modified-id="Построение-вероятностного-пространства-2.5.1"><span class="toc-item-num">2.5.1&nbsp;&nbsp;</span>Построение вероятностного пространства</a></span></li><li><span><a href="#Так-что-же-такое-вероятность?" data-toc-modified-id="Так-что-же-такое-вероятность?-2.5.2"><span class="toc-item-num">2.5.2&nbsp;&nbsp;</span>Так что же такое вероятность?</a></span></li></ul></li></ul></li><li><span><a href="#Примеры" data-toc-modified-id="Примеры-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Примеры</a></span><ul class="toc-item"><li><span><a href="#Биномиальное-распределение" data-toc-modified-id="Биномиальное-распределение-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Биномиальное распределение</a></span></li><li><span><a href="#Гипергеометрическое-распределение" data-toc-modified-id="Гипергеометрическое-распределение-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Гипергеометрическое распределение</a></span></li></ul></li><li><span><a href="#Оценка-максимального-правдоподобия" data-toc-modified-id="Оценка-максимального-правдоподобия-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Оценка максимального правдоподобия</a></span><ul class="toc-item"><li><span><a href="#Задача-об-оценке-генеральной-совокупности-по-выборке" data-toc-modified-id="Задача-об-оценке-генеральной-совокупности-по-выборке-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Задача об оценке генеральной совокупности по выборке</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Предмет-теории-вероятностей" data-toc-modified-id="Предмет-теории-вероятностей-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Предмет теории вероятностей</a></span></li><li><span><a href="#Вероятностная-модель" data-toc-modified-id="Вероятностная-модель-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Вероятностная модель</a></span><ul class="toc-item"><li><span><a href="#Пространство-элементарных-исходов" data-toc-modified-id="Пространство-элементарных-исходов-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Пространство элементарных исходов</a></span></li><li><span><a href="#Алгебра-и-${\sigma}$-алгебра-событий" data-toc-modified-id="Алгебра-и-${\sigma}$-алгебра-событий-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Алгебра и ${\sigma}$-алгебра событий</a></span></li><li><span><a href="#Вероятностная-мера" data-toc-modified-id="Вероятностная-мера-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Вероятностная мера</a></span></li><li><span><a href="#Вероятностное-пространство" data-toc-modified-id="Вероятностное-пространство-2.4"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>Вероятностное пространство</a></span></li><li><span><a href="#Замечания" data-toc-modified-id="Замечания-2.5"><span class="toc-item-num">2.5&nbsp;&nbsp;</span>Замечания</a></span><ul class="toc-item"><li><span><a href="#Построение-вероятностного-пространства" data-toc-modified-id="Построение-вероятностного-пространства-2.5.1"><span class="toc-item-num">2.5.1&nbsp;&nbsp;</span>Построение вероятностного пространства</a></span></li><li><span><a href="#Так-что-же-такое-вероятность?" data-toc-modified-id="Так-что-же-такое-вероятность?-2.5.2"><span class="toc-item-num">2.5.2&nbsp;&nbsp;</span>Так что же такое вероятность?</a></span></li></ul></li></ul></li><li><span><a href="#Примеры" data-toc-modified-id="Примеры-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Примеры</a></span><ul class="toc-item"><li><span><a href="#Биномиальное-распределение" data-toc-modified-id="Биномиальное-распределение-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Биномиальное распределение</a></span></li><li><span><a href="#Гипергеометрическое-распределение" data-toc-modified-id="Гипергеометрическое-распределение-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Гипергеометрическое распределение</a></span></li></ul></li><li><span><a href="#Оценка-максимального-правдоподобия" data-toc-modified-id="Оценка-максимального-правдоподобия-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Оценка максимального правдоподобия</a></span><ul class="toc-item"><li><span><a href="#Задача-об-оценке-генеральной-совокупности-по-выборке" data-toc-modified-id="Задача-об-оценке-генеральной-совокупности-по-выборке-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Задача об оценке генеральной совокупности по выборке</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
 # -
 
 # Imports
@@ -31,7 +31,7 @@ import matplotlib.pyplot as plt
 # +
 # Styles
 import matplotlib
-matplotlib.rcParams['font.size'] = 14
+matplotlib.rcParams['font.size'] = 12
 matplotlib.rcParams['lines.linewidth'] = 1.5
 matplotlib.rcParams['lines.markersize'] = 4
 cm = matplotlib.pyplot.cm.tab10  # Colormap
@@ -40,16 +40,14 @@ import seaborn
 seaborn.set_style('whitegrid')
 
 # +
-import warnings
-warnings.filterwarnings('ignore')
-
+# # %config InlineBackend.figure_formats = ['pdf']
 # # %config Completer.use_jedi = False
 # -
 
 # ---
 
 # + [markdown] slideshow={"slide_type": "slide"}
-# ## Предмет теории вероятностей ##
+# ## Предмет теории вероятностей
 #
 # Предметом теории вероятностей является математический анализ случайных явлений &mdash; эмпирических феноменов, которые (при заданном &laquo;комплексе условий&raquo;) могут быть охарактеризованы тем, что
 #
@@ -68,15 +66,13 @@ warnings.filterwarnings('ignore')
 # ---
 # -
 
-# ## Вероятностная модель ##
+# ## Вероятностная модель
 #
 # Согласно аксиоматике Колмогорова первоначальным объектом теории вероятностей является *вероятностное пространство* $(\Omega, \mathcal{F}, \mathrm{P})$.
 # Здесь $\Omega$ &mdash; это множество, состоящее из элементарных событий $\omega$, с выделенной на нём системой его подмножеств (событий) $\mathcal{F}$, образующих $\sigma$-алгебру, а $\mathrm{P}$ &mdash; вероятностная мера (вероятность), определённая на множествах из $\mathcal{F}$.
-#
-# А теперь подробнее.
 
 # + [markdown] slideshow={"slide_type": "notes"}
-# ### Пространство элементарных исходов ###
+# ### Пространство элементарных исходов
 #
 # **Определение**. *Пространством элементарных исходов* называется множество $\Omega$, содержащее все возможные *взаимоисключающие* результаты данного случайного эксперимента.
 # Элементы множества $\Omega$ называются элементарными исходами и обозначаются буквой $\omega$.
@@ -93,7 +89,7 @@ warnings.filterwarnings('ignore')
 # - выбор шаров без возвращения (упорядоченные и неупорядоченные выборки).
 
 # + [markdown] slideshow={"slide_type": "notes"}
-# ### Алгебра и $\mathbf{\sigma}$-алгебра событий ###
+# ### Алгебра и ${\sigma}$-алгебра событий
 #
 # Наряду с понятием пространства элементарных исходов введём теперь важное понятие события, лежащее в основе построения всякой
 # вероятностной модели рассматриваемого эксперимента.
@@ -125,7 +121,7 @@ warnings.filterwarnings('ignore')
 # > *Упражнение.* Доказать, что если $\Omega$ состоит из $n$ элементов, то в множестве всех его подмножеств ровно $2^n$ элементов.
 
 # + [markdown] slideshow={"slide_type": "notes"}
-# ### Вероятностная мера ###
+# ### Вероятностная мера
 #
 # Пока мы сделали два первых шага к построению вероятностной модели эксперимента: выделили пространство исходов $\Omega$ и некоторую систему $\mathcal{F}$ его подмножеств, образующих $\sigma$-алгебру и называемых событиями.
 # Сделаем теперь следующий шаг, а именно введём вероятностную меру.
@@ -152,7 +148,7 @@ warnings.filterwarnings('ignore')
 # 1. $\mathrm{P}\left( \bigcup\limits_{i=1}^{n}A_i \right) = \sum\limits_{i}\mathrm{P}(A_i) - \sum\limits_{i<j}\mathrm{P}(A_i \cap A_j) + \sum\limits_{i<j<k}\mathrm{P}(A_i \cap A_j \cap A_k) + \ldots + (-1)^{n-1} \mathrm{P}\left( \bigcap\limits_{i=1}^{n}A_i \right)$ &mdash; формула включения-исключения.
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# ### Вероятностное пространство ###
+# ### Вероятностное пространство
 #
 # **Определение.** Тройка объектов
 #
@@ -207,11 +203,10 @@ warnings.filterwarnings('ignore')
 # + [markdown] slideshow={"slide_type": "skip"}
 # ---
 
-# + [markdown] slideshow={"slide_type": "slide"}
-# ## Примеры ##
-
 # + [markdown] slideshow={"slide_type": "notes"}
-# ### Биномиальное распределение ###
+# ## Примеры
+#
+# ### Биномиальное распределение
 #
 # Предположим, что монета подбрасывается $n$ раз и результат наблюдений записывается в виде упорядоченного
 # набора $(a_1, \ldots, a_n)$, где $a_i = 1$ в случае появления «герба» («успех») и $a_i = 0$ в случае появления «решетки» («неуспех»).
@@ -236,7 +231,7 @@ warnings.filterwarnings('ignore')
 # Набор вероятностей $\{\mathrm{P}(A_0), \ldots,\mathrm{P}(A_n)\}$ называется *биномиальным распределением* (числа &laquo;успехов&raquo; в выборке объёма $n$).
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# ### Гипергеометрическое распределение ###
+# ### Гипергеометрическое распределение
 #
 # Рассмотрим урну, содержащую $N$ шаров, из которых $M$ шаров имеют белый цвет.
 # Предположим, что осуществляется выбор без возвращения объёма $n < N$.
@@ -264,7 +259,7 @@ warnings.filterwarnings('ignore')
 #     \mathrm{P}(B_m(N)) = \frac{C_M^m C_{N-M}^{n-m}}{C_N^n}. \tag{1}\label{eq:prob}
 # $$
 #
-# Нам известны числа $M$, $n$ и $m$, а $N$ (размер популяциии) &mdash; нет, его требуется оценить.
+# Нам известны числа $M$, $n$ и $m$, а $N$ (размер популяции) &mdash; нет, его требуется оценить.
 #
 # Для каждого частного набора наблюдений $M$, $n$ и $m$ значение $N$, при котором вероятность $\mathrm{P}(B_m(N))$ максимальна, называется **оценкой максимального правдоподобия**.
 # Обозначим наиболее правдоподобное значение через $\hat{N}$.
@@ -316,7 +311,7 @@ Y = P(X)
 # -
 
 # Show data
-plt.figure(figsize=(8, 6))
+plt.figure(figsize=(8, 5))
 plt.plot(X, Y, '-')
 plt.yscale('log')
 plt.xlabel('$N$')
@@ -338,10 +333,10 @@ print(f'P({x_mle}) = {y_mle:.3}')
 # ---
 
 # + [markdown] slideshow={"slide_type": "slide"}
-# ## Источники ##
+# ## Источники
 #
-# 1. *Ширяев А. Н.* Вероятность &mdash; 1. &mdash; М.: МЦНМО, 2007. &mdash; 517 с.
-# 1. *Чернова Н. И.* Теория вероятностей. Учебное пособие. &mdash; Новосиб. гос. ун-т, 2007. &mdash; 160 с.
+# 1. *Ширяев А.Н.* Вероятность &mdash; 1. &mdash; М.: МЦНМО, 2007. &mdash; 517 с.
+# 1. *Чернова Н.И.* Теория вероятностей. Учебное пособие. &mdash; Новосиб. гос. ун-т, 2007. &mdash; 160 с.
 # 1. *Феллер В.* Введение в теорию вероятностей и её приложения. &mdash; М.: Мир, 1964. &mdash; 498 с.
 # 1. *Шпигельхалтер Д.* Искусство статистики. Как находить ответы в данных. &mdash; М.: Манн, Иванов и Фербер, 2021. &mdash; 448 с.
 # -
