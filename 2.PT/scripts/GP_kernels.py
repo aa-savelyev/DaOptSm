@@ -80,4 +80,4 @@ def periodic(X1, X2, kernel_args):
     sigma_k = kernel_args['sigma_k'] if 'sigma_k' in kernel_args.keys() else 1.
     period = kernel_args['period'] if 'period' in kernel_args.keys() else 1.
     dist = (np.sum(X1**2,1).reshape(-1,1) + np.sum(X2**2,1) - 2*np.dot(X1, X2.T))**0.5
-    return sigma_k**2 * np.exp(-2*np.sin(np.pi*dist/period)**2 / l**2)
+    return sigma_k**2 * np.exp(-2*(np.sin(np.pi*dist/period))**2 / l**2)
