@@ -14,7 +14,7 @@
 #     name: python3
 # ---
 
-# # Вопросы к весеннему семестру
+# # Вопросы по вероятностным методам
 
 # + [markdown] toc=true
 # <h1>Содержание<span class="tocSkip"></span></h1>
@@ -42,6 +42,9 @@ seaborn.set_style('whitegrid')
 # +
 # import warnings
 # warnings.filterwarnings('ignore')
+
+# # %config InlineBackend.figure_formats = ['pdf']
+# # %config Completer.use_jedi = False
 # -
 
 # ---
@@ -49,26 +52,31 @@ seaborn.set_style('whitegrid')
 # ## Статистики распределений
 
 # 1. **Вопрос**: Дано нормальное распределение. Укажите моду, медиану и математическое ожидание. Что изменится, если добавить ещё одно, смещённое нормальное распределение?
+#
+# 1. **Вопрос**: Пусть одна из двух независимых случайных величин имеет дискретное, а вторая &mdash; абсолютно непрерывное распределение. Какое распределение будет иметь их сумма? \
+#    **Ответ**: Пусть величина $\xi$ имеет таблицу распределения $Р(\xi = a_i) = p_i$, а $\eta$ имеет плотность распределения $f_\eta(x)$, и эти величины независимы.
+#    Тогда $\xi+\eta$ имеет плотность распределения $f_{\xi+\eta}(x) = \sum p_i f_\eta (x - a_i)$. (Чернова, стр. 85)
 
 # +
 N = int(2e5)
-n_max, a = 2, 3
-X1 = a*np.random.randint(0, n_max, N)
-X2 = np.random.normal(loc=0, scale=1, size=N)
+n_max, A = 2, 3
+X1 = np.random.normal(loc=0, scale=1, size=N)
+# X2 = np.random.normal(loc=3, scale=1, size=N)
+X2 = A*np.random.randint(0, n_max, N)
 
 x = np.linspace(-3, 6, num=1001)
 Y = np.zeros_like(x)
 for i in range(0, n_max):
-    Y += 1./n_max * stats.norm.pdf(x, loc=a*i, scale=1)
+    Y += 1./n_max * stats.norm.pdf(x, loc=A*i, scale=1)
 
 # +
 bins = 150
 fig = plt.figure(figsize=(8, 5))
 ax = plt.subplot(1,1,1)
 # plt.title('Одномерные нормальные распределения')
-plt.hist(X2, bins=bins, density=True, label='$X_1 \sim \mathcal{{N}}(0,1)$')
+plt.hist(X1, bins=bins, density=True, label='$X_1 \sim \mathcal{{N}}(0,1)$')
 plt.hist(X1+X2, bins=bins, density=True, alpha=0.5,
-         label='$X_2 \sim \mathcal{{N}}(0,1) + \mathcal{{N}}(3,1)$')
+         label=f'$X_2 \sim \mathcal{{N}}(0,1) + {A}\mathcal{{B}}_{{1/2}}$')
 plt.plot(x, Y, c='k')
 
 plt.xlabel('$x$')
@@ -94,59 +102,66 @@ plt.show()
 # 1. **Вопрос:** Из некоррелированности случайных величин следует независимость? Привести контрпримеры. \
 #    **Ответ:** Случайные величины $\xi \sim \mathcal{N(0, 1)}$ и $\xi^2$ некоррелированы, но функционально зависимы. Почему пример не подходит?
 
-# 4. **Вопрос:** Для двумерного нормального распределения нарисуем доверительные интервалы $\sigma$, $2\sigma$, $3\sigma$ двумя способами. Почему получились разные интервалы? Какой способ правильный? Что нужно изменить, чтобы результаты совпали (1 символ)? \
-#    **Ответ:** Красные линии неправильные, они показывают доверительные для одномерного Гаусса. Чтобы результаты совпали, нужно в первом способе взять $H_1$ (q = stats.chi2(1).ppf(ci)).
+# 4. **Вопрос:** В одномерном случае в интервалы $\sigma$, $2\sigma$ и $3\sigma$ попадает 68.3, 95.4 и 99.7 % данных. А как обстоят дела в двумерном случае? Какой процент данных попадает в интервал $2\sigma$? \
+#    **Ответ:** Это вопрос по распределению $\chi^2$. В двумерном случае  в интервал $2\sigma$ попадает 86.5 % данных.
+
+for sigma in np.arange(1,4):
+    print(f'{sigma} sigma: {100*stats.chi2(2).cdf(sigma**2):.3} %')
+
+# 5. **Вопрос:** Для двумерного нормального распределения нарисуем доверительные интервалы $\sigma$, $2\sigma$, $3\sigma$ двумя способами. Почему получились разные интервалы? Какой способ правильный? Что нужно изменить, чтобы результаты совпали (1 символ)? \
+#    **Ответ:** Чёрные линии неправильные, они показывают доверительные интервалы для одномерного Гаусса (68%, 95%, 99%). Чтобы результаты совпали, нужно в первом способе взять в качестве доверительных интервалов `stats.chi2(2).cdf(sigma_i**2)`.
 
 N = 1000
 mu = np.array([0., 0.])
-cov = np.array([[2.0, 0.3], [0.3, 0.5]])  # covariance matrix of x and y
-data = stats.multivariate_normal.rvs(mu, cov, size=N, random_state=42)
+cov = np.array([[2.0, 0.5], [0.5, 0.5]])  # covariance matrix of x and y
+Points = stats.multivariate_normal.rvs(mu, cov, size=N, random_state=42)
+
+lmbd, Q = np.linalg.eig(cov)
+eigen_v = Q @ np.diag(lmbd**0.5) @ np.identity(2)
 
 # +
 from matplotlib.patches import Ellipse
 
-def make_ellipse(mu, cov, ci=0.95, color='gray', label='$\pm 2\,\sigma$'):
+def make_ellipse(mu, cov, ci=0.95, color='k'):
     """Make covariance isoline"""
-    e, v = np.linalg.eig(cov)
-    angle = np.sign(v[1, 0]) * 180/np.pi * np.arccos(v[0, 0])
+    lmbd, Q = np.linalg.eig(cov)
+    angle = np.sign(Q[1, 0]) * 180/np.pi * np.arccos(Q[0, 0])
     q = stats.chi2(2).ppf(ci)
-    e = Ellipse(mu, 2*np.sqrt(q*e[0]), 2*np.sqrt(q*e[1]), angle=angle,
+    label = f'{100*ci:.3}% ci'
+    e = Ellipse(mu, 2*np.sqrt(q*lmbd[0]), 2*np.sqrt(q*lmbd[1]), angle=angle,
                 fill=False, color=color, label=label)
     return e
 
 
 # -
 
-def get_std(cov):
+def get_std_ellipse(cov):
     '''Get standard deviation'''
     theta = 2 * np.pi * np.linspace(0, 1, int(1e2))
-    e, v = np.linalg.eig(cov)
-    return v @ np.diag(e**0.5) @ np.array([np.cos(theta),np.sin(theta)])
+    lmbd, Q = np.linalg.eig(cov)
+    return Q @ np.diag(lmbd**0.5) @ np.array([np.cos(theta),np.sin(theta)])
 
 
 def draw_data(data, mu, cov):
-    fig, ax = plt.subplots(1, 1, figsize=(8, 8))
+    fig, ax = plt.subplots(1, 1, figsize=(10, 8))
     ax.plot(data[:,0], data[:,1], 'o', ms=2)
-    for i, ci in enumerate([0.6827, 0.9545, 0.9973]):
+    ci_list = [0.6827, 0.9545, 0.9973]
+#     ci_list = [stats.chi2(2).cdf(i**2) for i in range(1,4)]
+    for i, ci in enumerate(ci_list):
+        i += 1
         # variant 1
         e = make_ellipse(mu, cov, ci=ci)
         ax.add_artist(e)
         # variant 2
-        std = get_std(cov)
-        ax.plot(*(mu.reshape((2,1)) + (i+1)*std), 'r--')
+        std_ellipse = get_std_ellipse(cov)
+        ax.plot(*(mu.reshape((-1,1)) + i*std_ellipse), 'r--')
     ax.plot(*mu, 'kx', ms=10, mew=2.)
-#     ax.axis('equal')
+    ax.quiver(*np.zeros((2,2)), eigen_v[0], eigen_v[1], color=[cm(3)],
+              angles='xy', scale_units='xy', scale=1)
+    ax.axis('equal')
 
 
-draw_data(data, mu, cov)
-
-# 5. **Вопрос:** В одномерном случае в интервалы $\sigma$, $2\sigma$ и $3\sigma$ попадает 68.3, 95.4 и 99.7 % данных. А как обстоят дела в двумерном случае? Какой процент данных попадает в интервал $2\sigma$? \
-#    **Ответ:** Это вопрос по распределению $\chi^2$. В двумерном случае  в интервал $2\sigma$ попадает 86.5 % данных.
-
-for i in np.arange(1,4):
-    print(stats.chi2(2).cdf(i**2))
-
-
+draw_data(Points, mu, cov)
 
 # ---
 
