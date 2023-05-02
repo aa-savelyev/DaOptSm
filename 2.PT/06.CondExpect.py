@@ -30,6 +30,10 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
+import sys
+sys.path.append('./scripts')
+from GP_utils import generate_gauss_surface
+
 # +
 # Styles, fonts
 import matplotlib
@@ -39,11 +43,6 @@ from matplotlib import cm # Colormaps
 import seaborn
 from IPython.display import Image
 im_width = 1000
-# -
-
-import sys
-sys.path.append('./modules')
-from graph_support import generate_gauss_surface
 
 # +
 # # %config InlineBackend.figure_formats = ['pdf']
@@ -262,7 +261,7 @@ plt.show()
 # $$
 # \begin{bmatrix}
 #     \mathbf{x} \\
-#     \mathbf{y} 
+#     \mathbf{y}
 # \end{bmatrix}
 # \sim
 # \mathcal{N}\left(
@@ -517,5 +516,3 @@ print('Python: {}.{}.{}'.format(*sys.version_info[:3]))
 print('numpy: {}'.format(np.__version__))
 print('matplotlib: {}'.format(matplotlib.__version__))
 print('seaborn: {}'.format(seaborn.__version__))
-
-

@@ -13,15 +13,19 @@
       \usepackage{polyglossia}
       \setmainlanguage[babelshorthands=true]{russian}    % Язык по-умолчанию русский с поддержкой приятных команд пакета babel
       \setotherlanguage{english}                         % Дополнительный язык = английский (в американской вариации по-умолчанию)
-      
-      \setmonofont[Scale=0.87,BoldFont={Fira Mono Medium}]%
-      {Fira Mono}%                                       % Моноширинный шрифт Fira
-      \newfontfamily\cyrillicfonttt[Scale=0.87,BoldFont={Fira Mono Medium},ItalicFont=[FiraMono-Oblique]]
-      {Fira Mono}                                        % Моноширинный шрифт для кириллицы
+
       \defaultfontfeatures{Ligatures=TeX}
-      \setmainfont{STIX Two Text}                        % Шрифт с засечками
-      \newfontfamily\cyrillicfont{STIX Two Text}         % Шрифт с засечками для кириллицы
-      
+      \setmainfont[BoldFont={STIX Two Text SemiBold}]%
+      {STIX Two Text}                                    % Шрифт с засечками
+      \newfontfamily\cyrillicfont[BoldFont={STIX Two Text SemiBold}]%
+      {STIX Two Text}                                    % Шрифт с засечками для кириллицы
+      \setsansfont{Fira Sans}                            % Шрифт без засечек
+      \newfontfamily\cyrillicfontsf{Fira Sans}           % Шрифт без засечек для кириллицы
+      \setmonofont[Scale=0.87,BoldFont={Fira Mono Medium},ItalicFont=[FiraMono-Oblique]]%
+      {Fira Mono}%                                       % Моноширинный шрифт
+      \newfontfamily\cyrillicfonttt[Scale=0.87,BoldFont={Fira Mono Medium},ItalicFont=[FiraMono-Oblique]]%
+      {Fira Mono}                                        % Моноширинный шрифт для кириллицы
+
       %%% Математические пакеты %%%
       \usepackage{amsthm,amsmath,amscd}   % Математические дополнения от AMS
       \usepackage{amsfonts,amssymb}       % Математические дополнения от AMS
@@ -29,7 +33,6 @@
       \usepackage{unicode-math}           % Для шрифта STIX Two Math
       \setmathfont{STIX Two Math}         % Математический шрифт
     \fi
-    \renewcommand{\linethickness}{0.1ex}
 
     % Basic figure setup, for now with no caption control since it's done
     % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
@@ -179,7 +182,8 @@
       {\Large Лекция 6} \\
       Условное математическое ожидание
     }
-    \date{30 марта 2022\,г.}
+    % \date{30 марта 2022\,г.}
+    \date{}
     
     
     
@@ -399,7 +403,7 @@
   \maketitle
   \thispagestyle{empty}
   \tableofcontents
-  
+
 %  \let\thefootnote\relax\footnote{
 %    \textit{День 30 марта в истории:
 %      \begin{itemize}[topsep=2pt,itemsep=1pt]
@@ -411,6 +415,7 @@
 %      \end{itemize}
 %    }
 %  }
+
   \newpage
 
 
@@ -419,6 +424,7 @@
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Imports}
 \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k+kn}{import} \PY{n}{stats}
 \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
 \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{gridspec} \PY{k}{as} \PY{n+nn}{gridspec}
 \PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{axes\PYZus{}grid1} \PY{k+kn}{import} \PY{n}{make\PYZus{}axes\PYZus{}locatable}
@@ -443,10 +449,8 @@
 \prompt{In}{incolor}{3}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k+kn}{import} \PY{n+nn}{sys}
-\PY{n}{sys}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./modules}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{k+kn}{from} \PY{n+nn}{gauss\PYZus{}distrib\PYZus{}util} \PY{k+kn}{import} \PY{n}{univariate\PYZus{}normal}
-\PY{k+kn}{from} \PY{n+nn}{gauss\PYZus{}distrib\PYZus{}util} \PY{k+kn}{import} \PY{n}{multivariate\PYZus{}normal}
-\PY{k+kn}{from} \PY{n+nn}{gauss\PYZus{}distrib\PYZus{}util} \PY{k+kn}{import} \PY{n}{generate\PYZus{}surface}
+\PY{n}{sys}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./scripts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k+kn}{from} \PY{n+nn}{GP\PYZus{}utils} \PY{k+kn}{import} \PY{n}{generate\PYZus{}gauss\PYZus{}surface}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -498,10 +502,10 @@
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_10_0.png}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{CondExpect_geom.png}
     \end{center}
 %    { \hspace*{\fill} \\}
-    
+
     Результат проектирования --- такая случайная величина
 \(\mathrm{E}(\eta|\xi) = \hat{\eta}\) из \(L\), для которой выполнено
 основное свойство ортопроекции: её разность с \(\eta\) ортогональна всем
@@ -606,7 +610,7 @@
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-m1 = 169.96, D1 = 16.23
+m1 = 169.98, D1 = 15.86
 m2 = 180.00, D2 = 1.01
     \end{Verbatim}
 
@@ -627,10 +631,10 @@ m2 = 180.00, D2 = 1.01
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_19_0.pdf}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{Hist_1.pdf}
     \end{center}
 %    { \hspace*{\fill} \\}
-    
+
     Математическое ожидание полной выборки найдём по формуле Адама
 (взвешенная сумма мат. ожиданий), а дисперсию --- по формуле Евы (мат.
 ожидание дисперсий + дисперсия мат. ожиданий).
@@ -659,7 +663,7 @@ m3\_teor = 172.50, D3\_teor = 31.00
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-m3\_act = 172.47, D3\_act = 31.34
+m3\_act = 172.49, D3\_act = 30.95
     \end{Verbatim}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
@@ -681,10 +685,10 @@ m3\_act = 172.47, D3\_act = 31.34
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_23_0.pdf}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{Hist_2.pdf}
     \end{center}
 %    { \hspace*{\fill} \\}
-    
+
     \hypertarget{ux443ux441ux43bux43eux432ux43dux43eux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux435}{%
 \subsection{Условное
 распределение}\label{ux443ux441ux43bux43eux432ux43dux43eux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux435}}
@@ -805,7 +809,7 @@ m3\_act = 172.47, D3\_act = 31.34
 \[
 \begin{bmatrix}
     \mathbf{x} \\
-    \mathbf{y} 
+    \mathbf{y}
 \end{bmatrix}
 \sim
 \mathcal{N}\left(
@@ -872,15 +876,15 @@ Springer-Verlag, 1933.
 \prompt{In}{incolor}{13}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{2}  \PY{c+c1}{\PYZsh{} dimensions}
-\PY{n}{mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\PY{n}{mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{)}
 \PY{n}{cov} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}
     \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{,} 
     \PY{p}{[}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
 \PY{p}{]}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Get the mean values from the vector}
-\PY{n}{mean\PYZus{}x} \PY{o}{=} \PY{n}{mean}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
-\PY{n}{mean\PYZus{}y} \PY{o}{=} \PY{n}{mean}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+\PY{n}{mean\PYZus{}x} \PY{o}{=} \PY{n}{mean}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\PY{n}{mean\PYZus{}y} \PY{o}{=} \PY{n}{mean}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
 \PY{c+c1}{\PYZsh{} Get the blocks (single values in this case) from }
 \PY{c+c1}{\PYZsh{} the covariance matrix}
 \PY{n}{Sigma\PYZus{}11} \PY{o}{=} \PY{n}{cov}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
@@ -901,7 +905,7 @@ Springer-Verlag, 1933.
 
 \PY{c+c1}{\PYZsh{} Plot surface on top left}
 \PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
-\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}gauss\PYZus{}surface}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{cov}\PY{p}{)}
 \PY{c+c1}{\PYZsh{} Plot bivariate distribution}
 \PY{n}{con} \PY{o}{=} \PY{n}{ax1}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{magma\PYZus{}r}\PY{p}{)}
 \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -911,7 +915,7 @@ Springer-Verlag, 1933.
 
 \PY{c+c1}{\PYZsh{} Plot y}
 \PY{n}{ax2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-\PY{n}{py} \PY{o}{=} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{y\PYZus{}var}\PY{p}{,} \PY{n}{mean\PYZus{}y}\PY{p}{,} \PY{n}{Sigma\PYZus{}22}\PY{p}{)}
+\PY{n}{py} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{y\PYZus{}var}\PY{p}{,} \PY{n}{mean\PYZus{}y}\PY{p}{,} \PY{n}{Sigma\PYZus{}22}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}
 \PY{c+c1}{\PYZsh{} Plot univariate distribution}
 \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{py}\PY{p}{,} \PY{n}{y\PYZus{}var}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}p(y)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax2}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
@@ -921,7 +925,7 @@ Springer-Verlag, 1933.
 
 \PY{c+c1}{\PYZsh{} Plot x}
 \PY{n}{ax3} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
-\PY{n}{px} \PY{o}{=} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{x\PYZus{}var}\PY{p}{,} \PY{n}{mean\PYZus{}x}\PY{p}{,} \PY{n}{Sigma\PYZus{}11}\PY{p}{)}
+\PY{n}{px} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x\PYZus{}var}\PY{p}{,} \PY{n}{mean\PYZus{}x}\PY{p}{,} \PY{n}{Sigma\PYZus{}11}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}
 \PY{c+c1}{\PYZsh{} Plot univariate distribution}
 \PY{n}{ax3}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}var}\PY{p}{,} \PY{n}{px}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}p(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax3}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
@@ -944,10 +948,9 @@ Springer-Verlag, 1933.
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_38_0.pdf}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{Marginal_2D.pdf}
     \end{center}
-    { \hspace*{\fill} \\}
-    
+
     \hypertarget{ux443ux441ux43bux43eux432ux43dux44bux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}{%
 \subsection{Условное
 распределение}\label{ux443ux441ux43bux43eux432ux43dux44bux435-ux440ux430ux441ux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f}}
@@ -1025,7 +1028,7 @@ mean\_y|x = -0.8, cov\_y|x = 0.36
 
 \PY{c+c1}{\PYZsh{} Plot surface on top left}
 \PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
-\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}surface}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{generate\PYZus{}gauss\PYZus{}surface}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{cov}\PY{p}{)}
 \PY{c+c1}{\PYZsh{} Plot bivariate distribution}
 \PY{n}{con} \PY{o}{=} \PY{n}{ax1}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{magma\PYZus{}r}\PY{p}{)}
 \PY{c+c1}{\PYZsh{} condition sections}
@@ -1043,7 +1046,7 @@ mean\_y|x = -0.8, cov\_y|x = 0.36
 
 \PY{c+c1}{\PYZsh{} Plot y|x}
 \PY{n}{ax2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-\PY{n}{pyx} \PY{o}{=} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{y\PYZus{}var}\PY{p}{,} \PY{n}{mean\PYZus{}ygivenx}\PY{p}{,} \PY{n}{cov\PYZus{}ygivenx}\PY{p}{)}
+\PY{n}{pyx} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{y\PYZus{}var}\PY{p}{,} \PY{n}{mean\PYZus{}ygivenx}\PY{p}{,} \PY{n}{cov\PYZus{}ygivenx}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}
 \PY{c+c1}{\PYZsh{} Plot univariate distribution}
 \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{pyx}\PY{p}{,} \PY{n}{y\PYZus{}var}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}p(y|x=}\PY{l+s+si}{\PYZob{}}\PY{n}{x\PYZus{}condition}\PY{l+s+si}{:}\PY{l+s+s1}{.1f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax2}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
@@ -1053,7 +1056,7 @@ mean\_y|x = -0.8, cov\_y|x = 0.36
 
 \PY{c+c1}{\PYZsh{} Plot x|y}
 \PY{n}{ax3} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
-\PY{n}{pxy} \PY{o}{=} \PY{n}{univariate\PYZus{}normal}\PY{p}{(}\PY{n}{x\PYZus{}var}\PY{p}{,} \PY{n}{mean\PYZus{}xgiveny}\PY{p}{,} \PY{n}{cov\PYZus{}xgiveny}\PY{p}{)}
+\PY{n}{pxy} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x\PYZus{}var}\PY{p}{,} \PY{n}{mean\PYZus{}xgiveny}\PY{p}{,} \PY{n}{cov\PYZus{}xgiveny}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}
 \PY{c+c1}{\PYZsh{} Plot univariate distribution}
 \PY{n}{ax3}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}var}\PY{p}{,} \PY{n}{pxy}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}p(x|y=}\PY{l+s+si}{\PYZob{}}\PY{n}{y\PYZus{}condition}\PY{l+s+si}{:}\PY{l+s+s1}{.1f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{ax3}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
@@ -1076,10 +1079,9 @@ mean\_y|x = -0.8, cov\_y|x = 0.36
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_42_0.pdf}
+    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{Conditional_2D.pdf}
     \end{center}
-    { \hspace*{\fill} \\}
-    
+
     На рисунке выше пунктирными линиями изображены сечения
 \(x_{condition} = -1.0\) и \(y_{condition} = 1.5\).
 Сплошные линии показывают линии регрессии \(y\) по \(x\) (синий цвет) и
@@ -1156,12 +1158,11 @@ mean\_y|x = -0.8, cov\_y|x = 0.36
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-Python: 3.7.11
+Python: 3.7.16
 numpy: 1.20.3
 matplotlib: 3.5.1
-seaborn: 0.11.2
+seaborn: 0.12.2
     \end{Verbatim}
-
 
 
     % Add a bibliography block to the postdoc
