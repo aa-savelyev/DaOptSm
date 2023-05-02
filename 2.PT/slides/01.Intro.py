@@ -7,9 +7,9 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.10.3
+#       jupytext_version: 1.13.7
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -31,8 +31,8 @@
 # + slideshow={"slide_type": "skip"}
 # Imports
 import sys
-sys.path.append('../modules')
-import graph_support
+sys.path.append('../scripts')
+import graph_utils
 
 import numpy as np
 import scipy.stats as stats
@@ -105,14 +105,14 @@ im_width = 1000
 # 1. [Байесовские методы в машинном обучении](https://www.youtube.com/watch?v=Ejsr3S79gcQ&ab_channel=%D0%A4%D0%9A%D0%9D%D0%92%D0%A8%D0%AD), к.ф.-м.н. Дмитрий Петрович Ветров, ФКН ВШЭ, [https://bayesgroup.ru/about/)
 # 1. [Машинное обучение](https://www.youtube.com/watch?v=SZkrxWhI5qM&list=PLJOzdkh8T5krxc4HsHbB8g8f0hu7973fK&index=1), д.ф.-м.н. Константин Вячеславович Воронцов, ШАД (Яндекс)
 
-# + [markdown] slideshow={"slide_type": "subslide"}
+# + [markdown] slideshow={"slide_type": "skip"}
 # ### Планирование экспериментов (DOE)
 
-# + slideshow={"slide_type": "fragment"}
-graph_support.hide_code_in_slideshow()
-display(Image('../pix/1.Intro/Grid_vs_Random.png', width=0.75*im_width))
-# -
+# + slideshow={"slide_type": "skip"}
+graph_utils.hide_code_in_slideshow()
+display(Image('../pix/01.Intro/Grid_vs_Random.png', width=0.75*im_width))
 
+# + [markdown] slideshow={"slide_type": "skip"}
 # ---
 
 # + [markdown] slideshow={"slide_type": "slide"}
@@ -138,27 +138,53 @@ display(Image('../pix/1.Intro/Grid_vs_Random.png', width=0.75*im_width))
 # > 25-й процентиль называют первым квартилем, а 50-й &mdash; медианой
 
 # + slideshow={"slide_type": "subslide"}
-graph_support.hide_code_in_slideshow()
-display(Image('../pix/1.Intro/Boxplot_vs_PDF.png', width=0.75*im_width))
+graph_utils.hide_code_in_slideshow()
+display(Image('../pix/01.Intro/Boxplot_vs_PDF.png', width=0.75*im_width))
 
-# + [markdown] slideshow={"slide_type": "subslide"}
+# + slideshow={"slide_type": "subslide"}
+graph_utils.hide_code_in_slideshow()
+display(Image('../pix/01.Intro/Boxplot_vs_Density.png', width=0.5*im_width))
+
+# + [markdown] slideshow={"slide_type": "skip"}
 # ### Взаимосвязи между переменными
 #
 # Прямую или обратную зависимость между величинами удобно выражать одним числом.
 # Чаще всего для этого используется **коэффициент корреляции Пирсона**.
 # Коэффициент корреляции Пирсона принимает значения от -1 до 1 и показывает, насколько близко *к прямой* расположены точки на диаграмме.
+
+# + slideshow={"slide_type": "subslide"}
+graph_utils.hide_code_in_slideshow()
+x = np.linspace(0, 1, 101)
+plt.figure(figsize=(6, 6))
+
+for n in range(1,10,2):
+    y = x**n
+    plt.plot(x, y, label=f'$y=x^{n}$')
+    rP = stats.pearsonr(x, y)[0]
+    print(f'y=x^{n}: rP = {rP:.6f}')
+
+plt.xlabel('$x$')
+plt.ylabel('$y$', rotation=0, ha='right')
+plt.legend() 
+plt.show()
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# ### Взаимосвязи между переменными
 #
 # Ранговый коэффициент **корреляции Спирмена** зависит не от конкретных численных значений, а от их рангов, то есть занимаемых ими мест, если их упорядочить по величине.
 # Он может быть близок к 1 или -1, если точки близки к линии со стабильным подъёмом или понижением, даже если эта линия не является прямой. 
 
 # + slideshow={"slide_type": "subslide"}
+graph_utils.hide_code_in_slideshow()
 x = np.linspace(0, 1, 101)
-plt.figure(figsize=(8, 8))
+plt.figure(figsize=(6, 6))
 
 for n in range(1,10,2):
     y = x**n
     plt.plot(x, y, label=f'$y=x^{n}$')
-    print(stats.pearsonr(x, y)[0], stats.spearmanr(x, x**n)[0])
+    rP = stats.pearsonr(x, y)[0]
+    rS = stats.spearmanr(x, y)[0]
+    print(f'y=x^{n}: rP = {rP:.6f}, rS = {rS:.6f}')
 
 plt.xlabel('$x$')
 plt.ylabel('$y$', rotation=0, ha='right')
@@ -179,12 +205,12 @@ plt.show()
 # Квартет был составлен в 1973 году английским математиком Ф. Дж. Энскомбом для иллюстрации важности применения графиков для статистического анализа и влияния выбросов значений на свойства всего набора данных.
 
 # + slideshow={"slide_type": "subslide"}
-graph_support.hide_code_in_slideshow()
-display(Image('../pix/1.Intro/Unstructured.png', width=im_width))
+graph_utils.hide_code_in_slideshow()
+display(Image('../pix/01.Intro/Unstructured.png', width=im_width))
 
 # + slideshow={"slide_type": "subslide"}
-graph_support.hide_code_in_slideshow()
-display(Image('../pix/1.Intro/Anscombe.png', width=im_width))
+graph_utils.hide_code_in_slideshow()
+display(Image('../pix/01.Intro/Anscombe.png', width=im_width))
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # ### Диаграммы Каиро
@@ -195,7 +221,7 @@ display(Image('../pix/1.Intro/Anscombe.png', width=im_width))
 N = 2
 data = []
 for i in range(1,N+1):
-    data.append(np.genfromtxt(f'../pix/1.Intro/dataset-{i}.csv',delimiter=',',unpack=True))
+    data.append(np.genfromtxt(f'../pix/01.Intro/dataset-{i}.csv',delimiter=',',unpack=True))
 
 print(np.shape(data[0]))
 print(data[0][:,:10])
@@ -210,7 +236,7 @@ print(f'Y_std = {data[0][1].std():.6}, {data[1][1].std():.6}\n')
 Pr = [stats.pearsonr(item[0], item[1])[0] for item in data]
 Sr = [stats.spearmanr(item[0], item[1])[0] for item in data]
 print(f'Pearson corr.  = {Pr[0]:.6}, {Pr[1]:.6}')
-print(f'Spearman corr. = {Sr[0]:.6}, {Sr[1]:.6}')
+# print(f'Spearman corr. = {Sr[0]:.6}, {Sr[1]:.6}')
 
 # + slideshow={"slide_type": "subslide"}
 # Show data
@@ -221,13 +247,13 @@ for i, ax in enumerate(axes):
 plt.show()
 
 # + slideshow={"slide_type": "subslide"}
-graph_support.hide_code_in_slideshow()
-display(Image('../pix/1.Intro/_mat/DinoSequential.gif', width=im_width))
-# display(Image('../pix/1.Intro/_mat/AllDinosAnimated.gif', width=im_width))
+graph_utils.hide_code_in_slideshow()
+display(Image('../pix/01.Intro/DinoSequential.gif', width=im_width))
+# display(Image('../pix/01.Intro/AllDinosAnimated.gif', width=im_width))
 
-# + slideshow={"slide_type": "skip"}
-graph_support.hide_code_in_slideshow()
-display(Image('../pix/1.Intro/AllDinos.png', width=im_width))
+# + slideshow={"slide_type": "subslide"}
+graph_utils.hide_code_in_slideshow()
+display(Image('../pix/01.Intro/AllDinos.png', width=im_width))
 
 # + [markdown] slideshow={"slide_type": "skip"}
 # ---
