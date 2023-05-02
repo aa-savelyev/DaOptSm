@@ -31,7 +31,7 @@ np.random.seed(42)
 from scipy.optimize import minimize
 
 import sys
-sys.path.append('./modules')
+sys.path.append('./scripts')
 import GP_kernels
 from GP_utils import plot_GP, GP_predictor
 
@@ -49,7 +49,7 @@ seaborn.set_style('whitegrid')
 from IPython.display import display, Markdown
 
 # +
-# # %config InlineBackend.figure_formats = ['png']
+# # %config InlineBackend.figure_formats = ['pdf']
 # # %config Completer.use_jedi = False
 # -
 
@@ -170,8 +170,8 @@ kernels = [ GP_kernels.gauss, GP_kernels.brownian,
             GP_kernels.rational_quadratic, GP_kernels.periodic ]
 kernel_names = ['Gauss kernel', 'Brownian kernel',
                 'Rational quadratic kernel', 'Periodic kernel']
-kernel_args = {'l':1., 'sigma_k':1., 'alpha':0.01, 'period':5.}
-sigma_n = 1e-8
+kernel_args = {'l':1., 'sigma_k':1., 'alpha':0.1, 'period':5.}
+sigma_n = 1e-6
 
 
 def make_kernel_title(kernel_number):
@@ -190,10 +190,10 @@ for i, kernel in enumerate(kernels):
     fig = plt.figure(figsize=(14, 4))
     gs = gridspec.GridSpec(1, 2, width_ratios=[2,1], wspace=0.1, hspace=0.3)
     # Compute mean and covariance of the posterior predictive distribution
-    kernel_fun = kernel
-    K = kernel_fun(X_test, X_test, kernel_args)
+    K = kernel(X_test, X_test, kernel_args)
     mu, cov = GP_predictor(X_test, X_train, Y_train,
-                           kernel_fun, kernel_args, sigma_n)
+                           kernel, kernel_args, sigma_n)
+    
     # plot
     ax1 = fig.add_subplot(gs[0])
     ax2 = fig.add_subplot(gs[1])
@@ -475,5 +475,3 @@ print('Python: {}.{}.{}'.format(*sys.version_info[:3]))
 print('numpy: {}'.format(np.__version__))
 print('matplotlib: {}'.format(matplotlib.__version__))
 print('seaborn: {}'.format(seaborn.__version__))
-
-
