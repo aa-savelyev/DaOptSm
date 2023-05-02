@@ -29,7 +29,7 @@ np.random.seed(42)
 from scipy import stats
 
 import sys
-sys.path.append('./modules')
+sys.path.append('./scripts')
 from GP_utils import generate_gauss_surface
 
 # +
@@ -58,7 +58,7 @@ seaborn.set_style('whitegrid')
 
 # ### Базовые понятия и определения
 #
-# Вначале теория вероятностей имела дело со *случайными экспериментами* (подбрасывание монеты, игральной кости и т. п.), для которых подсчитывались вероятности, в которыми может произойти то или иное событие.
+# Вначале теория вероятностей имела дело со *случайными экспериментами* (подбрасывание монеты, игральной кости и т.п.), для которых подсчитывались вероятности, в которыми может произойти то или иное событие.
 # Затем возникло понятие *случайной величины*, позволившее количественно описывать результаты проводимых экспериментов, например, размер выигрыша в лотерее.
 # Наконец, в случайные эксперименты был явно введён *фактор времени*, что дало возможность строить стохастические модели, в основу которых легло понятие *случайного процесса*, описывающего динамику развития изучаемого случайного явления.
 #
@@ -85,7 +85,7 @@ seaborn.set_style('whitegrid')
 t_max, n_steps = 1., 500
 delta_t = t_max / n_steps
 n_processes = int(1e5)  # Simulate n_processes different motions
-mean = 0.   # Mean of each movement
+mean = 0.     # Mean of each movement
 sigma_k = 1.  # Scale parameter of each movement
 std = sigma_k*np.sqrt(delta_t)  # Standard deviation of each movement
 
@@ -158,7 +158,7 @@ plt.show()
 #
 # **Определение.** *Математическим ожиданием* случайного процесса $X(t)$ называется функция $m_x : T \rightarrow \mathbb{R}$, значение который в каждый момент времени $t \in T$ равно математическому ожиданию соответствующего сечения: $m_x(t) = \mathrm{E}[X(t)]$.
 #
-# **Определение.** *Корреляционной функцией* случайного процесса $X(t)$ называется функция двух переменных $k : T \times T \rightarrow \mathbb{R}$, которая каждой паре моментов времени сопоставляет корреляционный момент соответствующих сечений процесса:
+# **Определение.** *Ковариационной функцией* случайного процесса $X(t)$ называется функция двух переменных $k : T \times T \rightarrow \mathbb{R}$, которая каждой паре моментов времени сопоставляет корреляционный момент соответствующих сечений процесса:
 # $$
 #   k(t_1, t_2) = \mathrm{E} \left[ \left(X(t_1) - \mathrm{E}X(t_1)\right) \cdot \left(X(t_2) - \mathrm{E}X(t_2)\right) \right].
 # $$
@@ -204,7 +204,7 @@ plt.show()
 #   k(x, x') = \sigma_k^2 \exp{ \left( -\frac{\lVert x - x' \rVert^2}{{2\ell^2}} \right) }.
 # $$
 #
-# Параметр длины $l$ контролирует гладкость функции, а амплитуды $\sigma_k$ &mdash; вертикальную вариацию.
+# Параметр длины $l$ контролирует гладкость функции, а параметр амплитуды $\sigma_k$ &mdash; вертикальную вариацию.
 # В многомерном случае обычно используется один и тот же параметр длины $l$ для всех компонент вектора $x$ (изотропное ядро).
 # Могут быть определены и другие функции ядра, приводящие к различным свойствам гауссовского процесса.
 
@@ -271,6 +271,8 @@ ax2.grid(True)
 
 plt.tight_layout()
 plt.show()
+
+
 # -
 
 # ---
@@ -288,13 +290,17 @@ plt.show()
 # На рисунке ниже приведена выборка из 5 различных реализаций гауссовского процесса с гауссовским ядром.
 # Фактически, на рисунке представлены 5 векторов, подчиняющихся 51-мерному гауссовскому распределению $\mathcal{N}(0, k(X, X))$ при $X = [x_1, \ldots, x_{51}]$.
 
+def kernel(X, Y):
+    return gauss_kernel(X, Y, l=1., sigma_k=1.)
+
+
 # +
 # Sample from the Gaussian process distribution
 n_samples   = 51  # Number of points in each function
 n_functions =  5  # Number of functions to sample
 # Independent variable samples
 X = np.reshape(np.linspace(0, 10, n_samples), (-1, 1))
-Sigma = gauss_kernel(X, X)  # Kernel of data points
+Sigma = kernel(X, X)  # Kernel of data points
 
 # Draw samples from the prior at our data points.
 # Assume a mean of 0 for simplicity
@@ -330,20 +336,25 @@ plt.show()
 mu = np.array([0., 0.])
 
 # Strong correlation
-X_strong = np.reshape([0., .2], (-1, 1))
-Sigma_strong = gauss_kernel(X_strong, X_strong)
+x1, x2 = 0., 0.2
+X_strong = np.reshape([x1, x2], (-1, 1))
+Sigma_strong = kernel(X_strong, X_strong)
 # Select samples
-X_00_index = np.where(np.isclose(X, 0.))
-X_02_index = np.where(np.isclose(X, 0.2))
+X_00_index = np.where(np.isclose(X, x1))
+X_02_index = np.where(np.isclose(X, x2))
 y_strong = ys[:,[X_00_index[0][0], X_02_index[0][0]]]
 
 # Strong correlation
-X_weak = np.reshape([0., 2.], (-1, 1))
-Sigma_weak = gauss_kernel(X_weak, X_weak)
+x1, x2 = 0., 2.
+X_weak = np.reshape([x1, x2], (-1, 1))
+Sigma_weak = kernel(X_weak, X_weak)
 # Select samples
-X_0_index = np.where(np.isclose(X, 0.))
-X_2_index = np.where(np.isclose(X, 2.))
+X_0_index = np.where(np.isclose(X, x1))
+X_2_index = np.where(np.isclose(X, x2))
 y_weak = ys[:,[X_0_index[0][0], X_2_index[0][0]]]
+# -
+
+print(Sigma_weak)
 
 # +
 # Show marginal 2D Gaussians
@@ -431,7 +442,7 @@ X_test = np.linspace(x_min, x_max, n_test).reshape(-1, 1)
 
 # Set mean and covariance
 M = np.zeros_like(X_test).reshape(-1, 1)
-l = 10e-2*(x_max-x_min)
+l = 1e-1*(x_max-x_min)
 K = gauss_kernel(X_test, X_test, l=l)
 
 # Generate samples from the prior
@@ -553,5 +564,3 @@ print('Python: {}.{}.{}'.format(*sys.version_info[:3]))
 print('numpy: {}'.format(np.__version__))
 print('matplotlib: {}'.format(matplotlib.__version__))
 print('seaborn: {}'.format(seaborn.__version__))
-
-
