@@ -29,7 +29,7 @@ import numpy as np
 np.random.seed(42)
 
 import sys
-sys.path.append('./modules')
+sys.path.append('./scripts')
 import GP_kernels
 from GP_utils import plot_GP
 
@@ -145,12 +145,12 @@ for i, _ in enumerate(X_train, start=1):
 # Здесь:
 # $$
 # \begin{split}
-#     \mu_{1}     &= m(X_1)     \quad & (n_1 \times 1),   \\
-#     \mu_{2}     &= m(X_2)     \quad & (n_2 \times 1),   \\
-#     \Sigma_{11} &= k(X_1,X_1) \quad & (n_1 \times n_1), \\
-#     \Sigma_{22} &= k(X_2,X_2) \quad & (n_2 \times n_2), \\
-#     \Sigma_{12} &= k(X_1,X_2) \quad & (n_1 \times n_2), \\
-#     \Sigma_{21} &= k(X_2,X_1) \quad & (n_2 \times n_1).
+#   \mu_{1}     &= m(X_1)     \quad & (n_1 \times 1),   \\
+#   \mu_{2}     &= m(X_2)     \quad & (n_2 \times 1),   \\
+#   \Sigma_{11} &= k(X_1,X_1) \quad & (n_1 \times n_1), \\
+#   \Sigma_{22} &= k(X_2,X_2) \quad & (n_2 \times n_2), \\
+#   \Sigma_{12} &= k(X_1,X_2) \quad & (n_1 \times n_2), \\
+#   \Sigma_{21} &= k(X_2,X_1) \quad & (n_2 \times n_1).
 # \end{split}
 # $$
 # -
@@ -199,12 +199,12 @@ def GP_predictor(X_test, X_train, Y_train,
     from m training data X_train and Y_train and n new inputs X_test.
     
     Args:
-        X_test: New input locations (n x d)
-        X_train: Training locations (m x d)
-        Y_train: Training targets (m x 1)
-        kernel_fun: Kernel length parameter
-        kernel_args: Kernel vertical variation parameter
-        sigma_n: Noise parameter
+        X_test:      New input locations (n x d)
+        X_train:     Training locations  (m x d)
+        Y_train:     Training targets    (m x 1)
+        kernel_fun:  Kernel function
+        kernel_args: Kernel parameters: length and vertical variation
+        sigma_n:     Noise parameter
     
     Returns:
         Posterior mean vector (n x d) and covariance matrix (n x n)
@@ -334,5 +334,3 @@ print('Python: {}.{}.{}'.format(*sys.version_info[:3]))
 print('numpy: {}'.format(np.__version__))
 print('matplotlib: {}'.format(matplotlib.__version__))
 print('seaborn: {}'.format(seaborn.__version__))
-
-

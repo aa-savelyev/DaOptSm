@@ -2,7 +2,7 @@
 
     \usepackage[breakable]{tcolorbox}
     \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
-
+    
     \usepackage{iftex}
     \ifPDFTeX
       \usepackage[T2A]{fontenc}
@@ -23,7 +23,7 @@
       \newfontfamily\cyrillicfontsf{Fira Sans}           % Шрифт без засечек для кириллицы
       \setmonofont[Scale=0.87,BoldFont={Fira Mono Medium},ItalicFont=[FiraMono-Oblique]]%
       {Fira Mono}%                                       % Моноширинный шрифт
-      \newfontfamily\cyrillicfonttt[Scale = 0.87,BoldFont={Fira Mono Medium},ItalicFont=[FiraMono-Oblique]]%
+      \newfontfamily\cyrillicfonttt[Scale=0.87,BoldFont={Fira Mono Medium},ItalicFont=[FiraMono-Oblique]]%
       {Fira Mono}                                        % Моноширинный шрифт для кириллицы
 
       %%% Математические пакеты %%%
@@ -33,7 +33,6 @@
       \usepackage{unicode-math}           % Для шрифта STIX Two Math
       \setmathfont{STIX Two Math}         % Математический шрифт
     \fi
-    \renewcommand{\linethickness}{0.1ex}
 
     % Basic figure setup, for now with no caption control since it's done
     % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
@@ -63,7 +62,7 @@
     \usepackage{eurosym} % defines \euro
     \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
     \usepackage{fancyvrb} % verbatim replacement that allows latex
-    \usepackage{grffile} % extends the file name processing of package graphics
+    \usepackage{grffile} % extends the file name processing of package graphics 
                          % to support a larger range
     \makeatletter % fix for old versions of grffile with XeLaTeX
     \@ifpackagelater{grffile}{2019/11/01}
@@ -94,9 +93,9 @@
     \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
                                 % normalem makes italics be italics, not underlines
     \usepackage{mathrsfs}
+    
 
-
-
+    
     % Colors for the hyperref package
     \definecolor{urlcolor}{rgb}{0,.145,.698}
     \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
@@ -146,7 +145,7 @@
     \newcommand{\RegionMarkerTok}[1]{{#1}}
     \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
     \newcommand{\NormalTok}[1]{{#1}}
-
+    
     % Additional commands for more recent versions of Pandoc
     \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
     \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
@@ -165,8 +164,8 @@
     \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
     \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
     \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
-
-
+    
+    
     % Define a nice break command that doesn't care if a line doesn't already
     % exist.
     \def\br{\hspace*{\fill} \\* }
@@ -183,10 +182,11 @@
       {\Large Лекция 8} \\
       Регрессия на основе гауссовских процессов
     }
-    \date{13 апреля 2022\,г.}
-
-
-
+    % \date{13 апреля 2022\,г.}
+    \date{}
+    
+    
+    
 % Pygments definitions
 \makeatletter
 \def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
@@ -395,8 +395,8 @@
     % Slightly bigger margins than the latex defaults
     
     \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
-
-
+    
+    
 
 \begin{document}
 
@@ -404,18 +404,58 @@
 \thispagestyle{empty}
 \tableofcontents
 
-\let\thefootnote\relax\footnote{
-  \textit{День 6 апреля в истории:
-    \begin{itemize}[topsep=2pt,itemsep=1pt]
-      \item 1111 г. --- Генрих V коронован императором Священной Римской империи;
-      \item 1204 г. --- захват и разграбление Константинополя участниками Четвёртого Крестового похода;
-      \item 1904 г. --- у Порт-Артура при взрыве броненосца <<Петропавловск>> погибли художник Василий Верещагин и вице-адмирал Степан Макаров;
-      \item 1967 г. --- первое выступление The Rolling Stones за <<железным занавесом>> в Варшаве.
-    \end{itemize}
-  }
-}
-\newpage
+%\let\thefootnote\relax\footnote{
+%  \textit{День 13 апреля в истории:
+%    \begin{itemize}[topsep=2pt,itemsep=1pt]
+%      \item 1111 г. --- Генрих V коронован императором Священной Римской империи;
+%      \item 1204 г. --- захват и разграбление Константинополя участниками Четвёртого Крестового похода;
+%      \item 1904 г. --- у Порт-Артура при взрыве броненосца <<Петропавловск>> погибли художник Василий Верещагин и вице-адмирал Степан Макаров;
+%      \item 1967 г. --- Первое выступление The Rolling Stones за <<железным занавесом>> в Варшаве.
+%    \end{itemize}
+%  }
+%}
 
+  \newpage
+
+
+%\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{1}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Imports}
+%\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+%\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{42}\PY{p}{)}
+%
+%\PY{k+kn}{import} \PY{n+nn}{sys}
+%\PY{n}{sys}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./scripts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\PY{k+kn}{import} \PY{n+nn}{GP\PYZus{}kernels}
+%\PY{k+kn}{from} \PY{n+nn}{GP\PYZus{}utils} \PY{k+kn}{import} \PY{n}{plot\PYZus{}GP}
+%\end{Verbatim}
+%\end{tcolorbox}
+%
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{2}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Styles, fonts}
+%\PY{k+kn}{import} \PY{n+nn}{matplotlib}
+%\PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{12}
+%\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+%\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{gridspec} \PY{k}{as} \PY{n+nn}{gridspec}
+%\PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k+kn}{import} \PY{n}{cm} \PY{c+c1}{\PYZsh{} Colormaps}
+%
+%\PY{k+kn}{import} \PY{n+nn}{seaborn}
+%\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+%
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{3}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} \PYZpc{}config InlineBackend.figure\PYZus{}formats = [\PYZsq{}pdf\PYZsq{}]}
+%\PY{c+c1}{\PYZsh{} \PYZpc{}config Completer.use\PYZus{}jedi = False}
+%\end{Verbatim}
+%\end{tcolorbox}
+%
+%    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux43dux435ux43fux430ux440ux430ux43cux435ux442ux440ux438ux447ux435ux441ux43aux430ux44f-ux440ux435ux433ux440ux435ux441ux441ux438ux44f}{%
 \section{Непараметрическая
@@ -434,8 +474,7 @@
 где количество параметров зависит от размера набора данных. Например, в
 ядерной регрессии Надарая--Ватсона каждому наблюдаемому отклику \(y_i\)
 присваивается вес \(w_i\), а для предсказания целевого значения в новой
-точке \(\mathbf{x}\) вычисляется средневзвешенное значение:
-\[
+точке \(\mathbf{x}\) вычисляется средневзвешенное значение: \[
   f(x) = \frac{\sum_{i=1}^{N} k(x, x_i) y_i} {\sum_{i=1}^{N} k(x, x_i)}.
 \]
 
@@ -444,6 +483,81 @@
 тем больше их вес. Веса зависят от \(x\) и наблюдаемых \(x_i\), а
 функция зависимости \(k(x, x_i)\) называется \emph{ядром}.
 
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{4}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Data}
+%\PY{n}{xlim} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{10.}\PY{p}{]}
+%\PY{n}{N\PYZus{}test} \PY{o}{=} \PY{l+m+mi}{101}
+%\PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{*}\PY{n}{xlim}\PY{p}{,} \PY{n}{N\PYZus{}test}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+%
+%\PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{2.}\PY{p}{,}  \PY{l+m+mf}{6.}\PY{p}{,}  \PY{l+m+mf}{7.}\PY{p}{,} \PY{l+m+mf}{8.}\PY{p}{,}  \PY{l+m+mf}{4.}\PY{p}{,} \PY{l+m+mf}{3.} \PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+%\PY{n}{Y\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{1.}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+%
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{5}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{k}{def} \PY{n+nf}{NW\PYZus{}predictor}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{kernel\PYZus{}fun}\PY{p}{,} \PY{n}{kernel\PYZus{}args}\PY{p}{)}\PY{p}{:}
+%    \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}\PYZsq{}\PYZsq{}\PYZsq{}}
+%    \PY{n}{K} \PY{o}{=} \PY{n}{kernel\PYZus{}fun}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{kernel\PYZus{}args}\PY{p}{)}
+%    \PY{n}{Weights} \PY{o}{=} \PY{n}{K} \PY{o}{/} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+%    \PY{k}{return} \PY{n}{Weights} \PY{o}{@} \PY{n}{Y\PYZus{}train}
+%\end{Verbatim}
+%\end{tcolorbox}
+%
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{6}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{start}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+%    \PY{n}{x\PYZus{}train\PYZus{}i} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{n}{i}\PY{p}{]}
+%    \PY{n}{y\PYZus{}train\PYZus{}i} \PY{o}{=} \PY{n}{Y\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{n}{i}\PY{p}{]}
+%    
+%    \PY{c+c1}{\PYZsh{} Compute mean and covariance of the posterior predictive distribution}
+%    \PY{n}{kernel\PYZus{}fun} \PY{o}{=} \PY{n}{GP\PYZus{}kernels}\PY{o}{.}\PY{n}{gauss}
+%    \PY{n}{kernel\PYZus{}args} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{1.}\PY{p}{\PYZcb{}}
+%    \PY{n}{Y\PYZus{}test} \PY{o}{=} \PY{n}{NW\PYZus{}predictor}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{x\PYZus{}train\PYZus{}i}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}i}\PY{p}{,} \PY{n}{kernel\PYZus{}fun}\PY{p}{,} \PY{n}{kernel\PYZus{}args}\PY{p}{)}
+%    
+%    \PY{c+c1}{\PYZsh{} Draw samples from the prior}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{Y\PYZus{}test}\PY{p}{)}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}train\PYZus{}i}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{kx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+
+%    \begin{center}
+%    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{Kernel_regression_1.pdf}
+%    \end{center}
+%%    { \hspace*{\fill} \\}
+%    
+%    \begin{center}
+%    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{Kernel_regression_2.pdf}
+%    \end{center}
+%%    { \hspace*{\fill} \\}
+%    
+%    \begin{center}
+%    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{Kernel_regression_3.pdf}
+%    \end{center}
+%%    { \hspace*{\fill} \\}
+%    
+%    \begin{center}
+%    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{Kernel_regression_4.pdf}
+%    \end{center}
+%%    { \hspace*{\fill} \\}
+%    
+%    \begin{center}
+%    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{Kernel_regression_5.pdf}
+%    \end{center}
+%%    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.70\linewidth}{0.70\paperheight}}{Kernel_regression_6.pdf}
+    \end{center}
+%    { \hspace*{\fill} \\}
+    
     Примером является метод KNN (k-nearest neighbors), где \(k\) самых
 близких наблюдений имеют вес \(1/k\), а все остальные --- \(0\). Обычно,
 для вычисления прогноза непараметрические методы должны обработать все
@@ -455,13 +569,7 @@
 процессы. Поскольку гауссовские процессы моделируют распределение
 функций, мы можем использовать их для построения регрессионных моделей.
 
-
-    \begin{center}
-    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{output_12_5.pdf}
-    \end{center}
-%    { \hspace*{\fill} \\}
-    
-%    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux440ux435ux433ux440ux435ux441ux441ux438ux44f-ux43dux430-ux43eux441ux43dux43eux432ux435-ux433ux430ux443ux441ux441ux43eux432ux441ux43aux438ux445-ux43fux440ux43eux446ux435ux441ux441ux43eux432}{%
 \section{Регрессия на основе гауссовских
@@ -484,7 +592,7 @@
     \hypertarget{ux444ux43eux440ux43cux443ux43bux44b}{%
 \subsection{Формулы}\label{ux444ux43eux440ux43cux443ux43bux44b}}
 
-Вспомним выражения для условного (апостериорного( распределения Гаусса.
+Вспомним выражения для условного (апостериорного) распределения Гаусса.
 
 Итак, мы хотим сделать прогноз \(y_2 = f(X_2)\) для \(n_2\) новых
 объектов, основываясь на \(n_1\) ранее наблюдаемых объектах
@@ -505,19 +613,20 @@
 
 Здесь: \[
 \begin{aligned}
-    \mu_{1}     &= m(X_1)     \quad && (n_1 \times 1),   \\
-    \mu_{2}     &= m(X_2)     \quad && (n_2 \times 1),   \\
-    \Sigma_{11} &= k(X_1,X_1) \quad && (n_1 \times n_1), \\
-    \Sigma_{22} &= k(X_2,X_2) \quad && (n_2 \times n_2), \\
-    \Sigma_{12} &= k(X_1,X_2) \quad && (n_1 \times n_2), \\
-    \Sigma_{21} &= k(X_2,X_1) \quad && (n_2 \times n_1).
+    \mu_{1}     &= m(X_1)     \quad & (n_1 \times 1),   \\
+    \mu_{2}     &= m(X_2)     \quad & (n_2 \times 1),   \\
+    \Sigma_{11} &= k(X_1,X_1) \quad & (n_1 \times n_1), \\
+    \Sigma_{22} &= k(X_2,X_2) \quad & (n_2 \times n_2), \\
+    \Sigma_{12} &= k(X_1,X_2) \quad & (n_1 \times n_2), \\
+    \Sigma_{21} &= k(X_2,X_1) \quad & (n_2 \times n_1).
 \end{aligned}
 \]
 
     Для простоты положим \(\mu_{1} = 0\) и \(\mu_{2} = 0\). Тогда для
 апостериорного распределения получим \[
   p(y_2 \mid y_1) = \mathcal{N}(\mu_{2|1}, \Sigma_{2|1}),
-\] где \[
+\]
+где \[
 \begin{split}
     \mu_{2|1}    &= \Sigma_{21} \Sigma_{11}^{-1} y_1, \\
     \Sigma_{2|1} &= \Sigma_{22} - \Sigma_{21} \Sigma_{11}^{-1}\Sigma_{12}.
@@ -552,8 +661,42 @@
 работу. Матрица \(\Sigma_{11}^{-1}\Sigma_{12}\) вычисляется с помощью
 функции \texttt{numpy.linalg.solve()}.
 
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{7}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{k}{def} \PY{n+nf}{GP\PYZus{}predictor}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,}
+%                 \PY{n}{kernel\PYZus{}fun}\PY{p}{,} \PY{n}{kernel\PYZus{}args}\PY{p}{,} \PY{n}{sigma\PYZus{}n}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}8}\PY{p}{)}\PY{p}{:}
+%    \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+%\PY{l+s+sd}{    Computes the suffiсient statistics of the GP posterior predictive distribution }
+%\PY{l+s+sd}{    from m training data X\PYZus{}train and Y\PYZus{}train and n new inputs X\PYZus{}test.}
+%\PY{l+s+sd}{    }
+%\PY{l+s+sd}{    Args:}
+%\PY{l+s+sd}{        X\PYZus{}test:      New input locations (n x d)}
+%\PY{l+s+sd}{        X\PYZus{}train:     Training locations  (m x d)}
+%\PY{l+s+sd}{        Y\PYZus{}train:     Training targets    (m x 1)}
+%\PY{l+s+sd}{        kernel\PYZus{}fun:  Kernel function}
+%\PY{l+s+sd}{        kernel\PYZus{}args: Kernel parameters: length and vertical variation}
+%\PY{l+s+sd}{        sigma\PYZus{}n:     Noise parameter}
+%\PY{l+s+sd}{    }
+%\PY{l+s+sd}{    Returns:}
+%\PY{l+s+sd}{        Posterior mean vector (n x d) and covariance matrix (n x n)}
+%\PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+%    
+%    \PY{n}{K\PYZus{}11} \PY{o}{=} \PY{n}{kernel\PYZus{}fun}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{kernel\PYZus{}args}\PY{p}{)} \PYZbs{}
+%         \PY{o}{+} \PY{n}{sigma\PYZus{}n}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{)}
+%    \PY{n}{K\PYZus{}12} \PY{o}{=} \PY{n}{kernel\PYZus{}fun}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{kernel\PYZus{}args}\PY{p}{)}
+%    \PY{n}{K\PYZus{}solved} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{K\PYZus{}11}\PY{p}{,} \PY{n}{K\PYZus{}12}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+%    \PY{n}{K\PYZus{}22} \PY{o}{=} \PY{n}{kernel\PYZus{}fun}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,}  \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{kernel\PYZus{}args}\PY{p}{)}
+%    
+%    \PY{n}{mu}  \PY{o}{=} \PY{n}{K\PYZus{}solved} \PY{o}{@} \PY{n}{Y\PYZus{}train}
+%    \PY{n}{cov} \PY{o}{=} \PY{n}{K\PYZus{}22} \PY{o}{\PYZhy{}} \PY{n}{K\PYZus{}solved} \PY{o}{@} \PY{n}{K\PYZus{}12}
+%    
+%    \PY{k}{return} \PY{n}{mu}\PY{p}{,} \PY{n}{cov}
+%\end{Verbatim}
+%\end{tcolorbox}
 
 %    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
 
     \hypertarget{ux442ux435ux441ux442ux438ux440ux43eux432ux430ux43dux438ux435}{%
 \section{Тестирование}\label{ux442ux435ux441ux442ux438ux440ux43eux432ux430ux43dux438ux435}}
@@ -569,29 +712,69 @@
 что точки обучающей выборки как будто захватывают траектории процесса в
 узкие пучки.
 
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{8}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{n}{N\PYZus{}gp\PYZus{}post} \PY{o}{=} \PY{l+m+mi}{50}
+%
+%\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+%    \PY{n}{x\PYZus{}train\PYZus{}i} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{n}{i}\PY{p}{]}
+%    \PY{n}{y\PYZus{}train\PYZus{}i} \PY{o}{=} \PY{n}{Y\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{n}{i}\PY{p}{]}
+%    
+%    \PY{c+c1}{\PYZsh{} Compute mean and covariance of the posterior predictive distribution}
+%    \PY{n}{kernel\PYZus{}fun} \PY{o}{=} \PY{n}{GP\PYZus{}kernels}\PY{o}{.}\PY{n}{gauss}
+%    \PY{n}{kernel\PYZus{}args} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{1.}\PY{p}{\PYZcb{}}
+%    \PY{n}{mu}\PY{p}{,} \PY{n}{cov} \PY{o}{=} \PY{n}{GP\PYZus{}predictor}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{x\PYZus{}train\PYZus{}i}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}i}\PY{p}{,}
+%                           \PY{n}{kernel\PYZus{}fun}\PY{p}{,} \PY{n}{kernel\PYZus{}args}\PY{p}{)}
+%    \PY{c+c1}{\PYZsh{} Generate samples from the prior}
+%    \PY{n}{gp\PYZus{}post} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{multivariate\PYZus{}normal}\PY{p}{(}\PY{n}{mu}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{N\PYZus{}gp\PYZus{}post}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+%    
+%    \PY{c+c1}{\PYZsh{} Draw samples from the prior}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+%    \PY{n}{plot\PYZus{}GP}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{mu}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{x\PYZus{}train\PYZus{}i}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}i}\PY{p}{,} \PY{n}{gp\PYZus{}post}\PY{p}{)}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+%    \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
 
+%    \begin{center}
+%    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{GP_regression_0.pdf}
+%    \end{center}
+%%    { \hspace*{\fill} \\}
+%    
+%    \begin{center}
+%    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{GP_regression_1.pdf}
+%    \end{center}
+%%    { \hspace*{\fill} \\}
+%    
+%    \begin{center}
+%    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{GP_regression_2.pdf}
+%    \end{center}
+%%    { \hspace*{\fill} \\}
+%    
+%    \begin{center}
+%    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{GP_regression_3.pdf}
+%    \end{center}
+%%    { \hspace*{\fill} \\}
+%    
+%    \begin{center}
+%    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{GP_regression_4.pdf}
+%    \end{center}
+%%    { \hspace*{\fill} \\}
+%    
+%    \begin{center}
+%    \adjustimage{max size={0.65\linewidth}{0.65\paperheight}}{GP_regression_5.pdf}
+%    \end{center}
+%%    { \hspace*{\fill} \\}
+    
     \begin{center}
-    \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{output_24_6.pdf}
+    \adjustimage{max size={0.8\linewidth}{0.8\paperheight}}{GP_regression_6.pdf}
     \end{center}
 %    { \hspace*{\fill} \\}
+
+
+Получим выражения для первых двух кривых в явном виде:
     
-    Приведём последний рисунок ещё раз, но уже без траекторий процесса.
-
-Серым цветом показана оценка неопределённости прогноза регрессии: два
-среднеквадратичных отклонения \(\sigma_{2|1}(x)\) в обе стороны.
-Значения \(\sigma_{2|1}(x)\) вычисляются как корни из диагональных
-элементов апостериорной ковариационной матрицы \(\Sigma_{2|1}\).
-Отметим, что неопределённость прогноза равна нулю в точках обучающей
-выборки и возрастает по мере удаления от этих точек.
-
-
-    \begin{center}
-    \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{output_26_0.pdf}
-    \end{center}
-%    { \hspace*{\fill} \\}
-    
-    Получим выражения для первых двух кривых в явном виде:
-
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
@@ -603,6 +786,39 @@
   получим
   \(f(x | x_1, y_1, x_2, y_2) \approx y_1 \cdot e^{-\frac{1}{2}(x-x_1)^2} + y_2 \cdot e^{-\frac{1}{2}(x-x_2)^2} = e^{-\frac{1}{2}(x-2)^2} - e^{-\frac{1}{2}(x-6)^2}\)
 \end{enumerate}
+
+    В завершение приведём последний рисунок ещё раз, но уже без траекторий
+процесса. Серым цветом показана оценка неопределённости прогноза
+регрессии: два среднеквадратичных отклонения \(\sigma_{2|1}(x)\) в обе
+стороны. Значения \(\sigma_{2|1}(x)\) вычисляются как корни из
+диагональных элементов апостериорной ковариационной матрицы
+\(\Sigma_{2|1}\). Отметим, что неопределённость прогноза равна нулю в
+точках обучающей выборки и возрастает по мере удаления от этих точек.
+
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{9}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Compute mean and covariance of the posterior predictive distribution}
+%\PY{n}{kernel\PYZus{}fun} \PY{o}{=} \PY{n}{GP\PYZus{}kernels}\PY{o}{.}\PY{n}{gauss}
+%\PY{n}{kernel\PYZus{}args} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{1.}\PY{p}{\PYZcb{}}
+%\PY{n}{mu}\PY{p}{,} \PY{n}{cov} \PY{o}{=} \PY{n}{GP\PYZus{}predictor}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,}
+%                       \PY{n}{kernel\PYZus{}fun}\PY{p}{,} \PY{n}{kernel\PYZus{}args}\PY{p}{)}
+%\PY{c+c1}{\PYZsh{} Generate samples from the prior}
+%\PY{n}{gp\PYZus{}post} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{multivariate\PYZus{}normal}\PY{p}{(}\PY{n}{mu}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{N\PYZus{}gp\PYZus{}post}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+%    
+%\PY{c+c1}{\PYZsh{} Draw samples from the prior}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+%\PY{n}{plot\PYZus{}GP}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{mu}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{draw\PYZus{}ci}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.8\linewidth}{0.8\paperheight}}{GP_regression.pdf}
+    \end{center}
+%    { \hspace*{\fill} \\}
+    
 
     \hypertarget{ux43eux431ux443ux447ux430ux44eux449ux430ux44f-ux432ux44bux431ux43eux440ux43aux430-ux441-ux448ux443ux43cux43eux43c-ux430ux43fux43fux440ux43eux43aux441ux438ux43cux430ux446ux438ux44f}{%
 \subsection{Обучающая выборка с шумом
@@ -617,28 +833,45 @@
 значения, через которые мы проводим процесс, измерены с какой-то
 точностью. В таком случае можно делать прогноз по шумным наблюдениям
 \(f(X_1) = \mathbf{y}_1 + \varepsilon\), смоделировав шум с помощью
-нормальной случайной величиной нулевым мат. ожиданием и дисперсией
-\(\sigma_n\): \(\varepsilon \sim \mathcal{N}(0, \sigma_n^2)\).
+нормальной случайной величиной нулевым математическим ожиданием и
+дисперсией \(\sigma_n\):
+\(\varepsilon \sim \mathcal{N}(0, \sigma_n^2)\). Это можно сделать,
+добавив диагональную матрицу к ковариационному ядру наших наблюдений
+(вспоминаем гребневую регрессию): \[
+  \Sigma_{11} = k(X_1,X_1) + \sigma_n^2 I.
+\] Отметим, что шум изменяет только диагональные элементы ядра (белый
+шум некоррелирован).
 
-Это можно сделать, добавив диагональную матрицу к ковариационному ядру
-наших наблюдений (вспоминаем гребневую регрессию):
-\[
-  \Sigma_{11} = k(X_1,X_1) + \sigma_n^2 I
-\]
+    Приведённый ниже код строит регрессию не тех же обучающих данных, но в
+этот раз с добавлением шума. На рисунках видно, что дисперсия
+\(\sigma_{2|1}^2\) в точках обучающей выборки больше не равна 0, а линия
+регрессии и траектории процесса больше не обязаны проходить через эти
+точки.
 
-Отметим, что шум изменяет только диагональные элементы ядра (белый шум
-нескоррелирован).
-
-    Приведенный ниже код строит регрессию не тех же обучающих данных, но в
-этот раз с добавлением шума.
-
-На рисунках видно, что дисперсия \(\sigma_{2|1}^2\) в точках обучающей
-выборки больше не равна 0, а линия регрессии и траектории процесса
-больше не обязаны проходить через эти точки.
-
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{10}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{n}{N\PYZus{}gp\PYZus{}post} \PY{o}{=} \PY{l+m+mi}{50}
+%\PY{n}{sigma\PYZus{}n} \PY{o}{=} \PY{l+m+mf}{0.2}
+%    
+%\PY{c+c1}{\PYZsh{} Compute mean and covariance of the posterior predictive distribution}
+%\PY{n}{kernel\PYZus{}fun} \PY{o}{=} \PY{n}{GP\PYZus{}kernels}\PY{o}{.}\PY{n}{gauss}
+%\PY{n}{kernel\PYZus{}args} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{1.}\PY{p}{\PYZcb{}}
+%\PY{n}{mu}\PY{p}{,} \PY{n}{cov} \PY{o}{=} \PY{n}{GP\PYZus{}predictor}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,}
+%                       \PY{n}{kernel\PYZus{}fun}\PY{p}{,} \PY{n}{kernel\PYZus{}args}\PY{p}{,} \PY{n}{sigma\PYZus{}n}\PY{p}{)}
+%\PY{c+c1}{\PYZsh{} Generate samples from the prior}
+%\PY{n}{gp\PYZus{}post} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{multivariate\PYZus{}normal}\PY{p}{(}\PY{n}{mu}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{N\PYZus{}gp\PYZus{}post}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+%
+%\PY{c+c1}{\PYZsh{} Draw samples from the prior}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+%\PY{n}{plot\PYZus{}GP}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{mu}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{x\PYZus{}train\PYZus{}i}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}i}\PY{p}{,} \PY{n}{gp\PYZus{}post}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+%\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{output_31_0.pdf}
+    \adjustimage{max size={0.8\linewidth}{0.8\paperheight}}{GP_regression_noisy.pdf}
     \end{center}
 %    { \hspace*{\fill} \\}
     
@@ -669,6 +902,23 @@
   РАН, 2017. 148 с.
 \end{enumerate}
 
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{11}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Versions used}
+%\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Python: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{o}{*}\PY{n}{sys}\PY{o}{.}\PY{n}{version\PYZus{}info}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+%\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numpy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+%\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{matplotlib: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+%\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seaborn: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{seaborn}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
+%
+%    \begin{Verbatim}[commandchars=\\\{\}]
+%Python: 3.7.16
+%numpy: 1.20.3
+%matplotlib: 3.5.1
+%seaborn: 0.12.2
+%    \end{Verbatim}
 
 
 
