@@ -1,6 +1,6 @@
 .ipynb_checkpoints
 *.pyc
 /mat
-/pix/*/_mat
+/pix/*/mat
 /pix/Portraits
 /pix/Game

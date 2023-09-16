@@ -33,7 +33,6 @@
       \usepackage{unicode-math}           % Для шрифта STIX Two Math
       \setmathfont{STIX Two Math}         % Математический шрифт
     \fi
-    \renewcommand{\linethickness}{0.1ex}
 
     % Basic figure setup, for now with no caption control since it's done
     % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
@@ -183,7 +182,8 @@
       {\Large Лекция 2} \\
       Матрицы и действия над ними. Ранг матрицы
     }
-    \date{14 сентября 2022\,г.}
+    % \date{14 сентября 2022\,г.}
+    \date{}
 
 
 
@@ -200,8 +200,8 @@
 \def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
 
 \@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
-\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
 \@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
@@ -211,31 +211,31 @@
 \@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
 \@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
 \@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
 \@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
 \@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
-\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
-\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
-\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
 \@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
 \@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
 \@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
-\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
-\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
 \@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
 \@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
 \@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
 \@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
-\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
-\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
 \@namedef{PY@tok@ge}{\let\PY@it=\textit}
 \@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
 \@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
-\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
 \@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
 \@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
 \@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
@@ -261,11 +261,11 @@
 \@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
 
 \def\PYZbs{\char`\\}
 \def\PYZus{\char`\_}
@@ -400,27 +400,12 @@
 
 \begin{document}
 
-\maketitle
-\thispagestyle{empty}
-\tableofcontents
+  \maketitle
+  \thispagestyle{empty}
+  \tableofcontents
 
-\let\thefootnote\relax\footnote{
-  \textit{День 14 сентября в истории:
-    \begin{itemize}[topsep=2pt,itemsep=1pt]
-      \item 1812 г. --- спустя неделю после Бородинского сражения войска Наполеона вошли в Москву. В тот же день в~опустевшем городе начались пожары.
-%      \item 1817 г. --- в Москву прибыл памятник Минину и Пожарскому; он был отлит в Санкт-Петербурге и доставлялся водным путём через Нижний Новгород.
-%      \item 1911 г. ---  во время мемориальных торжеств в память Александра II в Киеве эсером Д. Г. Богровым смертельно ранен Пётр Аркадьевич Столыпин, российский государственный деятель, министр внутренних дел, премьер-министр России (с 1906 года).
-      \item 1917 г. --- официальное свержение монархии: Временное правительство объявило Россию республикой.
-      \item 1927 г. --- в Ницце из-за того, что шарф намотался на колесо автомобиля, погибла американская танцовщица Айседора Дункан.
-      \item 1939 г. --- в США в воздух поднялся первый вертолёт И. И. Сикорского --- VS-300. Машиной управлял сам конструктор.
-      \item 1954 г. --- на Тоцком полигоне (Оренбургская область) проведены войсковые учения в условиях реального ядерного взрыва с участием до 45 тысяч военнослужащих всех видов и родов войск (кодовое название <<Снежок>>).
-      \item 1959 г. --- космический аппарат Луна-2 впервые в мире достиг поверхности Луны. Станция врезалась в~Луну со скоростью 3.3 км/сек, предположительно образовав кратер диаметром от 15 до 130 метров. Попадание в Луну было подтверждено прекращением радиосвязи со станцией и наблюдением с советских и~иностранных обсерваторий, сфотографировавших пылевое облако над местом падения.
-      \item 1960 г. --- основана Организация стран-экспортёров нефти (ОПЕК). В неё вошли Ирак, Иран, Кувейт, Саудовская Аравия и Венесуэла.
-      \item 1972 г. --- Папа римский Павел VI отменил выстригание волос на голове католических священников (тонзура), что было обязательным с пятого века.
-    \end{itemize}
-  }
-}
-\newpage
+  \newpage
+
 
 \hypertarget{ux432ux432ux435ux434ux435ux43dux438ux435}{%
 \section{Введение}\label{ux432ux432ux435ux434ux435ux43dux438ux435}}
@@ -433,6 +418,7 @@
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
   Найти \(\mathbf{x}\) в уравнении \(A\mathbf{x} = \mathbf{b}\),
 \item
@@ -464,20 +450,42 @@
     \hypertarget{ux43eux431ux43eux437ux43dux430ux447ux435ux43dux438ux44f}{%
 \subsection{Обозначения}\label{ux43eux431ux43eux437ux43dux430ux447ux435ux43dux438ux44f}}
 
-Для начала введём обозначения. Вектор будем записывать в виде столбца и
-обозначать стрелочкой \(\vec{a}\) или жирной буквой \(\mathbf{a}\).
-Строку будем обозначать с помощью звёздочки \(\vec{a}^*\) или
-\(\mathbf{a}^*\): \[
-  \mathbf{a} =
+    Для начала введём обозначения. Вектор будем записывать в виде столбца и
+обозначать стрелочкой \(\vec{a}\) или жирной буквой \(\mathbf{a}\): \[
+  \vec{a} = \mathbf{a} =
   \begin{pmatrix}
      a_1    \\
      \cdots \\
-     a_n    \\
-  \end{pmatrix},
-  \mathbf{a}^* = (a_1, \ldots, a_n).
+     a_m    \\
+  \end{pmatrix}
 \]
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    Матрицу будем обозначать большой буквой, а записывать в виде набора
+элементов, строк или столбцов: \[
+  A = 
+  \begin{pmatrix}
+    a_{11} & a_{12} & \ldots & a_{1n} \\
+    a_{21} & a_{22} & \ldots & a_{2n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    a_{m1} & a_{m2} & \ldots & a_{mn} \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+  -\, \mathbf{a}_{1*} \,- \\
+  -\, \mathbf{a}_{2*} \,- \\
+  \cdots \\
+  -\, \mathbf{a}_{m*} \,- \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+     | & | & {} & | \\
+     \mathbf{a}_{*1} & \mathbf{a}_{*2} & \cdots & \mathbf{a}_{*n} \\
+     | & | & {} & | \\
+  \end{pmatrix}
+  .
+\]
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux443ux43cux43dux43eux436ux435ux43dux438ux435-ux43cux430ux442ux440ux438ux446}{%
 \section{Умножение
@@ -503,7 +511,7 @@
 столбец»}\label{ux441ux43fux43eux441ux43eux431-1-ux441ux442ux440ux43eux43aux430-ux43dux430-ux441ux442ux43eux43bux431ux435ux446}}
 
 Это стандартный способ умножения матриц:
-\(\mathbf{c_{ij}} = \mathbf{a}_i^* \cdot \mathbf{b}_j\).
+\(\mathbf{c_{ij}} = \mathbf{a}_{i*} \cdot \mathbf{b}_{*j}\).
 
 \textbf{Пример 1.} Скалярное произведение векторов \(\mathbf{a}\) и
 \(\mathbf{b}\):
@@ -516,9 +524,10 @@
 Существует другой способ умножения матриц. Произведение \(AB\) равно
 \emph{сумме произведений} всех столбцов матрицы \(A\) на соответствующие
 строки матрицы \(B\).
-\[ A \cdot B = \sum_i \mathbf{a}_i \cdot \mathbf{b}_i^*. \]
+\[ A \cdot B = \sum_i \mathbf{a}_{*i} \cdot \mathbf{b}_{i*}. \]
 
-\textbf{Пример 2.} \[
+    \textbf{Пример 2.} \[
+\begin{aligned}
   \begin{pmatrix}
      1 & 2 \\
      0 & 2 \\
@@ -528,7 +537,7 @@
      0 & 5 \\
      1 & 1 \\
   \end{pmatrix}
-  =
+  &=
   \begin{pmatrix}
      1 \\
      0 \\
@@ -546,7 +555,8 @@
   \begin{pmatrix}
      1 & 1 \\
   \end{pmatrix}
-  =
+  \\
+  &=
   \begin{pmatrix}
      0 & 5 \\
      0 & 0 \\
@@ -560,24 +570,138 @@
   \begin{pmatrix}
      2 & 7 \\
      2 & 2 \\
+  \end{pmatrix}
+  .
+\end{aligned}
+\]
+
+    \hypertarget{ux441ux43fux43eux441ux43eux431-3-ux441ux442ux43eux43bux431ux435ux446-ux43dux430-ux441ux442ux43eux43bux431ux435ux446}{%
+\subsection{Способ 3: «столбец на
+столбец»}\label{ux441ux43fux43eux441ux43eux431-3-ux441ux442ux43eux43bux431ux435ux446-ux43dux430-ux441ux442ux43eux43bux431ux435ux446}}
+
+Посмотрим внимательно на то, как мы получили первый столбец
+результирующей матрицы. Он является суммой столбцов матрицы \(A\) с
+коэффициентами из первого столбца матрицы \(B\). То же самое можно
+сказать и про второй столбец. Таким образом, можно сформулировать
+следующее правило:\\
+\emph{\(\mathbf{i}\)-ый столбец результирующей матрицы есть линейная
+комбинация столбцов левой матрицы с коэффициентами из \(\mathbf{i}\)-ого
+столбца правой матрицы.}
+
+    \hypertarget{ux441ux43fux43eux441ux43eux431-4-ux441ux442ux440ux43eux43aux430-ux43dux430-ux441ux442ux440ux43eux43aux443}{%
+\subsection{Способ 4: «строка на
+строку»}\label{ux441ux43fux43eux441ux43eux431-4-ux441ux442ux440ux43eux43aux430-ux43dux430-ux441ux442ux440ux43eux43aux443}}
+
+Аналогичным образом можно вывести правило и для строк:\\
+\emph{\(\mathbf{i}\)-ая строка результирующей матрицы есть линейная
+комбинация строк правой матрицы с коэффициентами из \(\mathbf{i}\)-ой
+строки левой матрицы.}
+
+    \textbf{Пример 3. Умножение матрицы на вектор}
+
+Рассмотрим умножение матрицы \(A\) размером \(m \times n\) на вектор:
+\(A \mathbf{x}\).
+
+По определению произведение \(A \mathbf{x}\) есть вектор, в котором на
+\(i\)-ом месте находится скалярное произведение \(i\)-ой \emph{строки}
+на столбец \(\mathbf{x}\): \[
+  A \mathbf{x} = 
+  \begin{pmatrix}
+    -\, \mathbf{a}_{1*} \,- \\
+    -\, \mathbf{a}_{2*} \,- \\
+    \cdots \\
+    -\, \mathbf{a}_{m*} \,- \\
+  \end{pmatrix}
+  \cdot \mathbf{x} = 
+  \begin{pmatrix}
+    \mathbf{a}_{1*} \cdot \mathbf{x} \\
+    \mathbf{a}_{2*} \cdot \mathbf{x} \\
+    \cdots \\
+    \mathbf{a}_{m*} \cdot \mathbf{x} \\
   \end{pmatrix}.
 \]
 
-    \textbf{Пример 3.} Разложение матрицы на сумму матриц ранга 1.
+Но можно посмотреть на это иначе, как на произведение \emph{столбцов}
+матрицы \(A\) на элементы вектора \(\mathbf{x}\): \[
+  A \mathbf{x} = 
+  \begin{pmatrix}
+     | & | & {} & | \\
+     \mathbf{a}_{*1} & \mathbf{a}_{*2} & \cdots & \mathbf{a}_{*n} \\
+     | & | & {} & | \\
+  \end{pmatrix}
+  \begin{pmatrix}
+     x_1    \\
+     x_2    \\
+     \cdots \\
+     x_m \\
+  \end{pmatrix}
+  = 
+  x_1 \mathbf{a}_{*1} + x_2 \mathbf{a}_{*2} + \dots + x_m \mathbf{a}_{*m}.
+\] Таким образом, результирующий вектор есть \emph{линейная комбинация}
+столбцов матрицы \(A\) с коэффициентами из вектора \(\mathbf{x}\).
+
+    \textbf{Пример 4. Умножение столбцов (строк) матрицы на скаляры}
+
+Чтобы каждый вектор матрицы \(A\) умножить на скаляр \(\lambda_i\),
+нужно умножить \(A\) на матрицу \(\Lambda = \mathrm{diag}(\lambda_i)\)
+\emph{справа}: \[
+  \begin{pmatrix}
+    | & {} & | \\
+    \lambda_1 \mathbf{a}_{*1} & \cdots & \lambda_n \mathbf{a}_{*n} \\
+    | & {} & | \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    | & {} & | \\
+    \mathbf{a}_{*1} & \cdots & \mathbf{a}_{*n} \\
+    | & {} & | \\
+  \end{pmatrix}
+  \begin{pmatrix}
+    \lambda_{1} & \ldots & 0         \\
+    \vdots      & \ddots & \vdots    \\
+    0           & \ldots & \lambda_n \\
+  \end{pmatrix}
+  = A \cdot \Lambda.
+\]
+
+Чтобы проделать то же самое со строками матрицы, её нужно умножить на
+\(\Lambda\) \emph{слева}: \[
+  \begin{pmatrix}
+    -\, \lambda_1 \mathbf{a}_{1*} \,- \\
+    \cdots \\
+    -\, \lambda_m \mathbf{a}_{m*} \,- \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    \lambda_{1} & \ldots & 0         \\
+    \vdots      & \ddots & \vdots    \\
+    0           & \ldots & \lambda_n \\
+  \end{pmatrix}
+  \begin{pmatrix}
+    -\, \mathbf{a}_{1*} \,- \\
+    \cdots \\
+    -\, \mathbf{a}_{m*} \,- \\
+  \end{pmatrix}
+  = \Lambda \cdot A.
+\]
+
+    \textbf{Пример 5.} Разложение матрицы на сумму матриц ранга 1.
 
 Представим матрицу в виде произведения двух матриц и применим умножение
-«столбец на строку»: \[
-  A =
+«столбец на строку».
+
+    Первый способ (раскладываем матрицу по двум её первым столбцам): \[
+  A = 
   \begin{pmatrix}
      1 & 2 & 3 \\
      2 & 1 & 3 \\
-     3 & 1 & 4 \\
+     3 & 3 & 6 \\
   \end{pmatrix}
   =
   \begin{pmatrix}
      1 & 2 \\
      2 & 1 \\
-     3 & 1 \\
+     3 & 3 \\
   \end{pmatrix}
   \cdot
   \begin{pmatrix}
@@ -594,121 +718,40 @@
   \begin{pmatrix}
      0 & 2 & 2 \\
      0 & 1 & 1 \\
-     0 & 1 & 1 \\
+     0 & 3 & 3 \\
   \end{pmatrix}.
 \]
 
-    \hypertarget{ux441ux43fux43eux441ux43eux431-3-ux441ux442ux43eux43bux431ux435ux446-ux43dux430-ux441ux442ux43eux43bux431ux435ux446}{%
-\subsection{Способ 3: «столбец на
-столбец»}\label{ux441ux43fux43eux441ux43eux431-3-ux441ux442ux43eux43bux431ux435ux446-ux43dux430-ux441ux442ux43eux43bux431ux435ux446}}
-
-Посмотрим внимательно на то, как мы получили первый столбец
-результирующей матрицы. Он является суммой столбцов матрицы \(A\) с
-коэффициентами из первого столбца матрицы \(B\)! То же самое можно
-сказать и про второй столбец. Таким образом, можно сформулировать
-следующее правило:\\
-\emph{\(\mathbf{i}\)-ый столбец результирующей матрицы есть линейная
-комбинация столбцов левой матрицы с коэффициентами из \(\mathbf{i}\)-ого
-столбца правой матрицы.}
-
-    \hypertarget{ux441ux43fux43eux441ux43eux431-4-ux441ux442ux440ux43eux43aux430-ux43dux430-ux441ux442ux440ux43eux43aux443}{%
-\subsection{Способ 4: «строка на
-строку»}\label{ux441ux43fux43eux441ux43eux431-4-ux441ux442ux440ux43eux43aux430-ux43dux430-ux441ux442ux440ux43eux43aux443}}
-
-Аналогичным образом можно вывести правило и для строк:\\
-\emph{\(\mathbf{i}\)-ая строка результирующей матрицы есть линейная
-комбинация строк правой матрицы с коэффициентами из \(\mathbf{i}\)-ой
-строки левой матрицы.}
-
-    \textbf{Пример 4. Умножение матрицы на вектор}
-
-Рассмотрим умножение матрицы \(A\) размером \(m \times n\) на вектор:
-\(A \mathbf{x}\).
-
-По определению произведение \(A \mathbf{x}\) есть вектор, в котором на
-\(i\)-ом месте находится скалярное произведение \(i\)-ой \emph{строки}
-на столбец \(\mathbf{x}\): \[
-  A \mathbf{x} =
+    Второй способ (раскладываем матрицу по двум её первым строкам): \[
+  A = 
   \begin{pmatrix}
-    -\, \mathbf{a}_1^* \,- \\
-    \cdots \\
-    -\, \mathbf{a}_i^* \,- \\
-    \cdots \\
-    -\, \mathbf{a}_m^* \,- \\
+     1 & 2 & 3 \\
+     2 & 1 & 3 \\
+     3 & 3 & 6 \\
   \end{pmatrix}
-  \cdot \mathbf{x} =
+  =
   \begin{pmatrix}
-    \mathbf{a}_1^* \cdot \mathbf{x} \\
-    \cdots \\
-    \mathbf{a}_i^* \cdot \mathbf{x} \\
-    \cdots \\
-    \mathbf{a}_m^* \cdot \mathbf{x} \\
+     1 & 0 \\
+     0 & 1 \\
+     1 & 1 \\
+  \end{pmatrix}
+  \cdot
+  \begin{pmatrix}
+     1 & 2 & 3 \\
+     2 & 1 & 3 \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+     1 & 2 & 3 \\
+     0 & 0 & 0 \\
+     1 & 2 & 3 \\
+  \end{pmatrix}
+  +
+  \begin{pmatrix}
+     0 & 0 & 0 \\
+     2 & 1 & 3 \\
+     2 & 1 & 3 \\
   \end{pmatrix}.
-\]
-
-Но можно посмотреть на это иначе, как на произведение \emph{столбцов}
-матрицы \(A\) на элементы вектора \(\mathbf{x}\): \[
-  A \mathbf{x} =
-  \begin{pmatrix}
-     | & {} & | & {} & | \\
-     \mathbf{a}_1 & \cdots & \mathbf{a}_i & \cdots & \mathbf{a}_n \\
-     | & {} & | & {} & | \\
-  \end{pmatrix}
-  \begin{pmatrix}
-     x_1    \\
-     \cdots \\
-     x_i    \\
-     \cdots \\
-     x_m \\
-  \end{pmatrix}
-  =
-  x_1 \mathbf{a}_1 + \dots + x_i \mathbf{a}_i + \dots + x_m \mathbf{a}_m.
-\] Таким образом, результирующий вектор есть \emph{линейная комбинация}
-столбцов матрицы \(A\) с коэффициентами из вектора \(\mathbf{x}\).
-
-    \textbf{Пример 5. Умножение столбцов (строк) матрицы на скаляры}
-
-Чтобы каждый вектор матрицы \(A\) умножить на скаляр \(\lambda_i\),
-нужно умножить \(A\) на матрицу \(\Lambda = \mathrm{diag}(\lambda_i)\)
-\emph{справа}: \[
-  \begin{pmatrix}
-    | & {} & | \\
-    \lambda_1 \mathbf{a}_1 & \cdots & \lambda_n \mathbf{a}_n \\
-    | & {} & | \\
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    | & {} & | \\
-    \mathbf{a}_1 & \cdots & \mathbf{a}_n \\
-    | & {} & | \\
-  \end{pmatrix}
-  \begin{pmatrix}
-    \lambda_{1} & \ldots & 0         \\
-    \vdots      & \ddots & \vdots    \\
-    0           & \ldots & \lambda_n \\
-  \end{pmatrix}
-  = A \cdot \Lambda.
-\]
-
-Чтобы проделать то же самое со строками матрицы, её нужно умножить на
-\(\Lambda\) \emph{слева}: \[
-  \begin{pmatrix}
-    -\, \lambda_1 \mathbf{a}_1^* \,- \\
-    \cdots \\
-    -\, \lambda_m \mathbf{a}_m^* \,- \\
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    \lambda_{1} & \ldots & 0         \\
-    \vdots      & \ddots & \vdots    \\
-    0           & \ldots & \lambda_n \\
-  \end{pmatrix}
-  \begin{pmatrix}
-    -\, \mathbf{a}_1^* \,- \\
-    \cdots \\
-    -\, \mathbf{a}_m^* \,- \\
-  \end{pmatrix}
-  = \Lambda \cdot A.
 \]
 
     \textbf{Пример 6. Умножение блочных матриц}
@@ -721,7 +764,7 @@
 \tightlist
 \item
   Формулу для \(A A^\top\) получим по способу «строка на столбец»: \[
-    A A^\top =
+    A A^\top = 
     \begin{pmatrix}
    A_1 \\
    A_2 \\
@@ -750,7 +793,7 @@
   \]
 \end{enumerate}
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux440ux430ux43dux433-ux43cux430ux442ux440ux438ux446ux44b}{%
 \section{Ранг
@@ -761,16 +804,16 @@
 \(A\)?
 
 Поясним на примере. Пусть \[
-  A =
+  A = 
   \begin{pmatrix}
      1 & 2 & 3 \\
      2 & 1 & 3 \\
-     3 & 1 & 4 \\
+     3 & 3 & 6 \\
   \end{pmatrix}.
 \] Что мы можем сказать о линейной оболочке её столбцов? Что это за
 пространство? Какой размерности?
 
-    \textbf{Определение 1.} Рангом матрицы \(A\) с \(m\) строк и \(n\)
+    \textbf{Определение.} Рангом матрицы \(A\) с \(m\) строк и \(n\)
 столбцов называется максимальное число линейно независимых столбцов
 (строк).
 
@@ -796,12 +839,16 @@
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  При умножении матриц ранг не может увеличиться. Каждый столбец матрицы \(AB\) является линейной комбинацией столбцов матрицы \(A\), а каждая строка матрицы \(AB\) является линейной комбинацией строк матрицы \(B\).
-  Поэтому пространство столбцов матрицы \(AB\) содержится в~пространстве столбцов матрицы \(A\), а пространство строк матрицы \(AB\) содержится в пространстве строк матрицы \(B\).
+  При умножении матриц ранг не может увеличиться. Каждый столбец матрицы
+  \(AB\) является линейной комбинацией столбцов матрицы \(A\), а каждая
+  строка матрицы \(AB\) является линейной комбинацией строк матрицы
+  \(B\). Поэтому пространство столбцов матрицы \(AB\) содержится в
+  пространстве столбцов матрицы \(A\), а пространство строк матрицы
+  \(AB\) содержится в пространстве строк матрицы \(B\).
 \item
-  Базис пространства столбцов матрицы \(A+B\) (\(\mathbf{C}(A+B)\))
+  Базис пространства столбцов матрицы \(A+B\) (т.е. \(\mathbf{C}(A+B)\)
   является комбинацией (возможно, с пересечениями) базисов пространств
-  \(\mathbf{C}(A)\) и \(\mathbf{C}(B)\).
+  \(\mathbf{C}(A)\)) и \(\mathbf{C}(B)\).
 \item
   Матрицы \(A\) и \(A^\top A\) имеют одно и то же нуль-пространство
   (доказать), поэтому их ранг одинаков.
@@ -827,10 +874,9 @@
 
 Для свойства 3 отметим важный частный случай. Это случай, когда столбцы
 матрицы \(A\) линейно независимы, так что её ранг \(r\) равен \(n\).
-Тогда матрица \(A^\top A\) является квадратной симметрической обратимой
-матрицей.
+Тогда матрица \(A^\top A\) является симметричной невырожденной матрицей.
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux441ux43aux435ux43bux435ux442ux43dux43eux435-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}{%
 \section{Скелетное
@@ -841,17 +887,17 @@
 виде, пользуясь правилом умножения «столбец на столбец».
 
 \[
-  A =
+  A = 
   \begin{pmatrix}
      1 & 2 & 3 \\
      2 & 1 & 3 \\
-     3 & 1 & 4 \\
+     3 & 3 & 6 \\
   \end{pmatrix}
   =
   \begin{pmatrix}
      1 & 2 \\
      2 & 1 \\
-     3 & 1 \\
+     3 & 3 \\
   \end{pmatrix}
   \cdot
   \begin{pmatrix}
@@ -864,10 +910,10 @@
 Здесь \(C\) --- базисные столбцы, \(R\) --- базисные строки. Мы получили
 скелетное разложение матрицы.
 
-\textbf{Определение 2.} \emph{Скелетным разложением} матрицы \(A\)
+\textbf{Определение.} \emph{Скелетным разложением} матрицы \(A\)
 размеров \(m \times n\) и ранга \(r>0\) называется разложение вида
 \(A = CR\), где матрицы \(C\) и \(R\) имеют размеры соответственно
-\(m \times r\) и~\(r \times n\). Другое название скелетного разложения
+\(m \times r\) и \(r \times n\). Другое название скелетного разложения
 --- \emph{ранговая факторизация}.
 
 Это разложение иллюстрирует \textbf{теорему}: ранг матрицы по столбцам
@@ -876,19 +922,23 @@
 
     \textbf{Дополнительно}
 
-Существует другой вариант скелетного разложения: \(A = CMR\).
-В этом случае матрица \(C\), как и ранее, состоит из \(r\) независимых столбцов матрицы \(A\), но матрица \(R\) теперь состоит из \(r\) независимых строк матрицы \(A\), а матрица \(M\) размером \(r \times r\) называется смешанной матрицей (mixing matrix). Для \(M\) можно получить следующую формулу: \[
-%\begin{split}
-  A = CMR \quad \Rightarrow \quad
-  C^\top A R^\top = C^\top C M R R^\top \quad \Rightarrow \quad
-  M = \left[ (C^\top C)^{-1}C^\top \right] A \left[ R^\top (R R^\top)^{-1} \right].
-%\end{split}
+Существует другой вариант скелетного разложения: \(A = CMR\). В этом
+случае \(С\) состоит из \(r\) независимых \emph{столбцов} матрицы \(A\),
+а \(R\) --- из \(r\) независимых \emph{строк} матрицы \(A\). Матрица
+\(M\) размером \(r \times r\) называется смешанной матрицей (mixing
+matrix). Для \(M\) можно получить следующую формулу:
+\[
+\begin{aligned}
+  A               &= CMR \\
+  C^\top A R^\top &= C^\top C M R R^\top \\
+  M               &= \left[ (C^\top C)^{-1}C^\top \right] A \left[ R^\top (R R^\top)^{-1} \right].
+\end{aligned}
 \]
 
     \begin{quote}
 Матрицы \(C^+ = (C^\top C)^{-1}C^\top\) и
 \(R^+ = R^\top (R R^\top)^{-1}\) являются \emph{псевдообратными} к
-матрицам соответственно \(C\) и \(R\).\\
+матрицам \(C\) и \(R\) соответственно.\\
 Можно показать, что если \emph{столбцы} матрицы линейно независимы (как
 у матрицы \(C\)), то \(C^+\) является \emph{левой} обратной матрицей для
 \(C\): \(C^+ C = I\). Если независимы строки (как у \(R\)), то \(R^+\)
@@ -897,7 +947,7 @@
 занятий позже.
 \end{quote}
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux438ux441ux442ux43eux447ux43dux438ux43aux438}{%
 \section{Источники}\label{ux438ux441ux442ux43eux447ux43dux438ux43aux438}}
