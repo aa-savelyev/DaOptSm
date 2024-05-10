@@ -2,7 +2,7 @@
 
     \usepackage[breakable]{tcolorbox}
     \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
-    
+
     \usepackage{iftex}
     \ifPDFTeX
       \usepackage[T2A]{fontenc}
@@ -33,7 +33,6 @@
       \usepackage{unicode-math}           % Для шрифта STIX Two Math
       \setmathfont{STIX Two Math}         % Математический шрифт
     \fi
-    \renewcommand{\linethickness}{0.1ex}
 
     % Basic figure setup, for now with no caption control since it's done
     % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
@@ -183,10 +182,11 @@
       {\Large Лекция 10} \\
       Регуляризация: гребневая регрессия и метод LASSO
     }
-    \date{16 ноября 2022\,г.}
-    
-    
-    
+    % \date{16 ноября 2022\,г.}
+    \date{}
+
+
+
 % Pygments definitions
 \makeatletter
 \def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
@@ -200,8 +200,8 @@
 \def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
 
 \@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
-\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
 \@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
@@ -211,31 +211,31 @@
 \@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
 \@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
 \@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
 \@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
 \@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
-\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
-\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
-\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
 \@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
 \@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
 \@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
-\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
-\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
 \@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
 \@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
 \@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
 \@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
-\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
-\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
 \@namedef{PY@tok@ge}{\let\PY@it=\textit}
 \@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
 \@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
-\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
 \@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
 \@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
 \@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
@@ -261,11 +261,11 @@
 \@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
 
 \def\PYZbs{\char`\\}
 \def\PYZus{\char`\_}
@@ -400,19 +400,20 @@
 
 \begin{document}
 
-\maketitle
-\thispagestyle{empty}
-\tableofcontents
+  \maketitle
+  \thispagestyle{empty}
+  \tableofcontents
 
-\let\thefootnote\relax\footnote{
-  \textit{День 16 ноября в истории:
-    \begin{itemize}[topsep=2pt,itemsep=1pt]
-      \item 1933 г. --- установление дипломатических отношений СССР с США.
-      \item 1965 г. --- в СССР запущена автоматическая межпланетная станция <<Венера-3>>, беспилотный космический корабль, который первым достиг поверхности Венеры (врезался в неё). Он стал первым земным аппаратом, достигшим поверхности другой планеты.
-    \end{itemize}
-  }
-}
-\newpage
+%  \let\thefootnote\relax\footnote{
+%    \textit{День 16 ноября в истории:
+%      \begin{itemize}[topsep=2pt,itemsep=1pt]
+%        \item 1933 г. --- установление дипломатических отношений СССР с США.
+%        \item 1965 г. --- в СССР запущена автоматическая межпланетная станция <<Венера-3>>, беспилотный космический корабль, который первым достиг поверхности Венеры (врезался в неё). Он стал первым земным аппаратом, достигшим поверхности другой планеты.
+%      \end{itemize}
+%    }
+%  }
+
+  \newpage
 
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
@@ -451,7 +452,7 @@
 \end{Verbatim}
 \end{tcolorbox}
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux43eux43fux442ux438ux43cux438ux437ux430ux446ux438ux44f-ux441-ux43fux43eux43cux43eux449ux44cux44e-scipy.optimize}{%
 \section{\texorpdfstring{Оптимизация с помощью
@@ -597,7 +598,7 @@ Optimization terminated successfully    (Exit mode 0)
     \begin{center}
     \adjustimage{max size={0.5\linewidth}{0.5\paperheight}}{Opt_L1.pdf}
     \end{center}
-    
+
     \hypertarget{ux43cux435ux442ux43eux434-ux448ux442ux440ux430ux444ux43dux44bux445-ux444ux443ux43dux43aux446ux438ux439}{%
 \subsection{Метод штрафных
 функций}\label{ux43cux435ux442ux43eux434-ux448ux442ux440ux430ux444ux43dux44bux445-ux444ux443ux43dux43aux446ux438ux439}}
@@ -660,7 +661,7 @@ Optimization terminated successfully.
     \begin{center}
     \adjustimage{max size={0.5\linewidth}{0.5\paperheight}}{Opt_L2.pdf}
     \end{center}
-    
+
 Итак, мы решили две оптимизационные задачи.
 
 \begin{enumerate}
@@ -679,13 +680,13 @@ Optimization terminated successfully.
 нормы \(L_1\): оптимальное решение имеет нулевые компоненты или, как
 говорят, является \emph{разреженным}.
 У разреженного решения, как правило, мало ненулевых компонент, но эти компоненты имеют наибольшее влияние на результат.
-Разреженное решение позволяет производить отбор признаков, оставляя только самые важные с точки зрения рассматриваемой 
+Разреженное решение позволяет производить отбор признаков, оставляя только самые важные с точки зрения рассматриваемой
 целевой функции.
 
 Решение с использованием нормы \(L_2\) отбор признаков не производит.
 Напротив, оно часто имеет много близких к нулю компонент, мало влияющих на целевую функцию.
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux43bux438ux43dux435ux439ux43dux430ux44f-ux440ux435ux433ux440ux435ux441ux441ux438ux44f}{%
 \section{Линейная
@@ -742,7 +743,7 @@ Optimization terminated successfully.
     \begin{center}
     \adjustimage{max size={0.7\linewidth}{0.7\paperheight}}{Noisy_data.pdf}
     \end{center}
-    
+
     \hypertarget{ux43fux43eux438ux441ux43a-ux43aux43eux44dux444ux444ux438ux446ux438ux435ux43dux442ux43eux432-ux440ux435ux433ux440ux435ux441ux441ux438ux438}{%
 \subsection{Поиск коэффициентов
 регрессии}\label{ux43fux43eux438ux441ux43a-ux43aux43eux44dux444ux444ux438ux446ux438ux435ux43dux442ux43eux432-ux440ux435ux433ux440ux435ux441ux441ux438ux438}}
@@ -759,7 +760,7 @@ Optimization terminated successfully.
 \[ g(x, \alpha) = \sum_{j=1}^{n} \alpha_j p_j(x).\]
 
 Матрица объекты--признаки в этом случае выглядит так: \[
-  \mathbf{F} = 
+  \mathbf{F} =
   \begin{pmatrix}
     1      & x_1    & \ldots & x_1^{n-1} \\
     \vdots & \vdots & \ddots & \vdots    \\
@@ -784,7 +785,7 @@ Optimization terminated successfully.
 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{Nf}\PY{p}{)}\PY{p}{:}
     \PY{n}{F} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{F}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{)}
 \PY{n}{F} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{T}
-    
+
 \PY{c+c1}{\PYZsh{} Fit parameters with OLS}
 \PY{n}{Alpha} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{F}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{F}\PY{p}{)} \PY{o}{@} \PY{n}{F}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{y}
 
@@ -813,7 +814,7 @@ Optimization terminated successfully.
     \begin{center}
     \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{OLS.pdf}
     \end{center}
-    
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{16}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -836,7 +837,7 @@ Optimization terminated successfully.
 проблемы --- метод главных компонент.
 Нам осталось два: гребневая регрессия и метод LASSO.
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux433ux440ux435ux431ux43dux435ux432ux430ux44f-ux440ux435ux433ux440ux435ux441ux441ux438ux44f}{%
 \section{Гребневая
@@ -957,8 +958,8 @@ Alpha\_r = [1.681 2.187 0.468 0.339 0.05  0.125 0.03 ]
     \begin{center}
     \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{Ridge.pdf}
     \end{center}
-    
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux43bux430ux441ux441ux43e-ux442ux438ux431ux448ux438ux440ux430ux43dux438}{%
 \section{Лассо
@@ -1046,7 +1047,7 @@ operator).
     \begin{center}
     \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{LASSO.pdf}
     \end{center}
-    
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{23}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -1068,7 +1069,7 @@ norm(a) = 4.000000982817314, Q = 2.9828090972762267
 
     \end{Verbatim}
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux441ux440ux430ux432ux43dux435ux43dux438ux435-ux43bux430ux441ux441ux43e-ux438-ux433ux440ux435ux431ux43dux435ux432ux43eux439-ux440ux435ux433ux440ux435ux441ux441ux438ux438}{%
 \section{Сравнение лассо и гребневой
@@ -1117,7 +1118,7 @@ norm(a) = 4.000000982817314, Q = 2.9828090972762267
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Var_ridge.pdf}
     \end{center}
-    
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{26}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -1150,8 +1151,8 @@ norm(a) = 4.000000982817314, Q = 2.9828090972762267
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Var_lasso.pdf}
     \end{center}
-    
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux438ux441ux442ux43eux447ux43dux438ux43aux438}{%
 \section{Источники}\label{ux438ux441ux442ux43eux447ux43dux438ux43aux438}}
@@ -1194,7 +1195,7 @@ scipy: 1.7.3
 
 
     % Add a bibliography block to the postdoc
-    
-    
-    
+
+
+
 \end{document}

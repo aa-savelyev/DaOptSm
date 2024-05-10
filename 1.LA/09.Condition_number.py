@@ -116,29 +116,13 @@ plt.show()
 # > Здесь и далее на рисунках вектор правых частей изображается на *правом* рисунке (&laquo;После преобразования&raquo;), а вектор решения &mdash; на *левом* (&laquo;До преобразования&raquo;).
 
 U, sgm, Vt = LA.svd(A)
-mu = sgm[0]/sgm[1]
 
-# +
-# Creating perturbed vectors B and solve system
-# Solution
-x = np.zeros((400, 1))
+# Creating vector b (3 variants)
 alpha = np.radians(45)
-b0 = np.atleast_2d([np.cos(alpha), np.sin(alpha)]).T  # 1
-# b0 = -np.atleast_2d(U[:,0]).T  # 2
-# b0 = np.atleast_2d(U[:,1]).T  # 3
-A_inv = LA.inv(A)
-x0 = A_inv @ b0
-print(x0)
-
-# Noise
-n = 100
-np.random.seed(42)
-r = 0.1*np.random.rand(n)
-phi = 2*np.pi*np.random.rand(n)
-B1 = b0[0] + r*np.cos(phi)
-B2 = b0[1] + r*np.sin(phi)
-B = np.vstack((B1, B2))
-X = A_inv @ B
+b = np.atleast_2d([np.cos(alpha), np.sin(alpha)]).T  # 1
+# b = -np.atleast_2d(U[:,0]).T  # 2
+# b = np.atleast_2d(U[:,1]).T  # 3
+print('b:\n', b)
 
 # +
 fig, ax = plt.subplots(1, 1, figsize=(4, 4))
@@ -148,15 +132,33 @@ make_decor([ax], [-0.2, 1.4], [-0.2, 1.4])
 # Plotting A
 ax.quiver(*origin, A[0,:], A[1,:], color=['g', cm(3)],
           width=0.013, angles='xy', scale_units='xy', scale=1)
-ax.quiver(*origin, b0[0,:], b0[1,:], color=['k'],
+ax.quiver(*origin, b[0,:], b[1,:], color=['k'],
           width=0.013, angles='xy', scale_units='xy', scale=1)
 ax.set_title("Столбцы матрицы A")
 ax.text(*A[:,0], "$\mathbf{a_1}$")
 ax.text(*A[:,1], "$\mathbf{a_2}$")
-ax.text(*b0, "$\mathbf{b}$")
+ax.text(*b, "$\mathbf{b}$")
 
 plt.show()
+# -
 
+
+# Creating perturbed vectors B
+n = 500
+np.random.seed(42)
+r = 0.1*np.random.rand(n)
+phi = 2*np.pi*np.random.rand(n)
+B1 = b[0] + r*np.cos(phi)
+B2 = b[1] + r*np.sin(phi)
+B = np.vstack((B1, B2))
+
+# +
+# Solving system
+A_inv = LA.inv(A)
+x = A_inv @ b
+print('x:\n', x)
+
+X = A_inv @ B
 
 # +
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
@@ -169,33 +171,39 @@ make_decor(ax, xlims, ylims)
 
 # Plotting X
 ax[0].plot(X[0,:], X[1,:], 'ro', ms=1.2, alpha=0.8)
-ax[0].plot(x0[0], x0[1], 'kx', ms=10, mew=2)
+ax[0].plot(x[0], x[1], 'kx', ms=10, mew=2)
 ax[0].set_title("До преобразования")
 
 # Plotting B
 ax[1].plot(B[0, :], B[1, :], 'bo', ms=1.2, alpha=0.8)
-ax[1].plot(b0[0], b0[1], 'rx', ms=10, mew=2)
+ax[1].plot(b[0], b[1], 'rx', ms=10, mew=2)
 ax[1].set_title("После преобразования")
 
 plt.show()
 
 # +
-# x_sol = np.array([1.0, 0.0]).T
-dx = X - x0
-db = B - b0
+dx = X - x
+db = B - b
 
-k1 = np.array(list(map(LA.norm, db.T))) / LA.norm(b0)
-k2 = np.array(list(map(LA.norm, dx.T))) / LA.norm(x0)
+k1 = np.array(list(map(LA.norm, db.T)))
+k2 = np.array(list(map(LA.norm, dx.T)))
+
+print(f'Максимальное увеличение возмущения max(dx/db) = {max(k2/k1):.5g}')
+print(f'Максимальное сжатие возмущения min(dx/db) = {min(k2/k1):.5g}')
+
+print(f'Норма вектора b = {LA.norm(b):.5g}')
+print(f'Норма вектора x = {LA.norm(x):.5g}')
+
+k1 = np.array(list(map(LA.norm, db.T))) / LA.norm(b)
+k2 = np.array(list(map(LA.norm, dx.T))) / LA.norm(x)
 
 print(f'Максимальное относительное увеличение возмущения max(dx/x : db/b) = {max(k2/k1):.5g}')
+print(f'Максимальное относительное сжатие возмущения max(dx/x : db/b) = {min(k2/k1):.5g}')
 # -
 
 # Мы видим, что небольшое возмущение вектора правой части $\mathbf{b}$ привела к гораздо большим (примерно в 14 раз) возмущениям вектора решений $\mathbf{x}$.
 # В таком случае говорят, что система уравнений является *плохо обусловленной*.
 # Разберёмся подробнее, что это значит.
-
-# > **Самостоятельно.**
-# Проблема в том, что мы пытаемся разложить вектор $\mathbf{b}$ по базису, векторы которого почти коллинеарны. Тогда почему бы нам не попытаться ортогонализовать наш базис, применив, например, $QR$-разложение?
 
 # ---
 
@@ -261,15 +269,15 @@ print('mu(A) = ', round(mu, 5))
 
 # +
 # Creating the vectors for a circle and storing them in x
-r_b = 0.1 * LA.norm(b0)
+r_b = 0.1 * LA.norm(b)
 phi = np.linspace(0, 2*np.pi, 200)
-B1 = b0[0] + r_b*np.cos(phi)
-B2 = b0[1] + r_b*np.sin(phi)
+B1 = b[0] + r_b*np.cos(phi)
+B2 = b[1] + r_b*np.sin(phi)
 Bc = np.vstack((B1, B2))
 
 #
 A_inv = LA.inv(A)
-x0 = A_inv @ b0
+x  = A_inv @ b
 Xc = A_inv @ Bc
 
 # +
@@ -281,13 +289,13 @@ make_decor(ax, xlims, ylims)
 # Plotting X
 ax[0].plot(X[0,:], X[1,:], 'ro', ms=1.2, alpha=.8)
 ax[0].plot(Xc[0,:], Xc[1,:], lw=1., c='k', alpha=.8)
-ax[0].plot(x0[0], x0[1], 'kx', ms=10, mew=2)
+ax[0].plot(x[0], x[1], 'kx', ms=10, mew=2)
 ax[0].set_title("До преобразования")
 
 # Plotting B
 ax[1].plot(B[0,:], B[1,:], 'bo', ms=1.2, alpha=.8)
 ax[1].plot(Bc[0, :], Bc[1, :], lw=1., c='k', alpha=.8)
-ax[1].plot(b0[0], b0[1], 'rx', ms=10, mew=2)
+ax[1].plot(b[0], b[1], 'rx', ms=10, mew=2)
 ax[1].set_title("После преобразования")
 
 plt.show()

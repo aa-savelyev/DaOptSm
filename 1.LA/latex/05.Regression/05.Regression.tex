@@ -33,7 +33,6 @@
       \usepackage{unicode-math}           % Для шрифта STIX Two Math
       \setmathfont{STIX Two Math}         % Математический шрифт
     \fi
-    \renewcommand{\linethickness}{0.1ex}
 
     % Basic figure setup, for now with no caption control since it's done
     % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
@@ -183,7 +182,8 @@
       {\Large Лекция 5} \\
       Линейная регрессия
     }
-    \date{5 октября 2022\,г.}
+    % \date{5 октября 2022\,г.}
+    \date{}
 
 
 
@@ -200,8 +200,8 @@
 \def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
 
 \@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
-\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
 \@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
@@ -211,31 +211,31 @@
 \@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
 \@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
 \@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
 \@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
 \@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
-\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
-\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
-\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
 \@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
 \@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
 \@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
-\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
-\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
 \@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
 \@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
 \@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
 \@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
-\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
-\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
 \@namedef{PY@tok@ge}{\let\PY@it=\textit}
 \@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
 \@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
-\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
 \@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
 \@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
 \@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
@@ -261,11 +261,11 @@
 \@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
 
 \def\PYZbs{\char`\\}
 \def\PYZus{\char`\_}
@@ -400,58 +400,60 @@
 
 \begin{document}
 
-\maketitle
-\thispagestyle{empty}
-\tableofcontents
+  \maketitle
+  \thispagestyle{empty}
+  \tableofcontents
 
-\let\thefootnote\relax\footnote{
-  \textit{День 5 октября в истории:
-    \begin{itemize}[topsep=2pt,itemsep=1pt]
-      \item 1502 г. --- Христофор Колумб открыл Коста-Рику.
-      \item 1823 г. --- в Англии начал издаваться первый медицинский журнал <<Ланцет>>.
-      \item 1969 г. --- на телеканале BBC прошло первое представление <<Летающего цирка Монти Пайтон>>.
-    \end{itemize}
-  }
-}
-\newpage
+%  \let\thefootnote\relax\footnote{
+%    \textit{День 5 октября в истории:
+%      \begin{itemize}[topsep=2pt,itemsep=1pt]
+%        \item 1502 г. --- Христофор Колумб открыл Коста-Рику.
+%        \item 1823 г. --- в Англии начал издаваться первый медицинский журнал <<Ланцет>>.
+%        \item 1969 г. --- на телеканале BBC прошло первое представление <<Летающего цирка Монти Пайтон>>.
+%      \end{itemize}
+%    }
+%  }
+
+  \newpage
 
 
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{1}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} Imports}
-\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-\PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k+kn}{import} \PY{n}{linalg} \PY{k}{as} \PY{n}{LA}
-\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
-\end{Verbatim}
-\end{tcolorbox}
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{1}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Imports}
+%\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+%\PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k+kn}{import} \PY{n}{linalg} \PY{k}{as} \PY{n}{LA}
+%\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+%\PY{k+kn}{import} \PY{n+nn}{scipy}
+%\end{Verbatim}
+%\end{tcolorbox}
 
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{2}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} Styles}
-\PY{k+kn}{import} \PY{n+nn}{matplotlib}
-\PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{14}
-\PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.linewidth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.5}
-\PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.markersize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{4}
-\PY{n}{cm} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}  \PY{c+c1}{\PYZsh{} Colormap}
-\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{2}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{c+c1}{\PYZsh{} Styles}
+%\PY{k+kn}{import} \PY{n+nn}{matplotlib}
+%\PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{14}
+%\PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.linewidth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.5}
+%\PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.markersize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{4}
+%\PY{n}{cm} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}  \PY{c+c1}{\PYZsh{} Colormap}
+%\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+%
+%\PY{k+kn}{import} \PY{n+nn}{seaborn}
+%\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%\end{Verbatim}
+%\end{tcolorbox}
 
-\PY{k+kn}{import} \PY{n+nn}{seaborn}
-\PY{n}{seaborn}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{3}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{k+kn}{import} \PY{n+nn}{warnings}
-\PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-
-\PY{c+c1}{\PYZsh{} \PYZpc{}config InlineBackend.figure\PYZus{}formats = [\PYZsq{}pdf\PYZsq{}]}
-\PY{c+c1}{\PYZsh{} \PYZpc{}config Completer.use\PYZus{}jedi = False}
-\end{Verbatim}
-\end{tcolorbox}
+%    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+%\prompt{In}{incolor}{3}{\boxspacing}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%\PY{k+kn}{import} \PY{n+nn}{warnings}
+%\PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+%
+%\PY{c+c1}{\PYZsh{} \PYZpc{}config InlineBackend.figure\PYZus{}formats = [\PYZsq{}pdf\PYZsq{}]}
+%\PY{o}{\PYZpc{}}\PY{k}{config} Completer.use\PYZus{}jedi = False
+%\end{Verbatim}
+%\end{tcolorbox}
 
     \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -459,8 +461,7 @@
 \section{Обозначения}\label{ux43eux431ux43eux437ux43dux430ux447ux435ux43dux438ux44f}}
 
 Задачу обучения по прецедентам при \(Y = \mathbb{R}\) принято называть
-задачей \emph{восстановления регрессии}.
-Введём основные обозначения.
+задачей \emph{восстановления регрессии}. Введём основные обозначения.
 
 Задано пространство объектов \(X\) и множество ответов \(Y\). Мы
 предполагаем существование зависимости \(y^*:X \rightarrow Y\), значения
@@ -484,7 +485,8 @@
 буква \(i\).\\
 Общее количество \emph{признаков} \(n\), для их индексации используется
 буква \(j\).\\
-Матрица объекты--признаки имеет размерность \(m \times n\): \[
+Матрица объекты--признаки имеет размерность \(m \times n\):
+\[
   \mathbf{F} =
   \begin{pmatrix}
     f_1(x_1) & \ldots & f_n(x_1) \\
@@ -502,16 +504,20 @@
 В качестве обучающих данных будем использовать зашумлённую линейную
 зависимость между \(y\) и \(x\).
 Для выборки данных размером \(m\) предполагаемая зависимость может быть смоделирована следующим образом:
-
-\[ y_i = \theta_0 + \theta_1 x_i + \epsilon_i  \quad (i = 1, \ldots, m). \]
-
-Здесь: - \(x_i\) --- независимая (входная) переменная выборки \(i\), с
-\(x = \{x_i \ldots x_m \}\); - \(y_i\) --- зависимая (выходная)
-переменная выборки \(i\), с \(y = \{y_i \ldots y_m \}\); -
-\(\epsilon_i \sim \mathcal{N}(0, \sigma^2)\) --- нормальный шум,
-влияющий на выходной сигнал \(y_i\); -
-\(\theta = \{\theta_0, \theta_1 \}\) --- набор параметров: смещение
-\(\theta_0\) и наклон \(\theta_1\).
+\[
+  y_i = \theta_0 + \theta_1 x_i + \epsilon_i  \quad (i = 1, \ldots, m).
+\]
+Здесь:
+\begin{itemize}
+  \item \(x_i\) --- независимая (входная) переменная выборки \(i\), с
+  \(x = \{x_i \ldots x_m \}\);
+  \item  \(y_i\) --- зависимая (выходная)
+  переменная выборки \(i\), с \(y = \{y_i \ldots y_m \}\);
+  \item \(\epsilon_i \sim \mathcal{N}(0, \sigma^2)\) --- нормальный шум,
+  влияющий на выходной сигнал \(y_i\);
+  \item \(\theta = \{\theta_0, \theta_1 \}\) --- набор параметров: смещение
+  \(\theta_0\) и наклон \(\theta_1\).
+\end{itemize}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{4}{\boxspacing}
@@ -692,7 +698,7 @@
 \PY{n}{F} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{T}
 
 \PY{c+c1}{\PYZsh{} Find optimal hyperparameters}
-\PY{n}{Alpha} \PY{o}{=} \PY{n}{LA}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{F}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{F}\PY{p}{)} \PY{o}{@} \PY{n}{F}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{Y\PYZus{}train}
+\PY{n}{Alpha} \PY{o}{=} \PY{n}{LA}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{F}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{F}\PY{p}{,} \PY{n}{F}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{Y\PYZus{}train}\PY{p}{)}
 \PY{n}{display}\PY{p}{(}\PY{n}{Alpha}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Function representing fitted line}
@@ -717,8 +723,7 @@ array([1.86789431, 3.10047182])
 \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data \PYZdl{}(x,y)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{b}\PY{p}{,} \PY{n}{m}\PY{o}{+}\PY{n}{b}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y = }\PY{l+s+si}{\PYZob{}}\PY{n}{b}\PY{l+s+si}{:}\PY{l+s+s1}{.0f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{ + }\PY{l+s+si}{\PYZob{}}\PY{n}{m}\PY{l+s+si}{:}\PY{l+s+s1}{.0f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}disp}\PY{p}{,} \PY{n}{f}\PY{p}{(}\PY{n}{X\PYZus{}disp}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}
-         \PY{n}{label}\PY{o}{=}\PY{n}{OLS\PYZus{}label}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}disp}\PY{p}{,} \PY{n}{f}\PY{p}{(}\PY{n}{X\PYZus{}disp}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cm}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{OLS\PYZus{}label}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Least squares regression fit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -744,11 +749,8 @@ array([1.86789431, 3.10047182])
 
 Матрица \(F\) должна быть полного ранга.\\
 Так как матрица \(F^\top F\) симметрическая и положительно определённая,
-её можно разложить по Холецкому.
-Дальше нужно последовательно решить две системы линейных уравнений с~треугольными матрицами.
-
-\pagebreak
-
+её можно разложить по Холецкому. Дальше нужно последовательно решить две
+системы линейных уравнений с треугольными матрицами.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{8}{\boxspacing}
@@ -763,6 +765,7 @@ array([1.86789431, 3.10047182])
 \PY{c+c1}{\PYZsh{} 2. Solve the lower triangular system Lt*w = Ft*y for w}
 \PY{n}{L\PYZus{}inv} \PY{o}{=} \PY{n}{LA}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{L}\PY{p}{)}
 \PY{n}{w} \PY{o}{=} \PY{n}{L\PYZus{}inv} \PY{o}{@} \PY{n}{Fty}
+\PY{c+c1}{\PYZsh{} w = scipy.linalg.solve\PYZus{}triangular(L, Fty)}
 
 \PY{c+c1}{\PYZsh{} 3. Solve the upper triangular system L*x = w for x}
 \PY{n}{x\PYZus{}chol} \PY{o}{=} \PY{n}{L\PYZus{}inv}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{w}
@@ -798,7 +801,7 @@ factorization), в котором матрица \(Q\) размеров \(m \tim
 \PY{n}{q}\PY{p}{,} \PY{n}{R} \PY{o}{=} \PY{n}{LA}\PY{o}{.}\PY{n}{qr}\PY{p}{(}\PY{n}{F}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} 2. Solve the upper triangular system R*x = Qt*y for x}
-\PY{n}{x\PYZus{}qr} \PY{o}{=} \PY{n}{LA}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{R}\PY{p}{)} \PY{o}{@} \PY{n}{q}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{Y\PYZus{}train}
+\PY{n}{x\PYZus{}qr} \PY{o}{=} \PY{n}{LA}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{R}\PY{p}{,} \PY{n}{q}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{Y\PYZus{}train}\PY{p}{)}
 \PY{n}{np}\PY{o}{.}\PY{n}{disp}\PY{p}{(}\PY{n}{x\PYZus{}qr}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
@@ -810,6 +813,105 @@ factorization), в котором матрица \(Q\) размеров \(m \tim
     Алгоритм требует \(O(2mn^2 - \frac{2}{3}n^3)\) операций.\\
 По сравнению с алгоритмом Холецкого \(QR\)-алгоритм более устойчив и
 может рассматриваться как \emph{стандартный метод} решения задачи МНК.
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+
+\newpage
+    \hypertarget{ux440ux435ux43aux443ux440ux441ux438ux432ux43dux44bux439-ux43cux43dux43a}{%
+\section{Рекурсивный
+МНК}\label{ux440ux435ux43aux443ux440ux441ux438ux432ux43dux44bux439-ux43cux43dux43a}}
+
+    \hypertarget{ux43eux431ux440ux430ux449ux435ux43dux438ux435-ux431ux43bux43eux447ux43dux43eux439-ux43cux430ux442ux440ux438ux446ux44b}{%
+\subsection{Обращение блочной
+матрицы}\label{ux43eux431ux440ux430ux449ux435ux43dux438ux435-ux431ux43bux43eux447ux43dux43eux439-ux43cux430ux442ux440ux438ux446ux44b}}
+
+    Формула Фробениуса
+
+\[
+M =
+\begin{bmatrix}
+    A & B \\
+    C & D
+\end{bmatrix},
+\quad
+M^{-1} =
+\begin{bmatrix}
+    \tilde{A} & \tilde{B} \\
+    \tilde{C} & \tilde{D}
+\end{bmatrix},
+\] где \[
+\begin{aligned}
+    \tilde{A} &\;= \left(A-BD^{-1}C\right)^{-1}     & =\;& A^{-1} + A^{-1}B\tilde{D}CA^{-1} \\
+    \tilde{B} &\;= -\tilde{A}BD^{-1}                & =\;& -A^{-1}B\tilde{D} \\
+    \tilde{C} &\;= -D^{-1}C\tilde{A}                & =\;& -\tilde{D}CA^{-1}  \\
+    \tilde{D} &\;= D^{-1} + D^{-1}C\tilde{A}BD^{-1} & =\;& \left(D-CA^{-1}B\right)^{-1}.
+\end{aligned}
+\]
+
+    Матрица \((M/A) = D-CA^{-1}B\) называется дополнением Шура матрицы \(A\) в матрице \(M\).
+
+    Рассмотрим матрицу \[
+M =
+\begin{bmatrix}
+    A & U \\
+    V^\top & I_k
+\end{bmatrix}
+\]
+
+Используя формулу Фробениуса, получим \[
+  \left(A - UV^\top \right)^{-1} = A^{-1} + A^{-1}U H V^\top A^{-1},\\
+  H = \left(I_k - V^\top A^{-1} U\right)^{-1}.
+\]
+
+    \hypertarget{ux444ux43eux440ux43cux443ux43bux430-ux448ux435ux440ux43cux430ux43dux430-ux43cux43eux440ux440ux438ux441ux43eux43dux430-ux432ux443ux434ux431ux435ux440ux438-smw}{%
+\subsection{Формула Шермана --- Моррисона --- Вудбери
+(SMW)}\label{ux444ux43eux440ux43cux443ux43bux430-ux448ux435ux440ux43cux430ux43dux430-ux43cux43eux440ux440ux438ux441ux43eux43dux430-ux432ux443ux434ux431ux435ux440ux438-smw}}
+
+    Шаг 1, \(rank(uv^\top) = 1\) \[
+  M = I_n + u v^\top,
+\] \[
+  M^{-1} = I_n - \frac{uv^\top}{1 + v^\top u}.
+\]
+
+    Шаг 2, \(rank(UV^\top) = k\) \[
+  M = I_n + U V^\top,
+\] \[
+  M^{-1} = I_n - U (I_k + V^\top A^{-1}U)^{-1} V^\top.
+\]
+
+    Шаг 3, заменяем единичную матрицу на \(A\) \[
+  M = A + U V^\top,
+\] \[
+  M^{-1} = A^{-1} - A^{-1} U(I_k + V^\top A^{-1}U)^{-1}V^\top  A^{-1}.
+\]
+
+%    \textbf{Адаптация для МНК:} \[
+%(A + r^\top r)^{-1} = A^{-1} - A^{-1} r^\top (I + r A^{-1}r^\top)^{-1} r A^{-1}.
+%\]
+%
+%    Если ввести матрицу \(H = I + r A^{-1}r^\top\): \[
+%  (A + r^\top r)^{-1} = A^{-1} - A^{-1} r^\top H^{-1} r A^{-1}.
+%\]
+
+    \hypertarget{ux43fux440ux438ux431ux43bux438ux436ux451ux43dux43dux430ux44f-ux444ux43eux440ux43cux443ux43bux430}{%
+\subsection{Приближённая
+формула}\label{ux43fux440ux438ux431ux43bux438ux436ux451ux43dux43dux430ux44f-ux444ux43eux440ux43cux443ux43bux430}}
+
+\[
+  (I + uv^\top)^{-1} = I - uv^\top + (uv^\top)^2 - (uv^\top)^3 + \ldots
+\]
+\[
+  M = (A + uv^\top) = A (I + A^{-1}uv^\top) \\
+\]
+
+\[
+\begin{aligned}
+  M^{-1} &= (I + A^{-1}uv^\top)^{-1} A^{-1}  \\
+         &= (I - A^{-1}uv^\top + (A^{-1}uv^\top)^2 - (A^{-1}uv^\top)^3 + \ldots) A^{-1} \\
+         &= A^{-1} - A^{-1}uv^\top A^{-1} + (A^{-1}uv^\top)^2 A^{-1} - (A^{-1}uv^\top)^3 A^{-1} + \ldots
+\end{aligned}
+\]
 
     \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -835,16 +937,18 @@ factorization), в котором матрица \(Q\) размеров \(m \tim
 \PY{k+kn}{import} \PY{n+nn}{sys}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Python: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{o}{*}\PY{n}{sys}\PY{o}{.}\PY{n}{version\PYZus{}info}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numpy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scipy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{scipy}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{matplotlib: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seaborn: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{seaborn}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-Python: 3.7.11
-numpy: 1.21.2
+Python: 3.7.16
+numpy: 1.20.3
+scipy: 1.7.3
 matplotlib: 3.5.1
-seaborn: 0.11.2
+seaborn: 0.12.2
     \end{Verbatim}
 
 

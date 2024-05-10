@@ -20,7 +20,7 @@
 
 # + [markdown] toc=true
 # <h1>Содержание<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Обозначения" data-toc-modified-id="Обозначения-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Обозначения</a></span></li><li><span><a href="#Генерация-данных" data-toc-modified-id="Генерация-данных-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Генерация данных</a></span></li><li><span><a href="#Метод-наименьших-квадратов" data-toc-modified-id="Метод-наименьших-квадратов-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Метод наименьших квадратов</a></span></li><li><span><a href="#Линейная-регрессия" data-toc-modified-id="Линейная-регрессия-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Линейная регрессия</a></span><ul class="toc-item"><li><span><a href="#Формулировка-задачи" data-toc-modified-id="Формулировка-задачи-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Формулировка задачи</a></span></li><li><span><a href="#Решение" data-toc-modified-id="Решение-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Решение</a></span></li><li><span><a href="#Пример.-Полиномиальная-регрессия" data-toc-modified-id="Пример.-Полиномиальная-регрессия-4.3"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>Пример. Полиномиальная регрессия</a></span></li></ul></li><li><span><a href="#Алгоритмы-решения-задачи-МНК" data-toc-modified-id="Алгоритмы-решения-задачи-МНК-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Алгоритмы решения задачи МНК</a></span><ul class="toc-item"><li><span><a href="#Разложение-Холецкого" data-toc-modified-id="Разложение-Холецкого-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Разложение Холецкого</a></span></li><li><span><a href="#QR-разложение" data-toc-modified-id="QR-разложение-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>QR-разложение</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Обозначения" data-toc-modified-id="Обозначения-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Обозначения</a></span></li><li><span><a href="#Генерация-данных" data-toc-modified-id="Генерация-данных-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Генерация данных</a></span></li><li><span><a href="#Метод-наименьших-квадратов" data-toc-modified-id="Метод-наименьших-квадратов-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Метод наименьших квадратов</a></span></li><li><span><a href="#Линейная-регрессия" data-toc-modified-id="Линейная-регрессия-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Линейная регрессия</a></span><ul class="toc-item"><li><span><a href="#Формулировка-задачи" data-toc-modified-id="Формулировка-задачи-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Формулировка задачи</a></span></li><li><span><a href="#Решение" data-toc-modified-id="Решение-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Решение</a></span></li><li><span><a href="#Пример.-Полиномиальная-регрессия" data-toc-modified-id="Пример.-Полиномиальная-регрессия-4.3"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>Пример. Полиномиальная регрессия</a></span></li></ul></li><li><span><a href="#Алгоритмы-решения-задачи-МНК" data-toc-modified-id="Алгоритмы-решения-задачи-МНК-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Алгоритмы решения задачи МНК</a></span><ul class="toc-item"><li><span><a href="#Разложение-Холецкого" data-toc-modified-id="Разложение-Холецкого-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Разложение Холецкого</a></span></li><li><span><a href="#QR-разложение" data-toc-modified-id="QR-разложение-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>QR-разложение</a></span></li></ul></li><li><span><a href="#Рекурсивный-МНК" data-toc-modified-id="Рекурсивный-МНК-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Рекурсивный МНК</a></span><ul class="toc-item"><li><span><a href="#Обращение-блочной-матрицы" data-toc-modified-id="Обращение-блочной-матрицы-6.1"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>Обращение блочной матрицы</a></span></li><li><span><a href="#Формула-Шермана-—-Моррисона-—-Вудбери-(SMW)" data-toc-modified-id="Формула-Шермана-—-Моррисона-—-Вудбери-(SMW)-6.2"><span class="toc-item-num">6.2&nbsp;&nbsp;</span>Формула Шермана — Моррисона — Вудбери (SMW)</a></span></li><li><span><a href="#Приближённая-формула" data-toc-modified-id="Приближённая-формула-6.3"><span class="toc-item-num">6.3&nbsp;&nbsp;</span>Приближённая формула</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
 # -
 
 # Imports
@@ -81,10 +81,12 @@ warnings.filterwarnings('ignore')
 #
 # В качестве обучающих данных будем использовать зашумлённую линейную зависимость между $y$ и $x$.
 # Для выборки данных размером $m$ предполагаемая зависимость может быть смоделирована следующим образом:
-#
-# $$ y_i = \theta_0 + \theta_1 x_i + \epsilon_i  \quad (i = 1, \ldots, m). $$
+# $$
+#   y_i = \theta_0 + \theta_1 x_i + \epsilon_i  \quad (i = 1, \ldots, m).
+# $$
 #
 # Здесь:
+#
 # - $x_i$ &mdash; независимая (входная) переменная выборки $i$, с $x = \{x_i \ldots x_m \}$;
 # - $y_i$ &mdash; зависимая (выходная) переменная выборки $i$, с $y = \{y_i \ldots y_m \}$;
 # - $\epsilon_i \sim \mathcal{N}(0, \sigma^2)$ &mdash; нормальный шум, влияющий на выходной сигнал $y_i$;
@@ -279,7 +281,7 @@ np.disp(x_chol)
 # ### QR-разложение
 #
 # Матрица $F$ должна быть полного ранга. \
-# Здесь применяется обобщение $QR$-разложения (reduced QR factorization), в котором матрица $Q$ размеров $m \times n$ составлена из $n$ ортонормированных столбцов, а $R$ &mdash; квадратная верхняя треугольная матрица порядка $n$ ($qR$-разложение).
+# Здесь применяется усечённое $QR$-разложение (reduced QR factorization), в котором матрица $Q$ размеров $m \times n$ составлена из $n$ ортонормированных столбцов, а $R$ &mdash; квадратная верхняя треугольная матрица порядка $n$ ($qR$-разложение).
 
 # +
 # 0. Set up the problem
@@ -295,6 +297,108 @@ np.disp(x_qr)
 
 # Алгоритм требует $O(2mn^2 - \frac{2}{3}n^3)$ операций. \
 # По сравнению с алгоритмом Холецкого $QR$-алгоритм более устойчив и может рассматриваться как *стандартный метод* решения задачи МНК.
+
+# ---
+
+# ## Рекурсивный МНК
+
+# ### Обращение блочной матрицы
+
+# Формула Фробениуса
+#
+# $$
+# M =
+# \begin{bmatrix}
+#     A & B \\
+#     C & D
+# \end{bmatrix},
+# \quad
+# M^{-1} =
+# \begin{bmatrix}
+#     \tilde{A} & \tilde{B} \\
+#     \tilde{C} & \tilde{D}
+# \end{bmatrix},
+# $$
+# где
+# $$
+# \begin{aligned}
+#     \tilde{A} &\;= \left(A-BD^{-1}C\right)^{-1}     & =\;& A^{-1} + A^{-1}B\tilde{D}CA^{-1} \\
+#     \tilde{B} &\;= -\tilde{A}BD^{-1}                & =\;& -A^{-1}B\tilde{D} \\
+#     \tilde{C} &\;= -D^{-1}C\tilde{A}                & =\;& -\tilde{D}CA^{-1}  \\
+#     \tilde{D} &\;= D^{-1} + D^{-1}C\tilde{A}BD^{-1} & =\;& \left(D-CA^{-1}B\right)^{-1}.
+# \end{aligned}
+# $$
+
+# Матрица $(M/A) = D-CA^{-1}B$ называется дополнением Шура матрицы $A$ в матрице $M$.
+
+# Рассмотрим матрицу
+# $$
+# M =
+# \begin{bmatrix}
+#     A & U \\
+#     V^\top & I_k
+# \end{bmatrix}
+# $$
+#
+# Используя формулу Фробениуса, получим
+# $$
+#   \left(A - UV^\top \right)^{-1} = A^{-1} + A^{-1}U H V^\top A^{-1},\\
+#   H = \left(I_k - V^\top A^{-1} U\right)^{-1}.
+# $$
+
+# ### Формула Шермана &mdash; Моррисона &mdash; Вудбери (SMW)
+
+# Шаг 1, $rank(uv^\top) = 1$
+# $$
+#   M = I_n + u v^\top,
+# $$
+# $$
+#   M^{-1} = I_n - \frac{uv^\top}{1 + v^\top u}.
+# $$
+
+# Шаг 2, $rank(UV^\top) = k$
+# $$
+#   M = I_n + U V^\top,
+# $$
+# $$
+#   M^{-1} = I_n - U (I_k + V^\top A^{-1}U)^{-1} V^\top.
+# $$
+
+# Шаг 3, заменяем единичную матрицу на $A$
+# $$
+#   M = A + U V^\top,
+# $$
+# $$
+#   M^{-1} = A^{-1} - A^{-1} U(I_k + V^\top A^{-1}U)^{-1}V^\top  A^{-1}.
+# $$
+
+# **Адаптация для МНК:**
+# $$
+# (A + r^\top r)^{-1} = A^{-1} - A^{-1} r^\top (I + r A^{-1}r^\top)^{-1} r A^{-1}.
+# $$
+
+# Если ввести матрицу $H = I + r A^{-1}r^\top$:
+# $$
+#   (A + r^\top r)^{-1} = A^{-1} - A^{-1} r^\top H^{-1} r A^{-1}.
+# $$
+
+# ### Приближённая формула
+
+# $$
+#   (I + uv^\top)^{-1} = I - uv^\top + (uv^\top)^2 - (uv^\top)^3 + \ldots
+# $$
+#
+# $$
+#   M = (A + uv^\top) = A (I + A^{-1}uv^\top) \\
+# $$
+
+# $$
+# \begin{aligned}
+#   M^{-1} &= (I + A^{-1}uv^\top)^{-1} A^{-1}  \\
+#          &= (I - A^{-1}uv^\top + (A^{-1}uv^\top)^2 - (A^{-1}uv^\top)^3 + \ldots) A^{-1} \\
+#          &= A^{-1} - A^{-1}uv^\top A^{-1} + (A^{-1}uv^\top)^2 A^{-1} - (A^{-1}uv^\top)^3 A^{-1} + \ldots
+# \end{aligned}
+# $$
 
 # ---
 

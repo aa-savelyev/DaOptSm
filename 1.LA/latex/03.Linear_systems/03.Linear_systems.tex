@@ -33,7 +33,6 @@
       \usepackage{unicode-math}           % Для шрифта STIX Two Math
       \setmathfont{STIX Two Math}         % Математический шрифт
     \fi
-    \renewcommand{\linethickness}{0.1ex}
 
     % Basic figure setup, for now with no caption control since it's done
     % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
@@ -184,7 +183,8 @@
       Системы линейных уравнений. \\
       Псевдообратные матрицы
     }
-    \date{21 сентября 2022\,г.}
+    % \date{21 сентября 2022\,г.}
+    \date{}
 
 
 
@@ -201,8 +201,8 @@
 \def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
 
 \@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
-\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
 \@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
@@ -212,31 +212,31 @@
 \@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
 \@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
 \@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
 \@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
 \@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
-\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
-\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
-\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
 \@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
 \@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
 \@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
-\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
-\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
 \@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
 \@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
 \@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
 \@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
-\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
-\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
 \@namedef{PY@tok@ge}{\let\PY@it=\textit}
 \@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
 \@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
-\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
 \@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
 \@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
 \@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
@@ -262,11 +262,11 @@
 \@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
 
 \def\PYZbs{\char`\\}
 \def\PYZus{\char`\_}
@@ -401,27 +401,28 @@
 
 \begin{document}
 
-\maketitle
-\thispagestyle{empty}
-\tableofcontents
+  \maketitle
+  \thispagestyle{empty}
+  \tableofcontents
 
-\let\thefootnote\relax\footnote{
-  \textit{День 21 сентября в истории:
-    \begin{itemize}[topsep=2pt,itemsep=1pt]
-      \item 862 г. --- новгородцы призвали на княжение братьев варягов Рюрика, Синеуса и Трувора.
-      \item 1721 г. --- указом Петра I основан первый военный порт в России --- Новая Голландия.
-      \item 1799 г. --- начался переход русских и австрийских войск под командованием А. В. Суворова через Швейцарские Альпы.
-      \item 1920 г. --- Совнарком Украинской ССР ввёл обязательное изучение украинского языка в школах.
-      \item 1937 г. --- вышел роман Дж.\,Р.\,Р.\,Толкина <<Хоббит, или Туда и обратно>>.
-      \item 1993 г. --- Президент России Б.\,Н.\,Ельцин подписал указ о роспуске Верховного Совета.
-      \item 1993 г. --- Конституционный суд Российской Федерации вынес заключение о неконституционности действий Президента.
-    \end{itemize}
-  }
-}
-\newpage
+%  \let\thefootnote\relax\footnote{
+%    \textit{День 21 сентября в истории:
+%      \begin{itemize}[topsep=2pt,itemsep=1pt]
+%        \item 862 г. --- новгородцы призвали на княжение братьев варягов Рюрика, Синеуса и Трувора.
+%        \item 1721 г. --- указом Петра I основан первый военный порт в России --- Новая Голландия.
+%        \item 1799 г. --- начался переход русских и австрийских войск под командованием А. В. Суворова через Швейцарские Альпы.
+%        \item 1920 г. --- Совнарком Украинской ССР ввёл обязательное изучение украинского языка в школах.
+%        \item 1937 г. --- вышел роман Дж.\,Р.\,Р.\,Толкина <<Хоббит, или Туда и обратно>>.
+%        \item 1993 г. --- Президент России Б.\,Н.\,Ельцин подписал указ о роспуске Верховного Совета.
+%        \item 1993 г. --- Конституционный суд Российской Федерации вынес заключение о неконституционности действий Президента.
+%      \end{itemize}
+%    }
+%  }
+
+  \newpage
 
 \hypertarget{mathbflu-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}{%
-\section{\texorpdfstring{\(\mathbf{LU}\)-разложение}{\textbackslash mathbf\{LU\}-разложение}}\label{mathbflu-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}}
+\section{\texorpdfstring{\(\mathbf{LU}\)-разложение}{LU-разложение}}\label{mathbflu-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}}
 
 \begin{quote}
 Ограничения: матрица \(A\) --- квадратная и невырожденная.
@@ -479,7 +480,7 @@
 только прибавление строки к нижележащей строке. Следовательно матрица
 \(S\) является нижней треугольной.
 
-\textbf{Предложение.} Для любой матрицы \(A\) с ненулевыми главными
+\textbf{Утверждение.} Для любой матрицы \(A\) с ненулевыми главными
 минорами найдётся такая невырожденная нижняя треугольная матрица \(S\),
 что \(SA\) есть верхняя треугольная матрица \(U\) с единицами на главной
 диагонали: \[ SA = U. \]
@@ -490,13 +491,13 @@
     \hypertarget{ux441ux43bux443ux447ux430ux439-2-ux441ux443ux449ux435ux441ux442ux432ux443ux44eux442-ux43dux435ux43dux443ux43bux435ux432ux44bux435-ux433ux43bux430ux432ux43dux44bux435-ux43cux438ux43dux43eux440ux44b-mathbflup-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}{%
 \subsection{\texorpdfstring{Случай 2: существуют нулевые главные
 миноры
-(\(\mathbf{LUP}\)-разложение)}{Случай 2: существуют нулевые главные миноры (\textbackslash mathbf\{LUP\}-разложение)}}\label{ux441ux43bux443ux447ux430ux439-2-ux441ux443ux449ux435ux441ux442ux432ux443ux44eux442-ux43dux435ux43dux443ux43bux435ux432ux44bux435-ux433ux43bux430ux432ux43dux44bux435-ux43cux438ux43dux43eux440ux44b-mathbflup-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}}
+(\(\mathbf{LUP}\)-разложение)}{Случай 2: существуют нулевые главные миноры (LUP-разложение)}}\label{ux441ux43bux443ux447ux430ux439-2-ux441ux443ux449ux435ux441ux442ux432ux443ux44eux442-ux43dux435ux43dux443ux43bux435ux432ux44bux435-ux433ux43bux430ux432ux43dux44bux435-ux43cux438ux43dux43eux440ux44b-mathbflup-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}}
 
 Что делать, если не все главные миноры отличны от нуля? К используемым
 элементарным операциям нужно добавить \emph{перестановки} строк или
 столбцов.
 
-\textbf{Предложение.} Невырожденную матрицу \(A\) перестановкой строк
+\textbf{Утверждение.} Невырожденную матрицу \(A\) перестановкой строк
 (или столбцов) можно перевести в матрицу, главные миноры которой отличны
 от нуля.
 
@@ -504,7 +505,7 @@
 единичной перестановками строк.
 
     \hypertarget{mathbfldu-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}{%
-\subsection{\texorpdfstring{\(\mathbf{LDU}\)-разложение}{\textbackslash mathbf\{LDU\}-разложение}}\label{mathbfldu-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}}
+\subsection{\texorpdfstring{\(\mathbf{LDU}\)-разложение}{LDU-разложение}}\label{mathbfldu-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}}
 
 \textbf{Замечание.} Единственным является разложение на такие
 треугольные множители, что у~второго из них на главной диагонали стоят
@@ -516,7 +517,7 @@
 имеющей единицы на главной диагонали, и диагональной матрицы \(D\).
 Тогда мы получим
 
-\textbf{Предложение.} Матрицу \(A\), главные миноры которой не равны
+\textbf{Утверждение.} Матрицу \(A\), главные миноры которой не равны
 нулю, можно единственным образом разложить в произведение \(L_1 D U\), в
 котором \(D\) --- диагональная, а \(L_1\) и \(U\) --- нижняя и верхняя
 треугольные матрицы с единицами на главной диагонали.
@@ -583,6 +584,11 @@
 дополнением} к \(V\) и обозначается символом \(V^\perp\).
 
 \textbf{Основная теорема линейной алгебры.} Пространство строк матрицы \(A\) и нуль-пространство матрицы \(A\), а также пространство столбцов \(A\) и нуль-пространство \(A^\top\) являются ортогональными дополнениями друг к другу.
+
+\begin{center}
+  \adjustimage{max size={0.8\linewidth}{0.9\paperheight}}{../../pix/03.Linear_systems/Fundamental_subspaces.png}
+\end{center}
+
 
     \hypertarget{ux442ux435ux43eux440ux435ux43cux430-ux444ux440ux435ux434ux433ux43eux43bux44cux43cux430}{%
 \subsection{Теорема
@@ -678,7 +684,7 @@
 \(\eqref{eq:system}\) называется \emph{нормальной системой}.
 Независимо от совместности системы \(\eqref{eq:system}\) справедливо
 
-\textbf{Предложение 1.} Нормальная система уравнений всегда совместна.\\
+\textbf{Утверждение 1.} Нормальная система уравнений всегда совместна.\\
 \emph{Доказательство.} Применим критерий Фредгольма: система
 \(A\mathbf{x}=\mathbf{b}\) совместна тогда и только тогда, когда
 \(\mathbf{b}\) ортогонален любому решению \(\mathbf{y}\) сопряжённой
@@ -689,10 +695,10 @@
   \mathbf{y}^\top (A^\top \mathbf{b}) = (A\mathbf{y})^\top \mathbf{b} = 0.
 \]
 
-\textbf{Предложение 2.} Точная нижняя грань квадрата нормы невязки
+\textbf{Утверждение 2.} Точная нижняя грань квадрата нормы невязки
 достигается для всех решений нормальной системы и только для них.
 
-\textbf{Предложение 3.} Нормальная система имеет единственное решение
+\textbf{Утверждение 3.} Нормальная система имеет единственное решение
 тогда и только тогда, когда столбцы матрицы \(A\) линейно независимы.
 
 %\textbf{Определение.} \emph{Нормальным псевдорешением} системы линейных
@@ -701,7 +707,7 @@
 
 \textbf{Определение.} \emph{Нормальным псевдорешением} системы линейных уравнений \(\eqref{eq:system}\) называется минимальное по норме решение её нормальной системы \(\eqref{eq:norm_system}\).
 
-\textbf{Теорема 1.} Каждая система линейных уравнений имеет одно и только одно нормальное псевдорешение.
+\textbf{Теорема.} Каждая система линейных уравнений имеет одно и только одно нормальное псевдорешение.
 
 %    \hypertarget{ux43fux440ux438ux43cux435ux440ux44b}{%
 %\paragraph{Примеры}\label{ux43fux440ux438ux43cux435ux440ux44b}}
@@ -818,7 +824,7 @@
 псевдообратную. Для невырожденной квадратной матрицы псевдообратная
 матрица совпадает с обратной.
 
-\textbf{Предложение 4.} Если столбцы матрицы \(A\) линейно независимы,
+\textbf{Утверждение 4.} Если столбцы матрицы \(A\) линейно независимы,
 то \[
   A^+ = (A^\top A)^{-1} A^\top.
 \] Если строки матрицы \(A\) линейно независимы, то \[
@@ -826,17 +832,17 @@
 \] В первом случае \(A^+\) является левой обратной матрицей для \(A\)
 (\(A^+A=I\)), во втором --- правой (\(A A^+ = I\)).
 
-\textbf{Предложение 5.} Для любого столбца
+\textbf{Утверждение 5.} Для любого столбца
 \(\mathbf{y} \in \mathbb{R}^m\) столбец \(A A^+ \mathbf{y}\) есть
 ортогональная проекция \(\mathbf{y}\) на линейную оболочку столбцов
 матрицы \(A\).
 
-\textbf{Предложение 6.} Если \(A = CR\) --- скелетное разложение матрицы
+\textbf{Утверждение 6.} Если \(A = CR\) --- скелетное разложение матрицы
 \(A\), то её псевдообратная равна \[
   A^+ = R^+ C^+ = R^\top (R R^\top)^{-1} (C^\top C)^{-1} C^\top.
 \]
 
-\textbf{Предложение 7.} Если \(A = U \Sigma V^\top\) --- сингулярное
+\textbf{Утверждение 7.} Если \(A = U \Sigma V^\top\) --- сингулярное
 разложение матрицы \(A\), то \(A^+ = V \Sigma^+ U^\top\).\\
 \emph{Примечание.} Для диагональной матрицы псевдообратная получается
 заменой каждого ненулевого элемента на диагонали на обратный к нему.
@@ -850,11 +856,12 @@
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \emph{Strang G.} Linear algebra and learning from data. ---
-  Wellesley-Cambridge Press, 2019. --- 432\,p.
-\item
   \emph{Беклемишев Д.В.} Дополнительные главы линейной алгебры. --- М.:
   Наука, 1983. --- 336\,с.
+\item
+  \emph{Strang G.} Linear algebra and learning from data. ---
+  Wellesley-Cambridge Press, 2019. --- 432\,p.
+
 \end{enumerate}
 
 

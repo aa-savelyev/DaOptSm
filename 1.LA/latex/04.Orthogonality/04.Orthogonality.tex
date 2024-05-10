@@ -33,7 +33,6 @@
       \usepackage{unicode-math}           % Для шрифта STIX Two Math
       \setmathfont{STIX Two Math}         % Математический шрифт
     \fi
-    \renewcommand{\linethickness}{0.1ex}
 
     % Basic figure setup, for now with no caption control since it's done
     % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
@@ -183,7 +182,8 @@
       {\Large Лекция 4} \\
       Ортогональное проектирование
     }
-    \date{5 октября 2022\,г.}
+    % \date{5 октября 2022\,г.}
+    \date{}
 
 
 
@@ -200,8 +200,8 @@
 \def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
 
 \@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
-\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
 \@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
@@ -211,31 +211,31 @@
 \@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
 \@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
 \@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
 \@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
 \@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
-\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
-\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
-\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
 \@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
 \@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
 \@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
-\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
-\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
 \@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
 \@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
 \@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
 \@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
-\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
-\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
 \@namedef{PY@tok@ge}{\let\PY@it=\textit}
 \@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
 \@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
-\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
 \@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
 \@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
 \@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
@@ -261,11 +261,11 @@
 \@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
 
 \def\PYZbs{\char`\\}
 \def\PYZus{\char`\_}
@@ -400,20 +400,21 @@
 
 \begin{document}
 
-\maketitle
-\thispagestyle{empty}
-\tableofcontents
+  \maketitle
+  \thispagestyle{empty}
+  \tableofcontents
 
-\let\thefootnote\relax\footnote{
-  \textit{День 5 октября в истории:
-    \begin{itemize}[topsep=2pt,itemsep=1pt]
-      \item 1502 г. --- Христофор Колумб открыл Коста-Рику.
-      \item 1823 г. --- в Англии начал издаваться первый медицинский журнал <<Ланцет>>.
-      \item 1969 г. --- на телеканале BBC прошло первое представление <<Летающего цирка Монти Пайтон>>.
-    \end{itemize}
-  }
-}
-\newpage
+%  \let\thefootnote\relax\footnote{
+%    \textit{День 5 октября в истории:
+%      \begin{itemize}[topsep=2pt,itemsep=1pt]
+%        \item 1502 г. --- Христофор Колумб открыл Коста-Рику.
+%        \item 1823 г. --- в Англии начал издаваться первый медицинский журнал <<Ланцет>>.
+%        \item 1969 г. --- на телеканале BBC прошло первое представление <<Летающего цирка Монти Пайтон>>.
+%      \end{itemize}
+%    }
+%  }
+
+  \newpage
 
 
     \hypertarget{ux43cux435ux442ux440ux438ux43aux430-ux43fux440ux43eux441ux442ux440ux430ux43dux441ux442ux432ux430}{%
@@ -451,11 +452,10 @@
   \((\mathbf{x} + \mathbf{y}, \mathbf{z}) = (\mathbf{x}, \mathbf{z}) + (\mathbf{y}, \mathbf{z})\)
   (дистрибутивность),
 \item
-  \((\mathbf{x}, \mathbf{x}) > 0\) при \(\mathbf{x} \ne 0\).
+  \((\mathbf{x}, \mathbf{x}) > 0\) при \(\mathbf{x} \ne 0\) (положительная определённость).
 \end{enumerate}
 
-\textbf{Определение 1.} Векторное пространство с положительно
-определённой евклидовой метрикой называется \textbf{евклидовым
+\textbf{Определение.} Векторное пространство с положительно определённым скалярным произведением называется \textbf{евклидовым
 пространством}.
 
 \textbf{Длиной вектора} называется
@@ -480,15 +480,14 @@
 В частности, при умножении на \(Q\) длина вектора не меняется:
 \(|Q\mathbf{x}| = (Q\mathbf{x}, Q\mathbf{x}) = (\mathbf{x}, \mathbf{x}) = |\mathbf{x}|.\)
 
-Что такое матрица \(Q Q^\top\)?
+Что такое матрица \(P = Q Q^\top\)?
 
 \[
-  Q Q^\top = \mathbf{q}_1 \mathbf{q}_1^\top + \ldots + \mathbf{q}_n \mathbf{q}_n^\top
+  P = Q Q^\top = \mathbf{q}_1 \mathbf{q}_1^\top + \ldots + \mathbf{q}_n \mathbf{q}_n^\top
 \]
 
-\begin{quote}
-\(QQ^\top\) --- проекционная матрица.
-\end{quote}
+Заметим, что $P^2 = (QQ^\top)(QQ^\top) = Q(Q^\top Q)Q^\top = P$.
+А значит, $P$ --- проекционная матрица.
 
 Если \(Q\) --- квадратная матрица, то \(Q Q^\top\) также является
 единичной матрицей: \(Q Q^\top = I\).
@@ -497,7 +496,7 @@
 \subsection{Ортогональные
 матрицы}\label{ux43eux440ux442ux43eux433ux43eux43dux430ux43bux44cux43dux44bux435-ux432ux435ux43aux442ux43eux440ux44b-ux438-ux43cux430ux442ux440ux438ux446ux44b}}
 
-\textbf{Определение 2.} \textbf{Ортогональной матрицей} называется
+\textbf{Определение.} \textbf{Ортогональной матрицей} называется
 \emph{квадратная} матрица, столбцами которой являются \emph{ортонормированные}
 векторы.
 
@@ -663,7 +662,7 @@
 \end{enumerate}
 
     \hypertarget{mathbfqr-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}{%
-\subsection{\texorpdfstring{\(\mathbf{QR}\)-разложение}{\textbackslash mathbf\{QR\}-разложение}}\label{mathbfqr-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}}
+\subsection{\texorpdfstring{\(\mathbf{QR}\)-разложение}{QR-разложение}}\label{mathbfqr-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}}
 
 \hypertarget{ux43aux432ux430ux434ux440ux430ux442ux43dux44bux435-ux43cux430ux442ux440ux438ux446ux44b}{%
 \paragraph{Квадратные матрицы.} \label{ux43aux432ux430ux434ux440ux430ux442ux43dux44bux435-ux43cux430ux442ux440ux438ux446ux44b}}
@@ -674,10 +673,10 @@
   A = QR.
 \]
 
-\textbf{Предложение 1.} Любая квадратная матрица \(A\) может быть
+\textbf{Утверждение 1.} Любая квадратная матрица \(A\) может быть
 разложена в произведение \(QR\).
 
-\textbf{Предложение 2.} Если матрица \(A\) невырождена, то её
+\textbf{Утверждение 2.} Если матрица \(A\) невырождена, то её
 \(QR\)-разложение, в котором диагональные элементы \(R\) положительны,
 единственно.
 
@@ -706,8 +705,10 @@
 получим
 
 \[
-  QR \mathbf{x} = \mathbf{b}, \\
-  R \mathbf{x} = Q^\top \mathbf{b}.
+\begin{aligned}
+  QR \mathbf{x} &= \mathbf{b}, \\
+  R \mathbf{x}  &= Q^\top \mathbf{b}.
+\end{aligned}
 \]
 
 И в случае невырожденной \(R\) \[

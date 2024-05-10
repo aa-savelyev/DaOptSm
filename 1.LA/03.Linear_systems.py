@@ -21,12 +21,12 @@
 
 # + [markdown] toc=true
 # <h1>Содержание<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#$\mathbf{LU}$-разложение" data-toc-modified-id="$\mathbf{LU}$-разложение-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>$\mathbf{LU}$-разложение</a></span><ul class="toc-item"><li><span><a href="#Определение-и-критерий-существования" data-toc-modified-id="Определение-и-критерий-существования-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Определение и критерий существования</a></span></li><li><span><a href="#Метод-Гаусса" data-toc-modified-id="Метод-Гаусса-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Метод Гаусса</a></span></li><li><span><a href="#Случай-1:-все-главные-миноры-отличны-от-нуля" data-toc-modified-id="Случай-1:-все-главные-миноры-отличны-от-нуля-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Случай 1: все главные миноры отличны от нуля</a></span></li><li><span><a href="#Случай-2:-существуют-ненулевые-главные-миноры-($\mathbf{LUP}$-разложение)" data-toc-modified-id="Случай-2:-существуют-ненулевые-главные-миноры-($\mathbf{LUP}$-разложение)-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Случай 2: существуют ненулевые главные миноры ($\mathbf{LUP}$-разложение)</a></span></li><li><span><a href="#$\mathbf{LDU}$-разложение" data-toc-modified-id="$\mathbf{LDU}$-разложение-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>$\mathbf{LDU}$-разложение</a></span></li><li><span><a href="#Разложение-Холецкого" data-toc-modified-id="Разложение-Холецкого-1.6"><span class="toc-item-num">1.6&nbsp;&nbsp;</span>Разложение Холецкого</a></span></li></ul></li><li><span><a href="#Основная-теорема-линейной-алгебры" data-toc-modified-id="Основная-теорема-линейной-алгебры-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Основная теорема линейной алгебры</a></span><ul class="toc-item"><li><span><a href="#Четыре-основных-подпространства" data-toc-modified-id="Четыре-основных-подпространства-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Четыре основных подпространства</a></span></li><li><span><a href="#Теорема-Фредгольма" data-toc-modified-id="Теорема-Фредгольма-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Теорема Фредгольма</a></span></li></ul></li><li><span><a href="#Псевдорешения-и-псевдообратные-матрицы" data-toc-modified-id="Псевдорешения-и-псевдообратные-матрицы-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Псевдорешения и псевдообратные матрицы</a></span><ul class="toc-item"><li><span><a href="#Постановка-задачи" data-toc-modified-id="Постановка-задачи-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Постановка задачи</a></span></li><li><span><a href="#Псевдорешение" data-toc-modified-id="Псевдорешение-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Псевдорешение</a></span><ul class="toc-item"><li><span><a href="#Примеры" data-toc-modified-id="Примеры-3.2.1"><span class="toc-item-num">3.2.1&nbsp;&nbsp;</span>Примеры</a></span></li></ul></li><li><span><a href="#Псевдообратная-матрица" data-toc-modified-id="Псевдообратная-матрица-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Псевдообратная матрица</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#LU-разложение" data-toc-modified-id="LU-разложение-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>LU-разложение</a></span><ul class="toc-item"><li><span><a href="#Определение-и-критерий-существования" data-toc-modified-id="Определение-и-критерий-существования-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Определение и критерий существования</a></span></li><li><span><a href="#Метод-Гаусса" data-toc-modified-id="Метод-Гаусса-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Метод Гаусса</a></span></li><li><span><a href="#Случай-1:-все-главные-миноры-отличны-от-нуля" data-toc-modified-id="Случай-1:-все-главные-миноры-отличны-от-нуля-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Случай 1: все главные миноры отличны от нуля</a></span></li><li><span><a href="#Случай-2:-существуют-ненулевые-главные-миноры-(LUP-разложение)" data-toc-modified-id="Случай-2:-существуют-ненулевые-главные-миноры-(LUP-разложение)-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Случай 2: существуют ненулевые главные миноры (LUP-разложение)</a></span></li><li><span><a href="#LDU-разложение" data-toc-modified-id="LDU-разложение-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>LDU-разложение</a></span></li><li><span><a href="#Разложение-Холецкого" data-toc-modified-id="Разложение-Холецкого-1.6"><span class="toc-item-num">1.6&nbsp;&nbsp;</span>Разложение Холецкого</a></span></li></ul></li><li><span><a href="#Основная-теорема-линейной-алгебры" data-toc-modified-id="Основная-теорема-линейной-алгебры-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Основная теорема линейной алгебры</a></span><ul class="toc-item"><li><span><a href="#Четыре-основных-подпространства" data-toc-modified-id="Четыре-основных-подпространства-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Четыре основных подпространства</a></span></li><li><span><a href="#Теорема-Фредгольма" data-toc-modified-id="Теорема-Фредгольма-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Теорема Фредгольма</a></span></li></ul></li><li><span><a href="#Псевдорешения-и-псевдообратные-матрицы" data-toc-modified-id="Псевдорешения-и-псевдообратные-матрицы-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Псевдорешения и псевдообратные матрицы</a></span><ul class="toc-item"><li><span><a href="#Постановка-задачи" data-toc-modified-id="Постановка-задачи-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Постановка задачи</a></span></li><li><span><a href="#Псевдорешение" data-toc-modified-id="Псевдорешение-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Псевдорешение</a></span><ul class="toc-item"><li><span><a href="#Примеры" data-toc-modified-id="Примеры-3.2.1"><span class="toc-item-num">3.2.1&nbsp;&nbsp;</span>Примеры</a></span></li></ul></li><li><span><a href="#Псевдообратная-матрица" data-toc-modified-id="Псевдообратная-матрица-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Псевдообратная матрица</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
 # -
 
 # ---
 
-# ## $\mathbf{LU}$-разложение
+# ## LU-разложение
 #
 # > Ограничения: матрица $A$ &mdash; квадратная и невырожденная
 
@@ -66,7 +66,7 @@
 # Тогда получаем:
 # $$ A = LU. $$
 
-# ### Случай 2: существуют ненулевые главные миноры ($\mathbf{LUP}$-разложение)
+# ### Случай 2: существуют ненулевые главные миноры (LUP-разложение)
 #
 # Что делать, если не все главные миноры отличны от нуля?
 # К используемым элементарным операциям нужно добавить *перестановки* строк или столбцов.
@@ -77,7 +77,7 @@
 # $$ PA = LU,$$
 # где $P$ &mdash; матрица, полученная из единичной перестановками строк.
 
-# ### $\mathbf{LDU}$-разложение
+# ### LDU-разложение
 #
 # **Замечание.** Единственным является разложение на такие треугольные множители, что у второго из них на главной диагонали стоят единицы. Вообще же существует много треугольных разложений, в частности такое, в котором единицы находятся на главной диагонали у первого сомножителя.
 #
@@ -92,11 +92,12 @@
 # В силу единственности разложения получаем
 # $$ S = U^\top D U. $$
 #
-# Если же матрица $S$ является не только симметричной, но и положительно определённой, то все диагональные элементы матрицы $D$ положительны и мы можем ввести матрицы $D^{1/2} = \mathrm{diag}\left(\sqrt{d_1}, \dots, \sqrt{d_n}\right)$ и $V = D^{1/2}U$. Тогда мы получаем *разложение Холецкого*
+# Если же матрица $S$ является не только симметричной, но и положительно определённой, то все диагональные элементы матрицы $D$ положительны и мы можем ввести матрицы $D^{1/2} = \mathrm{diag}\left(\sqrt{d_1}, \dots, \sqrt{d_n}\right)$ и $V = D^{1/2}U$.
+# Мы получили *разложение Холецкого*:
 # $$
 #   S = V^\top V.
 # $$
-# Разложение Холецкого играет заметную роль в численных методах, так как существует эффективный алгоритм, позволяющий получить его для положительно определённой симметричной матрицы $S$.
+# Разложение Холецкого играет важную роль в численных методах, так как существует эффективный алгоритм, позволяющий получить его для положительно определённой симметричной матрицы $S$.
 
 # ---
 
@@ -123,6 +124,11 @@
 # **Определение.** Пусть $V$ &ndash; подпространство пространства $\mathbb{R}^n$. Тогда пространство всех $n$-мерных векторов, ортогональных к подпространству $V$, называется *ортогональным дополнением* к $V$ и обозначается символом $V^\perp$.
 #
 # **Основная теорема линейной алгебры.** Пространство строк $A$ и нуль-пространство матрицы $A$, а также пространство столбцов $A$ и нуль-пространство матрицы $A^\top$ являются ортогональными дополнениями друг к другу.
+
+from IPython.display import Image
+im_width = 800
+
+display(Image('./pix/03.Linear_systems/Fundamental_subspaces.png', width=im_width))
 
 # ### Теорема Фредгольма
 #
@@ -346,8 +352,8 @@
 # + [markdown] slideshow={"slide_type": "slide"}
 # ## Источники
 #
-# 1. *Strang G.* Linear algebra and learning from data. &mdash; Wellesley-Cambridge Press, 2019. &mdash; 432 p. (Massachusetts Institute of Technology)
 # 1. *Беклемишев Д.В.* Дополнительные главы линейной алгебры. &mdash; М.: Наука, 1983. &mdash; 336 с.
+# 1. *Strang G.* Linear algebra and learning from data. &mdash; Wellesley-Cambridge Press, 2019. &mdash; 432 p. (Massachusetts Institute of Technology)
 # -
 
 

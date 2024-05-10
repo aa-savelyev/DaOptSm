@@ -2,7 +2,7 @@
 
     \usepackage[breakable]{tcolorbox}
     \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
-    
+
     \usepackage{iftex}
     \ifPDFTeX
       \usepackage[T2A]{fontenc}
@@ -33,7 +33,6 @@
       \usepackage{unicode-math}           % Для шрифта STIX Two Math
       \setmathfont{STIX Two Math}         % Математический шрифт
     \fi
-    \renewcommand{\linethickness}{0.1ex}
 
     % Basic figure setup, for now with no caption control since it's done
     % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
@@ -183,10 +182,11 @@
       {\Large Лекция 9} \\
       Обусловленность СЛАУ
     }
-    \date{2 ноября 2022\,г.}
-    
-    
-    
+    % \date{2 ноября 2022\,г.}
+    \date{}
+
+
+
 % Pygments definitions
 \makeatletter
 \def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
@@ -200,8 +200,8 @@
 \def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
 
 \@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
-\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
 \@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
@@ -211,31 +211,31 @@
 \@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
 \@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
 \@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
 \@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
 \@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
-\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
-\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
-\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
 \@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
 \@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
 \@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
-\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
-\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
 \@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
 \@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
 \@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
 \@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
-\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
-\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
 \@namedef{PY@tok@ge}{\let\PY@it=\textit}
 \@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
 \@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
-\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
 \@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
 \@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
 \@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
@@ -261,11 +261,11 @@
 \@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
 
 \def\PYZbs{\char`\\}
 \def\PYZus{\char`\_}
@@ -400,21 +400,22 @@
 
 \begin{document}
 
-\maketitle
-\thispagestyle{empty}
-\tableofcontents
+  \maketitle
+  \thispagestyle{empty}
+  \tableofcontents
 
-\let\thefootnote\relax\footnote{
-  \textit{День 2 ноября в истории:
-    \begin{itemize}[topsep=2pt,itemsep=1pt]
-      \item 1721 г. --- Пётр I принял титул Отца Отечества, Императора Всероссийского, Петра Великого, а Россия стала империей.
-      \item 1790 г. --- Александра Радищева, закованного в кандалы, фельдъегери увезли в Сибирь.
-      \item 1914 г. --- Первая мировая война: Россия объявила войну Турции.
-      \item 1960 г. --- в Великобритании суд присяжных постановил, что роман Дэвида Лоуренса <<Любовник леди Чаттерлей>> не является непристойным.
-    \end{itemize}
-  }
-}
-\newpage
+%  \let\thefootnote\relax\footnote{
+%    \textit{День 2 ноября в истории:
+%      \begin{itemize}[topsep=2pt,itemsep=1pt]
+%        \item 1721 г. --- Пётр I принял титул Отца Отечества, Императора Всероссийского, Петра Великого, а Россия стала империей.
+%        \item 1790 г. --- Александра Радищева, закованного в кандалы, фельдъегери увезли в Сибирь.
+%        \item 1914 г. --- Первая мировая война: Россия объявила войну Турции.
+%        \item 1960 г. --- в Великобритании суд присяжных постановил, что роман Дэвида Лоуренса <<Любовник леди Чаттерлей>> не является непристойным.
+%      \end{itemize}
+%    }
+%  }
+
+  \newpage
 
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
@@ -470,7 +471,7 @@
 разложение вектора \(\mathbf{b}\) по вектор-столбцам матрицы \(A\).
 
 Рассмотрим матрицу \[
-  A = 
+  A =
   \begin{pmatrix}
     1.0 & 0.9 \\
     1.0 & 1.1
@@ -527,7 +528,7 @@
     \begin{center}
     \adjustimage{max size={0.5\linewidth}{0.5\paperheight}}{A_columns.pdf}
     \end{center}
-    
+
     Из общих соображений понятно, что выбирать эти столбцы в качестве
 базисных --- плохая идея. Посмотрим, какие проблемы могут появиться.
 
@@ -604,7 +605,7 @@
     \begin{center}
     \adjustimage{max size={0.5\linewidth}{0.5\paperheight}}{Ab_columns.pdf}
     \end{center}
-    
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{10}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -634,7 +635,7 @@
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Axb_solution.pdf}
     \end{center}
 %    { \hspace*{\fill} \\}
-    
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{11}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -795,7 +796,7 @@ mu(A) =  20.05012
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Axb_ellipse.pdf}
     \end{center}
 %    { \hspace*{\fill} \\}
-    
+
     Для двумерного случая мы видим, что если векторы правой части
 возмущённой системы лежат внутри окружности, то решения возмущённой
 системы лежат внутри эллипса, являющегося прообразом этой окружности.
@@ -822,7 +823,7 @@ mu(A) =  20.05012
     \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
     \hypertarget{ux43bux438ux43dux435ux439ux43dux430ux44f-ux440ux435ux433ux440ux435ux441ux441ux438ux44f}{%
-\subsection{Линейная
+\section{Линейная
 регрессия}\label{ux43bux438ux43dux435ux439ux43dux430ux44f-ux440ux435ux433ux440ux435ux441ux441ux438ux44f}}
 
 \hypertarget{ux433ux435ux43dux435ux440ux430ux446ux438ux44f-ux434ux430ux43dux43dux44bux445}{%
@@ -876,7 +877,7 @@ mu(A) =  20.05012
     \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{Regression_data.pdf}
     \end{center}
 %    { \hspace*{\fill} \\}
-    
+
     \hypertarget{ux43fux43eux438ux441ux43a-ux43aux43eux44dux444ux444ux438ux446ux438ux435ux43dux442ux43eux432-ux440ux435ux433ux440ux435ux441ux441ux438ux438}{%
 \subsection{Поиск коэффициентов
 регрессии}\label{ux43fux43eux438ux441ux43a-ux43aux43eux44dux444ux444ux438ux446ux438ux435ux43dux442ux43eux432-ux440ux435ux433ux440ux435ux441ux441ux438ux438}}
@@ -891,7 +892,7 @@ mu(A) =  20.05012
 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{Nf}\PY{p}{)}\PY{p}{:}
     \PY{n}{F} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{F}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{)}
 \PY{n}{F} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{T}
-    
+
 \PY{c+c1}{\PYZsh{} Fit parameters with OLS}
 \PY{n}{Alpha} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{F}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{F}\PY{p}{)} \PY{o}{@} \PY{n}{F}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{y}
 
@@ -920,7 +921,7 @@ mu(A) =  20.05012
     \begin{center}
     \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{Regression_OLS.pdf}
     \end{center}
-    
+
     \hypertarget{ux441ux438ux43dux433ux443ux43bux44fux440ux43dux43eux435-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}{%
 \subsection{Сингулярное
 разложение}\label{ux441ux438ux43dux433ux443ux43bux44fux440ux43dux43eux435-ux440ux430ux437ux43bux43eux436ux435ux43dux438ux435}}
@@ -1085,7 +1086,7 @@ mu(A) =  20.05012
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{SV_spectrum.pdf}
     \end{center}
 %    { \hspace*{\fill} \\}
-    
+
 Из всего спектра оставим \(k\) главных компонент.
 Для этого в формуле~\eqref{eq:alpha-res} ограничим сумму \(k\) слагаемыми.
 
@@ -1138,7 +1139,7 @@ mu(A) =  20.05012
     \adjustimage{max size={0.75\linewidth}{0.75\paperheight}}{Regression_PCA.pdf}
     \end{center}
 %    { \hspace*{\fill} \\}
-    
+
     Мы видим, что больших коэффициентов регрессии больше нет, норма вектора
 коэффициентов уменьшилась на несколько порядков раз. При этом отметим,
 что порядок регрессионного полинома не уменьшился, уменьшились
@@ -1183,9 +1184,8 @@ seaborn: 0.11.2
     \end{Verbatim}
 
 
-
     % Add a bibliography block to the postdoc
-    
-    
-    
+
+
+
 \end{document}

@@ -454,19 +454,19 @@ plt.show()
 #
 # Следовательно, любая симметричная матрица может быть представлена в виде
 #
-# $$ S = \sum\limits_{i=1}^n \lambda_i \mathbf{q}_i \mathbf{q}_i^\top. $$
+# $$ S = \sum\limits_{i=1}^n \lambda_i \mathbf{u}_i \mathbf{u}_i^\top. $$
 #
 # Это разложение известно под названием **спектральное разложение**. \
 # Оно выражает матрицу $S$ в виде комбинации одномерных проекций.
-# Они разбивают любой вектор $\mathbf{v}$ на его компоненты $\mathbf{p} = \mathbf{q}_i \mathbf{q}_i^\top \mathbf{v}$ по направлениям единичных собственных векторов.
+# Они разбивают любой вектор $\mathbf{x}$ на его компоненты $\mathbf{p} = \mathbf{u}_i \mathbf{u}_i^\top \mathbf{x}$ по направлениям единичных собственных векторов.
 #
 # Действие оператора с матрицей $S$ сводится к растяжению этих проекций в $\lambda_i$ раз:
 #
-# $$ S\mathbf{v} = \sum\limits_{i=1}^n \lambda_i \mathbf{q}_i \mathbf{q}_i^\top \mathbf{v}. $$
+# $$ S\mathbf{x} = \sum\limits_{i=1}^n \lambda_i \mathbf{u}_i \mathbf{u}_i^\top \mathbf{x}. $$
 
 from IPython.display import Image
 im_width = 800
-display(Image('./pix/Eigen/Eigen_symm.jpeg', width=im_width))
+display(Image('./pix/06.Eigen/Eigen_symm.jpeg', width=im_width))
 
 # Рассмотрим симметричную матрицу:
 # $$
@@ -480,7 +480,7 @@ display(Image('./pix/Eigen/Eigen_symm.jpeg', width=im_width))
 # Найдём собственные значения и нарисуем собственные векторы.
 #
 # Мы видим, что собственные векторы находятся вдоль главных осей эллипса.
-# Таким образом, матрица $Q$ преобразует начальную окружность, растягивая её вдоль собственных векторов $\mathbf{q_1}$ и $\mathbf{q_2}$ в $\lambda_1$ и $\lambda_2$ раз соответственно.
+# Таким образом, матрица $Q$ преобразует начальную окружность, растягивая её вдоль собственных векторов $\mathbf{u_1}$ и $\mathbf{u_2}$ в $\lambda_1$ и $\lambda_2$ раз соответственно.
 #
 # <!-- Если абсолютное значение собственного значения больше 1, то вдоль него происходит растяжение, а если меньше &mdash; сжитие. -->
 # <!-- Отрицательные собственные значения соответствуют зеркальному отражению. -->
@@ -503,8 +503,8 @@ ax[0].plot(X[0,:], X[1,:], color='b')
 ax[0].quiver(*origin, Q[0,:], Q[1,:], color=['g'],
              width=0.012, angles='xy', scale_units='xy', scale=1)
 ax[0].set_title("До преобразования")
-ax[0].text(*Q[:,0], "$\mathbf{q_1}$", fontsize=14)
-ax[0].text(*(1.3*Q[:,1]), "$\mathbf{q_2}$", fontsize=14)
+ax[0].text(*Q[:,0], "$\mathbf{u_1}$", fontsize=14)
+ax[0].text(*(1.3*Q[:,1]), "$\mathbf{u_2}$", fontsize=14)
 ax[0].text(*(1.3*X[:,-15]), "$\mathbf{X}$", color='b', fontsize=14)
 
 # Plotting Y
@@ -514,8 +514,8 @@ ax[1].quiver(*origin, SQ[0,:], SQ[1,:], color=cm(3),
 ax[1].quiver(*origin, Q[0,:], Q[1,:], color=cm(2),
              width=0.012, angles='xy', scale_units='xy', scale=1)
 ax[1].set_title("После преобразования")
-ax[1].text(*SQ[:,0], "$\lambda_1 \mathbf{q_1}$", fontsize=14)
-ax[1].text(*(1.3*SQ[:,1]), "$\lambda_2 \mathbf{q_2}$", fontsize=14)
+ax[1].text(*SQ[:,0], "$\lambda_1 \mathbf{u_1}$", fontsize=14)
+ax[1].text(*(1.3*SQ[:,1]), "$\lambda_2 \mathbf{u_2}$", fontsize=14)
 ax[1].text(*(1.3*Y[:,-15]), "$\mathbf{SX}$", color='b', fontsize=14)
 
 plt.show()
@@ -544,8 +544,8 @@ for i, axi in enumerate(ax.flatten()):
     axi.plot(Xn[i][0,:], Xn[i][1,:], color='b')
     axi.quiver(*origin, Qn[i][0,:], Qn[i][1,:], color=['g'],
                width=0.012, angles='xy', scale_units='xy', scale=1)
-    axi.text(*(Qn[i].T[0]+[.1,.1]), "$\mathbf{q_1}$", fontsize=14)
-    axi.text(*(Qn[i].T[1]+[.1,.1]), "$\mathbf{q_2}$", fontsize=14)
+    axi.text(*(Qn[i].T[0]+[.1,.1]), "$\mathbf{u_1}$", fontsize=14)
+    axi.text(*(Qn[i].T[1]+[.1,.1]), "$\mathbf{u_2}$", fontsize=14)
     axi.text(*(1.3*Xn[i][:,-12]), Xn_str[i], color='b', fontsize=14)
 
 plt.show()
@@ -597,8 +597,8 @@ for i, axi in enumerate(ax.flatten()):
     axi.quiver(*origin, Un[i][0,:], Un[i][1,:], color=['g'],
                width=0.012, angles='xy', scale_units='xy', scale=1)
     axi.set_title(titles[i])
-    axi.text(*(Un[i].T[0]+[.1,.1]), "$\mathbf{q_1}$", fontsize=14)
-    axi.text(*(Un[i].T[1]+[.1,.1]), "$\mathbf{q_2}$", fontsize=14)
+    axi.text(*(Un[i].T[0]+[.1,.1]), "$\mathbf{u_1}$", fontsize=14)
+    axi.text(*(Un[i].T[1]+[.1,.1]), "$\mathbf{u_2}$", fontsize=14)
     axi.text(*(1.3*Xn[i][:,-12]), Xn_str[i], color='b', fontsize=14)
 
 plt.show()
@@ -637,13 +637,14 @@ plt.show()
 np.random.seed(12345)
 
 lmbd = [15, 10, 5]
+print('lambda =', np.round(lmbd, 4))
+
 D = np.diag(lmbd)
 B = np.random.randint(-5, 5, (3,3))
-# print(B)
+print(B)
 A = B @ D @ LA.inv(B)
 
-print('lambda = ', np.round(lmbd, 4))
-np.disp(A)
+print(A)
 # -
 
 Ak = A
