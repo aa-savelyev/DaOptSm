@@ -20,7 +20,7 @@
 
 # + [markdown] toc=true
 # <h1>Содержание<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Алгоритм-байесовской-оптимизации" data-toc-modified-id="Алгоритм-байесовской-оптимизации-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Алгоритм байесовской оптимизации</a></span></li><li><span><a href="#Функция-продвижения" data-toc-modified-id="Функция-продвижения-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Функция продвижения</a></span><ul class="toc-item"><li><span><a href="#Нижняя-граница-доверительного-интервала" data-toc-modified-id="Нижняя-граница-доверительного-интервала-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Нижняя граница доверительного интервала</a></span></li><li><span><a href="#Вероятность-улучшения" data-toc-modified-id="Вероятность-улучшения-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Вероятность улучшения</a></span></li><li><span><a href="#Ожидаемое-улучшение" data-toc-modified-id="Ожидаемое-улучшение-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Ожидаемое улучшение</a></span></li></ul></li><li><span><a href="#Тест-1.-Бесшумные-данные" data-toc-modified-id="Тест-1.-Бесшумные-данные-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Тест 1. Бесшумные данные</a></span><ul class="toc-item"><li><span><a href="#Данные" data-toc-modified-id="Данные-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Данные</a></span></li><li><span><a href="#Стандартная-оптимизация" data-toc-modified-id="Стандартная-оптимизация-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Стандартная оптимизация</a></span></li><li><span><a href="#Байесовская-оптимизация" data-toc-modified-id="Байесовская-оптимизация-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Байесовская оптимизация</a></span></li></ul></li><li><span><a href="#Тест-2.-Шумные-данные" data-toc-modified-id="Тест-2.-Шумные-данные-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Тест 2. Шумные данные</a></span><ul class="toc-item"><li><span><a href="#Данные" data-toc-modified-id="Данные-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Данные</a></span></li><li><span><a href="#Байесовская-оптимизация" data-toc-modified-id="Байесовская-оптимизация-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Байесовская оптимизация</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Алгоритм-байесовской-оптимизации" data-toc-modified-id="Алгоритм-байесовской-оптимизации-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Алгоритм байесовской оптимизации</a></span></li><li><span><a href="#Функция-продвижения" data-toc-modified-id="Функция-продвижения-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Функция продвижения</a></span><ul class="toc-item"><li><span><a href="#Нижняя-граница-доверительного-интервала" data-toc-modified-id="Нижняя-граница-доверительного-интервала-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Нижняя граница доверительного интервала</a></span></li><li><span><a href="#Вероятность-улучшения" data-toc-modified-id="Вероятность-улучшения-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Вероятность улучшения</a></span></li><li><span><a href="#Ожидаемое-улучшение" data-toc-modified-id="Ожидаемое-улучшение-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Ожидаемое улучшение</a></span></li></ul></li><li><span><a href="#Тест-1.-Данные-без-шума" data-toc-modified-id="Тест-1.-Данные-без-шума-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Тест 1. Данные без шума</a></span><ul class="toc-item"><li><span><a href="#Данные" data-toc-modified-id="Данные-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Данные</a></span></li><li><span><a href="#Стандартная-оптимизация" data-toc-modified-id="Стандартная-оптимизация-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Стандартная оптимизация</a></span></li><li><span><a href="#Байесовская-оптимизация" data-toc-modified-id="Байесовская-оптимизация-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Байесовская оптимизация</a></span></li></ul></li><li><span><a href="#Тест-2.-Данные-с-шумом" data-toc-modified-id="Тест-2.-Данные-с-шумом-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Тест 2. Данные с шумом</a></span><ul class="toc-item"><li><span><a href="#Данные" data-toc-modified-id="Данные-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Данные</a></span></li><li><span><a href="#Байесовская-оптимизация" data-toc-modified-id="Байесовская-оптимизация-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Байесовская оптимизация</a></span></li></ul></li><li><span><a href="#Источники" data-toc-modified-id="Источники-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
 
 # +
 # Imports
@@ -134,7 +134,7 @@ def next_point(acquisition, X_train, Y_train, bounds):
 # $$
 #
 # В качестве величины доверительного интервала используется несколько среднеквадратичных отклонений: $k\sigma$.
-# Параметр $k$ влияет на баланс между эксплуатацией и эксплорацией: при $k \rightarrow 0$, $\mathrm{LB}(x) \rightarrow f_\mathrm{min} - \mu(x)$ (чистая эксплуатация), при $k \rightarrow \infty$, $\mathrm{LB}(x) \rightarrow -k \sigma(x)$ (чистая эксплорация).
+# Параметр $k$ влияет на баланс между эксплуатацией и эксплорацией: при $k = 0$, $\mathrm{LB}(x) = f_\mathrm{min} - \mu(x)$ (чистая эксплуатация), при $k \rightarrow \infty$, $\mathrm{LB}(x) \rightarrow -k \sigma(x)$ (чистая эксплорация).
 #
 
 def lower_bound(X, X_train, Y_train, k=2.):
@@ -165,15 +165,15 @@ def lower_bound(X, X_train, Y_train, k=2.):
 # ### Вероятность улучшения
 #
 # Результат работы предыдущей функции сильно зависит от значения параметра $k$.
-# Попробуем избавиться от него.
-# Для этого посчитаем *вероятность улучшения*.
+# Попробуем избавиться от него, для этого посчитаем *вероятность улучшения*.
 
 # Функция улучшения определяется как
 # $$
 #   I(x) = \max \left( f_\mathrm{min} - y(x), 0 \right),
 # $$
 # где $f_\mathrm{min}$ &mdash; значение текущего минимума, а $y(x)$ &mdash; предсказываемое суррогатной моделью значение в точке $x$.
-# Отметим, что $y(x)$ является сечением гауссовского процесса в точке $x$ и, следовательно, гауссовской случайной величиной с плотностью распределения $p(y) \sim \mathcal{N}\left( \mu(x), \sigma^2(x) \right)$.
+#
+# Отметим, что $I(x)$ является случайной величиной, так как $y(x)$ является сечением гауссовского процесса в точке $x$ и, следовательно, гауссовской случайной величиной с плотностью распределения $p(y) \sim \mathcal{N}\left( \mu(x), \sigma^2(x) \right)$.
 
 display(Image('./pix/10.Bayesian_optimization/PI.png', width=0.65*im_width))
 
@@ -187,7 +187,20 @@ display(Image('./pix/10.Bayesian_optimization/PI.png', width=0.65*im_width))
 # Здесь $\Phi(z)$ &mdash; функция стандартного нормального распределения, а $\phi(z)$ &mdash; его плотность.
 
 def probability_of_improvement(X, X_train, Y_train, xi=0.01):
-    ''''''
+    '''
+    Probability of Improvement
+    Computes the probability of improvement at points X based on existing samples
+    X_train and Y_train using a Gaussian process surrogate model.
+    
+    Args:
+        X: Points at which PI shall be computed (m x d)
+        X_train: Sample locations (n x d)
+        Y_train: Sample values (n x 1)
+        xi: Exploitation-exploration trade-off parameter
+    
+    Returns:
+        Probability of improvement at points X
+    '''
     mu, cov = GP_predictor(X, X_train, Y_train,
                            kernel_fun, kernel_args, sigma_n)
     mu = mu.flatten()
@@ -210,7 +223,7 @@ def probability_of_improvement(X, X_train, Y_train, xi=0.01):
 # $$
 # \begin{split}
 #   \mathrm{E}[I]
-#   &= \int \limits_{-\infty}^{\infty} I p(y) dy
+#   &= \int \limits_{-\infty}^{\infty} I \cdot p(y) dy
 #   = \int \limits_{-\infty}^{f_\mathrm{min}} (f_\mathrm{min} - y)\,p(y) dy
 #   = \int \limits_{-\infty}^{\frac{f_\mathrm{min}-\mu}{\sigma}} \left( f_\mathrm{min} - (\mu+\sigma z) \right) \phi(z) dz \\
 #   &= \left( f_\mathrm{min} - \mu(x) \right) \, \Phi\left(\frac{f_\mathrm{min} - \mu(x)}{\sigma(x)}\right) + \sigma(x) \, \phi\left(\frac{f_\mathrm{min} - \mu(x)}{\sigma(x)}\right).
@@ -252,13 +265,13 @@ def expected_improvement(X, X_train, Y_train, xi=0.01):
 
 # ---
 
-# ## Тест 1. Бесшумные данные
+# ## Тест 1. Данные без шума
 
 # Проведём тестирование байесовского алгоритма оптимизации.
 #
 # Будем использовать следующую целевую функцию `f_obj`:
 # $$
-#   f_{obj} = (6x-2)^2 \cdot \sin\left(12x-3\right).
+#   f_{obj} = (6x-2)^2 \cdot \sin\left(12x-4\right).
 # $$
 #
 # На первом этапе рассмотрим бесшумные отклики.
@@ -365,7 +378,7 @@ plt.show()
 
 # +
 def plot_approximation(X, Y, X_train, Y_train, X_next=None, show_legend=False):
-    ''''''
+    '''Plot GP approximation'''
     mu, cov = GP_predictor(X, X_train, Y_train,
                            kernel_fun, kernel_args, sigma_n)
     std = np.sqrt(np.diag(cov)).flatten()
@@ -381,7 +394,7 @@ def plot_approximation(X, Y, X_train, Y_train, X_next=None, show_legend=False):
     if show_legend: plt.legend(loc=2)
 
 def plot_acquisition(X, Y, X_next, show_legend=False):
-    ''''''
+    '''Plot acquisition function'''
     plt.plot(X, Y, '-', c=cm.tab10(3), label='Acquisition function')
     plt.axvline(X_next, ls=':', c='k', label='Next point')
     if show_legend: plt.legend(loc=1)    
@@ -425,7 +438,8 @@ Y_train = f_obj(X_init)
 plt.figure(figsize=(16, N_budget*5))
 plt.subplots_adjust(hspace=0.4)
 
-for i in range(N_budget):   
+# for i in range(N_budget):
+for i in range(5):
     # Obtain next sampling point from the acquisition function
     X_next, acq = next_point(acq_function, X_train, Y_train, x_lims)
     
@@ -454,11 +468,11 @@ for i in range(N_budget):
 # -
 # ---
 
-# ## Тест 2. Шумные данные
+# ## Тест 2. Данные с шумом
 
 # Теперь добавим к целевой функции шум:
 # $$
-#   f_{obj} = (6x-2)^2 \cdot \sin\left(12x-3\right) + \sigma_{in} \xi.
+#   f_{obj} = (6x-2)^2 \cdot \sin\left(12x-4\right) + \sigma_{in} \xi.
 # $$
 #
 # Здесь $\xi$ &mdash; нормальная случайная величина, переменная $\sigma_{in}$ задаёт амплитуду шума.
@@ -472,7 +486,7 @@ def f_obj_noisy(X, sigma_in):
 
 
 # Objective function values at X_test
-sigma_in = 0.5
+sigma_in = 1.0
 Y_noisy = f_obj_noisy(X_test, sigma_in)
 
 # Plot optimization objective
@@ -488,8 +502,8 @@ plt.show()
 
 # Требуется немного изменить функцию `plot_approximation`.
 
-def plot_approximation(X, Y, X_train, Y_train, X_next=None, show_legend=False):
-    ''''''
+def plot_approximation_noisy(X, Y, X_train, Y_train, X_next=None, show_legend=False):
+    '''Plot GP approximation of noisy function'''
     mu, cov = GP_predictor(X, X_train, Y_train,
                            kernel_fun, kernel_args, sigma_n)
     std = np.sqrt(np.diag(cov)).flatten()
@@ -522,7 +536,7 @@ N_budget = 21 - N_init
 # acquisition function
 def acq_function(X, X_train, Y_train):
     if   acqusition_id == 'LB':
-        return lower_bound(X, X_train, Y_train, k=5.)
+        return lower_bound(X, X_train, Y_train, k=2.)
     elif acqusition_id == 'PI':
         return probability_of_improvement(X, X_train, Y_train, xi=0.1)
     elif acqusition_id == 'EI':
@@ -537,10 +551,11 @@ X_train = X_init
 Y_train = f_obj_noisy(X_init, sigma_in)
 
 # +
-plt.figure(figsize=(14, N_budget * 5))
+plt.figure(figsize=(16, N_budget * 5))
 plt.subplots_adjust(hspace=0.4)
 
-for i in range(N_budget):
+# for i in range(N_budget):
+for i in range(5):
     # Obtain next sampling point from the acquisition function
     X_next, acq = next_point(acq_function, X_train, Y_train, x_lims)
     
@@ -549,7 +564,7 @@ for i in range(N_budget):
     
     # Plot samples, surrogate function, noise-free objective and next sampling location
     ax = plt.subplot(N_budget, 2, 2*i + 1)
-    plot_approximation(X_test, Y_noisy, X_train, Y_train, X_next, show_legend=(i==0))
+    plot_approximation_noisy(X_test, Y_noisy, X_train, Y_train, X_next, show_legend=(i==0))
     plt.title(f'Iteration {i+N_init}, X_next = {X_next[0][0]:.3f}')
 
     plt.subplot(N_budget, 2, 2*i + 2)
@@ -561,8 +576,8 @@ for i in range(N_budget):
     X_train = np.vstack((X_train, X_next))
     Y_train = np.vstack((Y_train, Y_next))
     
-    print(i+N_init, *X_next, acq)
-    if (-acq < 1e-200) or (abs(X_train[-2]-X_train[-1])[0] < 1e-3*x_range):
+    print(i+N_init, *X_next, -acq)
+    if (-acq < 1e-100) or (abs(X_train[-2]-X_train[-1])[0] < 1e-3*x_range):
         break
 # -
 # ---

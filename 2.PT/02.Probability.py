@@ -145,7 +145,7 @@ seaborn.set_style('whitegrid')
 # 1. $\mathrm{P}(\emptyset) = 0$;
 # 1. $\mathrm{P}(\overline{A}) = 1 - \mathrm{P}(A)$;
 # 1. $\mathrm{P}(A \cup B) = \mathrm{P}(A) + \mathrm{P}(B) - \mathrm{P}(A \cap B)$;
-# 1. $\mathrm{P}\left( \bigcup\limits_{i=1}^{n}A_i \right) = \sum\limits_{i}\mathrm{P}(A_i) - \sum\limits_{i<j}\mathrm{P}(A_i \cap A_j) + \sum\limits_{i<j<k}\mathrm{P}(A_i \cap A_j \cap A_k) + \ldots + (-1)^{n-1} \mathrm{P}\left( \bigcap\limits_{i=1}^{n}A_i \right)$ &mdash; формула включения-исключения.
+# 1. $\mathrm{P}\left( \bigcup\limits_{i=1}^{n}A_i \right) = \sum\limits_{i}\mathrm{P}(A_i) - \sum\limits_{i<j}\mathrm{P}(A_i \cap A_j) + \sum\limits_{i<j<k}\mathrm{P}(A_i \cap A_j \cap A_k) + \ldots + (-1)^{n-1} \mathrm{P}\left( \bigcap\limits_{i=1}^{n}A_i \right)$ &mdash; формула включений-исключений.
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # ### Вероятностное пространство

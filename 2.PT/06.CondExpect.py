@@ -20,7 +20,7 @@
 
 # + [markdown] toc=true
 # <h1>Содержание<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Условное-математическое-ожидание" data-toc-modified-id="Условное-математическое-ожидание-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Условное математическое ожидание</a></span><ul class="toc-item"><li><span><a href="#Неформальное-понятие-и-геометрическая-аналогия" data-toc-modified-id="Неформальное-понятие-и-геометрическая-аналогия-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Неформальное понятие и геометрическая аналогия</a></span></li><li><span><a href="#Определение-и-свойства" data-toc-modified-id="Определение-и-свойства-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Определение и свойства</a></span></li><li><span><a href="#Условная-дисперсия" data-toc-modified-id="Условная-дисперсия-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Условная дисперсия</a></span></li><li><span><a href="#Условное-распределение" data-toc-modified-id="Условное-распределение-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Условное распределение</a></span></li></ul></li><li><span><a href="#Оптимальная-оценка" data-toc-modified-id="Оптимальная-оценка-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Оптимальная оценка</a></span><ul class="toc-item"><li><span><a href="#Теорема-об-оптимальной-оценке" data-toc-modified-id="Теорема-об-оптимальной-оценке-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Теорема об оптимальной оценке</a></span></li><li><span><a href="#Кривая-регрессии" data-toc-modified-id="Кривая-регрессии-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Кривая регрессии</a></span></li></ul></li><li><span><a href="#Частное-и-условное-распределения" data-toc-modified-id="Частное-и-условное-распределения-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Частное и условное распределения</a></span><ul class="toc-item"><li><span><a href="#Частное-(маргинальное)-распределение" data-toc-modified-id="Частное-(маргинальное)-распределение-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Частное (маргинальное) распределение</a></span></li><li><span><a href="#Условное-распределение" data-toc-modified-id="Условное-распределение-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Условное распределение</a></span></li></ul></li><li><span><a href="#Дополнительно" data-toc-modified-id="Дополнительно-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Дополнительно</a></span></li><li><span><a href="#Источники" data-toc-modified-id="Источники-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Условное-математическое-ожидание" data-toc-modified-id="Условное-математическое-ожидание-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Условное математическое ожидание</a></span><ul class="toc-item"><li><span><a href="#Неформальное-понятие-и-геометрическая-аналогия" data-toc-modified-id="Неформальное-понятие-и-геометрическая-аналогия-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Неформальное понятие и геометрическая аналогия</a></span></li><li><span><a href="#Определение-и-свойства" data-toc-modified-id="Определение-и-свойства-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Определение и свойства</a></span></li><li><span><a href="#Условная-дисперсия" data-toc-modified-id="Условная-дисперсия-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Условная дисперсия</a></span></li><li><span><a href="#Условное-распределение" data-toc-modified-id="Условное-распределение-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Условное распределение</a></span></li></ul></li><li><span><a href="#Оптимальная-оценка" data-toc-modified-id="Оптимальная-оценка-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Оптимальная оценка</a></span><ul class="toc-item"><li><span><a href="#Теорема-об-оптимальной-оценке" data-toc-modified-id="Теорема-об-оптимальной-оценке-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Теорема об оптимальной оценке</a></span></li><li><span><a href="#Кривая-регрессии" data-toc-modified-id="Кривая-регрессии-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Кривая регрессии</a></span></li></ul></li><li><span><a href="#Частное-и-условное-распределения" data-toc-modified-id="Частное-и-условное-распределения-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Частное и условное распределения</a></span><ul class="toc-item"><li><span><a href="#Частное-распределение" data-toc-modified-id="Частное-распределение-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Частное распределение</a></span></li><li><span><a href="#Условное-распределение" data-toc-modified-id="Условное-распределение-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Условное распределение</a></span></li></ul></li><li><span><a href="#Дополнительно" data-toc-modified-id="Дополнительно-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Дополнительно</a></span></li><li><span><a href="#Источники" data-toc-modified-id="Источники-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Источники</a></span></li></ul></div>
 # -
 
 # Imports
@@ -266,8 +266,8 @@ plt.show()
 # \sim
 # \mathcal{N}\left(
 # \begin{bmatrix}
-#     \mu_{\mathbf{x}} \\
-#     \mu_{\mathbf{y}}
+#     \mu_x \\
+#     \mu_y
 # \end{bmatrix},
 # \begin{bmatrix}
 #     \Sigma_{11} & \Sigma_{12} \\
@@ -278,9 +278,9 @@ plt.show()
 # $$
 #
 # Здесь $\Sigma_{11}$ — корреляционная матрица вектора $\mathbf{x}$, $\Sigma_{22}$ — корреляционная матрица вектора $\mathbf{y}$, а матрицы $\Sigma_{12}$ и $\Sigma_{21} = \Sigma_{12}^\top$ состоят из корреляций компонент вектора $\mathbf{x}$ и $\mathbf{y}$ (взаимные корреляционные матрицы).
-# Вектор математического ожидания $\mathrm{E}\mathbf{z} = \mathbf{\mu}$ также разбивается на два подвектора $\mathrm{E}\mathbf{x} = \mathbf{\mu_x}$ и $\mathrm{E}\mathbf{y} = \mathbf{\mu_y}$.
+# Вектор математического ожидания $\mathrm{E}\mathbf{z} = \mu$ также разбивается на два подвектора $\mathrm{E}\mathbf{x} = \mu_x$ и $\mathrm{E}\mathbf{y} = \mu_y$.
 
-# ### Частное (маргинальное) распределение
+# ### Частное распределение
 #
 # >Название &laquo;частное распределение&raquo; используется в переводах под редакцией Колмогорова, &laquo;маргинальное распределение&raquo; &mdash; в более современной литературе путём заимствования из английского языка (англ. marginal distribution). Название в английском языке в свою очередь является переводом с немецкого (нем. Randverteilungen) из публикации Колмогорова: A. Kolmogoroff &laquo;Grundbegriffe der Wahrscheinlichkeitsrechnung&raquo;, Springer-Verlag, 1933. [[1]](https://ru.wikipedia.org/wiki/%D0%A7%D0%B0%D1%81%D1%82%D0%BD%D0%BE%D0%B5_%D1%80%D0%B0%D1%81%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5)
 #
@@ -289,8 +289,8 @@ plt.show()
 # В случае двумерного нормального распределения частными распределениями являются одномерные распределения каждой компоненты $\mathbf{x}$ и $\mathbf{y}$ по отдельности. Они определяются так:
 # $$
 # \begin{aligned}
-#     f_\xi(\mathbf{x}) & = \mathcal{N}(\mu_{\mathbf{x}}, \Sigma_{11}) \\
-#     f_\eta(\mathbf{y}) & = \mathcal{N}(\mu_{\mathbf{y}}, \Sigma_{22}).
+#     f_\xi(\mathbf{x})  & = \mathcal{N}(\mu_x, \Sigma_{11}) \\
+#     f_\eta(\mathbf{y}) & = \mathcal{N}(\mu_y, \Sigma_{22}).
 # \end{aligned}
 # $$
 
