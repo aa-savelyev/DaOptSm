@@ -316,11 +316,12 @@ for i, point in enumerate(points_m):
 # $$ \Sigma^{-1} = (Q \Lambda Q^\top)^{-1} = Q \Lambda^{-1} Q^\top = (Q \Lambda^{-1/2}) (\Lambda^{-1/2} Q^\top) $$
 # -
 
-# Подставим это в расстояние Махаланобиса : $d_{M}(x, y) = \sqrt{(Q^\top(x - y))^\top \Lambda^{-1}(Q^\top(x - y))} = \sqrt{(\tilde{x} - \tilde{y})^T \Lambda^{-1}(\tilde{x} - \tilde{y})}$.
+# Подставим это в расстояние Махаланобиса : $d_{M}^2(x, y) = (Q^\top(x - y))^\top \Lambda^{-1}(Q^\top(x - y)) = (\tilde{x} - \tilde{y})^T \Lambda^{-1}(\tilde{x} - \tilde{y})$.
 #
 # Таким образом мы перешли в пространство, используя ортогональное преобразование с сохранением расстояния, при котором новая матрица Грамма равна $\Lambda^{-1}$. \
 # Новый базис &mdash; ортогональный.
-# Новая матрица $\Lambda^{-1}$ приводит к тому, что каждая компонента векторов $\tilde{x}, \tilde{y}$ нормируется особым индивидуальным образом, тем самым вносит равновесомый вклад в вычисляемое расстояние, и невозможна ситуация, когда &laquo;расстояние вдоль одной оси (координаты) доминирует над расстоянием вдоль другой&raquo; (что безусловно бывает при вычислении метрики Евклида).
+# Новая матрица $\Lambda^{-1}$ приводит к тому, что каждая компонента векторов $\tilde{x}$, $\tilde{y}$ нормируется особым индивидуальным образоми и, тем самым, вносит равновесомый вклад в вычисляемое расстояние.
+# Невозможна ситуация, когда &laquo;расстояние вдоль одной оси (координаты) доминирует над расстоянием вдоль другой&raquo; (что безусловно бывает при вычислении метрики Евклида).
 
 def dist_Mahalanobis(x, y, cov):
     return ((x-y).T @ np.linalg.inv(cov) @ (x-y))**0.5
@@ -344,21 +345,20 @@ for i, point in enumerate(points):
 # Проделаем те же преобразования данных с помощью SVD, не используя ковариационную матрицу.
 
 U, sgm, Vt = np.linalg.svd(P_c, full_matrices=False)
-Vt[:,0] *= -1
 print('lmbd =', lmbd)
 sgm *= (N-1)**-0.5
 print('sgm**2 =', sgm**2)
 print(Vt)
 
 V = Vt.T
-P_m   = transform(P_c, V)
-points_m = transform(points_c, V)
+P_m = transform(P_c, Vt)
+points_m = transform(points_c, Vt)
 
 title = 'Декоррелированные данные'
-draw_data(P_m, mu_c, V@cov@Vt, points_m, limits_c, title=title)
+draw_data(P_m, mu_c, Vt@cov@V, points_m, limits_c, title=title)
 # +
 Sgm_inv = np.diag(1./sgm)
-Q3 = Sgm_inv @ V   # transformation matrix
+Q3 = Sgm_inv @ Vt   # transformation matrix
 print(Sgm_inv)
 
 P_m   = transform(P_c, Q3)

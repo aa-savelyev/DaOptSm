@@ -570,6 +570,9 @@ plt.show()
 #
 # Таким образом, любое линейное преобразование $A$ можно представить в виде комбинации *вращения* и *растяжения к взаимно перпендикулярным осям*.
 
+# Creating a square Sq
+X = np.array([[-1,1], [1,1], [1,-1], [-1,-1], [-1,1]]).T
+
 Q, S = scipy.linalg.polar(C)
 np.disp(Q)
 np.disp(S)
@@ -599,7 +602,7 @@ for i, axi in enumerate(ax.flatten()):
     axi.set_title(titles[i])
     axi.text(*(Un[i].T[0]+[.1,.1]), "$\mathbf{u_1}$", fontsize=14)
     axi.text(*(Un[i].T[1]+[.1,.1]), "$\mathbf{u_2}$", fontsize=14)
-    axi.text(*(1.3*Xn[i][:,-12]), Xn_str[i], color='b', fontsize=14)
+    axi.text(*(1.3*Xn[i][:,2]), Xn_str[i], color='b', fontsize=14)
 
 plt.show()
 # -
@@ -634,7 +637,7 @@ plt.show()
 # Можно доказать, что элементы матрицы $A_k$, лежащие ниже главной диагонали, стремятся к нулю, а диагональные и вышележащие элементы ограничены.
 
 # +
-np.random.seed(12345)
+np.random.seed(42)
 
 lmbd = [15, 10, 5]
 print('lambda =', np.round(lmbd, 4))

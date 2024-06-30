@@ -240,10 +240,10 @@ plt.show()
 # Вспомним постановку и решение задачи восстановления регрессии.
 #
 # Будем работать с линейной моделью регрессии, являющейся по определению линейной комбинацией признаков с коэффициентами $\alpha \in \mathbb{R}^n$:
-# $$ g(x, \alpha) = \sum_{j=1}^n \alpha_j f_j(x). $$
+# $$ g(x, \alpha) = \sum_{i=1}^n \alpha_i f_i(x). $$
 #
 # В нашем случае признаками являются базисные полиномы $p(x) = \{1, x, \ldots, x^{n-1}\}$:
-# $$ g(x, \alpha) = \sum_{j=1}^{n} \alpha_j p_j(x).$$
+# $$ g(x, \alpha) = \sum_{i=1}^{n} \alpha_i p_i(x).$$
 #
 # Матрица объекты&ndash;признаки в этом случае выглядит так:
 # $$
@@ -329,19 +329,19 @@ print('Вектор коэффициентов: ', np.round(Alpha, 3))
 #
 #
 # $$ \alpha_\delta^* = (F^\top F + \delta^2 I_n)^{-1} F^\top y = V (\Sigma^\top \Sigma + \delta^2 I)^{-1} V^\top \cdot V \Sigma^\top U^\top y = \\
-# = V \left[ (\Sigma^\top \Sigma + \delta^2 I)^{-1} \Sigma^\top \right] U^\top y = \sum_{j=1}^n \frac{\sigma_j}{\sigma_j^2 + \delta^2} v_j (u_j^\top y). \label{eq:alpha-tau-res}\tag{2} $$
+# = V \left[ (\Sigma^\top \Sigma + \delta^2 I)^{-1} \Sigma^\top \right] U^\top y = \sum_{i=1}^n \frac{\sigma_i}{\sigma_i^2 + \delta^2} v_i (u_i^\top y). \label{eq:alpha-tau-res}\tag{2} $$
 
 # Теперь найдём регуляризованную МНК-аппроксимацию целевого вектора $y$:
 #
-# $$ F\alpha_\delta^\ast = U \Sigma V^\top \alpha_\delta^* = U \mathrm{diag}\left( \frac{\sigma_j^2}{\sigma_j^2 + \delta^2} \right) U^\top y
-# = \sum_{j=1}^n \frac{\sigma_j^2}{\sigma_j^2 + \delta^2} u_j (u_j^\top y).  \label{eq:F-alpha-tau-res}\tag{3} $$
+# $$ F\alpha_\delta^\ast = U \Sigma V^\top \alpha_\delta^* = U \mathrm{diag}\left( \frac{\sigma_i^2}{\sigma_i^2 + \delta^2} \right) U^\top y
+# = \sum_{i=1}^n \frac{\sigma_i^2}{\sigma_i^2 + \delta^2} u_i (u_i^\top y).  \label{eq:F-alpha-tau-res}\tag{3} $$
 #
 # Как и прежде, МНК-аппроксимация представляется в виде разложения целевого вектора $y$ по базису собственных векторов матрицы $FF^\top$.
-# Только теперь норма проекций на собственные векторы уменьшается, умножаясь на $\frac{\sigma_j^2}{\sigma_j^2 + \delta^2} \in (0, 1)$.
+# Только теперь норма проекций на собственные векторы уменьшается, умножаясь на $\frac{\sigma_i^2}{\sigma_i^2 + \delta^2} \in (0, 1)$.
 # В сравнении с ([1](#mjx-eqn-eq:alpha-res)) уменьшается и норма вектора коэффициентов:
 #
 # $$ \Vert \alpha_\delta^{\ast} \Vert^2 = \Vert V(\Sigma^2 + \delta I_n)^{-1} \Sigma U^\top y \Vert^2
-# = \sum_{j=1}^n \frac{\sigma_j^2}{(\sigma_j^2 + \delta^2)^2} (u_j^\top y)^2 < \sum_{j=1}^n \frac{1}{\sigma_j} (u_j^\top y)^2
+# = \sum_{i=1}^n \frac{\sigma_i^2}{(\sigma_i^2 + \delta^2)^2} (u_i^\top y)^2 < \sum_{i=1}^n \frac{1}{\sigma_i} (u_i^\top y)^2
 # = \Vert \alpha^{\ast} \Vert^2. \label{eq:alpha-tau-es-norm}\tag{4} $$
 
 # ### Выбор константы регуляризации
@@ -362,9 +362,10 @@ U, sgm, Vt = np.linalg.svd(F, full_matrices=False)
 M_0 = 1e2   # desired condition number
 delta2 = max(sgm)**2 / M_0
 print('sigma =', np.round(sgm, 3))
-print('delta2 =', np.round(delta2, 3))
+print(f'delta2 = {delta2:.3}')
 Alpha_r = sum([sgm[i]/(sgm[i]**2 + delta2) * Vt[i] * (U.T[i] @ y) for i in range(Nf)])
 print('Alpha_r =', np.round(Alpha_r, 3))
+print(f'L2(Alpha_r) = {LA.norm(Alpha_r, ord=2):.3}')
 
 # Function representing fitted line
 ridge = lambda x: sum([Alpha_r[i]*x**i for i in range(Nf)])
@@ -404,7 +405,7 @@ plt.show()
 # где $\chi$ &mdash; параметр регуляризации.
 #
 # При больших значениях $\chi$ ограничение \eqref{eq:lasso} становится строгим неравенством, и решение совпадает с МНК-решением.
-# Чем меньше $\chi$, тем больше коэффициентов $\alpha_j$ обнуляются.
+# Чем меньше $\chi$, тем больше коэффициентов $\alpha_i$ обнуляются.
 # Происходит отбор (селекция) признаков, поэтому параметр $\chi$ называют ещё *селективностью*.
 # Образно говоря, параметр $\chi$ зажимает вектор коэффициентов, лишая его избыточных степеней свободы.
 # Отсюда и название метода &mdash; *лассо* (LASSO, least absolute shrinkage and selection operator). 
@@ -421,10 +422,10 @@ def constr(a):
 def solve_lasso(Q_obj, constr, chi):
     '''solve LASSO optimization task'''
     nonlinear_constraint = NonlinearConstraint(constr, 0., chi)
-    N_ms = 10   # multistart
+    N_ms = 5   # multistart
     res = []
     for i in range(N_ms):
-    # Alpha_0 = np.zeros(Nf)    # initial approximation
+#         Alpha_0 = np.zeros(Nf)    # initial approximation
         Alpha_0 = 10*np.random.rand(Nf) - 5
         res.append(minimize(Q_obj, Alpha_0, method='SLSQP', constraints=nonlinear_constraint))
     argmin = np.argmin([item.fun for item in res])
@@ -438,6 +439,7 @@ chi = 4    # the max constraint for the decision vector
 res = solve_lasso(Q_obj, constr, chi)
 Alpha_l = res.x
 lasso = lambda x: sum([Alpha_l[i]*x**i for i in range(Nf)])
+print(Alpha_l)
 
 # Show OLS fitted line
 plt.figure(figsize=(8, 5))
@@ -453,9 +455,9 @@ plt.ylabel('$y$')
 plt.ylim(-2, 6)
 plt.show()
 
-print(f'OLS:   a = {np.round(Alpha, 3)}\nnorm(a) = {constr(Alpha)}, Q = {Q_obj(Alpha)}\n')
-print(f'ridge: a = {np.round(Alpha_r, 3)}\nnorm(a) = {constr(Alpha_r)}, Q = {Q_obj(Alpha_r)}\n')
-print(f'LASSO: a = {np.round(Alpha_l, 3)}\nnorm(a) = {constr(Alpha_l)}, Q = {Q_obj(Alpha_l)}\n')
+print(f'OLS:   a = {np.round(Alpha, 3)}\nL1(a) = {LA.norm(Alpha, ord=1)}, Q = {Q_obj(Alpha)}\n')
+print(f'ridge: a = {np.round(Alpha_r, 3)}\nL1(a) = {LA.norm(Alpha_r, ord=1)}, Q = {Q_obj(Alpha_r)}\n')
+print(f'LASSO: a = {np.round(Alpha_l, 3)}\nL1(a) = {LA.norm(Alpha_l, ord=1)}, Q = {Q_obj(Alpha_l)}\n')
 
 # ---
 
@@ -501,7 +503,7 @@ plt.figure(figsize=(8, 5))
 plt.title('Lasso')
 
 for i, bb in enumerate(BB.T):
-    plt.plot(Chi, bb, '-', label=f'$x^{i}$')
+    plt.plot(Chi, bb, '.-', label=f'$x^{i}$')
 plt.xlabel(r'$\chi$')
 plt.ylabel(r'$\alpha$')
 # plt.ylim((1, 6))

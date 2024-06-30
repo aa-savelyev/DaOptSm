@@ -16,7 +16,12 @@
 
 # **Лекция 8**
 #
-# # Главные компоненты
+# # Метод главных компонент
+
+# > Словарь Вильяма Шекспира, по подсчету исследователей, составляет 12 000 слов.
+# Словарь негра из людоедского племени &laquo;Мумбо-Юмбо&raquo; составляет 300 слов.
+# Эллочка Щукина легко и свободно обходилась тридцатью. \
+# И. Ильф, Е. Петров &laquo;12 стульев&raquo;
 
 # + [markdown] toc=true
 # <h1>Содержание<span class="tocSkip"></span></h1>
@@ -190,46 +195,58 @@ plt.legend(loc=10);
 
 # ### Постановка задачи
 #
-# Пусть дана матрица признаков $A_{m \times n}$.
+# Пусть дана матрица признаков $F_{m \times n}$.
 #
-# Обозначим через $G_{m \times k}$ признаков тех же объектов в новом пространстве меньшей размерности $k < n$.
+# Сформируем $k$ новых признаков тех же объектов в виде линейных комбинаций исходных признаков.
+# Обозначим через $G$ матрицу признаков тех же объектов в новом пространстве меньшей размерности ($k \le n$).
 #
-# Потребуем, чтобы исходные признаки можно было восстановить по новым с помощью некоторого линейного преобразования, определяемого матрицей $V$:
-# $$ \hat{A} = G V^\top. $$
+# Потребуем, чтобы исходные признаки можно было восстановить по новым с помощью некоторого линейного преобразования, определяемого матрицей $V_k^\top$:
+# $$ F_k = G V_k^\top. $$
 #
-# Восстановленное описание $\hat{A}$ не обязано в точности совпадать с исходным описанием $A$, но их отличие на объектах обучающей выборки должно быть как можно меньше при выбранной размерности $m$:
-# $$ \Delta^2(G, V) = \|G V^\top - A\|^2 \rightarrow \min_{G, V}. $$
+# Восстановленное описание $F_k$ не обязано в точности совпадать с исходным описанием $F$, но их отличие на объектах обучающей выборки должно быть как можно меньше при выбранной размерности $k$:
+# $$ \Delta^2(G, V_k) = \|F - G V_k^\top \|^2 \rightarrow \min_{G, V_k}. $$
 #
 # **Теорема.**
-# Минимум $\Delta^2(G, V)$ достигается, когда столбцы матрицы $V$ есть собственные векторы $A^\top A$, соответствующие $k$ максимальным собственным значениям.
-# При этом $G = AV$, а матрица $V$ ортогональна.
+# Минимум $\Delta^2(G, V_k)$ достигается, когда столбцы матрицы $V_k$ есть собственные векторы матрицы $F^\top F$, соответствующие $k$ максимальным собственным значениям.
+# При этом $G = FV_k$, столбцы матрицы $G$ являются ортогональными, а матрицы $V_k$ &mdash; ортонормированными векторами.
 #
 # **Определение.**
 # Собственные векторы $\mathbf{v}_1, \ldots, \mathbf{v}_k$, отвечающие максимальным собственным значениям, называются *главными компонентами*.
 
 # ### Связь с сингулярным разложением
 #
-# Если $k = n$, то $\Delta^2(G, V) = 0$.
-# В этом случае представление $A = G V^\top$ является точным и совпадает с сингулярным разложением: $A = G V^\top = U \Sigma V^\top$.
+# Запишем сингулярное разложение матрицы $F$:
+# $$ F = U \Sigma V^\top. $$
 #
-# Если $k < n$, то представление $A \approx G V^\top$ является приближённым.
-# Разложение матрицы $G V^\top$ получается из сингулярного разложения матрицы $A$ путём отбрасывания (обнуления) $n − k$ минимальных собственных значений.
+# Домножим левую и правую часть равенства справа на матрицу $V_k$:
+# $$ F V_k = U \Sigma V^\top V_k = U_k \Sigma_k = G. $$
+# Здесь матрица $U_k$ состоит из первых $k$ столбцов $U$, $\Sigma_k$ &mdash; диагональная матрица с первыми $k$ сингулярными числами на главной диагонали.
+#
+# Если $k = n$, то $\Delta^2(G, V_k) = 0$.
+# В этом случае представление $F = G V_k^\top$ является точным и совпадает с сингулярным разложением: $F = U \Sigma V^\top$.
+#
+# Если $k < n$, то представление $F \approx G V_k^\top$ является приближённым.
+# Разложение матрицы $G V_k^\top$ получается из сингулярного разложения матрицы $F$ путём отбрасывания (обнуления) $n − k$ минимальных сингулярных значений.
 #
 # Диагональность матрицы $G^\top G = \Lambda$ означает, что новые признаки $g_1, \ldots, g_k$ не коррелируют на обучающих объектах.
 # Поэтому ортогональное отображение $V$ называют *декоррелирующим* или отображением *Карунена &mdash; Лоэва*.
 
-# ### Эффективная размерность ###
+# ### Эффективная размерность
 #
-# Главные компоненты содержат основную информацию о матрице $A$.
+# Главные компоненты содержат основную информацию о матрице $F$.
 # Число главных компонент $k$ называют также эффективной размерностью задачи.
 # На практике её определяют следующим образом.
-# Все сингулярные числа матрицы $A$ упорядочиваются по убыванию: $\sigma_1 > \ldots > \sigma_n > 0$.
 #
-# Задаётся пороговое значение $\varepsilon \in [0, 1]$, достаточно близкое к нулю, и определяется
-# наименьшее целое $k$, при котором относительная погрешность приближения матрицы $A$ не превышает $\varepsilon$:
-#
+# Вводится функция *относительной погрешности* $E(k)$, показывающая, какая доля информации теряется при замене исходных признаковых описаний длины $n$ на более короткие описания длины $k$:
 # $$
-#   E(k) = \frac{\|G V^\top − A\|^2}{\|A\|^2} = \frac{\sigma_{k+1} + \ldots + \sigma_n}{\sigma_1 + \ldots + \sigma_n} \le \varepsilon.
+#   E(k) = \frac{\|F - G V_k^\top\|^2}{\|F\|^2}.
+# $$
+#
+# Задаётся пороговое значение $\varepsilon \in [0, 1]$, достаточно близкое к нулю, и определяется *наименьшее целое $k$*, при котором относительная погрешность не превышает $\varepsilon$: $E(k) \le \varepsilon.$
+#
+# Если в качестве нормы матрицы использовать норму Фробениуса, то получаем следующую формулу:
+# $$
+#   E(k) = \frac{\|F - G V_k^\top\|^2}{\|F\|^2} = \frac{\sigma_{k+1}^2 + \ldots + \sigma_n^2}{\sigma_1^2 + \ldots + \sigma_n^2} \le \varepsilon.
 # $$
 
 # ---
@@ -291,10 +308,10 @@ plt.show()
 
 # +
 # SVD 
-U, s, Vt = LA.svd(A, full_matrices=False)
-Sigma = np.diag(s)
+U, sgm, Vt = LA.svd(A, full_matrices=False)
+Sigma = np.diag(sgm)
 
-print('s =', np.round(s, 2))
+print('s =', np.round(sgm, 2))
 
 # +
 k = 3
@@ -328,7 +345,7 @@ im = axes[0].imshow(A, vmin=vlims[0],vmax=vlims[1], cmap='RdBu_r')
 axes[0].set_title("Таблица оценок")
 
 for i in range(k):
-    Fi = s[i] * U[:,i].reshape(-1,1) @ Vt[i,:].reshape(1,-1)
+    Fi = sgm[i] * U[:,i].reshape(-1,1) @ Vt[i,:].reshape(1,-1)
     axes[i+1].imshow(Fi, vmin=vlims[0],vmax=vlims[1], cmap='RdBu_r')
     axes[i+1].set_title(f"Компонента {i+1}")
 for i in range(k+1):
@@ -346,7 +363,7 @@ plt.show()
 # Посмотрим на главные компоненты картин или фотографий.
 
 # Reading the image
-img = plt.imread("pix/PCA/Mona Lisa.png")
+img = plt.imread("pix/08.PCA/Mona Lisa.png")
 print(np.shape(img))
 
 # +
@@ -380,30 +397,33 @@ plt.show()
 
 # +
 # SVD 
-U, s, Vt = LA.svd(img)
-Sigma = np.diag(s)
-print(np.shape(s))
+U, sgm, Vt = LA.svd(img)
+Sigma = np.diag(sgm)
+print(np.shape(sgm))
 
-S_s = sum(s)
-eds = list(map(lambda i: sum(s[i:]) / S_s, range(len(s))))
+S_sgm = sum(sgm**2)
+eds = list(map(lambda i: sum(sgm[i:]**2) / S_sgm, range(len(sgm))))
 
 # +
+eps = 0.05
 seaborn.set_style("whitegrid")
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14,4))
 plt.subplots_adjust(wspace=0.3, hspace=0.2)
 
-ax1.plot(s)
+ax1.plot(sgm, 'o-')
 ax1.set_title('singular values')
-ax1.set_yscale('log')
-ax1.set_xlim(-5, 100)
-ax1.set_ylim(10e-1, 1e2)
+ax1.set_xlim(-1, 50)
+ax1.set_ylim(1e-1, 1e2)
+ax2.set_yscale('log')
 ax1.set_xlabel('k')
 ax1.set_ylabel('$\sigma$', rotation='horizontal', ha='right')
 
-ax2.plot(eds)
+ax2.plot(eds, 'o-')
+ax2.axhline(y=eps, c=cm(3))
 ax2.set_title('error')
-ax2.set_xlim(-5, 100)
-ax2.set_ylim(0.25, 1.0)
+ax2.set_xlim(-1, 50)
+ax2.set_ylim(1e-2, 1.0)
+ax2.set_yscale('log')
 ax2.set_xlabel('k')
 ax2.set_ylabel('E(k)', rotation='horizontal', ha='right')
 
@@ -431,7 +451,7 @@ axes[0, 0].imshow(img, cmap='gray')
 axes[0, 0].set_axis_off()
 axes[0, 0].set_title("original image")
 for i in range(5):
-    img_i = s[i] * U[:,i].reshape(-1,1) @ Vt[i,:].reshape(1,-1)
+    img_i = sgm[i] * U[:,i].reshape(-1,1) @ Vt[i,:].reshape(1,-1)
     axes[(i+1)//3, (i+1)%3].imshow(img_i, cmap='gray')
     axes[(i+1)//3, (i+1)%3].set_axis_off()
     axes[(i+1)//3, (i+1)%3].set_title(
@@ -455,12 +475,13 @@ for i in range(1, 6):
 plt.show()
 
 # +
-n = 5
+k = 5
 Sigma = np.zeros((img.shape[0], img.shape[1]))
-Sigma[:min(img.shape[0], img.shape[1]), :min(img.shape[0], img.shape[1])] = np.diag(s)
+Sigma[:min(img.shape[0], img.shape[1]), :min(img.shape[0], img.shape[1])] = np.diag(sgm)
 
 # Reconstruction of the matrix using the first k singular values
-img_n = U[:, :n] @ Sigma[:n, :n] @ Vt[:n, :]
+img_k = U[:, :k] @ Sigma[:k, :k] @ Vt[:k, :]
+# img_k2 = img @ Vt[:k, :].T @ Vt[:k, :]
 
 # +
 seaborn.set_style("white")
@@ -471,8 +492,8 @@ ax1.imshow(img, cmap='gray')
 ax1.set_title("Original image")
 ax1.set_axis_off()
 
-ax2.imshow(img_n, cmap='gray')
-ax2.set_title(f"{n} principal components")
+ax2.imshow(img_k, cmap='gray')
+ax2.set_title(f"{k} principal components")
 ax2.set_axis_off()
 plt.show()
 # -

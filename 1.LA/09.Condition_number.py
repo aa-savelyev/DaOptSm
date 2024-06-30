@@ -165,18 +165,18 @@ fig, ax = plt.subplots(1, 2, figsize=(12, 6))
 
 plt.subplots_adjust(wspace=0.4)
 xlims = [-0.3, 1.7]
-ylims = [-1.0, 1.0]
+ylims = [-0.9, 1.1]
 make_decor(ax, xlims, ylims)
 # make_decor(ax)
 
 # Plotting X
-ax[0].plot(X[0,:], X[1,:], 'ro', ms=1.2, alpha=0.8)
+ax[0].plot(X[0,:], X[1,:], 'o', c=cm(3), ms=1.2, alpha=0.8)
 ax[0].plot(x[0], x[1], 'kx', ms=10, mew=2)
 ax[0].set_title("До преобразования")
 
 # Plotting B
-ax[1].plot(B[0, :], B[1, :], 'bo', ms=1.2, alpha=0.8)
-ax[1].plot(b[0], b[1], 'rx', ms=10, mew=2)
+ax[1].plot(B[0, :], B[1, :], 'o', c=cm(0), ms=1.2, alpha=0.8)
+ax[1].plot(b[0], b[1], 'kx', ms=10, mew=2)
 ax[1].set_title("После преобразования")
 
 plt.show()
@@ -210,6 +210,13 @@ print(f'Максимальное относительное сжатие воз�
 # ## Обусловленность ##
 
 # ### Число обусловленности
+
+# Мы будем использовать неравенства
+#
+# $$
+#   \|\mathbf{b}\|        = \|A \mathbf{x}\|             \le \|A\|      \|\mathbf{x}\| \\
+#   \|\delta \mathbf{x}\| = \|A^{-1} \delta \mathbf{b}\| \le \|A^{-1}\| \|\delta \mathbf{b}\| 
+# $$
 
 # Рассмотрим возмущённую систему
 # $$
@@ -287,16 +294,18 @@ plt.subplots_adjust(wspace=0.4)
 make_decor(ax, xlims, ylims)
 
 # Plotting X
-ax[0].plot(X[0,:], X[1,:], 'ro', ms=1.2, alpha=.8)
+ax[0].plot(X[0,:], X[1,:], 'o', c=cm(3), ms=1.2, alpha=.8)
 ax[0].plot(Xc[0,:], Xc[1,:], lw=1., c='k', alpha=.8)
 ax[0].plot(x[0], x[1], 'kx', ms=10, mew=2)
 ax[0].set_title("До преобразования")
 
 # Plotting B
-ax[1].plot(B[0,:], B[1,:], 'bo', ms=1.2, alpha=.8)
+ax[1].plot(B[0,:], B[1,:], 'o', c=cm(0), ms=1.2, alpha=.8)
 ax[1].plot(Bc[0, :], Bc[1, :], lw=1., c='k', alpha=.8)
-ax[1].plot(b[0], b[1], 'rx', ms=10, mew=2)
+ax[1].plot(b[0], b[1], 'kx', ms=10, mew=2)
 ax[1].set_title("После преобразования")
+ax[1].quiver(*origin, A[0,:], A[1,:], color=['g', cm(3)],
+             width=0.005, angles='xy', scale_units='xy', scale=1)
 
 plt.show()
 
@@ -357,7 +366,7 @@ plt.show()
 
 # +
 # The number of features
-Nf = 7
+Nf = 8
 # Stack X with ones to be fitted by OLS
 F = np.atleast_2d(np.ones_like(x))
 for i in range(1, Nf):
@@ -366,6 +375,7 @@ F = F.T
     
 # Fit parameters with OLS
 Alpha = np.linalg.inv(F.T @ F) @ F.T @ y
+print(Alpha)
 
 # Function representing fitted line
 f = lambda x: sum([Alpha[i]*x**i for i in range(Nf)])
@@ -395,16 +405,16 @@ plt.show()
 # Имея сингулярное разложение, легко записать
 #
 #  - псевдообратную матрицу:
-# $$ F^{+} = (F^\top F)^{-1}F^\top = (V \Sigma U^\top U \Sigma V^\top)^{-1} \cdot V \Sigma U^\top = V \Sigma^{-1}U^\top = \sum_{j=1}^n \frac{1}{{\sigma_j} }v_j u_j^\top;  \label{eq:psevdo}\tag{1} $$
+# $$ F^{+} = (F^\top F)^{-1}F^\top = (V \Sigma U^\top U \Sigma V^\top)^{-1} \cdot V \Sigma U^\top = V \Sigma^{-1}U^\top = \sum_{i=1}^n \frac{1}{{\sigma_i} }v_i u_i^\top;  \label{eq:psevdo}\tag{1} $$
 #  
 #  - вектор МНК-решения:
-# $$ \alpha^* = F^{+} y  = V \Sigma^{-1}U^\top y = \sum_{j=1}^n \frac{1}{{\sigma_j}}v_j (u_j^\top y);  \label{eq:alpha-res}\tag{2} $$
-#  
-#  - вектор $F\alpha^*$ &mdash; МНК-аппроксимацию целевого вектора $y$:
-# $$ F\alpha^* = P_F y = FF^{+}y = U \Sigma V^\top \cdot V \Sigma^{-1}U^\top y = UU^\top y = \sum_{j=1}^n u_j (u_j^\top y);  \label{eq:F-alpha-res}\tag{3} $$
-#  
+# $$ \alpha^* = F^{+} y  = V \Sigma^{-1}U^\top y = \sum_{i=1}^n \frac{1}{{\sigma_i}}v_i (u_i^\top y);  \label{eq:alpha-res}\tag{2} $$
+#
 #  - норму вектора коэффициентов:
-# $$ \Vert \alpha^* \Vert^2 = y^\top U \Sigma^{-1}V^\top \cdot V \Sigma^{-1}U^\top y = y^\top U \Sigma^{-2}U^\top y = \sum_{j=1}^n \frac{1}{\sigma_j^2} (u_j^\top y)^2.  \label{eq:alpha-res-norm}\tag{4} $$
+# $$ \Vert \alpha^* \Vert^2 = y^\top U \Sigma^{-1}V^\top \cdot V \Sigma^{-1}U^\top y = y^\top U \Sigma^{-2}U^\top y = \sum_{i=1}^n \frac{1}{\sigma_i^2} (u_i^\top y)^2.  \label{eq:alpha-res-norm}\tag{4} $$
+#
+#  - вектор $F\alpha^*$ &mdash; МНК-аппроксимацию целевого вектора $y$:
+# $$ F\alpha^* = P_F y = FF^{+}y = U \Sigma V^\top \cdot V \Sigma^{-1}U^\top y = UU^\top y = \sum_{i=1}^n u_i (u_i^\top y);  \label{eq:F-alpha-res}\tag{3} $$
 
 # ---
 
@@ -435,10 +445,10 @@ plt.show()
 print('Вектор коэффициентов:', np.round(Alpha, 1))
 print('Его норма:', round(LA.norm(Alpha), 1))
 
+print('\nЦелевой вектор:          ', np.round(y, 1))
 print('\nВектор МНК-аппроксимации:', np.round(F @ Alpha, 1))
 print('Его норма:', round(LA.norm(F @ Alpha), 1))
 
-print('\nЦелевой вектор:', np.round(y, 1))
 # -
 
 # Мы рассмотрим три метода решения проблемы мультиколлинеарности:
@@ -461,8 +471,8 @@ mu = (sgm[0]/sgm[-1])
 print(f'Число обусловленности mu = {mu:.3g}')
 # -
 
-S_s = sum(sgm)
-eds = list(map(lambda i: sum(sgm[i:]) / S_s, range(len(sgm))))
+S_sgm = sum(sgm**2)
+eds = list(map(lambda i: sum(sgm[i:]**2) / S_sgm, range(len(sgm))))
 
 # +
 # seaborn.set_style("whitegrid")
@@ -477,6 +487,7 @@ ax1.set_ylabel('$\sigma$', rotation=0, ha='right')
 
 ax2.plot(eds, 'o-')
 ax2.set_title('error')
+ax2.set_yscale('log')
 ax2.set_xlabel('k')
 ax2.set_ylabel('E(k)', rotation=0, ha='right')
 

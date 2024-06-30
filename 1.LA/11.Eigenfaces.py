@@ -87,7 +87,7 @@ def display_faces(Faces, pers_idx, view_idx=range(10)):
     plt.show()
 
 
-display_faces(allFaces, range(5))
+display_faces(allFaces, range(10))
 
 
 # + [markdown] id="HlJV90yrt2xN"
@@ -140,7 +140,7 @@ display_faces(trainFaces, [-2, -1])
 # Singular value decomposition
 U, s, Vt = LA.svd(trainFaces, full_matrices=False)
 Sigma = np.diag(s)
-print(f'Quantity of PC = {len(s)}')
+print(f'Number of PC = {len(s)}')
 
 # + [markdown] id="G2MXEFy-umUS"
 # Посмотрим на первые 8 главных компонент.
@@ -156,8 +156,7 @@ for i in range(8):
 plt.show()
 
 # + [markdown] id="ODpkEWyMvCLr"
-# Теперь поиграем с данными.
-# Попытаемся восстановить конкретную фотографию по её главным компонентам.
+# Теперь попытаемся восстановить конкретную фотографию по её главным компонентам.
 # Интересно сравнить фотографии 60 и 64, они отличаются, в основном, очками.
 
 # + colab={"base_uri": "https://localhost:8080/", "height": 703} id="aHw4wZxehxZM" outputId="1d8ea6d0-d3ea-4188-d94a-1c53d6e065e0"
@@ -188,7 +187,7 @@ plt.show()
 # Сравним аппроксимации 4 первых фотографий, сделанные по $k$ главным компонентам, с оригиналами.
 
 # + colab={"base_uri": "https://localhost:8080/", "height": 400} id="nHZczSCmh1Ek" outputId="4befa13c-523c-46f0-a071-678f13bdad0c"
-k = 50
+k = 10
 i_img = [0, 10, 50, 70]
 
 size=3
@@ -259,10 +258,10 @@ def PC_recon(U, k, testFace):
     return Face
 
 
-testFace = allFaces[:, -5]
+testFace = allFaces[:, -3]
 display_face(testFace)
 
-k = 100
+k = 5
 reconFace = PC_recon(U, k, testFace)
 # display_face(reconFace)
 
@@ -281,17 +280,18 @@ plt.show()
 
 rng = np.random.default_rng(seed=42)
 mask = np.ones_like(testFace)
-n_bad = int(0.5 * fW*fH)
+n_bad = int(0.25 * fW*fH)
 idx_bad = rng.choice(fW*fH, n_bad, replace=False)
 mask[idx_bad] = 0
 
 badFace = mask * testFace.copy()
 display_face(badFace)
 
-k = 50
+k = 100
 U_mask = mask.reshape(-1,1) * U.copy()
 Alpha = U_mask[:, :k].T @ badFace
 reconBadFace = U[:, :k] @ Alpha
+reconFace = PC_recon(U, k, testFace)
 # display_face(Face)
 
 # +
@@ -315,13 +315,13 @@ plt.show()
 # -
 
 # Reading the image
-img = plt.imread("pix/Eigenfaces/Einstein.png")
+img = plt.imread("pix/11.Eigenfaces/Einstein.png")
 print(np.shape(img))
 
 testFace = img.flatten()
 display_face(testFace)
 
-k = 50
+k = 100
 Face = PC_recon(U, k, testFace)
 display_face(Face)
 
